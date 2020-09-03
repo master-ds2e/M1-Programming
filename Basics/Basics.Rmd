@@ -20,6 +20,7 @@ library(reticulate)
 
 # Operations
 
+## Arithmetic Operations
 Python and R can both work as classical calculator, using "+", "-", "*" and "/" you can do arithmetic operations in both language.
 ```{python,echo = T,collapse = TRUE}
 # Python 
@@ -47,7 +48,7 @@ You can also apply exponantiation, Modulo and floor division easily n both langu
 # Python 
 
 2**8 # exponantiation
-2^8 == 2**8 # FALSE
+2^8 == 2**8 # False
 8%3 # modulo
 8//3 # floor division
 ```
@@ -63,3 +64,32 @@ You can also apply exponantiation, Modulo and floor division easily n both langu
 
 ```
 
+
+##  Comparison Operators
+
+In order to compare some values we can use comparison operators to investigate in a given value is equal to, not equal, greater than ... etc
+
+Theses operators are the same in bth language.
+
+
+```{python,echo = T,collapse = TRUE}
+# Python 
+
+2==8
+2!=8
+2<8
+2>8
+2<=8
+
+```
+
+
+```{r,echo=T,collapse = TRUE}
+# R
+
+2==8
+2!=8
+2<8
+2>8
+2<=8
+```
