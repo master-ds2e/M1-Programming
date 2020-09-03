@@ -2,7 +2,9 @@
 title: "Basics"
 author: "Pierre Pelletier"
 date: "3 septembre 2020"
-output: html_document
+output:
+  md_document:
+    variant: markdown_github
 ---
 
 ```{r setup, include=FALSE}
