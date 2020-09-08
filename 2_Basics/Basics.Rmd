@@ -2,14 +2,15 @@
 title: "Basics"
 author: "Pierre Pelletier"
 date: "3 septembre 2020"
-output:
-  md_document:
-    variant: markdown_github
+output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(reticulate)
+
+#  md_document:
+#    variant: markdown_github
 ```
 
 # Operations
@@ -228,6 +229,8 @@ print(a)
 
 # control flow
 
+<div class = "row">
+<div class = "col-md-6">
 ```{python,echo = T,collapse = TRUE}
 # Python 
 evens = []
@@ -238,10 +241,15 @@ evens
 # beter to writte this
 [i for i in range(10) if i % 2 == 0]
 ```
-
+</div>
+<div class = "col-md-6">
+```{r, warning = FALSE, echo=T}
+lala = 1+1
+lala
+```
+</div>
+</div>
 # Dealing with strings 
 
 https://thomas-cokelaer.info/tutorials/python/strings.html
-
-
 
