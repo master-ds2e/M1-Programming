@@ -12,12 +12,6 @@ knitr::opts_chunk$set(echo = TRUE)
 library(reticulate)
 ```
 
-# Install R-studio and Python
-
-## R-studio
-
-## Python
-
 # Operations
 
 ## Arithmetic Operations
@@ -42,7 +36,7 @@ Python and R can both work as classical calculator, using "+", "-", "*" and "/" 
 1*2
 ```
 
-You can also apply exponantiation, Modulo and floor division easily n both language. Please note that in R you can writte the exponantiation "^". You cannot do that in Python but both use "**" for exponantiation. Use this one.
+You can also apply exponantiation, Modulo and floor division easily in both language. Please note that in R you can writte the exponantiation "^". You cannot do that in Python (it is used for antoher operation) but both use "**" for exponantiation. Use this one for clarity.
 
 ```{python,echo = T,collapse = TRUE}
 # Python 
@@ -69,7 +63,7 @@ You can also apply exponantiation, Modulo and floor division easily n both langu
 
 In order to compare some values we can use comparison operators to investigate in a given value is equal to, not equal, greater than ... etc
 
-Theses operators are the same in bth language.
+Theses operators are the same in both language.
 
 
 ```{python,echo = T,collapse = TRUE}
@@ -93,3 +87,161 @@ Theses operators are the same in bth language.
 2>8
 2<=8
 ```
+
+
+# Variables
+
+ref used : https://www.practicaldatascience.org/html/vars_v_objects.html
+
+Variables are used to store data. In Python and R, we do not need to declare a variable before assigning a value to this variable. You can think of a variable as a name to refers to an object. There is a big difference between python and R on the way the computer is storing object and variables that we will see in the end of the section.
+
+
+
+## textual and numerical variables
+In R textual data are called 'character', in Python it is a string, abbreviate as 'str'. " or ' are used when you set a textual variable in both laguage, but you can also set a variable to textual variable if needed.
+
+Numerical variables a decomposed in three types. In Python you'll have integer, float and complex. In R float is called 'double', reffering to double precision floating point. Without entering into details it means that the number have a precision up to 15 decimals. Float can refers to a precision of 7 decimals, however in Python the data-type 'float' has a precision of 15 numbers. They are ways to get more precisions using Numpy for example. 
+
+Finaly you can check easily the data-type of the variable that you are dealing by asking the language with the command 'type' in Python, or 'typeof' in R.
+
+```{python,echo = T,collapse = TRUE}
+# Python 
+import sys 
+sys.float_info.dig # number of decimals
+
+a = 1
+type(a)
+
+b = 1.1
+type(b)
+
+c = 1.1+2j
+type(c)
+
+```
+
+
+```{r,echo=T,collapse = TRUE}
+# R
+
+a = 1
+typeof(a)
+a_int = 1L
+typeof(a_int)
+
+b = 1.1
+typeof(b)
+
+c = 1.1+2i
+typeof(c)
+
+```
+
+
+## Other Data-Type
+refused : https://thomas-cokelaer.info/tutorials/python/lists.html
+
+There is a lot of datatype in both language that we will discover along the course, for now we will focus only on basic data-type that are directly available without using anyother package or library. In Python the most common are List, Turple, sets, Dictionnary. While in R you will have Vector, Matrix, List, Data frame and factor.
+
+## Lists 
+append() and extend() methods
+```{python,echo = T,collapse = TRUE}
+
+a = [1, 2, 3]
+a.count(2) # count elements of the list which are exactly equal to 2
+
+a.sort(reverse = True)
+a
+# access the element of a list
+a[0]
+a.index(3)
+a[1:]
+a[:1]
+a[0:-1]
+a[:]
+
+# modify
+b = [0, 0, 0]
+a.append(b)
+a
+a.extend([4, 5, 6])
+a
+a.insert(2,[1,2])
+a
+a.remove(b)
+a
+
+# Operators on lists
+
+a += [7,8] # works as extend
+a = a*2 # replicate the list n times
+a
+
+```
+
+
+```{r,echo=T,collapse = TRUE}
+# R
+
+a = 1
+typeof(a)
+a_int = 1L
+typeof(a_int)
+
+b = 1.1
+typeof(b)
+
+c = 1.1+2i
+typeof(c)
+
+```
+
+
+
+
+## Objects and Variables, difference between R and Python /!\
+
+
+In R, a variable and an object are the same things, they refers to the same entities. If you assign to a new variable a variable that already exist, it will refers to two different objects.
+
+Things in Python are more conventional, but since some people learned R before Python it's important to notice that variables refers to an objet but they are still two entities. It means that two variables can refer to a single object. If two variables are pointing the same object, the modification made with one variable will be also available when using the other variable.There some 
+See the example above for Python. In R you would need to modify variable setting an new object to this variable using '=' o '<-'.
+However not all data-type of Python are muttable.
+
+
+
+```{python,echo = T,collapse = TRUE}
+# Python 
+import copy
+##mutable
+a = [1,6,1] #list
+
+b = a
+b_copy = copy.copy(a[:])
+b_copy = copy.copy(a)
+b.append(8)
+print(a)
+
+
+
+```
+
+# control flow
+
+```{python,echo = T,collapse = TRUE}
+# Python 
+evens = []
+for i in range(10):
+    if i % 2 == 0:
+        evens.append(i)
+evens
+# beter to writte this
+[i for i in range(10) if i % 2 == 0]
+```
+
+# Dealing with strings 
+
+https://thomas-cokelaer.info/tutorials/python/strings.html
+
+
+
