@@ -2,7 +2,12 @@
 title: "Basics"
 author: "Pierre Pelletier"
 date: "3 septembre 2020"
-output: html_document
+output:
+  html_document:
+    toc: true
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
 ---
 
 
@@ -17,7 +22,7 @@ output: html_document
 ```
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE,error=TRUE)
+knitr::opts_chunk$set(echo = TRUE,error=TRUE,collapse = TRUE)
 library(reticulate)
 
 #  md_document:
@@ -48,11 +53,11 @@ library(reticulate)
 ```
 
 <style>
-div.python pre { background-color: #eee2fd; }
+div.python pre { background-color:  #fdfcff; }
 </style>
 
 <style>
-div.r pre { background-color: #fdf8e2; }
+div.r pre { background-color: #fffffc; }
 </style>
 
 # Operations
@@ -209,6 +214,15 @@ type(b)
 
 c = 1.1+2j
 type(c)
+
+d = 'd'
+type(d)
+
+# change the type
+e = 2
+f = str(e)
+f
+float(f)
 ```
 
 </div>
@@ -229,15 +243,193 @@ typeof(b)
 
 c = 1.1+2i
 typeof(c)
+
+d = 'd'
+typeof(d)
+
+# change the type
+e = 2
+f = as.character(e)
+f
+as.numeric(f)
 ```
 </div>
 </div>
 </div>
 
+## Other Data-Type (R)
+https://www.statmethods.net/input/datatypes.html
+
+There is a lot of datatype in both language that we will discover along the course, for now we will focus only on basic data-type that are directly available without using anyother package or library,in R common data-type are Vector, Matrix, List, Data frame and factor.
+
+
+### Vectors and Matrices
+
+<div class = "r">
+
+<div class = "row">
+<div class = "col-md-6">
+
+```{r}
+# R
+
+vec = c(1, 2, 3)
+length(which(vec==2)) # count elements of the list which are exactly equal to 2
+
+vec = sort(vec,decreasing = TRUE)
+vec
+# access the element of a list
+vec[1]
+vec[which(vec==3)]
+vec[2:length(vec)]
+vec[length(vec):2]
+vec[-1] # throwaway value
+
+
+```
+
+</div>
+<div class = "col-md-6">
+
+```{r}
+# R
+
+mat = matrix(c(1, 2, 3, 4, 5, 6),3,2)
+dim(mat)
+length(which(mat==2)) # count elements of the list which are exactly equal to 2
+
+vec = sort(mat,decreasing = TRUE)
+vec
+# access the element of a list
+mat[1] # first element
+mat[which(mat==3,arr.ind = TRUE)] # get row and columns for each value that match
+mat[2:length(mat)] # gives you a vector
+mat[2:dim(mat)[1],]
+mat[length(mat):1]
+mat[1,-1] # throwaway values
+
+
+```
+
+</div>
+</div>
+
+```{r}
+# modify
+
+b = rep(0,3)
+vec = c(vec,b)
+vec
+mat_2 = rbind(vec)
+mat_2 
+mat_3 = cbind(vec)
+mat_3
+
+t_mat = t(mat) # transposition
+t_mat
+i_mat = diag(1, 5)
+i_mat
+
+
+```
+
+
+</div>
+
+### Data frame
+
+The main difference between Lists and Turples is the fact that Turples is an immutable type of data making it faster to use.
+
+<div class = "r">
+
+```{python,echo=T,collapse = TRUE}
+# Python
+
+a = (1, 2, 3)
+a.count(2) # count elements of the turple which are exactly equal to 2
+
+a
+# access the element of a turple
+a[0]
+a.index(3)
+a[1:]
+a[:1]
+a[0:-1]
+a[:]
+
+```
+```{python,echo = T,collapse = TRUE}
+
+# modify
+a += (4,5) 
+a
+a = a*2 # replicate the turple n times
+len(a) # number of elements in the turple
+
+```
+```{python,echo = T,collapse = TRUE}
+# immutable
+
+a = (1,2,3)
+b = a
+b[0] = 12
+a
+
+```
+</div>
+
+### Arrays
+
+Dictionary refers to a way of storing data that is not sorted. It works with key and value associate with this key.
+
+
+<div class = "r">
+
+```{python,echo=T,collapse = TRUE}
+# Python
+
+a = {'a':1, 'b':2, 'c':3}
+# access the element of a dictionary
+a.keys()
+a['a']
+a.values()
+a.items()
+a.get('a')
+a.get('d',4) # set to 4 if the key 'd' is not detected
+
+a.pop('a') # pop will use the corresponding value to the key a and remove the pair (key, value).
+a
+a.popitem()
+a
+```
+```{python,echo = T,collapse = TRUE}
+# modify
+a['a'] =1 
+a.setdefault('d',0) # create new item with a default value
+
+b = {'d':4,'e':5}
+a.update(b) # update values from other dict
+a
+a.clear() # remove all items
+
+```
+```{python,echo = T,collapse = TRUE}
+# mutable
+
+a = {'a':1, 'b':2, 'c':3}
+b = a
+b['b'] = [12,14]
+a
+```
+
+</div>
+
 ## Other Data-Type (Python)
+
 refused : https://thomas-cokelaer.info/tutorials/python/lists.html
 
-There is a lot of datatype in both language that we will discover along the course, for now we will focus only on basic data-type that are directly available without using anyother package or library. In Python the most common are List, Turple, sets, Dictionnary. While in R you will have Vector, Matrix, List, Data frame and factor.
+In Python the most common are List, Turple, sets, Dictionnary.
+Note that for the moment when modifiying a variable we always use '='. Keep in mind that using the '.' can modify the object behind the variable in Python.
 
 ### Lists 
 
@@ -290,7 +482,7 @@ a
 ```
 </div>
 
-## Turples
+### Turples
 
 The main difference between Lists and Turples is the fact that Turples is an immutable type of data making it faster to use.
 
@@ -330,7 +522,8 @@ a
 
 ```
 </div>
-## dictionaries
+
+### Dictionaries
 
 Dictionary refers to a way of storing data that is not sorted. It works with key and value associate with this key.
 
@@ -375,9 +568,6 @@ a
 
 </div>
 
-## Other Data-Type (R)
-
-
 # control flow
 
 <div class = "row">
@@ -404,4 +594,5 @@ lala
 # Dealing with strings 
 
 https://thomas-cokelaer.info/tutorials/python/strings.html
+
 
