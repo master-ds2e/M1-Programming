@@ -5,19 +5,66 @@ date: "3 septembre 2020"
 output: html_document
 ---
 
+
+```{css, echo=FALSE}
+#.r-chunk {
+#  background-color: lightpink;
+#}
+#
+#.py-chunk {
+#  background-color: lightblue;
+#}
+```
+
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE,error=TRUE)
 library(reticulate)
 
 #  md_document:
 #    variant: markdown_github
+#
+#
+#<div class = "row">
+#<div class = "col-md-6">
+#<div class = "python">
+#  
+#
+#</div>
+#</div>
+#<div class = "col-md-6">
+#<div class = "r">  
+#  
+#  
+#</div>
+#</div>
+#</div>
+
+
+#<style>
+#div.blue pre { background-color:lightblue; }
+#div.blue pre.r { background-color:blue; }
+#</style>
+#
 ```
+
+<style>
+div.python pre { background-color: #eee2fd; }
+</style>
+
+<style>
+div.r pre { background-color: #fdf8e2; }
+</style>
 
 # Operations
 
 ## Arithmetic Operations
 Python and R can both work as classical calculator, using "+", "-", "*" and "/" you can do arithmetic operations in both language.
-```{python,echo = T,collapse = TRUE}
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "python">
+
+```{python , collapse = T}
 # Python 
 
 1+2
@@ -27,8 +74,12 @@ Python and R can both work as classical calculator, using "+", "-", "*" and "/" 
 
 ```
 
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
 
-```{r,echo=T,collapse = TRUE}
+```{r, collapse = TRUE}
 # R
 
 1+2
@@ -37,7 +88,16 @@ Python and R can both work as classical calculator, using "+", "-", "*" and "/" 
 1*2
 ```
 
+</div>
+</div>
+</div>
+
 You can also apply exponantiation, Modulo and floor division easily in both language. Please note that in R you can writte the exponantiation "^". You cannot do that in Python (it is used for antoher operation) but both use "**" for exponantiation. Use this one for clarity.
+
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "python">
 
 ```{python,echo = T,collapse = TRUE}
 # Python 
@@ -48,6 +108,10 @@ You can also apply exponantiation, Modulo and floor division easily in both lang
 8//3 # floor division
 ```
 
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
 
 ```{r,echo=T,collapse = TRUE}
 # R
@@ -59,6 +123,9 @@ You can also apply exponantiation, Modulo and floor division easily in both lang
 
 ```
 
+</div>
+</div>
+</div>
 
 ##  Comparison Operators
 
@@ -67,6 +134,9 @@ In order to compare some values we can use comparison operators to investigate i
 Theses operators are the same in both language.
 
 
+<div class = "row">
+<div class = "col-md-6">
+<div class = "python">
 ```{python,echo = T,collapse = TRUE}
 # Python 
 
@@ -78,7 +148,10 @@ Theses operators are the same in both language.
 
 ```
 
-
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
 ```{r,echo=T,collapse = TRUE}
 # R
 
@@ -88,9 +161,11 @@ Theses operators are the same in both language.
 2>8
 2<=8
 ```
+</div>
+</div>
+</div>
 
-
-# Variables
+# Objects & Variables
 
 ref used : https://www.practicaldatascience.org/html/vars_v_objects.html
 
@@ -98,15 +173,31 @@ Variables are used to store data. In Python and R, we do not need to declare a v
 
 
 
+## Difference between R and Python
+
+
+In R, a variable and an object are the same things, they refers to the same entities. If you assign to a new variable a variable that already exist, it will refers to two different objects.
+
+Things in Python are more conventional, but since some people learned R before Python it's important to notice that variables refers to an objet but they are still two entities. It means that two variables can refer to a single object. If two variables are pointing the same object, the modification made with one variable will be also available when using the other variable.There some 
+In R two variable can refers to the same object, but once one variable is changed, a new space in the memomry is allocated to a new object.
+However not all data-type of Python are muttable. Examples are provided later.
+
+
+
 ## textual and numerical variables
+
 In R textual data are called 'character', in Python it is a string, abbreviate as 'str'. " or ' are used when you set a textual variable in both laguage, but you can also set a variable to textual variable if needed.
 
 Numerical variables a decomposed in three types. In Python you'll have integer, float and complex. In R float is called 'double', reffering to double precision floating point. Without entering into details it means that the number have a precision up to 15 decimals. Float can refers to a precision of 7 decimals, however in Python the data-type 'float' has a precision of 15 numbers. They are ways to get more precisions using Numpy for example. 
 
 Finaly you can check easily the data-type of the variable that you are dealing by asking the language with the command 'type' in Python, or 'typeof' in R.
 
+<div class = "row">
+<div class = "col-md-6">
+<div class = "python">
 ```{python,echo = T,collapse = TRUE}
 # Python 
+
 import sys 
 sys.float_info.dig # number of decimals
 
@@ -118,9 +209,12 @@ type(b)
 
 c = 1.1+2j
 type(c)
-
 ```
 
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
 
 ```{r,echo=T,collapse = TRUE}
 # R
@@ -135,18 +229,23 @@ typeof(b)
 
 c = 1.1+2i
 typeof(c)
-
 ```
+</div>
+</div>
+</div>
 
-
-## Other Data-Type
+## Other Data-Type (Python)
 refused : https://thomas-cokelaer.info/tutorials/python/lists.html
 
 There is a lot of datatype in both language that we will discover along the course, for now we will focus only on basic data-type that are directly available without using anyother package or library. In Python the most common are List, Turple, sets, Dictionnary. While in R you will have Vector, Matrix, List, Data frame and factor.
 
-## Lists 
-append() and extend() methods
+### Lists 
+
+Keep in mind that Lists are mutable, as discussed in the Section "Difference between R and Python"
+
+<div class = "python">
 ```{python,echo = T,collapse = TRUE}
+# Python
 
 a = [1, 2, 3]
 a.count(2) # count elements of the list which are exactly equal to 2
@@ -161,71 +260,123 @@ a[:1]
 a[0:-1]
 a[:]
 
+```
+```{python,echo = T,collapse = TRUE}
 # modify
+
 b = [0, 0, 0]
 a.append(b)
 a
 a.extend([4, 5, 6])
 a
+a += [7,8] # works as extend
+a
 a.insert(2,[1,2])
 a
 a.remove(b)
 a
-
-# Operators on lists
-
-a += [7,8] # works as extend
 a = a*2 # replicate the list n times
+len(a) # number of elements in the list
+
+```
+```{python,echo = T,collapse = TRUE}
+# mutable
+
+a = [1,2,3]
+b = a
+b[0] = 12
 a
 
 ```
+</div>
 
+## Turples
 
-```{r,echo=T,collapse = TRUE}
-# R
+The main difference between Lists and Turples is the fact that Turples is an immutable type of data making it faster to use.
 
-a = 1
-typeof(a)
-a_int = 1L
-typeof(a_int)
+<div class = "python">
+```{python,echo=T,collapse = TRUE}
+# Python
 
-b = 1.1
-typeof(b)
+a = (1, 2, 3)
+a.count(2) # count elements of the turple which are exactly equal to 2
 
-c = 1.1+2i
-typeof(c)
+a
+# access the element of a turple
+a[0]
+a.index(3)
+a[1:]
+a[:1]
+a[0:-1]
+a[:]
 
 ```
-
-
-
-
-## Objects and Variables, difference between R and Python /!\
-
-
-In R, a variable and an object are the same things, they refers to the same entities. If you assign to a new variable a variable that already exist, it will refers to two different objects.
-
-Things in Python are more conventional, but since some people learned R before Python it's important to notice that variables refers to an objet but they are still two entities. It means that two variables can refer to a single object. If two variables are pointing the same object, the modification made with one variable will be also available when using the other variable.There some 
-See the example above for Python. In R you would need to modify variable setting an new object to this variable using '=' o '<-'.
-However not all data-type of Python are muttable.
-
-
-
 ```{python,echo = T,collapse = TRUE}
-# Python 
-import copy
-##mutable
-a = [1,6,1] #list
 
-b = a
-b_copy = copy.copy(a[:])
-b_copy = copy.copy(a)
-b.append(8)
-print(a)
-
-
+# modify
+a += (4,5) 
+a
+a = a*2 # replicate the turple n times
+len(a) # number of elements in the turple
 
 ```
+```{python,echo = T,collapse = TRUE}
+# immutable
+
+a = (1,2,3)
+b = a
+b[0] = 12
+a
+
+```
+</div>
+## dictionaries
+
+Dictionary refers to a way of storing data that is not sorted. It works with key and value associate with this key.
+
+
+<div class = "python">
+```{python,echo=T,collapse = TRUE}
+# Python
+
+a = {'a':1, 'b':2, 'c':3}
+# access the element of a dictionary
+a.keys()
+a['a']
+a.values()
+a.items()
+a.get('a')
+a.get('d',4) # set to 4 if the key 'd' is not detected
+
+a.pop('a') # pop will use the corresponding value to the key a and remove the pair (key, value).
+a
+a.popitem('b')
+a
+```
+```{python,echo = T,collapse = TRUE}
+# modify
+a['a'] =1 
+a.setdefault('d',0) # create new item with a default value
+
+b = {'d':4,'e':5}
+a.update(b) # update values from other dict
+a
+a.clear() # remove all items
+
+```
+```{python,echo = T,collapse = TRUE}
+# mutable
+
+a = {'a':1, 'b':2, 'c':3}
+b = a
+b['b'] = [12,14]
+a
+```
+
+</div>
+
+## Other Data-Type (R)
+
 
 # control flow
 
@@ -249,6 +400,7 @@ lala
 ```
 </div>
 </div>
+
 # Dealing with strings 
 
 https://thomas-cokelaer.info/tutorials/python/strings.html
