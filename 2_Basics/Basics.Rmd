@@ -5,9 +5,10 @@ date: "3 septembre 2020"
 output:
   html_document:
     toc: true
+    number_sections: true
     toc_float:
       collapsed: false
-      smooth_scroll: false
+      smooth_scroll: true
 ---
 
 
@@ -389,49 +390,43 @@ class(t_df)
 
 ### Arrays
 
-Dictionary refers to a way of storing data that is not sorted. It works with key and value associate with this key.
+Arrays is a généralisation of the matrix, it means that you can have more than two dimension. You can modify them as you modify a matrix.
+
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE}
+# Python
+
+arr = array(seq(1,12,1), dim = c(2,2,3)) # create a matrix with 3 dimension
+arr
+# access the element of a dictionary
+arr[1,,]
+arr[,1,]
+arr[,,1]
+```
+</div>
+
+### Lists 
+
+A list permits you to assemble an assortment of disconnected objects behind one variable, it is also possible to store objects which can be of different types.
 
 
 <div class = "r">
 
-```{python,echo=T,collapse = TRUE}
+```{r,echo=T,collapse = TRUE}
 # Python
 
-a = {'a':1, 'b':2, 'c':3}
-# access the element of a dictionary
-a.keys()
-a['a']
-a.values()
-a.items()
-a.get('a')
-a.get('d',4) # set to 4 if the key 'd' is not detected
+lst = list(df = df,
+           mat = mat,
+           arr = arr) # create a matrix with 3 dimension
 
-a.pop('a') # pop will use the corresponding value to the key a and remove the pair (key, value).
-a
-a.popitem()
-a
+lst
+lst[[1]] # first element of the list, here it is the df
+lst[[1]][1,] # first row of first element of the list
 ```
-```{python,echo = T,collapse = TRUE}
-# modify
-a['a'] =1 
-a.setdefault('d',0) # create new item with a default value
-
-b = {'d':4,'e':5}
-a.update(b) # update values from other dict
-a
-a.clear() # remove all items
-
-```
-```{python,echo = T,collapse = TRUE}
-# mutable
-
-a = {'a':1, 'b':2, 'c':3}
-b = a
-b['b'] = [12,14]
-a
-```
-
 </div>
+
+
 
 ## Other Data-Type (Python)
 

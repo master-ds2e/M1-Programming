@@ -1538,9 +1538,9 @@ div.python pre { background-color:  #fdfcff; }
 div.r pre { background-color: #fffffc; }
 </style>
 <div id="operations" class="section level1">
-<h1>Operations</h1>
+<h1><span class="header-section-number">1</span> Operations</h1>
 <div id="arithmetic-operations" class="section level2">
-<h2>Arithmetic Operations</h2>
+<h2><span class="header-section-number">1.1</span> Arithmetic Operations</h2>
 <p>Python and R can both work as classical calculator, using “+”, “-”, &quot;*&quot; and “/” you can do arithmetic operations in both language.</p>
 <div class="row">
 <div class="col-md-6">
@@ -1605,7 +1605,7 @@ div.r pre { background-color: #fffffc; }
 </div>
 </div>
 <div id="comparison-operators" class="section level2">
-<h2>Comparison Operators</h2>
+<h2><span class="header-section-number">1.2</span> Comparison Operators</h2>
 <p>In order to compare some values we can use comparison operators to investigate in a given value is equal to, not equal, greater than … etc</p>
 <p>Theses operators are the same in both language.</p>
 <div class="row">
@@ -1645,16 +1645,16 @@ div.r pre { background-color: #fffffc; }
 </div>
 </div>
 <div id="objects-variables" class="section level1">
-<h1>Objects &amp; Variables</h1>
+<h1><span class="header-section-number">2</span> Objects &amp; Variables</h1>
 <p>ref used : <a href="https://www.practicaldatascience.org/html/vars_v_objects.html" class="uri">https://www.practicaldatascience.org/html/vars_v_objects.html</a></p>
 <p>Variables are used to store data. In Python and R, we do not need to declare a variable before assigning a value to this variable. You can think of a variable as a name to refers to an object. There is a big difference between python and R on the way the computer is storing object and variables that we will see in the end of the section.</p>
 <div id="difference-between-r-and-python" class="section level2">
-<h2>Difference between R and Python</h2>
+<h2><span class="header-section-number">2.1</span> Difference between R and Python</h2>
 <p>In R, a variable and an object are the same things, they refers to the same entities. If you assign to a new variable a variable that already exist, it will refers to two different objects.</p>
 <p>Things in Python are more conventional, but since some people learned R before Python it’s important to notice that variables refers to an objet but they are still two entities. It means that two variables can refer to a single object. If two variables are pointing the same object, the modification made with one variable will be also available when using the other variable.There some In R two variable can refers to the same object, but once one variable is changed, a new space in the memomry is allocated to a new object. However not all data-type of Python are muttable. Examples are provided later.</p>
 </div>
 <div id="textual-and-numerical-variables" class="section level2">
-<h2>textual and numerical variables</h2>
+<h2><span class="header-section-number">2.2</span> textual and numerical variables</h2>
 <p>In R textual data are called ‘character’, in Python it is a string, abbreviate as ‘str’. &quot; or ’ are used when you set a textual variable in both laguage, but you can also set a variable to textual variable if needed.</p>
 <p>Numerical variables a decomposed in three types. In Python you’ll have integer, float and complex. In R float is called ‘double’, reffering to double precision floating point. Without entering into details it means that the number have a precision up to 15 decimals. Float can refers to a precision of 7 decimals, however in Python the data-type ‘float’ has a precision of 15 numbers. They are ways to get more precisions using Numpy for example.</p>
 <p>Finaly you can check easily the data-type of the variable that you are dealing by asking the language with the command ‘type’ in Python, or ‘typeof’ in R.</p>
@@ -1723,11 +1723,11 @@ as.numeric(f)
 </div>
 </div>
 <div id="other-data-type-r" class="section level2">
-<h2>Other Data-Type (R)</h2>
+<h2><span class="header-section-number">2.3</span> Other Data-Type (R)</h2>
 <p><a href="https://www.statmethods.net/input/datatypes.html" class="uri">https://www.statmethods.net/input/datatypes.html</a></p>
 <p>There is a lot of datatype in both language that we will discover along the course, for now we will focus only on basic data-type that are directly available without using anyother package or library,in R common data-type are Vector, Matrix, List, Data frame and factor.</p>
 <div id="vectors-and-matrices" class="section level3">
-<h3>Vectors and Matrices</h3>
+<h3><span class="header-section-number">2.3.1</span> Vectors and Matrices</h3>
 <div class="r">
 <div class="row">
 <div class="col-md-6">
@@ -1826,7 +1826,7 @@ i_mat
 </div>
 </div>
 <div id="data-frame" class="section level3">
-<h3>Data frame</h3>
+<h3><span class="header-section-number">2.3.2</span> Data frame</h3>
 <p>A Data frame in R is a matrix which can store different type of data, characters, numerics or factors. Contrary to the matrix it does not have a fixed dimension it means that you can create a column very easily using the operator ‘$’.</p>
 <div class="r">
 <pre class="r"><code># Python
@@ -1895,58 +1895,109 @@ class(t_df)
 </div>
 </div>
 <div id="arrays" class="section level3">
-<h3>Arrays</h3>
-<p>Dictionary refers to a way of storing data that is not sorted. It works with key and value associate with this key.</p>
+<h3><span class="header-section-number">2.3.3</span> Arrays</h3>
+<p>Arrays is a généralisation of the matrix, it means that you can have more than two dimension. You can modify them as you modify a matrix.</p>
 <div class="r">
-<pre class="python"><code># Python
+<pre class="r"><code># Python
 
-a = {&#39;a&#39;:1, &#39;b&#39;:2, &#39;c&#39;:3}
+arr = array(seq(1,12,1), dim = c(2,2,3)) # create a matrix with 3 dimension
+arr
+## , , 1
+## 
+##      [,1] [,2]
+## [1,]    1    3
+## [2,]    2    4
+## 
+## , , 2
+## 
+##      [,1] [,2]
+## [1,]    5    7
+## [2,]    6    8
+## 
+## , , 3
+## 
+##      [,1] [,2]
+## [1,]    9   11
+## [2,]   10   12
 # access the element of a dictionary
-a.keys()
-## dict_keys([&#39;a&#39;, &#39;b&#39;, &#39;c&#39;])
-a[&#39;a&#39;]
-## 1
-a.values()
-## dict_values([1, 2, 3])
-a.items()
-## dict_items([(&#39;a&#39;, 1), (&#39;b&#39;, 2), (&#39;c&#39;, 3)])
-a.get(&#39;a&#39;)
-## 1
-a.get(&#39;d&#39;,4) # set to 4 if the key &#39;d&#39; is not detected
-## 4
-a.pop(&#39;a&#39;) # pop will use the corresponding value to the key a and remove the pair (key, value).
-## 1
-a
-## {&#39;b&#39;: 2, &#39;c&#39;: 3}
-a.popitem()
-## (&#39;c&#39;, 3)
-a
-## {&#39;b&#39;: 2}</code></pre>
-<pre class="python"><code># modify
-a[&#39;a&#39;] =1 
-a.setdefault(&#39;d&#39;,0) # create new item with a default value
-## 0
-b = {&#39;d&#39;:4,&#39;e&#39;:5}
-a.update(b) # update values from other dict
-a
-## {&#39;b&#39;: 2, &#39;a&#39;: 1, &#39;d&#39;: 4, &#39;e&#39;: 5}
-a.clear() # remove all items</code></pre>
-<pre class="python"><code># mutable
+arr[1,,]
+##      [,1] [,2] [,3]
+## [1,]    1    5    9
+## [2,]    3    7   11
+arr[,1,]
+##      [,1] [,2] [,3]
+## [1,]    1    5    9
+## [2,]    2    6   10
+arr[,,1]
+##      [,1] [,2]
+## [1,]    1    3
+## [2,]    2    4</code></pre>
+</div>
+</div>
+<div id="lists" class="section level3">
+<h3><span class="header-section-number">2.3.4</span> Lists</h3>
+<p>A list permits you to assemble an assortment of disconnected objects behind one variable, it is also possible to store objects which can be of different types.</p>
+<div class="r">
+<pre class="r"><code># Python
 
-a = {&#39;a&#39;:1, &#39;b&#39;:2, &#39;c&#39;:3}
-b = a
-b[&#39;b&#39;] = [12,14]
-a
-## {&#39;a&#39;: 1, &#39;b&#39;: [12, 14], &#39;c&#39;: 3}</code></pre>
+lst = list(df = df,
+           mat = mat,
+           arr = arr) # create a matrix with 3 dimension
+
+lst
+## $df
+##   chr num  fac new_col
+## 1   a   1    a       2
+## 2   b   2    a       2
+## 3   c   3    a       2
+## 4   d   4    b       2
+## 5   e   5    b       2
+## 6   0   0 &lt;NA&gt;       2
+## 
+## $mat
+##      [,1] [,2]
+## [1,]    1    4
+## [2,]    2    5
+## [3,]    3    6
+## 
+## $arr
+## , , 1
+## 
+##      [,1] [,2]
+## [1,]    1    3
+## [2,]    2    4
+## 
+## , , 2
+## 
+##      [,1] [,2]
+## [1,]    5    7
+## [2,]    6    8
+## 
+## , , 3
+## 
+##      [,1] [,2]
+## [1,]    9   11
+## [2,]   10   12
+lst[[1]] # first element of the list, here it is the df
+##   chr num  fac new_col
+## 1   a   1    a       2
+## 2   b   2    a       2
+## 3   c   3    a       2
+## 4   d   4    b       2
+## 5   e   5    b       2
+## 6   0   0 &lt;NA&gt;       2
+lst[[1]][1,] # first row of first element of the list
+##   chr num fac new_col
+## 1   a   1   a       2</code></pre>
 </div>
 </div>
 </div>
 <div id="other-data-type-python" class="section level2">
-<h2>Other Data-Type (Python)</h2>
+<h2><span class="header-section-number">2.4</span> Other Data-Type (Python)</h2>
 <p>refused : <a href="https://thomas-cokelaer.info/tutorials/python/lists.html" class="uri">https://thomas-cokelaer.info/tutorials/python/lists.html</a></p>
 <p>In Python the most common are List, Turple, sets, Dictionnary. Note that for the moment when modifiying a variable we always use ‘=’. Keep in mind that using the ‘.’ can modify the object behind the variable in Python.</p>
-<div id="lists" class="section level3">
-<h3>Lists</h3>
+<div id="lists-1" class="section level3">
+<h3><span class="header-section-number">2.4.1</span> Lists</h3>
 <p>Keep in mind that Lists are mutable, as discussed in the Section “Difference between R and Python”</p>
 <div class="python">
 <pre class="python"><code># Python
@@ -2001,7 +2052,7 @@ a
 </div>
 </div>
 <div id="turples" class="section level3">
-<h3>Turples</h3>
+<h3><span class="header-section-number">2.4.2</span> Turples</h3>
 <p>The main difference between Lists and Turples is the fact that Turples is an immutable type of data making it faster to use.</p>
 <div class="python">
 <pre class="python"><code># Python
@@ -2046,7 +2097,7 @@ a
 </div>
 </div>
 <div id="dictionaries" class="section level3">
-<h3>Dictionaries</h3>
+<h3><span class="header-section-number">2.4.3</span> Dictionaries</h3>
 <p>Dictionary refers to a way of storing data that is not sorted. It works with key and value associate with this key.</p>
 <div class="python">
 <pre class="python"><code># Python
@@ -2097,7 +2148,7 @@ a
 </div>
 </div>
 <div id="control-flow" class="section level1">
-<h1>control flow</h1>
+<h1><span class="header-section-number">3</span> control flow</h1>
 <div class="row">
 <div class="col-md-6">
 <pre class="python"><code># Python 
@@ -2119,7 +2170,7 @@ lala
 </div>
 </div>
 <div id="dealing-with-strings" class="section level1">
-<h1>Dealing with strings</h1>
+<h1><span class="header-section-number">4</span> Dealing with strings</h1>
 <p><a href="https://thomas-cokelaer.info/tutorials/python/strings.html" class="uri">https://thomas-cokelaer.info/tutorials/python/strings.html</a></p>
 </div>
 
@@ -2179,7 +2230,7 @@ $(document).ready(function ()  {
       scrollTo: 0
     };
     options.showAndHide = false;
-    options.smoothScroll = false;
+    options.smoothScroll = true;
 
     // tocify
     var toc = $("#TOC").tocify(options).data("toc-tocify");
