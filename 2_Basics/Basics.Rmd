@@ -636,9 +636,8 @@ time.time()-t
 
 results
 
-# this loop their will produce the same output than a using List comprehension.
-
 t = time.time() 
+# this loop their will produce the same output than a using List comprehension.
 results = [val for val in lst if val>2]
 time.time()-t
 
@@ -651,21 +650,48 @@ results
 # Set
 import time
 
-lst = {1,2,3,4}
+st = {1,2,3,4}
 
 t = time.time() 
 results = set([])
-for val in lst:
+for val in st:
   if val > 2:
     results.add(val)
 time.time()-t
 
 results
 
-# this loop their will produce the same output than a using List comprehension.
+t = time.time() 
+
+# this loop their will produce the same output than a using Set comprehension.
+results = {val for val in st if val>2}
+time.time()-t
+
+results
+```
+
+</div>
+
+<div class = "col-md-6">
+```{python,echo=T,collapse = TRUE}
+# Python 
+# Dict
+import time
+
+dct = {'a':1,'b':2,'c':3,'d':4}
 
 t = time.time() 
-results = {val for val in lst if val>2}
+results = dict([])
+for val in dct:
+  if dct[val] > 2:
+    results.update({str(val): dct[val]})
+time.time()-t
+
+results
+
+t = time.time() 
+# this loop their will produce the same output than a using Dict comprehension.
+results = {str(val): dct[val] for val in dct if dct[val]>2}
 time.time()-t
 
 results
