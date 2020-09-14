@@ -54,7 +54,7 @@ library(reticulate)
 ```
 
 <style>
-div.python pre { background-color:  #fdfcff; }
+div.python pre { background-color: #fdfcff; }
 </style>
 
 <style>
@@ -390,7 +390,7 @@ class(t_df)
 
 ### Arrays
 
-Arrays is a généralisation of the matrix, it means that you can have more than two dimension. You can modify them as you modify a matrix.
+Arrays is a generalisation of the matrix, it means that you can have more than two dimension. You can modify them as you modify a matrix.
 
 <div class = "r">
 
@@ -578,6 +578,9 @@ a
 
 ### Sets
 
+Sets are unordered collection of unique elements. If you give to a set multiple time the same element it will automatically delete dupplicated values.
+
+
 <div class = "python">
 ```{python,echo=T,collapse = TRUE}
 # Python
@@ -592,13 +595,9 @@ a[0] # since it unordered, you can not access to a given element of a set
 ```
 ```{python,echo = T,collapse = TRUE}
 # modify
-a['a'] =1 
-a.setdefault('d',0) # create new item with a default value
-
-b = {'d':4,'e':5}
-a.update(b) # update values from other dict
+b = {3,4,5}
+a.update(b)  # update values from other set
 a
-a.clear() # remove all items
 
 ```
 ```{python,echo = T,collapse = TRUE}
@@ -612,7 +611,69 @@ a
 
 </div>
 
-sets are unordered collection of unique elements. If you give to a set multiple time the same element it will automatically delete dupplicated values.
+### List, Set and Dict comprehensions
+
+List comprehension is very common and appreciate in the python language features, think of it as a loop for which you will directly store output in a list, set, or dict. You can use it as a filter for exemple.
+
+
+<div class = "python">
+
+<div class = "row">
+<div class = "col-md-6">
+```{python,echo=T,collapse = TRUE}
+# Python 
+# List
+import time
+
+lst = [1,2,3,4]
+
+t = time.time() 
+results = []
+for val in lst:
+  if val > 2:
+    results.append(val)
+time.time()-t
+
+results
+
+# this loop their will produce the same output than a using List comprehension.
+
+t = time.time() 
+results = [val for val in lst if val>2]
+time.time()-t
+
+results
+```
+</div>
+<div class = "col-md-6">
+```{python,echo=T,collapse = TRUE}
+# Python 
+# Set
+import time
+
+lst = {1,2,3,4}
+
+t = time.time() 
+results = set([])
+for val in lst:
+  if val > 2:
+    results.add(val)
+time.time()-t
+
+results
+
+# this loop their will produce the same output than a using List comprehension.
+
+t = time.time() 
+results = {val for val in lst if val>2}
+time.time()-t
+
+results
+```
+
+</div>
+</div>
+
 
 
 # control flow
