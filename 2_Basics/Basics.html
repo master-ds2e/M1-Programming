@@ -2024,24 +2024,29 @@ a[:]
 <pre class="python"><code># modify
 
 b = [0, 0, 0]
+list(zip(a,b)) # zip will pairs the ellements, it works also with more than 2 element ex: zip(a,b,c)
+## [(3, 0), (2, 0), (1, 0)]
 a.append(b)
 a
 ## [3, 2, 1, [0, 0, 0]]
+a[4:5] = [&#39;a&#39;,&#39;b&#39;]
+a
+## [3, 2, 1, [0, 0, 0], &#39;a&#39;, &#39;b&#39;]
 a.extend([4, 5, 6])
 a
-## [3, 2, 1, [0, 0, 0], 4, 5, 6]
+## [3, 2, 1, [0, 0, 0], &#39;a&#39;, &#39;b&#39;, 4, 5, 6]
 a += [7,8] # works as extend
 a
-## [3, 2, 1, [0, 0, 0], 4, 5, 6, 7, 8]
+## [3, 2, 1, [0, 0, 0], &#39;a&#39;, &#39;b&#39;, 4, 5, 6, 7, 8]
 a.insert(2,[1,2])
 a
-## [3, 2, [1, 2], 1, [0, 0, 0], 4, 5, 6, 7, 8]
+## [3, 2, [1, 2], 1, [0, 0, 0], &#39;a&#39;, &#39;b&#39;, 4, 5, 6, 7, 8]
 a.remove(b)
 a
-## [3, 2, [1, 2], 1, 4, 5, 6, 7, 8]
+## [3, 2, [1, 2], 1, &#39;a&#39;, &#39;b&#39;, 4, 5, 6, 7, 8]
 a = a*2 # replicate the list n times
 len(a) # number of elements in the list
-## 18</code></pre>
+## 22</code></pre>
 <pre class="python"><code># mutable
 
 a = [1,2,3]
@@ -2144,6 +2149,47 @@ b[&#39;b&#39;] = [12,14]
 a
 ## {&#39;a&#39;: 1, &#39;b&#39;: [12, 14], &#39;c&#39;: 3}</code></pre>
 </div>
+</div>
+<div id="sets" class="section level3">
+<h3><span class="header-section-number">2.4.4</span> Sets</h3>
+<div class="python">
+<pre class="python"><code># Python
+
+a = {1, 2, 3}
+a
+# access the element of a set
+## {1, 2, 3}
+a[0] # since it unordered, you can not access to a given element of a set
+
+## Error in py_call_impl(callable, dots$args, dots$keywords): TypeError: &#39;set&#39; object is not subscriptable
+## 
+## Detailed traceback: 
+##   File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;</code></pre>
+<pre class="python"><code># modify
+a[&#39;a&#39;] =1 
+## Error in py_call_impl(callable, dots$args, dots$keywords): TypeError: &#39;set&#39; object does not support item assignment
+## 
+## Detailed traceback: 
+##   File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;
+a.setdefault(&#39;d&#39;,0) # create new item with a default value
+## Error in py_call_impl(callable, dots$args, dots$keywords): AttributeError: &#39;set&#39; object has no attribute &#39;setdefault&#39;
+## 
+## Detailed traceback: 
+##   File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;
+b = {&#39;d&#39;:4,&#39;e&#39;:5}
+a.update(b) # update values from other dict
+a
+## {&#39;e&#39;, 1, 2, 3, &#39;d&#39;}
+a.clear() # remove all items</code></pre>
+<pre class="python"><code># mutable
+
+a = {&#39;a&#39;:1, &#39;b&#39;:2, &#39;c&#39;:3}
+b = a
+b[&#39;b&#39;] = [12,14]
+a
+## {&#39;a&#39;: 1, &#39;b&#39;: [12, 14], &#39;c&#39;: 3}</code></pre>
+</div>
+<p>sets are unordered collection of unique elements. If you give to a set multiple time the same element it will automatically delete dupplicated values.</p>
 </div>
 </div>
 </div>

@@ -461,7 +461,10 @@ a[:]
 # modify
 
 b = [0, 0, 0]
+list(zip(a,b)) # zip will pairs the ellements, it works also with more than 2 element ex: zip(a,b,c)
 a.append(b)
+a
+a[4:5] = ['a','b']
 a
 a.extend([4, 5, 6])
 a
@@ -471,6 +474,7 @@ a.insert(2,[1,2])
 a
 a.remove(b)
 a
+
 a = a*2 # replicate the list n times
 len(a) # number of elements in the list
 
@@ -571,6 +575,45 @@ a
 ```
 
 </div>
+
+### Sets
+
+<div class = "python">
+```{python,echo=T,collapse = TRUE}
+# Python
+
+a = {1, 2, 3}
+a
+# access the element of a set
+
+a[0] # since it unordered, you can not access to a given element of a set
+
+
+```
+```{python,echo = T,collapse = TRUE}
+# modify
+a['a'] =1 
+a.setdefault('d',0) # create new item with a default value
+
+b = {'d':4,'e':5}
+a.update(b) # update values from other dict
+a
+a.clear() # remove all items
+
+```
+```{python,echo = T,collapse = TRUE}
+# mutable
+
+a = {'a':1, 'b':2, 'c':3}
+b = a
+b['b'] = [12,14]
+a
+```
+
+</div>
+
+sets are unordered collection of unique elements. If you give to a set multiple time the same element it will automatically delete dupplicated values.
+
 
 # control flow
 
