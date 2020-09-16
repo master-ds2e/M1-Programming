@@ -611,7 +611,159 @@ a
 
 </div>
 
-### List, Set and Dict comprehensions
+
+
+# control flow
+
+There are two main control flow tools: choices, and loops. 
+choices are very useful for establishing rules or conditions. Choices can be used to modify a value according to a certain condition, generally it allows to launch certain actions in specific cases.
+The loops when it allows to execute sequentially actions, it can be to interactively modify an object, more generally it allows to launch a procedure several times. You can for example create N similar objects but you can also modify the N lines of an object.
+
+
+## Choices
+
+
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "python">
+```{python,echo = T,collapse = TRUE}
+# Python 
+
+# if, elif, else
+
+n = 12
+
+if n%2 == 0 :  
+  print('n is an even number')
+  
+
+
+
+if n != int(n): 
+  print('n is not a integer')
+elif  n%2 == 0 :
+  print('n is an even number')
+else:
+  print('n is not an even number')
+  
+  
+
+  
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+```{r,echo=T,collapse = TRUE}
+# R
+
+# if, elif, else
+
+n = 12L
+
+if(n%%2 == 0){  
+  print('n is an even number')
+}
+  
+
+
+
+if(!is.integer(n)){ 
+  print('n is not a integer')
+  } else if(n%%2 == 0){
+    print('n is an even number')
+    } else {
+      print('n is not an even number')
+      }
+
+
+  
+```
+</div>
+</div>
+</div>
+
+
+## Loops
+
+Using for loops, you will iterate over a predefined number of iteration, sometimes you don't know how many steps you need to perform a given task. Imagine that you want to optimize a function, you don't know how many step you need until reaching an optimum but you can set a condition for which you will consider that the algorithme as converged. For this kind of exercice you can use 'while' loops, it will iterate until a given condition is satisfied.
+
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "python">
+```{python,echo = T,collapse = TRUE}
+# Python 
+
+seq = [1,2,None,4,None,6]
+total = 0
+
+for val in seq:
+  if val is not None:
+    total =+ val
+    
+total
+```
+
+```{python,echo = T,collapse = TRUE}
+# Python 
+import random
+
+total = 0
+while total < 1:
+  rnd = random.gauss(mu = 0, sigma = 1)
+  if rnd < 0:
+    pass
+  else:
+    total =+ rnd
+  
+total
+
+```
+
+</div>
+</div>
+
+<div class = "col-md-6">
+<div class = "r">
+```{r,echo=T,collapse = TRUE}
+# R
+seq = c(1,2,NA,4,NA,6)
+total = 0
+
+for(val in seq){
+  if(!is.na(val)){
+    total =+ val
+  }
+}
+    
+total
+```
+
+
+```{r,echo = T,collapse = TRUE}
+# R
+
+total = 0
+
+while(total < 1){
+  rnd = rnorm(n=1, mean = 0, sd = 1)
+  if(rnd < 0){
+    # in R you can specify nothing instead of specifiying 'pass'
+    } else {
+    total =+ rnd }
+}
+  
+total
+```
+
+</div>
+</div>
+</div>
+
+## List, Set and Dict comprehensions (Python)
 
 List comprehension is very common and appreciate in the python language features, think of it as a loop for which you will directly store output in a list, set, or dict. You can use it as a filter for exemple.
 
@@ -702,30 +854,85 @@ results
 
 
 
-# control flow
+# Functions
+
+Functions are very important in both language, being able to code yourself things are sometimes more efficient that looking for a package and understand it. Being able to write your own function gives you more flexibility and a better understanding of what you are actually doing. Most of the time, this sentence is wrong and the way you are googling things and reading documentation can also have a major role on ability to play with existent code. It's important to not reinvent the wheel, while it is important to be able to construct it yourself. Read documentation carefully while using packages, sometimes packages are misleading and you can spend a lot of time understanding how they work. Look at the packages source code when you are not sure of what the function does behind. The full power of programming comes with the fact that you can be autonomous by reading, exploiting and writing codes and pre-existing codes.
+
 
 <div class = "row">
 <div class = "col-md-6">
+<div class = "python">
 ```{python,echo = T,collapse = TRUE}
 # Python 
-evens = []
-for i in range(10):
-    if i % 2 == 0:
-        evens.append(i)
-evens
-# beter to writte this
-[i for i in range(10) if i % 2 == 0]
+
+seq = [1,2,None,4,None,6]
+total = 0
+
+for val in seq:
+  if val is not None:
+    total =+ val
+    
+total
 ```
-</div>
-<div class = "col-md-6">
-```{r, warning = FALSE, echo=T}
-lala = 1+1
-lala
+
+```{python,echo = T,collapse = TRUE}
+# Python 
+import random
+
+total = 0
+while total < 1:
+  rnd = random.gauss(mu = 0, sigma = 1)
+  if rnd < 0:
+    pass
+  else:
+    total =+ rnd
+  
+total
+
 ```
+
 </div>
 </div>
 
-# Dealing with strings 
+<div class = "col-md-6">
+<div class = "r">
+```{r,echo=T,collapse = TRUE}
+# R
+seq = c(1,2,NA,4,NA,6)
+total = 0
+
+for(val in seq){
+  if(!is.na(val)){
+    total =+ val
+  }
+}
+    
+total
+```
+
+
+```{r,echo = T,collapse = TRUE}
+# R
+
+total = 0
+
+while(total < 1){
+  rnd = rnorm(n=1, mean = 0, sd = 1)
+  if(rnd < 0){
+    # in R you can specify nothing instead of specifiying 'pass'
+    } else {
+    total =+ rnd }
+}
+  
+total
+```
+
+</div>
+</div>
+</div>
+
+
+# Dealing with string
 
 https://thomas-cokelaer.info/tutorials/python/strings.html
 

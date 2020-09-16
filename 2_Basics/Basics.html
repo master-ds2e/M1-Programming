@@ -2180,8 +2180,134 @@ a
 ## {&#39;a&#39;: 1, &#39;b&#39;: [12, 14], &#39;c&#39;: 3}</code></pre>
 </div>
 </div>
-<div id="list-set-and-dict-comprehensions" class="section level3">
-<h3><span class="header-section-number">2.4.5</span> List, Set and Dict comprehensions</h3>
+</div>
+</div>
+<div id="control-flow" class="section level1">
+<h1><span class="header-section-number">3</span> control flow</h1>
+<p>There are two main control flow tools: choices, and loops. choices are very useful for establishing rules or conditions. Choices can be used to modify a value according to a certain condition, generally it allows to launch certain actions in specific cases. The loops when it allows to execute sequentially actions, it can be to interactively modify an object, more generally it allows to launch a procedure several times. You can for example create N similar objects but you can also modify the N lines of an object.</p>
+<div id="choices" class="section level2">
+<h2><span class="header-section-number">3.1</span> Choices</h2>
+<div class="row">
+<div class="col-md-6">
+<div class="python">
+<pre class="python"><code># Python 
+
+# if, elif, else
+
+n = 12
+
+if n%2 == 0 :  
+  print(&#39;n is an even number&#39;)
+  
+
+## n is an even number
+if n != int(n): 
+  print(&#39;n is not a integer&#39;)
+elif  n%2 == 0 :
+  print(&#39;n is an even number&#39;)
+else:
+  print(&#39;n is not an even number&#39;)
+  
+  
+
+  
+## n is an even number</code></pre>
+</div>
+</div>
+<div class="col-md-6">
+<div class="r">
+<pre class="r"><code># R
+
+# if, elif, else
+
+n = 12L
+
+if(n%%2 == 0){  
+  print(&#39;n is an even number&#39;)
+}
+## [1] &quot;n is an even number&quot;
+  
+
+
+
+if(!is.integer(n)){ 
+  print(&#39;n is not a integer&#39;)
+  } else if(n%%2 == 0){
+    print(&#39;n is an even number&#39;)
+    } else {
+      print(&#39;n is not an even number&#39;)
+      }
+## [1] &quot;n is an even number&quot;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div id="loops" class="section level2">
+<h2><span class="header-section-number">3.2</span> Loops</h2>
+<p>Using for loops, you will iterate over a predefined number of iteration, sometimes you don’t know how many steps you need to perform a given task. Imagine that you want to optimize a function, you don’t know how many step you need until reaching an optimum but you can set a condition for which you will consider that the algorithme as converged. For this kind of exercice you can use ‘while’ loops, it will iterate until a given condition is satisfied.</p>
+<div class="row">
+<div class="col-md-6">
+<div class="python">
+<pre class="python"><code># Python 
+
+seq = [1,2,None,4,None,6]
+total = 0
+
+for val in seq:
+  if val is not None:
+    total =+ val
+    
+total
+## 6</code></pre>
+<pre class="python"><code># Python 
+import random
+
+total = 0
+while total &lt; 1:
+  rnd = random.gauss(mu = 0, sigma = 1)
+  if rnd &lt; 0:
+    pass
+  else:
+    total =+ rnd
+  
+total
+## 2.006338950708705</code></pre>
+</div>
+</div>
+<div class="col-md-6">
+<div class="r">
+<pre class="r"><code># R
+seq = c(1,2,NA,4,NA,6)
+total = 0
+
+for(val in seq){
+  if(!is.na(val)){
+    total =+ val
+  }
+}
+    
+total
+## [1] 6</code></pre>
+<pre class="r"><code># R
+
+total = 0
+
+while(total &lt; 1){
+  rnd = rnorm(n=1, mean = 0, sd = 1)
+  if(rnd &lt; 0){
+    # in R you can specify nothing instead of specifiying &#39;pass&#39;
+    } else {
+    total =+ rnd }
+}
+  
+total
+## [1] 1.368915</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div id="list-set-and-dict-comprehensions-python" class="section level2">
+<h2><span class="header-section-number">3.3</span> List, Set and Dict comprehensions (Python)</h2>
 <p>List comprehension is very common and appreciate in the python language features, think of it as a loop for which you will directly store output in a list, set, or dict. You can use it as a filter for exemple.</p>
 <div class="python">
 
@@ -2199,14 +2325,14 @@ for val in lst:
   if val &gt; 2:
     results.append(val)
 time.time()-t
-## 0.012943744659423828
+## 0.015924692153930664
 results
 ## [3, 4]
 t = time.time() 
 # this loop their will produce the same output than a using List comprehension.
 results = [val for val in lst if val&gt;2]
 time.time()-t
-## 0.009955644607543945
+## 0.008954048156738281
 results
 ## [3, 4]</code></pre>
 </div>
@@ -2223,7 +2349,7 @@ for val in st:
   if val &gt; 2:
     results.add(val)
 time.time()-t
-## 0.014934539794921875
+## 0.013957023620605469
 results
 ## {3, 4}
 t = time.time() 
@@ -2231,7 +2357,7 @@ t = time.time()
 # this loop their will produce the same output than a using Set comprehension.
 results = {val for val in st if val&gt;2}
 time.time()-t
-## 0.011946916580200195
+## 0.009005069732666016
 results
 ## {3, 4}</code></pre>
 </div>
@@ -2248,45 +2374,86 @@ for val in dct:
   if dct[val] &gt; 2:
     results.update({str(val): dct[val]})
 time.time()-t
-## 0.014934539794921875
+## 0.01394200325012207
 results
 ## {&#39;c&#39;: 3, &#39;d&#39;: 4}
 t = time.time() 
 # this loop their will produce the same output than a using Dict comprehension.
 results = {str(val): dct[val] for val in dct if dct[val]&gt;2}
 time.time()-t
-## 0.009955883026123047
+## 0.008973360061645508
 results
 ## {&#39;c&#39;: 3, &#39;d&#39;: 4}</code></pre>
 </div>
 </div>
 </div>
 </div>
-</div>
-<div id="control-flow" class="section level1">
-<h1><span class="header-section-number">3</span> control flow</h1>
+<div id="functions" class="section level1">
+<h1><span class="header-section-number">4</span> Functions</h1>
+<p>Functions are very important in both language, being able to code yourself things are sometimes more efficient that looking for a package and understand it. Being able to write your own function gives you more flexibility and a better understanding of what you are actually doing. Most of the time, this sentence is wrong and the way you are googling things and reading documentation can also have a major role on ability to play with existent code. It’s important to not reinvent the wheel, while it is important to be able to construct it yourself. Read documentation carefully while using packages, sometimes packages are misleading and you can spend a lot of time understanding how they work. Look at the packages source code when you are not sure of what the function does behind. The full power of programming comes with the fact that you can be autonomous by reading, exploiting and writing codes and pre-existing codes.</p>
 <div class="row">
 <div class="col-md-6">
+<div class="python">
 <pre class="python"><code># Python 
-evens = []
-for i in range(10):
-    if i % 2 == 0:
-        evens.append(i)
-evens
-# beter to writte this
-## [0, 2, 4, 6, 8]
-[i for i in range(10) if i % 2 == 0]
-## [0, 2, 4, 6, 8]</code></pre>
+
+seq = [1,2,None,4,None,6]
+total = 0
+
+for val in seq:
+  if val is not None:
+    total =+ val
+    
+total
+## 6</code></pre>
+<pre class="python"><code># Python 
+import random
+
+total = 0
+while total &lt; 1:
+  rnd = random.gauss(mu = 0, sigma = 1)
+  if rnd &lt; 0:
+    pass
+  else:
+    total =+ rnd
+  
+total
+## 2.0376687731534076</code></pre>
+</div>
 </div>
 <div class="col-md-6">
-<pre class="r"><code>lala = 1+1
-lala
-## [1] 2</code></pre>
+<div class="r">
+<pre class="r"><code># R
+seq = c(1,2,NA,4,NA,6)
+total = 0
+
+for(val in seq){
+  if(!is.na(val)){
+    total =+ val
+  }
+}
+    
+total
+## [1] 6</code></pre>
+<pre class="r"><code># R
+
+total = 0
+
+while(total &lt; 1){
+  rnd = rnorm(n=1, mean = 0, sd = 1)
+  if(rnd &lt; 0){
+    # in R you can specify nothing instead of specifiying &#39;pass&#39;
+    } else {
+    total =+ rnd }
+}
+  
+total
+## [1] 1.681225</code></pre>
 </div>
 </div>
 </div>
-<div id="dealing-with-strings" class="section level1">
-<h1><span class="header-section-number">4</span> Dealing with strings</h1>
+</div>
+<div id="dealing-with-string" class="section level1">
+<h1><span class="header-section-number">5</span> Dealing with string</h1>
 <p><a href="https://thomas-cokelaer.info/tutorials/python/strings.html" class="uri">https://thomas-cokelaer.info/tutorials/python/strings.html</a></p>
 </div>
 
