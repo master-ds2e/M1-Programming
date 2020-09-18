@@ -1,0 +1,70 @@
+---
+title: "Installation"
+author: "Pierre Pelletier"
+date: "3 septembre 2020"
+output:
+  html_document:
+    toc: true
+    number_sections: true
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
+---
+
+
+
+```{css, echo=FALSE}
+#.r-chunk {
+#  background-color: lightpink;
+#}
+#
+#.py-chunk {
+#  background-color: lightblue;
+#}
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,error=TRUE,collapse = TRUE)
+library(reticulate)
+
+#  md_document:
+#    variant: markdown_github
+#
+#
+#<div class = "row">
+#<div class = "col-md-6">
+#<div class = "python">
+#  
+#
+#</div>
+#</div>
+#<div class = "col-md-6">
+#<div class = "r">  
+#  
+#  
+#</div>
+#</div>
+#</div>
+
+
+#<style>
+#div.blue pre { background-color:lightblue; }
+#div.blue pre.r { background-color:blue; }
+#</style>
+#
+```
+
+
+
+
+# Windows
+
+- Go to https://www.anaconda.com/products/individual/get-started and dowload a windows installer. Or use the link below (Python 3.8)  
+64-bit : https://repo.anaconda.com/archive/Anaconda3-2020.07-Windows-x86_64.exe  
+32-bit : https://repo.anaconda.com/archive/Anaconda3-2020.07-Windows-x86.exe
+  
+
+# Linux
+
+
+# Mac ?

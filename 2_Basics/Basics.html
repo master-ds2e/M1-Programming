@@ -1654,7 +1654,7 @@ div.r pre { background-color: #fffffc; }
 <p>Things in Python are more conventional, but since some people learned R before Python it’s important to notice that variables refers to an objet but they are still two entities. It means that two variables can refer to a single object. If two variables are pointing the same object, the modification made with one variable will be also available when using the other variable.There some In R two variable can refers to the same object, but once one variable is changed, a new space in the memomry is allocated to a new object. However not all data-type of Python are muttable. Examples are provided later.</p>
 </div>
 <div id="textual-and-numerical-variables" class="section level2">
-<h2><span class="header-section-number">2.2</span> textual and numerical variables</h2>
+<h2><span class="header-section-number">2.2</span> Textual and numerical variables</h2>
 <p>In R textual data are called ‘character’, in Python it is a string, abbreviate as ‘str’. &quot; or ’ are used when you set a textual variable in both laguage, but you can also set a variable to textual variable if needed.</p>
 <p>Numerical variables a decomposed in three types. In Python you’ll have integer, float and complex. In R float is called ‘double’, reffering to double precision floating point. Without entering into details it means that the number have a precision up to 15 decimals. Float can refers to a precision of 7 decimals, however in Python the data-type ‘float’ has a precision of 15 numbers. They are ways to get more precisions using Numpy for example.</p>
 <p>Finaly you can check easily the data-type of the variable that you are dealing by asking the language with the command ‘type’ in Python, or ‘typeof’ in R.</p>
@@ -2180,10 +2180,155 @@ a
 ## {&#39;a&#39;: 1, &#39;b&#39;: [12, 14], &#39;c&#39;: 3}</code></pre>
 </div>
 </div>
+<div id="arrays-1" class="section level3">
+<h3><span class="header-section-number">2.4.5</span> Arrays</h3>
+<p>In order to manipulate arrays in Python we need to use package numpy, this package is very usefull and will be covered in other chapters.</p>
+<p>First see that you can make an array usig R by starting from a vector R represents all arrays in column-major order, which is not the case in python.</p>
+<div class="row">
+<div class="col-md-6">
+<div class="python">
+<pre class="python"><code># Python
+
+import numpy
+arr = numpy.array([[1,4],[2,5],[3,6]])
+arr
+## array([[1, 4],
+##        [2, 5],
+##        [3, 6]])
+type(arr)
+## &lt;class &#39;numpy.ndarray&#39;&gt;
+vec = [1,2,3,4,5,6]
+
+arr = numpy.reshape(vec,(3,2))
+arr
+## array([[1, 2],
+##        [3, 4],
+##        [5, 6]])
+arr = numpy.reshape(vec,(3,2), order = &#39;F&#39;)
+arr
+## array([[1, 4],
+##        [2, 5],
+##        [3, 6]])</code></pre>
+</div>
+</div>
+<div class="col-md-6">
+<div class="r">
+<pre class="r"><code># R
+arr = as.array(rbind(c(1,4),c(2,5),c(3,6)))
+arr
+##      [,1] [,2]
+## [1,]    1    4
+## [2,]    2    5
+## [3,]    3    6
+
+vec = c(1,2,3,4,5,6)
+
+arr = array(vec,dim = c(3,2))
+arr
+##      [,1] [,2]
+## [1,]    1    4
+## [2,]    2    5
+## [3,]    3    6</code></pre>
+</div>
+</div>
+</div>
+<p>As ou can see R and Python does not store vector in the same way: R is storing them by column while python does it by row. Using “order = ‘F’” alows you to store vecotr into matrix by column.</p>
+<div class="python">
+<pre class="python"><code># Python
+
+# access the element of an array
+
+arr[0] # access directly to the raw 1
+
+## array([1, 4])</code></pre>
+<pre class="python"><code># modify
+vec = [7,8]
+arr = numpy.insert(arr, len(arr),vec,axis = 0)  # update values from other set
+arr
+## array([[1, 4],
+##        [2, 5],
+##        [3, 6],
+##        [7, 8]])</code></pre>
+<pre class="python"><code># mutable
+
+arr2 = arr
+arr2[0] = [12,14]
+arr
+## array([[12, 14],
+##        [ 2,  5],
+##        [ 3,  6],
+##        [ 7,  8]])</code></pre>
+</div>
+</div>
+<div id="data-frame-1" class="section level3">
+<h3><span class="header-section-number">2.4.6</span> Data Frame</h3>
+<p>Pandas Data Frames are also very common data-type in Python. The package Pandas is also view deeper in following chapters.</p>
+<div class="python">
+<pre class="python"><code># Python
+
+import pandas
+
+df = pandas.DataFrame(arr)
+df
+##     0   1
+## 0  12  14
+## 1   2   5
+## 2   3   6
+## 3   7   8
+type(df)
+## &lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+vec = [1,2,3,4,5,6]
+
+df = pandas.DataFrame({&#39;vec&#39;:vec,&#39;vec1&#39;:range(2,8)})
+df
+##    vec  vec1
+## 0    1     2
+## 1    2     3
+## 2    3     4
+## 3    4     5
+## 4    5     6
+## 5    6     7</code></pre>
+</div>
+<div class="python">
+<pre class="python"><code># Python
+
+# access the element of a Pandas Data Frame
+
+df[&#39;vec&#39;] 
+## 0    1
+## 1    2
+## 2    3
+## 3    4
+## 4    5
+## 5    6
+## Name: vec, dtype: int64</code></pre>
+<pre class="python"><code># modify
+vec2 = range(3,9)
+df[&#39;vec2&#39;] = vec2 # add values from other vector
+a
+## {&#39;a&#39;: 1, &#39;b&#39;: [12, 14], &#39;c&#39;: 3}</code></pre>
+<pre class="python"><code># mutable
+
+df2 = df
+df[&#39;vec&#39;][0] = 30
+## C:/Users/Beta/AppData/Local/Continuum/anaconda3/python.exe:1: SettingWithCopyWarning: 
+## A value is trying to be set on a copy of a slice from a DataFrame
+## 
+## See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+df2
+##    vec  vec1  vec2
+## 0   30     2     3
+## 1    2     3     4
+## 2    3     4     5
+## 3    4     5     6
+## 4    5     6     7
+## 5    6     7     8</code></pre>
+</div>
+</div>
 </div>
 </div>
 <div id="control-flow" class="section level1">
-<h1><span class="header-section-number">3</span> control flow</h1>
+<h1><span class="header-section-number">3</span> Control flow</h1>
 <p>There are two main control flow tools: choices, and loops. choices are very useful for establishing rules or conditions. Choices can be used to modify a value according to a certain condition, generally it allows to launch certain actions in specific cases. The loops when it allows to execute sequentially actions, it can be to interactively modify an object, more generally it allows to launch a procedure several times. You can for example create N similar objects but you can also modify the N lines of an object.</p>
 <div id="choices" class="section level2">
 <h2><span class="header-section-number">3.1</span> Choices</h2>
@@ -2244,7 +2389,7 @@ if(!is.integer(n)){
 </div>
 <div id="loops" class="section level2">
 <h2><span class="header-section-number">3.2</span> Loops</h2>
-<p>Using for loops, you will iterate over a predefined number of iteration, sometimes you don’t know how many steps you need to perform a given task. Imagine that you want to optimize a function, you don’t know how many step you need until reaching an optimum but you can set a condition for which you will consider that the algorithme as converged. For this kind of exercice you can use ‘while’ loops, it will iterate until a given condition is satisfied.</p>
+<p>Using for loops, you will iterate over a predefined number of iteration, sometimes you don’t know how many steps you need to perform a given task. Imagine that you want to optimize a function, you don’t know how many step you need until reaching an optimum but you can set a condition for which you will consider that the algorithm converged. For this kind of exercice you can use ‘while’ loops, it will iterate until a given condition is satisfied.</p>
 <div class="row">
 <div class="col-md-6">
 <div class="python">
@@ -2255,10 +2400,10 @@ total = 0
 
 for val in seq:
   if val is not None:
-    total =+ val
+    total += val
     
 total
-## 6</code></pre>
+## 13</code></pre>
 <pre class="python"><code># Python 
 import random
 
@@ -2268,10 +2413,10 @@ while total &lt; 1:
   if rnd &lt; 0:
     pass
   else:
-    total =+ rnd
+    total += rnd
   
 total
-## 2.006338950708705</code></pre>
+## 1.4137274995517006</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -2282,12 +2427,12 @@ total = 0
 
 for(val in seq){
   if(!is.na(val)){
-    total =+ val
+    total = total + val
   }
 }
     
 total
-## [1] 6</code></pre>
+## [1] 13</code></pre>
 <pre class="r"><code># R
 
 total = 0
@@ -2297,11 +2442,11 @@ while(total &lt; 1){
   if(rnd &lt; 0){
     # in R you can specify nothing instead of specifiying &#39;pass&#39;
     } else {
-    total =+ rnd }
+    total = total + rnd }
 }
   
 total
-## [1] 1.368915</code></pre>
+## [1] 1.071297</code></pre>
 </div>
 </div>
 </div>
@@ -2310,7 +2455,6 @@ total
 <h2><span class="header-section-number">3.3</span> List, Set and Dict comprehensions (Python)</h2>
 <p>List comprehension is very common and appreciate in the python language features, think of it as a loop for which you will directly store output in a list, set, or dict. You can use it as a filter for exemple.</p>
 <div class="python">
-
 <div class="row">
 <div class="col-md-6">
 <pre class="python"><code># Python 
@@ -2325,14 +2469,14 @@ for val in lst:
   if val &gt; 2:
     results.append(val)
 time.time()-t
-## 0.015924692153930664
+## 0.01891779899597168
 results
 ## [3, 4]
 t = time.time() 
 # this loop their will produce the same output than a using List comprehension.
 results = [val for val in lst if val&gt;2]
 time.time()-t
-## 0.008954048156738281
+## 0.008960485458374023
 results
 ## [3, 4]</code></pre>
 </div>
@@ -2349,7 +2493,7 @@ for val in st:
   if val &gt; 2:
     results.add(val)
 time.time()-t
-## 0.013957023620605469
+## 0.014933586120605469
 results
 ## {3, 4}
 t = time.time() 
@@ -2357,7 +2501,7 @@ t = time.time()
 # this loop their will produce the same output than a using Set comprehension.
 results = {val for val in st if val&gt;2}
 time.time()-t
-## 0.009005069732666016
+## 0.009955883026123047
 results
 ## {3, 4}</code></pre>
 </div>
@@ -2374,87 +2518,229 @@ for val in dct:
   if dct[val] &gt; 2:
     results.update({str(val): dct[val]})
 time.time()-t
-## 0.01394200325012207
+## 0.013233661651611328
 results
 ## {&#39;c&#39;: 3, &#39;d&#39;: 4}
 t = time.time() 
 # this loop their will produce the same output than a using Dict comprehension.
 results = {str(val): dct[val] for val in dct if dct[val]&gt;2}
 time.time()-t
-## 0.008973360061645508
+## 0.008960485458374023
 results
 ## {&#39;c&#39;: 3, &#39;d&#39;: 4}</code></pre>
 </div>
 </div>
 </div>
 </div>
+</div>
 <div id="functions" class="section level1">
 <h1><span class="header-section-number">4</span> Functions</h1>
-<p>Functions are very important in both language, being able to code yourself things are sometimes more efficient that looking for a package and understand it. Being able to write your own function gives you more flexibility and a better understanding of what you are actually doing. Most of the time, this sentence is wrong and the way you are googling things and reading documentation can also have a major role on ability to play with existent code. It’s important to not reinvent the wheel, while it is important to be able to construct it yourself. Read documentation carefully while using packages, sometimes packages are misleading and you can spend a lot of time understanding how they work. Look at the packages source code when you are not sure of what the function does behind. The full power of programming comes with the fact that you can be autonomous by reading, exploiting and writing codes and pre-existing codes.</p>
+<p>Functions are very important in both language, being able to code yourself things are sometimes more efficient that looking for a package and understand it.<br />
+Being able to write your own function gives you more flexibility and a better understanding of what you are actually doing. Most of the time, this sentence is wrong and the way you are googling things and reading documentation can also have a major role on ability to play with existent code.<br />
+It’s important to not reinvent the wheel, while it is important to be able to construct it yourself. Read documentation carefully while using packages, sometimes packages are misleading and you can spend a lot of time understanding how they work. Look at the packages source code when you are not sure of what the function does behind.<br />
+The full power of programming comes with the fact that you can be autonomous by reading, modifying and writing codes and pre-existing codes.</p>
+<div id="general-functions" class="section level2">
+<h2><span class="header-section-number">4.1</span> General Functions</h2>
 <div class="row">
 <div class="col-md-6">
 <div class="python">
 <pre class="python"><code># Python 
 
-seq = [1,2,None,4,None,6]
-total = 0
+seq = [1,2,None,4,None,6]*120
 
-for val in seq:
-  if val is not None:
-    total =+ val
-    
-total
-## 6</code></pre>
-<pre class="python"><code># Python 
-import random
+def clean_sum(seq):
+  total = 0
 
-total = 0
-while total &lt; 1:
-  rnd = random.gauss(mu = 0, sigma = 1)
-  if rnd &lt; 0:
-    pass
-  else:
-    total =+ rnd
+  for val in seq:
+    if val is not None:
+      total += val
+  return total
   
-total
-## 2.0376687731534076</code></pre>
+t = time.time()
+clean_sum(seq =  seq)
+## 1560
+time.time() - t
+
+## 0.008960962295532227
+def clean_sum2(seq):
+  total = sum([val for val in seq if val is not None])
+  return total
+  
+t = time.time()
+clean_sum2(seq =  seq)
+## 1560
+time.time() - t
+
+## 0.008960723876953125</code></pre>
 </div>
 </div>
 <div class="col-md-6">
 <div class="r">
 <pre class="r"><code># R
-seq = c(1,2,NA,4,NA,6)
-total = 0
+seq = rep(c(1,2,NA,4,NA,6),120)
 
-for(val in seq){
-  if(!is.na(val)){
-    total =+ val
+
+clean_sum &lt;- function(seq){
+  total = 0
+  for(val in seq){
+    if(!is.na(val)){
+      total = total + val
+    }
   }
+  return(total)
 }
-    
-total
-## [1] 6</code></pre>
+
+t = Sys.time()
+clean_sum(seq = seq)
+## [1] 1560
+Sys.time() - t
+## Time difference of 0.007965088 secs
+
+
+
+clean_sum2 &lt;- function(seq){
+  sum(na.rm(seq))
+  return(total)
+}
+
+t = Sys.time()
+clean_sum(seq = seq)
+## [1] 1560
+Sys.time() - t
+## Time difference of 0.002987862 secs</code></pre>
+</div>
+</div>
+</div>
+<p>Functions in Python are objects, they can have attributes and methods like objects. The functions can have data variables and even functions written inside of them.<br />
+Suppose you want to apply several transformation to data, you can create multiple functions to do the different task that you want to perform. You can stock functions in list a apply them sequentially very easily.<br />
+Note that you can separate the output into several variables by specifiying the different values before the assignation. You cannot do that in R directly bt the zeallot package can tackle this problem.</p>
+<div class="row">
+<div class="col-md-6">
+<div class="python">
+<pre class="python"><code># Python 
+
+def add_two(nb):
+   nb = [i+2 for i in nb]
+   return nb
+  
+def square_nb(nb):
+   nb = [i**2 for i in nb]
+   return nb
+
+def global_function(nb):
+   for function in func_list:
+      nb = function(nb)
+   return nb
+
+func_list = [add_two,square_nb]
+
+x1, x2 = global_function([2,3])
+x1
+## 16
+x2
+## 25</code></pre>
+</div>
+</div>
+<div class="col-md-6">
+<div class="r">
 <pre class="r"><code># R
+library(zeallot)
 
-total = 0
-
-while(total &lt; 1){
-  rnd = rnorm(n=1, mean = 0, sd = 1)
-  if(rnd &lt; 0){
-    # in R you can specify nothing instead of specifiying &#39;pass&#39;
-    } else {
-    total =+ rnd }
+add_two &lt;- function(nb){
+  nb = nb + 2
+  return(nb)
 }
   
-total
-## [1] 1.681225</code></pre>
+square_nb &lt;- function(nb){
+  nb = nb**2
+  return(nb)
+}
+
+global_function &lt;- function(nb){
+  for(func in func_list){
+    nb = func(nb)
+      }
+  return(nb)
+}
+
+func_list = c(add_two,square_nb)
+
+c(x1, x2) %&lt;-% global_function(c(2,3))
+x1
+## [1] 16
+x2
+## [1] 25</code></pre>
 </div>
 </div>
 </div>
 </div>
-<div id="dealing-with-string" class="section level1">
-<h1><span class="header-section-number">5</span> Dealing with string</h1>
+<div id="python-generators" class="section level2">
+<h2><span class="header-section-number">4.2</span> Python Generators</h2>
+<p>Generator usage in python is a simple way of creating iterators. The goal of this kind of function is to return an object for which we can iterate over it. The difference in terms of syntax hold in the fact that you will the statement ‘yield’ instead of ‘return’. In comparaison to ‘return’, using ‘yield’ will pause the function and the control of that generator will be trasnfered to the object that call this generator.<br />
+Generators are very very usefull when you deal with object taht can be too heavy to store all the information in you RAM. As a generators is an iterator, it will load in the RAM only the iteration that it is reading, meaning that you can have no size limit if you want to iterate over an object that is to heavy. This first example is made with a txt file with 1000 rows. We will see how RAM is used behind our machine to understand how it can be relevant to use genetaors.</p>
+<div class="row">
+<div class="col-md-6">
+<div class="python">
+<pre class="python"><code># Python 
+import os
+import psutil
+import re
+process = psutil.Process(os.getpid())
+
+t = time.time()
+r1 = process.memory_info().rss 
+def read_file_to_lower():
+  with open(&quot;data/text.txt&quot;, &quot;r&quot;) as txt:
+    txt_list = txt.read().split(&#39;\n&#39;)
+    txt_list_low = [re.sub(&#39; &#39;,&#39;&#39;,row.lower()) for row in txt_list] # re.sub here is used to modify each &#39; &#39; by nothing.
+  return txt_list_low
+
+txt_clean = read_file_to_lower()
+
+process.memory_info().rss - r1 # in bytes
+## 86016
+time.time() - t
+## 0.027878999710083008
+type(txt_clean)
+## &lt;class &#39;list&#39;&gt;</code></pre>
+</div>
+</div>
+<div class="col-md-6">
+<div class="python">
+<pre class="python"><code># Python
+
+process = psutil.Process(os.getpid())
+
+t = time.time()
+r1 = process.memory_info().rss 
+
+def read_to_lower():
+  with open(&quot;data/text.txt&quot;, &quot;r&quot;) as txt:
+    txt_line = txt.readline()
+    while txt_line:
+      txt_line = txt.readline()
+      yield re.sub(&#39; &#39;,&#39;&#39;,txt_line.lower())
+
+
+memory_friendly_txt_clean = read_to_lower()
+txt_clean = [line_clean for line_clean in memory_friendly_txt_clean]
+
+process.memory_info().rss - r1 # in bytes
+## 8192
+time.time() - t
+
+## 0.03086566925048828
+type(memory_friendly_txt_clean)
+## &lt;class &#39;generator&#39;&gt;</code></pre>
+</div>
+</div>
+</div>
+<p>Note how the memory used during the calculation is very different while the time spend does not really change. You m</p>
 <p><a href="https://thomas-cokelaer.info/tutorials/python/strings.html" class="uri">https://thomas-cokelaer.info/tutorials/python/strings.html</a></p>
+</div>
+</div>
+<div id="exercices" class="section level1">
+<h1><span class="header-section-number">5</span> Exercices</h1>
 </div>
 
 

@@ -190,7 +190,7 @@ However not all data-type of Python are muttable. Examples are provided later.
 
 
 
-## textual and numerical variables
+## Textual and numerical variables
 
 In R textual data are called 'character', in Python it is a string, abbreviate as 'str'. " or ' are used when you set a textual variable in both laguage, but you can also set a variable to textual variable if needed.
 
@@ -612,8 +612,136 @@ a
 </div>
 
 
+### Arrays
 
-# control flow
+In order to manipulate arrays in Python we need to use package numpy, this package is very usefull and will be covered in other chapters.
+
+First see that you can make an array usig R by starting from a vector
+R represents all arrays in column-major order, which is not the case in python.
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "python">
+
+```{python,echo=T,collapse = TRUE}
+# Python
+
+import numpy
+arr = numpy.array([[1,4],[2,5],[3,6]])
+arr
+
+type(arr)
+
+vec = [1,2,3,4,5,6]
+
+arr = numpy.reshape(vec,(3,2))
+arr
+arr = numpy.reshape(vec,(3,2), order = 'F')
+arr
+```
+
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+```{r,echo = T,collapse = TRUE}
+# R
+arr = as.array(rbind(c(1,4),c(2,5),c(3,6)))
+arr
+
+vec = c(1,2,3,4,5,6)
+
+arr = array(vec,dim = c(3,2))
+arr
+```
+</div>
+</div>
+</div>
+
+As ou can see R and Python does not store vector in the same way: R is storing them by column while python does it by row. Using "order = 'F'" alows you to store vecotr into matrix by column.
+
+
+<div class = "python">
+```{python,echo=T,collapse = TRUE}
+# Python
+
+# access the element of an array
+
+arr[0] # access directly to the raw 1
+
+
+```
+```{python,echo = T,collapse = TRUE}
+# modify
+vec = [7,8]
+arr = numpy.insert(arr, len(arr),vec,axis = 0)  # update values from other set
+arr
+
+```
+```{python,echo = T,collapse = TRUE}
+# mutable
+
+arr2 = arr
+arr2[0] = [12,14]
+arr
+```
+
+</div>
+
+
+### Data Frame
+
+Pandas Data Frames are also very common data-type in Python. The package Pandas is also view deeper in following chapters.
+
+<div class = "python">
+```{python,echo = T,collapse = TRUE}
+# Python
+
+import pandas
+
+df = pandas.DataFrame(arr)
+df
+
+type(df)
+
+vec = [1,2,3,4,5,6]
+
+df = pandas.DataFrame({'vec':vec,'vec1':range(2,8)})
+df
+```
+
+</div>
+
+
+<div class = "python">
+```{python,echo=T,collapse = TRUE}
+# Python
+
+# access the element of a Pandas Data Frame
+
+df['vec'] 
+
+```
+```{python,echo = T,collapse = TRUE}
+# modify
+vec2 = range(3,9)
+df['vec2'] = vec2 # add values from other vector
+a
+
+```
+```{python,echo = T,collapse = TRUE}
+# mutable
+
+df2 = df
+df['vec'][0] = 30
+df2
+```
+
+</div>
+
+
+# Control flow
 
 There are two main control flow tools: choices, and loops. 
 choices are very useful for establishing rules or conditions. Choices can be used to modify a value according to a certain condition, generally it allows to launch certain actions in specific cases.
@@ -688,7 +816,7 @@ if(!is.integer(n)){
 
 ## Loops
 
-Using for loops, you will iterate over a predefined number of iteration, sometimes you don't know how many steps you need to perform a given task. Imagine that you want to optimize a function, you don't know how many step you need until reaching an optimum but you can set a condition for which you will consider that the algorithme as converged. For this kind of exercice you can use 'while' loops, it will iterate until a given condition is satisfied.
+Using for loops, you will iterate over a predefined number of iteration, sometimes you don't know how many steps you need to perform a given task. Imagine that you want to optimize a function, you don't know how many step you need until reaching an optimum but you can set a condition for which you will consider that the algorithm converged. For this kind of exercice you can use 'while' loops, it will iterate until a given condition is satisfied.
 
 
 <div class = "row">
@@ -702,7 +830,7 @@ total = 0
 
 for val in seq:
   if val is not None:
-    total =+ val
+    total += val
     
 total
 ```
@@ -717,7 +845,7 @@ while total < 1:
   if rnd < 0:
     pass
   else:
-    total =+ rnd
+    total += rnd
   
 total
 
@@ -735,7 +863,7 @@ total = 0
 
 for(val in seq){
   if(!is.na(val)){
-    total =+ val
+    total = total + val
   }
 }
     
@@ -753,7 +881,7 @@ while(total < 1){
   if(rnd < 0){
     # in R you can specify nothing instead of specifiying 'pass'
     } else {
-    total =+ rnd }
+    total = total + rnd }
 }
   
 total
@@ -769,7 +897,6 @@ List comprehension is very common and appreciate in the python language features
 
 
 <div class = "python">
-
 <div class = "row">
 <div class = "col-md-6">
 ```{python,echo=T,collapse = TRUE}
@@ -851,12 +978,28 @@ results
 
 </div>
 </div>
+</div>
+
+
+
+
+
+
+
 
 
 
 # Functions
 
-Functions are very important in both language, being able to code yourself things are sometimes more efficient that looking for a package and understand it. Being able to write your own function gives you more flexibility and a better understanding of what you are actually doing. Most of the time, this sentence is wrong and the way you are googling things and reading documentation can also have a major role on ability to play with existent code. It's important to not reinvent the wheel, while it is important to be able to construct it yourself. Read documentation carefully while using packages, sometimes packages are misleading and you can spend a lot of time understanding how they work. Look at the packages source code when you are not sure of what the function does behind. The full power of programming comes with the fact that you can be autonomous by reading, exploiting and writing codes and pre-existing codes.
+
+Functions are very important in both language, being able to code yourself things are sometimes more efficient that looking for a package and understand it.  
+Being able to write your own function gives you more flexibility and a better understanding of what you are actually doing.   Most of the time, this sentence is wrong and the way you are googling things and reading documentation can also have a major role on ability to play with existent code.  
+It's important to not reinvent the wheel, while it is important to be able to construct it yourself. Read documentation carefully while using packages, sometimes packages are misleading and you can spend a lot of time understanding how they work. Look at the packages source code when you are not sure of what the function does behind.  
+The full power of programming comes with the fact that you can be autonomous by reading, modifying and writing codes and pre-existing codes.
+
+
+
+## General Functions 
 
 
 <div class = "row">
@@ -865,29 +1008,29 @@ Functions are very important in both language, being able to code yourself thing
 ```{python,echo = T,collapse = TRUE}
 # Python 
 
-seq = [1,2,None,4,None,6]
-total = 0
+seq = [1,2,None,4,None,6]*120
 
-for val in seq:
-  if val is not None:
-    total =+ val
-    
-total
-```
+def clean_sum(seq):
+  total = 0
 
-```{python,echo = T,collapse = TRUE}
-# Python 
-import random
-
-total = 0
-while total < 1:
-  rnd = random.gauss(mu = 0, sigma = 1)
-  if rnd < 0:
-    pass
-  else:
-    total =+ rnd
+  for val in seq:
+    if val is not None:
+      total += val
+  return total
   
-total
+t = time.time()
+clean_sum(seq =  seq)
+time.time() - t
+
+
+def clean_sum2(seq):
+  total = sum([val for val in seq if val is not None])
+  return total
+  
+t = time.time()
+clean_sum2(seq =  seq)
+time.time() - t
+
 
 ```
 
@@ -898,33 +1041,182 @@ total
 <div class = "r">
 ```{r,echo=T,collapse = TRUE}
 # R
-seq = c(1,2,NA,4,NA,6)
-total = 0
+seq = rep(c(1,2,NA,4,NA,6),120)
 
-for(val in seq){
-  if(!is.na(val)){
-    total =+ val
+
+clean_sum <- function(seq){
+  total = 0
+  for(val in seq){
+    if(!is.na(val)){
+      total = total + val
+    }
   }
+  return(total)
 }
-    
-total
+
+t = Sys.time()
+clean_sum(seq = seq)
+Sys.time() - t
+
+
+
+clean_sum2 <- function(seq){
+  sum(na.rm(seq))
+  return(total)
+}
+
+t = Sys.time()
+clean_sum(seq = seq)
+Sys.time() - t
+
+
+
 ```
 
 
-```{r,echo = T,collapse = TRUE}
+</div>
+</div>
+</div>
+
+
+Functions in Python are objects, they can have attributes and methods like objects. The functions can have data variables and even functions written inside of them.  
+Suppose you want to apply several transformation to data, you can create multiple functions to do the different task that you want to perform. You can stock functions in list a apply them sequentially very easily.  
+Note that you can separate the output into several variables by specifiying the different values before the assignation. You cannot do that in R directly bt the zeallot package can tackle this problem.
+
+
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "python">
+```{python,echo = T,collapse = TRUE}
+# Python 
+
+def add_two(nb):
+   nb = [i+2 for i in nb]
+   return nb
+  
+def square_nb(nb):
+   nb = [i**2 for i in nb]
+   return nb
+
+def global_function(nb):
+   for function in func_list:
+      nb = function(nb)
+   return nb
+
+func_list = [add_two,square_nb]
+
+x1, x2 = global_function([2,3])
+x1
+x2
+```
+
+</div>
+</div>
+
+<div class = "col-md-6">
+<div class = "r">
+```{r,echo=T,collapse = TRUE}
 # R
+library(zeallot)
 
-total = 0
-
-while(total < 1){
-  rnd = rnorm(n=1, mean = 0, sd = 1)
-  if(rnd < 0){
-    # in R you can specify nothing instead of specifiying 'pass'
-    } else {
-    total =+ rnd }
+add_two <- function(nb){
+  nb = nb + 2
+  return(nb)
 }
   
-total
+square_nb <- function(nb){
+  nb = nb**2
+  return(nb)
+}
+
+global_function <- function(nb){
+  for(func in func_list){
+    nb = func(nb)
+      }
+  return(nb)
+}
+
+func_list = c(add_two,square_nb)
+
+c(x1, x2) %<-% global_function(c(2,3))
+x1
+x2
+```
+
+
+</div>
+</div>
+</div>
+
+
+
+## Python Generators
+
+Generator usage in python is a simple way of creating iterators. The goal of this kind of function is to return an object for which we can iterate over it. The difference in terms of syntax hold in the fact that you will the statement 'yield' instead of 'return'. In comparaison to 'return', using 'yield' will pause the function and the control of that generator will be trasnfered to the object that call this generator.  
+Generators are very very usefull when you deal with object taht can be too heavy to store all the information in you RAM.
+As a generators is an iterator, it will load in the RAM only the iteration that it is reading, meaning that you can have no size limit if you want to iterate over an object that is to heavy.
+This first example is made with a txt file with 1000 rows. We will see how RAM is used behind our machine to understand how it can be relevant to use genetaors. 
+
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "python">
+```{python,echo = T,collapse = TRUE}
+# Python 
+import os
+import psutil
+import re
+process = psutil.Process(os.getpid())
+
+t = time.time()
+r1 = process.memory_info().rss 
+def read_file_to_lower():
+  with open("data/text.txt", "r") as txt:
+    txt_list = txt.read().split('\n')
+    txt_list_low = [re.sub(' ','',row.lower()) for row in txt_list] # re.sub here is used to modify each ' ' by nothing.
+  return txt_list_low
+
+txt_clean = read_file_to_lower()
+
+process.memory_info().rss - r1 # in bytes
+time.time() - t
+
+type(txt_clean)
+
+```
+
+</div>
+</div>
+
+<div class = "col-md-6">
+<div class = "python">
+
+```{python,echo=T,collapse = TRUE}
+# Python
+
+process = psutil.Process(os.getpid())
+
+t = time.time()
+r1 = process.memory_info().rss 
+
+def read_to_lower():
+  with open("data/text.txt", "r") as txt:
+    txt_line = txt.readline()
+    while txt_line:
+      txt_line = txt.readline()
+      yield re.sub(' ','',txt_line.lower())
+
+
+memory_friendly_txt_clean = read_to_lower()
+txt_clean = [line_clean for line_clean in memory_friendly_txt_clean]
+
+process.memory_info().rss - r1 # in bytes
+time.time() - t
+
+
+type(memory_friendly_txt_clean)
+
 ```
 
 </div>
@@ -932,8 +1224,8 @@ total
 </div>
 
 
-# Dealing with string
+Note how the memory used during the calculation is very different while the time spend does not really change. You m
 
 https://thomas-cokelaer.info/tutorials/python/strings.html
 
-
+# Exercices
