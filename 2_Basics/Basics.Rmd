@@ -1217,6 +1217,8 @@ time.time() - t
 
 type(memory_friendly_txt_clean)
 
+
+
 ```
 
 </div>
@@ -1224,8 +1226,68 @@ type(memory_friendly_txt_clean)
 </div>
 
 
-Note how the memory used during the calculation is very different while the time spend does not really change. You m
+Note how the memory used during the calculation is very different while the time spend does not really change. 
 
+## Error and Exception Handling
+
+Most of the time writing a function is very task specific, but since data are often dirty and incomplete, your given task may not work. It is important to understand why a given function can produce an error. Being sure that this and this case can leads to errors is not so easy, but it's important not to be to flexible for your function. In ths exemples we will see how setting the flexibility of the function can leads to different results that are more or less what we want.
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "python">
+```{python,echo = T,collapse = TRUE}
+# Python 
+
+def f5(num):
+    try:
+        return num*3
+    except Exception as e:
+        print('Error: ', e)num = f5('5')
+print('Result is', num)
+
+
+```
+
+</div>
+</div>
+
+<div class = "col-md-6">
+<div class = "python">
+
+```{python,echo=T,collapse = TRUE}
+# Python
+
+process = psutil.Process(os.getpid())
+
+t = time.time()
+r1 = process.memory_info().rss 
+
+def read_to_lower():
+  with open("data/text.txt", "r") as txt:
+    txt_line = txt.readline()
+    while txt_line:
+      txt_line = txt.readline()
+      yield re.sub(' ','',txt_line.lower())
+
+
+memory_friendly_txt_clean = read_to_lower()
+txt_clean = [line_clean for line_clean in memory_friendly_txt_clean]
+
+process.memory_info().rss - r1 # in bytes
+time.time() - t
+
+
+type(memory_friendly_txt_clean)
+
+
+
+```
+
+</div>
+</div>
+</div>
 https://thomas-cokelaer.info/tutorials/python/strings.html
+
+# Dealing with strings
 
 # Exercices
