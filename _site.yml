@@ -1,0 +1,27 @@
+name: "Techniques de Programmation M1 DS2E"
+navbar:
+  title: "TDP"
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "Installs"
+      href: installs.html
+    - text: "Basics"
+      href: Basics.html
+  right:
+    - icon: fa-github fa-lg
+      href: https://github.com/master-ds2e/
+output:
+  html_document:
+    theme: flatly
+    highlight: textmate
+    toc: true
+    number_sections: true
+    toc_float: 
+      collapsed: false
+      smooth_scroll: true
+      number_sections: true
+      toc_depth: 3
+    _disableToc: true
+    
+        
