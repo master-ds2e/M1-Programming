@@ -1938,6 +1938,10 @@ Sys.time()-t
 </div>
 </div>
 
+## Regular Expressions
+
+Regex are a way to express how a character sequence should be matched in a more flexible way than what we are used to do with Ctrl+F.
+Regular expression are commonly used in text manipulation, usually such patterns are used by string-searching algorithms for "find" or "find and replace" operations on strings, or for input validation. 
 
 # Exercices
 
