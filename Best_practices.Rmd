@@ -55,7 +55,7 @@ Python 3 disallows mixing the use of tabs and spaces for indentation.
 <div class = "col-md-6">
 <div class = "python">
 
-```{python,echo = T, collapse = TRUE,error=T,results='hide'}
+```{python,echo = T, collapse = TRUE,error=T,eval = FALSE}
 # Correct:
 
 # Aligned with opening delimiter.
@@ -79,7 +79,7 @@ foo = long_function_name(
 <div class = "col-md-6">
 <div class = "python">
 
-```{python,echo=T,error=T,results='hide'}
+```{python,echo=T,error=T,eval = FALSE}
 # Wrong:
 
 # Arguments on first line forbidden when not using vertical alignment.
@@ -105,7 +105,7 @@ def long_function_name(
 <div class = "col-md-6">
 <div class = "python">
 
-```{python,echo = T,collapse = TRUE,error= T,results='hide'}
+```{python,echo = T,error= T,eval = FALSE}
 # Correct:
 
 # No extra indentation.
@@ -136,6 +136,8 @@ if (this_is_one_thing
 
 
 
+
+https://www.tutorialspoint.com/python/python_reg_expressions.htm
 
 
 

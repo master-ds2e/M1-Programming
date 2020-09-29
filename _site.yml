@@ -8,6 +8,8 @@ navbar:
       href: installs.html
     - text: "Basics"
       href: Basics.html
+    - text: "Best Pratices"
+      href: Best_practices.html
   right:
     - icon: fa-github fa-lg
       href: https://github.com/master-ds2e/
