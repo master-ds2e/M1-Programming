@@ -365,6 +365,9 @@ div.tocify {
   <a href="Basics.html">Basics</a>
 </li>
 <li>
+  <a href="Regex.html">Regex</a>
+</li>
+<li>
   <a href="Best_practices.html">Best Pratices</a>
 </li>
       </ul>
@@ -489,6 +492,7 @@ if (this_is_one_thing
 </ul>
 </div>
 </div>
+<p><a href="https://www.tutorialspoint.com/python/python_reg_expressions.htm" class="uri">https://www.tutorialspoint.com/python/python_reg_expressions.htm</a></p>
 </div>
 
 
@@ -541,7 +545,7 @@ $(document).ready(function ()  {
       theme: "bootstrap3",
       context: '.toc-content',
       hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
       },
       ignoreSelector: ".toc-ignore",
       scrollTo: 0

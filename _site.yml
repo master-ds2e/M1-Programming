@@ -5,9 +5,11 @@ navbar:
     - text: "Home"
       href: index.html
     - text: "Installs"
-      href: installs.html
+      href: Installs.html
     - text: "Basics"
       href: Basics.html
+    - text: "Regex"
+      href: Regex.html
     - text: "Best Pratices"
       href: Best_practices.html
   right:

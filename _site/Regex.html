@@ -11,7 +11,7 @@
 
 
 
-<title>index.utf8</title>
+<title>Regex.utf8</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -359,7 +359,7 @@ div.tocify {
   <a href="index.html">Home</a>
 </li>
 <li>
-  <a href="Installs.html">Installs</a>
+  <a href="installs.html">Installs</a>
 </li>
 <li>
   <a href="Basics.html">Basics</a>
@@ -391,12 +391,72 @@ div.tocify {
 </div>
 
 
-<div id="programing-technics-6-ects" class="section level1">
-<h1><span class="header-section-number">1</span> Programing technics (6 ECTS)</h1>
-<p>This course aims at providing students with fundamental programming concepts including data structures, libraries, re-usable functions, efficient codes and memory allocation, just to name a few. Python and R programming languages will be used, both having become very popular for data science in academia and the private sector. The course will also focus on how to report results of data analysis using high-quality typesetting system (LaTex, Markdown) and hosts of source codes (GitHub).</p>
+<div id="regular-expressions" class="section level2">
+<h2><span class="header-section-number">0.1</span> Regular Expressions</h2>
+<p>Regex are a way to express how a character sequence should be matched in a more flexible way than what we are used to do with Ctrl+F. Regular expression are commonly used in text manipulation, usually such patterns are used by string-searching algorithms for “find” or “find and replace” operations on strings, or for input validation.</p>
+<p>Except for control characters, (+ ? . * ^ $ ( ) [ ] { } | ), all characters match themselves. You can escape a control character by preceding it with a backslash.</p>
+<p>Il y a principalement deux normes :</p>
+<p>• PCRE (Perl-Compatible Regular Expressions). Associé au langage de programmation PERL, elle est notamment exploitée par la bibliothèque re de Python. • POSIX étendu, fruit d’un effort de normalisation, elle est censée être plus simple, mais est en revanche plus lente. L’intérêt pour nous est que R s’appuie sur cette norme (sauf à indiquer explicitement l’option perl=TRUE). Regular Expression Examples</p>
+<div class="row">
+<div class="col-md-6">
+<div class="python">
+<pre class="python"><code># Python 
+import re</code></pre>
 </div>
-<div id="exams" class="section level1">
-<h1><span class="header-section-number">2</span> Exams</h1>
+</div>
+<div class="col-md-6">
+<div class="r">
+<pre class="r"><code># R
+library(stringr)</code></pre>
+</div>
+</div>
+</div>
+<p>Character classes Sr.No. Example &amp; Description 1<br />
+[Pp]ython</p>
+<p>Match “Python” or “python”</p>
+<p>2<br />
+rub[ye]</p>
+<p>Match “ruby” or “rube”</p>
+<p>3<br />
+[aeiou]</p>
+<p>Match any one lowercase vowel</p>
+<p>4<br />
+[0-9]</p>
+<p>Match any digit; same as [0123456789]</p>
+<p>5<br />
+[a-z]</p>
+<p>Match any lowercase ASCII letter</p>
+<p>6<br />
+[A-Z]</p>
+<p>Match any uppercase ASCII letter</p>
+<p>7<br />
+[a-zA-Z0-9]</p>
+<p>Match any of the above</p>
+<p>8<br />
+[^aeiou]</p>
+<p>Match anything other than a lowercase vowel</p>
+<p>9<br />
+[^0-9]</p>
+<p>Match anything other than a digit</p>
+<div class="row">
+<div class="col-md-6">
+<div class="python">
+<pre class="python"><code># Python 
+import re</code></pre>
+</div>
+</div>
+<div class="col-md-6">
+<div class="r">
+<pre class="r"><code># R
+library(stringr)</code></pre>
+</div>
+</div>
+</div>
+<p>Special Character Classes Sr.No. Example &amp; Description 1<br />
+.</p>
+<p>Match any character except newline</p>
+2<br />
+
 </div>
 
 
