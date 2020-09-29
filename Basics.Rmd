@@ -1943,6 +1943,31 @@ Sys.time()-t
 Regex are a way to express how a character sequence should be matched in a more flexible way than what we are used to do with Ctrl+F.
 Regular expression are commonly used in text manipulation, usually such patterns are used by string-searching algorithms for "find" or "find and replace" operations on strings, or for input validation. 
 
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "python">
+
+```{python,echo = T,collapse = TRUE}
+# Python 
+import re
+
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE}
+# R
+library(stringr) 
+
+```
+
+</div>
+</div>
+</div>
 # Exercices
 
 
