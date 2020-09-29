@@ -41,7 +41,19 @@ library(reticulate)
   
 
 ## Linux
+https://linuxconfig.org/rstudio-on-ubuntu-18-04-bionic-beaver-linux
 
+https://www.digitalocean.com/community/tutorials/how-to-install-the-anaconda-python-distribution-on-ubuntu-18-04
+
+https://www.robertroos.net/blog/github-desktop-ubuntu/
+
+https://linuxize.com/post/how-to-install-pip-on-ubuntu-18.04/
+
+http://www.psych.mcgill.ca/labs/mogillab/anaconda2/lib/python2.7/site-packages/spyder/doc/installation.html
+
+https://stackoverflow.com/questions/41986507/unable-to-set-default-python-version-to-python3-in-ubuntu
+
+https://docs.anaconda.com/anaconda/install/linux/
 
 ## Mac ?
 
