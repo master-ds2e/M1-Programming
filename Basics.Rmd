@@ -1968,21 +1968,21 @@ a\| b|Matches either a or b.
 (?= re)|Specifies position using a pattern. Doesn't have a range.
 (?! re)|Specifies position using pattern negation. Doesn't have a range.
 (?> re)|Matches independent pattern without backtracking.
-\w|Matches word characters.
-\W|Matches nonword characters.
-\s|Matches whitespace. Equivalent to [\t\n\r\f].
-\S|Matches nonwhitespace.
-\d|Matches digits. Equivalent to [0-9].
-\D|Matches nondigits.
-\A|Matches beginning of string.
-\Z|Matches end of string. If a newline exists, it matches just before newline.
-\z|Matches end of string.
-\G|Matches point where last match finished.
-\b|Matches word boundaries when outside brackets. Matches backspace (0x08) when inside brackets.
-\B|Matches nonword boundaries.
-\n, \t, etc.|Matches newlines, carriage returns, tabs, etc.
-\1...\9|Matches nth grouped subexpression.
-\10|Matches nth grouped subexpression if it matched already. Otherwise refers to the octal representation of a character code.
+\\w|Matches word characters.
+\\W|Matches nonword characters.
+\\s|Matches whitespace. Equivalent to [\t\n\r\f].
+\\S|Matches nonwhitespace.
+\\d|Matches digits. Equivalent to [0-9].
+\\D|Matches nondigits.
+\\A|Matches beginning of string.
+\\Z|Matches end of string. If a newline exists, it matches just before newline.
+\\z|Matches end of string.
+\\G|Matches point where last match finished.
+\\b|Matches word boundaries when outside brackets. Matches backspace (0x08) when inside brackets.
+\\B|Matches nonword boundaries.
+\\n, \\t, etc.|Matches newlines, carriage returns, tabs, etc.
+\\1...\\9|Matches nth grouped subexpression.
+\\10|Matches nth grouped subexpression if it matched already. Otherwise refers to the octal representation of a character code.
 
 <div class = "row">
 <div class = "col-md-6">
