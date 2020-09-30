@@ -1,0 +1,7 @@
+<style>
+div.python pre { background-color: #fdfcff; }
+</style>
+
+<style>
+div.r pre { background-color: #fffffc; }
+</style>

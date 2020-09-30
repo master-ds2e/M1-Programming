@@ -12,6 +12,14 @@ navbar:
       href: Regex.html
     - text: "Best Pratices"
       href: Best_practices.html
+    - text: "Tidyverse/Pandas"
+      href: Tidyverse_Pandas.html
+    - text: "Efficient Programming"
+      href: Efficient_Prog.html
+    - text: "Typesetting Systems"
+      href: Typesetting_Systems.html
+    - text: "Packages"
+      href: Packages.html
   right:
     - icon: fa-github fa-lg
       href: https://github.com/master-ds2e/

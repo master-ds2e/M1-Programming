@@ -1,3 +1,12 @@
+<style>
+div.python pre { background-color: #fdfcff; }
+</style>
+
+<style>
+div.r pre { background-color: #fffffc; }
+</style>
+
+
 # R + Python, Examination of Key Strengths
 
 Both data science languages are great for business analysis. Both R and Python can be used in similar capacities when viewed from a pure machine learning perspective. Both have packages or libraries that are dedicated to wrangling, preprocessing, and applying machine learning to data. Both are excellent choices for reproducibile research, a requirement for many industries to validate research methodologies and experiments. Where things get interesting is their differences, which is the source of beauty and power of combining languages to work together in harmony.
@@ -137,7 +146,7 @@ if (this_is_one_thing
 
 
 
-https://www.tutorialspoint.com/python/python_reg_expressions.htm
+
 
 
 

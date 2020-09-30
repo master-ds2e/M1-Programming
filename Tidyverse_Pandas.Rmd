@@ -1,0 +1,9 @@
+<style>
+div.python pre { background-color: #fdfcff; }
+</style>
+
+<style>
+div.r pre { background-color: #fffffc; }
+</style>
+
+http://eric.univ-lyon2.fr/~ricco/tanagra/fichiers/fr_Tanagra_R_Python_Data_Perfs.pdf

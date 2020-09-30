@@ -359,7 +359,7 @@ div.tocify {
   <a href="index.html">Home</a>
 </li>
 <li>
-  <a href="installs.html">Installs</a>
+  <a href="Installs.html">Installs</a>
 </li>
 <li>
   <a href="Basics.html">Basics</a>
@@ -369,6 +369,18 @@ div.tocify {
 </li>
 <li>
   <a href="Best_practices.html">Best Pratices</a>
+</li>
+<li>
+  <a href="Tidyverse_Pandas.html">Tidyverse/Pandas</a>
+</li>
+<li>
+  <a href="Efficient_Prog.html">Efficient Programming</a>
+</li>
+<li>
+  <a href="Typesetting_Systems.html">Typesetting Systems</a>
+</li>
+<li>
+  <a href="Packages.html">Packages</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -775,12 +787,11 @@ np.std(with_none)
 ## 
 ## Detailed traceback: 
 ##   File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;
-##   File &quot;&lt;__array_function__ internals&gt;&quot;, line 5, in std
-##   File &quot;/home/peltouz/anaconda3/lib/python3.8/site-packages/numpy/core/fromnumeric.py&quot;, line 3458, in std
-##     return _methods._std(a, axis=axis, dtype=dtype, out=out, ddof=ddof,
-##   File &quot;/home/peltouz/anaconda3/lib/python3.8/site-packages/numpy/core/_methods.py&quot;, line 216, in _std
-##     ret = _var(a, axis=axis, dtype=dtype, out=out, ddof=ddof,
-##   File &quot;/home/peltouz/anaconda3/lib/python3.8/site-packages/numpy/core/_methods.py&quot;, line 183, in _var
+##   File &quot;C:\Users\Beta\AppData\Local\Continuum\anaconda3\lib\site-packages\numpy\core\fromnumeric.py&quot;, line 3242, in std
+##     **kwargs)
+##   File &quot;C:\Users\Beta\AppData\Local\Continuum\anaconda3\lib\site-packages\numpy\core\_methods.py&quot;, line 140, in _std
+##     keepdims=keepdims)
+##   File &quot;C:\Users\Beta\AppData\Local\Continuum\anaconda3\lib\site-packages\numpy\core\_methods.py&quot;, line 107, in _var
 ##     arrmean = umr_sum(arr, axis, dtype, keepdims=True)
 with_char = [1,2,&#39;3&#39;,4]
 np.std(with_char)
@@ -788,12 +799,11 @@ np.std(with_char)
 ## 
 ## Detailed traceback: 
 ##   File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;
-##   File &quot;&lt;__array_function__ internals&gt;&quot;, line 5, in std
-##   File &quot;/home/peltouz/anaconda3/lib/python3.8/site-packages/numpy/core/fromnumeric.py&quot;, line 3458, in std
-##     return _methods._std(a, axis=axis, dtype=dtype, out=out, ddof=ddof,
-##   File &quot;/home/peltouz/anaconda3/lib/python3.8/site-packages/numpy/core/_methods.py&quot;, line 216, in _std
-##     ret = _var(a, axis=axis, dtype=dtype, out=out, ddof=ddof,
-##   File &quot;/home/peltouz/anaconda3/lib/python3.8/site-packages/numpy/core/_methods.py&quot;, line 183, in _var
+##   File &quot;C:\Users\Beta\AppData\Local\Continuum\anaconda3\lib\site-packages\numpy\core\fromnumeric.py&quot;, line 3242, in std
+##     **kwargs)
+##   File &quot;C:\Users\Beta\AppData\Local\Continuum\anaconda3\lib\site-packages\numpy\core\_methods.py&quot;, line 140, in _std
+##     keepdims=keepdims)
+##   File &quot;C:\Users\Beta\AppData\Local\Continuum\anaconda3\lib\site-packages\numpy\core\_methods.py&quot;, line 107, in _var
 ##     arrmean = umr_sum(arr, axis, dtype, keepdims=True)</code></pre>
 </div>
 </div>
@@ -813,7 +823,7 @@ sd(with_char)
 with_char &lt;- c(1,2,&#39;a&#39;,4)
 sd(with_char)
 ## Warning in var(if (is.vector(x) || is.factor(x)) x else as.double(x), na.rm =
-## na.rm): NAs introduced by coercion
+## na.rm): NAs introduits lors de la conversion automatique
 ## [1] NA</code></pre>
 </div>
 </div>
@@ -1480,6 +1490,10 @@ a
 
 df2 = df
 df[&#39;vec&#39;][0] = 30
+## C:/Users/Beta/AppData/Local/Continuum/anaconda3/python.exe:1: SettingWithCopyWarning: 
+## A value is trying to be set on a copy of a slice from a DataFrame
+## 
+## See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
 df2
 ##    vec  vec1  vec2
 ## 0   30     2     3
@@ -1581,7 +1595,7 @@ while total &lt; 1:
     total += rnd
   
 total
-## 1.030430911176008</code></pre>
+## 1.4126533001476702</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -1611,7 +1625,7 @@ while(total &lt; 1){
 }
   
 total
-## [1] 1.949121</code></pre>
+## [1] 1.096419</code></pre>
 </div>
 </div>
 </div>
@@ -1634,14 +1648,14 @@ for val in lst:
   if val &gt; 2:
     results.append(val)
 time.time()-t
-## 0.00820016860961914
+## 0.015924453735351562
 results
 ## [3, 4]
 t = time.time() 
 # this loop their will produce the same output than a using List comprehension.
 results = [val for val in lst if val&gt;2]
 time.time()-t
-## 0.00623631477355957
+## 0.009005069732666016
 results
 ## [3, 4]</code></pre>
 </div>
@@ -1658,7 +1672,7 @@ for val in st:
   if val &gt; 2:
     results.add(val)
 time.time()-t
-## 0.008489131927490234
+## 0.018960952758789062
 results
 ## {3, 4}
 t = time.time() 
@@ -1666,7 +1680,7 @@ t = time.time()
 # this loop their will produce the same output than a using Set comprehension.
 results = {val for val in st if val&gt;2}
 time.time()-t
-## 0.005884647369384766
+## 0.008972883224487305
 results
 ## {3, 4}</code></pre>
 </div>
@@ -1683,14 +1697,14 @@ for val in dct:
   if dct[val] &gt; 2:
     results.update({str(val): dct[val]})
 time.time()-t
-## 0.008927106857299805
+## 0.012942790985107422
 results
 ## {&#39;c&#39;: 3, &#39;d&#39;: 4}
 t = time.time() 
 # this loop their will produce the same output than a using Dict comprehension.
 results = {str(val): dct[val] for val in dct if dct[val]&gt;2}
 time.time()-t
-## 0.006498098373413086
+## 0.008916854858398438
 results
 ## {&#39;c&#39;: 3, &#39;d&#39;: 4}</code></pre>
 </div>
@@ -1726,7 +1740,7 @@ clean_sum(seq =  seq)
 ## 1560
 time.time() - t
 
-## 0.005714893341064453
+## 0.008955717086791992
 def clean_sum2(seq):
   total = sum(filter(None,seq))#[val for val in seq if val is not None])
   return total
@@ -1736,7 +1750,7 @@ clean_sum2(seq =  seq)
 ## 1560
 time.time() - t
 
-## 0.007911205291748047</code></pre>
+## 0.00900411605834961</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -1759,7 +1773,7 @@ t = Sys.time()
 clean_sum(seq = seq)
 ## [1] 1560
 Sys.time() - t
-## Time difference of 0.004288673 secs
+## Time difference of 0.005975008 secs
 
 
 
@@ -1772,7 +1786,7 @@ t = Sys.time()
 clean_sum(seq = seq)
 ## [1] 1560
 Sys.time() - t
-## Time difference of 0.001402855 secs</code></pre>
+## Time difference of 0.001995802 secs</code></pre>
 </div>
 </div>
 </div>
@@ -1810,7 +1824,6 @@ x2
 <div class="r">
 <pre class="r"><code># R
 library(zeallot)
-## Error in library(zeallot): there is no package called &#39;zeallot&#39;
 
 add_two &lt;- function(nb){
   nb = nb + 2
@@ -1832,11 +1845,10 @@ global_function &lt;- function(nb){
 func_list = c(add_two,square_nb)
 
 c(x1, x2) %&lt;-% global_function(c(2,3))
-## Error in c(x1, x2) %&lt;-% global_function(c(2, 3)): could not find function &quot;%&lt;-%&quot;
 x1
-## Error in eval(expr, envir, enclos): object &#39;x1&#39; not found
+## [1] 16
 x2
-## Error in eval(expr, envir, enclos): object &#39;x2&#39; not found</code></pre>
+## [1] 25</code></pre>
 </div>
 </div>
 </div>
@@ -1865,9 +1877,9 @@ def read_file_to_lower():
 txt_clean = read_file_to_lower()
 
 process.memory_info().rss - r1 # in bytes
-## 258048
+## 77824
 time.time() - t
-## 0.015412330627441406
+## 0.030864953994750977
 type(txt_clean)
 ## &lt;class &#39;list&#39;&gt;</code></pre>
 </div>
@@ -1896,7 +1908,7 @@ process.memory_info().rss - r1 # in bytes
 ## 0
 time.time() - t
 
-## 0.018923282623291016
+## 0.030821800231933594
 type(memory_friendly_txt_clean)
 
 ## &lt;class &#39;generator&#39;&gt;</code></pre>
@@ -1986,29 +1998,29 @@ results = [calc_try(values) for values in list_]</code></pre>
 t= time.time()
 results = [calc3(values) for values in list_]
 time.time()-t
-## 0.07931828498840332
+## 0.12345743179321289
 t= time.time()
 results = [calc_try(values) for values in list_]
 time.time()-t
-## 0.055982112884521484</code></pre>
+## 0.08063960075378418</code></pre>
 <pre class="python"><code>list_ = create_dirty_list(0.33)
 t= time.time()
 results = [calc3(values) for values in list_]
 time.time()-t
-## 0.05472707748413086
+## 0.09060192108154297
 t= time.time()
 results = [calc_try(values) for values in list_]
 time.time()-t
-## 0.056234121322631836</code></pre>
+## 0.08463025093078613</code></pre>
 <pre class="python"><code>list_ = create_dirty_list(0.75)
 t= time.time()
 results = [calc3(values) for values in list_]
 time.time()-t
-## 0.02925276756286621
+## 0.04475736618041992
 t= time.time()
 results = [calc_try(values) for values in list_]
 time.time()-t
-## 0.05641341209411621</code></pre>
+## 0.08661913871765137</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -2040,7 +2052,7 @@ calc1 &lt;- function(values){
 list_ &lt;- create_dirty_list(0.5)
 # Store it in a list
 results &lt;- lapply(list_,FUN = calc1)
-## Error in values[round(runif(1, 1, length(values)))]/values[round(runif(1, : non-numeric argument to binary operator</code></pre>
+## Error in values[round(runif(1, 1, length(values)))]/values[round(runif(1, : argument non numérique pour un opérateur binaire</code></pre>
 <pre class="r"><code># The issue seems to be the fact that a key has no values.
 # Let&#39;s change the function
 
@@ -2053,7 +2065,7 @@ calc2 &lt;- function(values){
 
 
 results &lt;- lapply(list_,FUN = calc2)
-## Error in values[round(runif(1, 1, length(values)))]/values[round(runif(1, : non-numeric argument to binary operator</code></pre>
+## Error in values[round(runif(1, 1, length(values)))]/values[round(runif(1, : argument non numérique pour un opérateur binaire</code></pre>
 <pre class="r"><code># The issue seems to be the fact that a key has no values.
 # Let&#39;s change the function
 
@@ -2091,31 +2103,31 @@ list_ &lt;- create_dirty_list(0.01)
 t &lt;- Sys.time()
 results &lt;- lapply(list_,FUN = calc3)
 Sys.time()-t
-## Time difference of 0.1875944 secs
+## Time difference of 0.04281211 secs
 t &lt;- Sys.time()
 results &lt;- lapply(list_,FUN = calc_try)
 Sys.time()-t
-## Time difference of 0.4644997 secs</code></pre>
+## Time difference of 1.086213 secs</code></pre>
 <pre class="r"><code># compare it 
 list_ = create_dirty_list(0.33)
 t &lt;- Sys.time()
 results &lt;- lapply(list_,FUN = calc3)
 Sys.time()-t
-## Time difference of 0.1239471 secs
+## Time difference of 0.03081918 secs
 t &lt;- Sys.time()
 results &lt;- lapply(list_,FUN = calc_try)
 Sys.time()-t
-## Time difference of 0.3389378 secs</code></pre>
+## Time difference of 0.7845449 secs</code></pre>
 <pre class="r"><code># compare it 
 list_ = create_dirty_list(0.75)
 t &lt;- Sys.time()
 results &lt;- lapply(list_,FUN = calc3)
 Sys.time()-t
-## Time difference of 0.05524039 secs
+## Time difference of 0.01891398 secs
 t &lt;- Sys.time()
 results &lt;- lapply(list_,FUN = calc_try)
 Sys.time()-t
-## Time difference of 0.1806042 secs</code></pre>
+## Time difference of 0.3843069 secs</code></pre>
 </div>
 </div>
 </div>
@@ -2144,10 +2156,10 @@ wd_info = &#39;\nCurrent working directory: &#39;
 infos = time_info+time_+mem_info+str(mem)+cpu_info+str(cpu)+wd_info+wd
 
 print(infos)
-## Time: Tue Sep 29 20:05:25 2020
-## RAM (GB): 33.502380032
-## # CPU: 8
-## Current working directory: /home/peltouz/Documents/GitHub/M1_TDP</code></pre>
+## Time: Wed Sep 30 13:50:16 2020
+## RAM (GB): 137.069338624
+## # CPU: 56
+## Current working directory: C:\Users\Beta\Documents\GitHub\M1_TDP</code></pre>
 <p>In R we use cat() to take into account ‘’ (new line), Python automatically understand it with print.</p>
 </div>
 </div>
@@ -2159,10 +2171,10 @@ library(benchmarkme)
 time_ &lt;- Sys.time()
 time_info &lt;- &#39;Time: &#39;
 mem &lt;- get_ram()/1e9
-## Error in get_ram(): could not find function &quot;get_ram&quot;
+## Error in get_ram(): impossible de trouver la fonction &quot;get_ram&quot;
 mem_info &lt;- &#39;\nRAM (GB): &#39;
 cpu &lt;- get_cpu()$no_of_cores
-## Error in get_cpu(): could not find function &quot;get_cpu&quot;
+## Error in get_cpu(): impossible de trouver la fonction &quot;get_cpu&quot;
 cpu_info &lt;- &#39;\n# CPUs: &#39;
 wd = getwd()
 wd_info = &#39;\nCurrent working directory: &#39;
@@ -2171,12 +2183,12 @@ infos &lt;- paste0(time_info,time_,
            mem_info,as.character(mem),
            cpu_info,as.character(cpu),
            wd_info,wd)
-## Error in paste0(time_info, time_, mem_info, as.character(mem), cpu_info, : object &#39;mem&#39; not found
+## Error in paste0(time_info, time_, mem_info, as.character(mem), cpu_info, : objet &#39;mem&#39; introuvable
 print(infos) 
-## Error in print(infos): object &#39;infos&#39; not found
+## Error in print(infos): objet &#39;infos&#39; introuvable
 
 cat(infos) 
-## Error in cat(infos): object &#39;infos&#39; not found</code></pre>
+## Error in cat(infos): objet &#39;infos&#39; introuvable</code></pre>
 </div>
 </div>
 </div>
@@ -2266,18 +2278,18 @@ slc_infos
 wd_info.count(&#39;s&#39;)
 
 # modify the string
-## 1
+## 3
 wd_info.title()
-## &#39;Current Working Directory:\n/Home/Peltouz/Documents/Github/M1_Tdp&#39;
+## &#39;Current Working Directory:\nC:\\Users\\Beta\\Documents\\Github\\M1_Tdp&#39;
 wd_info.upper()
-## &#39;CURRENT WORKING DIRECTORY:\n/HOME/PELTOUZ/DOCUMENTS/GITHUB/M1_TDP&#39;
+## &#39;CURRENT WORKING DIRECTORY:\nC:\\USERS\\BETA\\DOCUMENTS\\GITHUB\\M1_TDP&#39;
 wd_info.lower()
-## &#39;current working directory:\n/home/peltouz/documents/github/m1_tdp&#39;
+## &#39;current working directory:\nc:\\users\\beta\\documents\\github\\m1_tdp&#39;
 splt_inf = wd_info.split(&#39;: &#39;)
 splt_inf
-## [&#39;Current working directory:\n/home/peltouz/Documents/GitHub/M1_TDP&#39;]
+## [&#39;Current working directory:\nC:\\Users\\Beta\\Documents\\GitHub\\M1_TDP&#39;]
 &#39; &#39;.join(splt_inf)
-## &#39;Current working directory:\n/home/peltouz/Documents/GitHub/M1_TDP&#39;</code></pre>
+## &#39;Current working directory:\nC:\\Users\\Beta\\Documents\\GitHub\\M1_TDP&#39;</code></pre>
 <ul>
 <li>In Python, the % sign lets us produce formatted output. We can also use “{}”.format() in order to change automatically values in raw text. Let’s rewritte our function.</li>
 </ul>
@@ -2316,30 +2328,30 @@ def get_infos_3():
 
 t = time.time()
 get_infos()
-## Time: Tue Sep 29 20:05:25 2020
-## RAM (GB): 33.502380032
-## # CPUs: 8
-## Current working directory: /home/peltouz/Documents/GitHub/M1_TDP
+## Time: Wed Sep 30 13:50:17 2020
+## RAM (GB): 137.069338624
+## # CPUs: 56
+## Current working directory: C:\Users\Beta\Documents\GitHub\M1_TDP
 print(time.time()-t)
 
-## 0.005778074264526367
+## 0.009005546569824219
 t = time.time()
 get_infos_2()
-## Time: Tue Sep 29 20:05:25 2020 
-##   RAM (GB): 33.502380032
-##   # CPUs: 8 
-##   Current working directory: /home/peltouz/Documents/GitHub/M1_TDP
+## Time: Wed Sep 30 13:50:17 2020 
+##   RAM (GB): 137.069338624
+##   # CPUs: 56 
+##   Current working directory: C:\Users\Beta\Documents\GitHub\M1_TDP
 print(time.time()-t)
-## 0.005546092987060547
+## 0.007976293563842773
 t = time.time()
 get_infos_3()
-## Time: Tue Sep 29 20:05:25 2020 
-##   RAM (GB): 33.502380032
-##   # CPUs: 8 
-##   Current working directory: /home/peltouz/Documents/GitHub/M1_TDP
+## Time: Wed Sep 30 13:50:17 2020 
+##   RAM (GB): 137.069338624
+##   # CPUs: 56 
+##   Current working directory: C:\Users\Beta\Documents\GitHub\M1_TDP
 print(time.time()-t)
 
-## 0.007010936737060547</code></pre>
+## 0.009911298751831055</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -2379,15 +2391,15 @@ slc_infos[7] = &#39;0&#39;
 
 # count
 length(which(strspilt(wd_info,split = &#39;&#39;)[[1]]==&#39;S&#39;))
-## Error in strspilt(wd_info, split = &quot;&quot;): could not find function &quot;strspilt&quot;
+## Error in strspilt(wd_info, split = &quot;&quot;): impossible de trouver la fonction &quot;strspilt&quot;
 
 # modify the string
 toTitleCase(wd_info)
-## [1] &quot;Current Working Directory: /Home/Peltouz/Documents/GitHub/M1_TDP&quot;
+## [1] &quot;Current Working Directory: C:/Users/Beta/Documents/GitHub/M1_TDP&quot;
 toupper(wd_info)
-## [1] &quot;CURRENT WORKING DIRECTORY: /HOME/PELTOUZ/DOCUMENTS/GITHUB/M1_TDP&quot;
+## [1] &quot;CURRENT WORKING DIRECTORY: C:/USERS/BETA/DOCUMENTS/GITHUB/M1_TDP&quot;
 tolower(wd_info)
-## [1] &quot;current working directory: /home/peltouz/documents/github/m1_tdp&quot;</code></pre>
+## [1] &quot;current working directory: c:/users/beta/documents/github/m1_tdp&quot;</code></pre>
 <ul>
 <li>We see here howwhen using paste and paste0, with and without the argument collapse, leads to different results. str_c works similarly, this function comes from the very popular stringr library</li>
 </ul>
@@ -2450,15 +2462,15 @@ get_infos_2&lt;- function(){
 
 t = Sys.time()
 get_infos()
-## Error in get_ram(): could not find function &quot;get_ram&quot;
+## Error in get_ram(): impossible de trouver la fonction &quot;get_ram&quot;
 Sys.time()-t
-## Time difference of 0.001538754 secs
+## Time difference of 0.002988815 secs
 
 t = Sys.time()
 get_infos_2()
-## Error in get_ram(): could not find function &quot;get_ram&quot;
+## Error in get_ram(): impossible de trouver la fonction &quot;get_ram&quot;
 Sys.time()-t
-## Time difference of 0.001332521 secs</code></pre>
+## Time difference of 0.001988888 secs</code></pre>
 </div>
 </div>
 </div>
@@ -2517,7 +2529,7 @@ $(document).ready(function ()  {
       theme: "bootstrap3",
       context: '.toc-content',
       hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
       },
       ignoreSelector: ".toc-ignore",
       scrollTo: 0

@@ -11,7 +11,7 @@
 
 
 
-<title>Best_practices.utf8</title>
+<title>Efficient_prog.utf8</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -409,108 +409,6 @@ div.python pre { background-color: #fdfcff; }
 <style>
 div.r pre { background-color: #fffffc; }
 </style>
-<div id="r-python-examination-of-key-strengths" class="section level1">
-<h1><span class="header-section-number">1</span> R + Python, Examination of Key Strengths</h1>
-<p>Both data science languages are great for business analysis. Both R and Python can be used in similar capacities when viewed from a pure machine learning perspective. Both have packages or libraries that are dedicated to wrangling, preprocessing, and applying machine learning to data. Both are excellent choices for reproducibile research, a requirement for many industries to validate research methodologies and experiments. Where things get interesting is their differences, which is the source of beauty and power of combining languages to work together in harmony.</p>
-<div id="r-strengths" class="section level2">
-<h2><span class="header-section-number">1.1</span> R Strengths</h2>
-<p>Let’s start with R. Well, actually, let’s start with S. The S language was a precursor to R developed by John Chambers (statistician) at Bell Labs in 1976 as a programming language designed to implement statistics. The R statistical programming language was developed by professors at the University of Auckland, New Zealand, to extend S beyond its initial implementation. The key point is that S and R developers were not software engineers or computer scientists. Rather, they were researchers and scientists that developed tools to more effectively design and perform experiments and communicate results.</p>
-<p>In it’s essence, R is a language with roots in statistics, data analysis, data exploration, and data visualization. R has excellent utilities for reporting and communication including RMarkdown (a method for integrating code, graphical output, and text into a journal-quality report) and Shiny (a tool for building prototype web applications, think minimum viable products, MVP).</p>
-<p>R is growing quickly with the emergence of the tidyverse (tidyverse.org), a set of tools with a common programming-interface that use functional verbs (functions like mutate() and summarize()) to perform intuitive operations connected by the pipe (%&gt;%), which mimics how people read. The tidyverse is a big advantage because it makes exploring data highly efficient. Iterating through your exploratory analysis is as easy as writing a paragraph describing what you want to do to the data.</p>
-<p>The strengths of R relate very well to business wherein organizations need to test theories, explain cause-and-effect relationships, iterate quickly, and make decisions. Further, communication utilities including business reporting, presentation slide decks, and web applications can be built using a reproducible workflow all within R. communication utilities including business reporting, presentation slide decks, and web applications can be built using a reproducible workflow all within R.</p>
-</div>
-<div id="python-strengths" class="section level2">
-<h2><span class="header-section-number">1.2</span> Python Strengths</h2>
-<p>The Python language is a general-purpose programming language that was created by Guido van Rossum (Computer Scientist) in 1991. The language was developed to be easy to read and cover multiple programming paradigms. One of it’s greatest strengths is Python’s versatility which includes web frameworks, data base connectivity, networking, web scraping, scientific computing, text and image processing, many of which features lend themselves to various tasks in machine learning including image recognition, natural language processing, and machine learning.</p>
-<p>n essence, Python’s roots are in computer science and mathematics. The language was designed for programmers that require versatility into many different fields. With over 100,000 open source libraries, Python has the largest ecosystem of any programming language, making it uniquely positioned as a choice for those that want versatility.</p>
-<p>Python has excellent data science libraries including Scikit Learn, the most popular machine learning library, and TensorFlow, a library developed by software engineers at Google to perform deep learning, commonly used for image recognition and natural language processing tasks. The Scikit Learn machine learning flow chart is shown below, which illustrates its reach for many types of machine learning problems.</p>
-<p>the key strength of Python rests in the powerful machine learning libraries including Scikit Learn and TensorFlow (and the Keras implementation, which is designed for efficiently building neural networks). The Scikit Learn library is easy to pick up, includes support for pipelines to simplify the machine learning workflow, and has almost all of the algorithms one needs in one place.</p>
-<ul>
-<li><p>R is selected for exploration because of the tidyverse readability and efficiency</p></li>
-<li><p>Python is selected for machine learning because of Scikit Learn machine learning pipeline capability</p></li>
-<li><p>R is selected for communication because of the advanced reporting utilities including RMarkdown and Shiny (interactive web apps) and the wonderful ggplot2 visualization package</p></li>
-</ul>
-</div>
-</div>
-<div id="pep8" class="section level1">
-<h1><span class="header-section-number">2</span> PEP8</h1>
-<p><a href="https://www.python.org/dev/peps/pep-0008/#introduction" class="uri">https://www.python.org/dev/peps/pep-0008/#introduction</a></p>
-<p>based on Guido’s original Python Style Guide essay, with some additions from Barry’s style guide</p>
-<p>One of Guido’s key insights is that code is read much more often than it is written. As PEP 20 says, “Readability counts”.</p>
-<p>A style guide is about consistency. Consistency with this style guide is important. Consistency within a project is more important. Consistency within one module or function is the most important.</p>
-<ul>
-<li>Tabs or Spaces?<br />
-Spaces are the preferred indentation method.<br />
-Tabs should be used solely to remain consistent with code that is already indented with tabs.<br />
-Python 3 disallows mixing the use of tabs and spaces for indentation.</li>
-</ul>
-<div class="row">
-<div class="col-md-6">
-<div class="python">
-<pre class="python"><code># Correct:
-
-# Aligned with opening delimiter.
-foo = long_function_name(var_one, var_two,
-                         var_three, var_four)
-
-# Add 4 spaces (an extra level of indentation) to distinguish arguments from the rest.
-def long_function_name(
-        var_one, var_two, var_three,
-        var_four):
-    print(var_one)
-
-# Hanging indents should add a level.
-foo = long_function_name(
-    var_one, var_two,
-    var_three, var_four)</code></pre>
-</div>
-</div>
-<div class="col-md-6">
-<div class="python">
-<pre class="python"><code># Wrong:
-
-# Arguments on first line forbidden when not using vertical alignment.
-foo = long_function_name(var_one, var_two,
-    var_three, var_four)
-
-# Further indentation required as indentation is not distinguishable.
-def long_function_name(
-    var_one, var_two, var_three,
-    var_four):
-    print(var_one)</code></pre>
-</div>
-</div>
-</div>
-<div class="row">
-<div class="col-md-6">
-<div class="python">
-<pre class="python"><code># Correct:
-
-# No extra indentation.
-if (this_is_one_thing and
-    that_is_another_thing):
-    do_something()
-
-# Add a comment, which will provide some distinction in editors
-# supporting syntax highlighting.
-if (this_is_one_thing and
-    that_is_another_thing):
-    # Since both conditions are true, we can frobnicate.
-    do_something()
-
-# Add some extra indentation on the conditional continuation line.
-if (this_is_one_thing
-        and that_is_another_thing):
-    do_something()</code></pre>
-</div>
-</div>
-<div class="col-md-6">
-<ul>
-<li>Sometimes your statement conditions can be too long to be expressed on a single lin. In this case PEP takes no explicit position on how (or whether) to further visually distinguish such conditional lines from the nested suite inside the if-statement. Acceptable options in this situation include examples on the left, but are not exclusive.</li>
-</ul>
-</div>
-</div>
-</div>
 
 
 

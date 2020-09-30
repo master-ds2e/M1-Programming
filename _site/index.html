@@ -370,6 +370,18 @@ div.tocify {
 <li>
   <a href="Best_practices.html">Best Pratices</a>
 </li>
+<li>
+  <a href="Tidyverse_Pandas.html">Tidyverse/Pandas</a>
+</li>
+<li>
+  <a href="Efficient_Prog.html">Efficient Programming</a>
+</li>
+<li>
+  <a href="Typesetting_Systems.html">Typesetting Systems</a>
+</li>
+<li>
+  <a href="Packages.html">Packages</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
@@ -449,7 +461,7 @@ $(document).ready(function ()  {
       theme: "bootstrap3",
       context: '.toc-content',
       hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
       },
       ignoreSelector: ".toc-ignore",
       scrollTo: 0
