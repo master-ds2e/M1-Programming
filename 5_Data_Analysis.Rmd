@@ -1,0 +1,129 @@
+<style>
+div.python pre { background-color: #fdfcff; }
+</style>
+
+<style>
+div.r pre { background-color: #fffffc; }
+</style>
+
+http://eric.univ-lyon2.fr/~ricco/tanagra/fichiers/fr_Tanagra_R_Python_Data_Perfs.pdf
+https://juba.github.io/tidyverse/06-tidyverse.html
+http://python-simple.com/python-pandas/panda-intro.php
+
+"It is often said that 80% of data analysis is spent on the process of cleaning and preparing the data (Dasu and Johnson 2003).  Data preparation is not just a first step,  but must berepeated many times over the course of analysis as new problems come to light or new datais collected." [(Wickham, 2014)](https://www.jstatsoft.org/article/view/v059i10).
+Data can be store as csv, txt, excel format, etc.. There is a lot of different ways of storing data as seen in other lessons this semester. here We will focus on using data from txt or csv format for simplicity, csv are just delimited text file with comma.
+We need to be able to open and treat data whatever the type of data that we are dealing with, sometimes it's easier to transform data in a way that we are use to work with. Sometimes it's unapropriate and you can corrupt or miss information in the data base, it's important to read documentation if you are in front of a new data formating type. 
+
+
+# R
+
+
+The Tidyverse is a collection of differents packages which works together in a common philosophy, the biggest contributor to this collection is named Hadley Wickham. Hadley Wickham did so much for the R community, he published a lot of books  that I highly recommend to read. Check [Wikipedia: Haldey Wickham](https://en.wikipedia.org/wiki/Hadley_Wickham) for his bibliograpy. Here is the list of libraries that are contained in the Tidyverse:
+- ggplot2: Visualization
+- dplyr: Data manipulation
+- tidyr: Data formatting
+- purrr: programming
+- readr: Data importation
+- tibble: Data tables
+- forcats: Qualitative variables
+- stringr: Strings
+
+The goal of tidyverse is to make easy data analysis by simplifying the data preparation. Tidyverse comes with a new data-type, Tibbles. 
+
+Tibbles can be considered a modern version of data.frame but they differs in some aspects. They do not have rowname and allows users to have colnames with special character (e.g. if colname of x is 'Col 1' then to access to this colnums you can use x$\`Col 1\` to acces to this variables.). It provide a good way also to visualize the data since it directly show data as if you were running the 'head()' function before. It shows you the 10 first rows.
+
+##  Read/Write data 
+
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE}
+# R
+library(tidyverse)
+
+covid_papers <- read_csv("data/covid_papers.csv")
+
+covid_papers
+
+```
+</div>
+
+Depending on the way string are encoded we may want to precise the type of encoding. (Some well know encoding character format: UTF-8; Unicode; ASCII ..)
+
+
+we can sepcify this encoding in the read function.
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE}
+# R
+covid_papers <- read_csv("data/covid_papers.csv",locale = locale(encoding = "UTF-8"))
+```
+</div>
+ 
+Other types of data can be import using other libraries I just show you some examples here without enterring into details that may be helpfull sometimes.
+
+- Excel data
+
+<div class = "r">
+```{r,echo=T,collapse = TRUE,eval=F}
+# R
+library(readxl)
+
+covid_papers <- read_excel("data/covid_papers.xls", sheet = "Feuille1", range = "A1:Z25")
+```
+</div>
+
+-  SAS, SPSS et Stata data
+
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE,eval=F}
+# R
+library(haven)
+
+#SAS data
+covid_papers <- read_sas("data/covid_papers.sas")
+covid_papers <- read_xpt("data/covid_papers.xpt")
+
+#SPSS data
+covid_papers <- read_sav("data/covid_papers.sav")
+covid_papers <- read_por("data/covid_papers.por")
+
+
+
+```
+</div>
+
+In order to save data in a specific format we just have to change the 'read' part of the function name by 'write'. Here is an example for csv
+
+
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE,eval=F}
+# R
+
+write_csv(new_data_set,"data/new_data.csv")
+
+
+```
+</div>
+
+## RData
+
+Also R provide a way to store objects in the same file. For this we use RData format, it's very usefull if a project is written totaly in R because you can save the structure of your objects very easily, you can save all type of objects and load it later.
+
+
+
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE,eval=F}
+# R
+
+save(covid_papers,file= 'covid_papers.RData')
+load('covid_papers.RData')
+
+
+```
+</div>
+
+
+# Pandas (Python)

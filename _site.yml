@@ -5,21 +5,21 @@ navbar:
     - text: "Home"
       href: index.html
     - text: "Installs"
-      href: Installs.html
+      href: 1_Installs.html
     - text: "Basics"
-      href: Basics.html
+      href: 2_Basics.html
     - text: "Regex"
-      href: Regex.html
-    - text: "Best Pratices"
-      href: Best_practices.html
-    - text: "Tidyverse/Pandas"
-      href: Tidyverse_Pandas.html
+      href: 3_Regex.html
+    - text: "Data Analysis"
+      href: 5_Data_Analysis.html
     - text: "Efficient Programming"
-      href: Efficient_Prog.html
+      href: 6_Efficient_Prog.html
+    - text: "Best Pratices"
+      href: 4_Best_practices.html
     - text: "Typesetting Systems"
-      href: Typesetting_Systems.html
+      href: 7_Typesetting_Systems.html
     - text: "Packages"
-      href: Packages.html
+      href: 8_Packages.html
   right:
     - icon: fa-github fa-lg
       href: https://github.com/master-ds2e/

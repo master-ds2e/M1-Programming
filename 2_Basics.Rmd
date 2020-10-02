@@ -255,7 +255,8 @@ Operator (R)| Operator (Python)|	Description
 
 ## Membership operators
 
-in and not in are the membership operators in Python. They are used to test whether a value or variable is found in a sequence. In R %in% allows you to use the python in
+in and not in are the membership operators in Python. They are used to test whether a value or variable is found in a sequence. In R %in% allows you to use the python in, but you have to be aware that they may not react the same way, the reason is that list of character can be directly decomposed in a character list in python, which is not the case in R.
+See how we can check that 'Hello' is in 'Hello world' using just in with python. In R we look if the string exactly match one element.
 
 
 <div class = "row">
@@ -266,16 +267,10 @@ in and not in are the membership operators in Python. They are used to test whet
 x = 'Hello world'
 y = {1:'a',2:'b'}
 
-# Output: True
-print('H' in x)
+print('world' in x)
 
-# Output: True
-print('hello' not in x)
-
-# Output: True
 print(1 in y)
 
-# Output: False
 print('a' in y)
 ```
 
@@ -286,18 +281,41 @@ print('a' in y)
 ```{r,echo=T,collapse = TRUE}
 # R
 
-x = c(TRUE,TRUE)
-y = c(TRUE,FALSE)
+x = 'Hello World'
 
-!x[1]
-x & y
-x && y
-x | y
-x || y
+print('Hello' %in% x)
+str_detect(x,'Hello')
 ```
 </div>
 </div>
 </div>
+
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "python">
+```{python,echo = T,collapse = TRUE}
+# Python 
+x = ['Hello','World']
+
+print('Hello' in x)
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+```{r,echo=T,collapse = TRUE}
+# R
+
+x = ['Hello','World']
+
+print('Hello' %in% x)
+```
+</div>
+</div>
+</div>
+
 
 # Objects & Variables
 
