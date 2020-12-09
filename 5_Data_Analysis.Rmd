@@ -11,7 +11,7 @@ https://juba.github.io/tidyverse/06-tidyverse.html
 http://python-simple.com/python-pandas/panda-intro.php
 
 "It is often said that 80% of data analysis is spent on the process of cleaning and preparing the data (Dasu and Johnson 2003).  Data preparation is not just a first step,  but must berepeated many times over the course of analysis as new problems come to light or new datais collected." [(Wickham, 2014)](https://www.jstatsoft.org/article/view/v059i10).
-Data can be store as csv, txt, excel format, etc.. There is a lot of different ways of storing data as seen in other lessons this semester. here We will focus on using data from txt or csv format for simplicity, csv are just delimited text file with comma.
+Data can be structured or unstructered, There is a lot of different ways of storing data as seen in other lessons this semester. Here We will focus on using structured data from txt or csv format for simplicity, csv are just delimited text file with comma.
 We need to be able to open and treat data whatever the type of data that we are dealing with, sometimes it's easier to transform data in a way that we are use to work with. Sometimes it's unapropriate and you can corrupt or miss information in the data base, it's important to read documentation if you are in front of a new data formating type. 
 
 
@@ -126,6 +126,79 @@ load('covid_papers.RData')
 ```
 </div>
 
+## Data Manipulation
+
+Dplyr is very friendly, it use very understandable words to manipulate data. It uses a very specific way of writting calculation, the pipe : '%>%'. Pipes allows us to writte sequential calculation in a quiet readable way. Here is how we need to read R code that use pipes: 
+
+- <b> Usual Way </b>  
+funtion2(function1(dataset,arg1),arg2)
+
+- <b> Using Pipes </b>  
+dataset %>% function1(arg1) %>% function2(arg2)
+
+Note that we can write directly '%>%' by using 'ctrl + shift + m'
+
+Here is list of function that are commonly used and actions they provide.
+
+Functions | Description
+- | -:
+slice | restrict dataset to specific row (see also slice_head, slice_tail, slice_min, slice_max)
+slice_sample | restrict dataset to random row
+filter | restrict dataset to row that pass a condition
+select | restrict dataset to specifiyed columns
+rename | change columns names
+arrange | sort dataset with respect to one columns
+mutate | modify or create a columns that apply a function
+group_by | group data before running calculation
+ungroup | ungroup data
+summarise | summarise data with respect to the level of agregation (groups)
+count | count numbers of row in a group 
+lead/lag | shift the observations of a variable one notch backwards (for lead) or forwards (for lag)
+distinct | given a varaiable restrict the dataset to unique value of this variable
+bind_rows/bind_cols | add columns or rows  to the dataset
+left_join | merge datatables with respect to variable(s) (see also full_join, inner_join, anti_join)
+starts_with
+
+- <b> Usual Way </b>
+
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE}
+# R
+which(is.na(covid_papers),arr.ind = T)
+covid_papers = na.omit(covid_papers)
+
+slice(covid_papers,2)
+slice_sample(covid_papers,prop = 0.001)
+
+t <- Sys.time()
+doi_clean <- filter(covid_papers,doi != 'null')
+Sys.time()-t
+
+```
+
+
+<b> Using Pipes </b>  
+
+```{r,echo=T,collapse = TRUE}
+# R
+
+covid_papers %>% slice(2)
+covid_papers %>% slice_sample(prop = 0.001)
+
+t = Sys.time()
+doi_clean <- covid_papers %>% filter(doi != 'null')
+Sys.time() - t
+
+t = Sys.time()
+doi_clean <- covid_papers[which(covid_papers$doi != 'null'),]
+Sys.time() - t
+
+
+```
+
+</div>
+
 
 ## Tibbles and data.tables
 
@@ -141,23 +214,24 @@ https://atrebas.github.io/post/2019-03-03-datatable-dplyr/
 
 ```{r,echo = T,collapse = TRUE}
 # R using Tibbles
+cp_tibble <-  as_tibble(covid_papers)
 
-DF[[3]] # returns a vector
-DF[3]   # returns a tibble
+head(cp_tibble[[4]]) # returns a vector
+head(cp_tibble[4])# returns a tibble
 
-select(DF, V2) # returns a tibble
-pull(DF, V2, name = V4)   # returns a (named) vector
-DF[, "V2"]        # returns a tibble
-DF[["V2"]]        # returns a vector
+head(select(cp_tibble, doi)) # returns a tibble
+head(pull(cp_tibble, doi, name = title))   # returns a (named) vector
+head(cp_tibble[, "doi"])        # returns a tibble
+head(cp_tibble[["doi"]])        # returns a vector
 
-select(DF, V2, V3, V4)
-select(DF, V2:V4) # select columns between V2 and V4
+head(select(cp_tibble, doi, creation, title))
+head(select(cp_tibble, doi:title)) # select columns between doi and title
 
-select(DF, -V2, -V3)
+head(select(cp_tibble, -doi, -creation))
 
-cols <- c("V2", "V3")
-select(DF, !!cols) # unquoting
-select(DF, -!!cols)
+cols <- c("doi", "creation")
+head(select(cp_tibble, !!cols)) # unquoting
+head(select(cp_tibble, -!!cols))
 ```
 
 </div>
@@ -168,27 +242,28 @@ select(DF, -!!cols)
 ```{r,echo=T,collapse = TRUE}
 # R using data.table
 library(data.table)
+cp_datatable = as.data.table(covid_papers)
 
-DT[[3]] # returns a vector
-DT[, 3]  # returns a data.table
+head(cp_datatable[[4]]) # returns a vector
+head(cp_datatable[, 4])  # returns a data.table
 
-DT[, list(V2)] # returns a data.table
-DT[, .(V2)]    # returns a data.table
+head(cp_datatable[, list(doi)]) # returns a data.table
+head(cp_datatable[, .(doi)])    # returns a data.table
 # . is an alias for list
 
-DT[, "V2"]     # returns a data.table
-DT[, V2]       # returns a vector
-DT[["V2"]]     # returns a vector
+head(cp_datatable[, "doi"])     # returns a data.table
+head(cp_datatable[, doi])       # returns a vector
+head(cp_datatable[["doi"]])     # returns a vector
 
-DT[, .(V2, V3, V4)]
-DT[, list(V2, V3, V4)]
-DT[, V2:V4] # select columns between V2 and V4
+head(cp_datatable[, .(doi, creation, title)])
+head(cp_datatable[, list(doi, creation, title)])
+head(cp_datatable[, doi:title]) # select columns between doi and title
 
-DT[, !c("V2", "V3")]
+head(cp_datatable[, !c("doi", "creation")])
 
-cols <- c("V2", "V3")
-DT[, ..cols] # .. prefix means 'one-level up'
-DT[, !..cols] # or DT[, -..cols]
+cols <- c("doi", "creation")
+head(cp_datatable[, ..cols]) # .. prefix means 'one-level up'
+head(cp_datatable[, !..cols]) # or cp_datatable[, -..cols]
 ```
 
 </div>
@@ -203,14 +278,15 @@ DT[, !..cols] # or DT[, -..cols]
 
 ```{r,echo = T,collapse = TRUE}
 # R using Tibbles
+colnames(cp_tibble)[1:3] <- paste0('V',c(1:3))
 
-select(DF, num_range("V", 1:2))
-select(DF, V4, everything()) # reorder columns
-select(DF, contains("V"))
-select(DF, ends_with("3"))
-select(DF, matches(".2"))
-select(DF, one_of(c("V1", "X")))
-select(DF, -starts_with("V2"))
+select(cp_tibble, num_range("V", 1:2))
+select(cp_tibble, title, everything()) # reorder columns
+select(cp_tibble, contains("V"))
+select(cp_tibble, ends_with("3"))
+select(cp_tibble, matches(".2"))
+select(cp_tibble, one_of(c("V1", "X")))
+select(cp_tibble, -starts_with("doi"))
 ```
 
 </div>
@@ -220,15 +296,16 @@ select(DF, -starts_with("V2"))
 
 ```{r,echo=T,collapse = TRUE}
 # R using data.table
+colnames(cp_datatable)[1:3] <- paste0('V',c(1:3))
 
 cols <- paste0("V", 1:2)
-cols <- union("V4", names(DT))
-cols <- grep("V",   names(DT))
-cols <- grep("3$",  names(DT))
-cols <- grep(".2",  names(DT))
-cols <- grep("^V1|X$",  names(DT))
-cols <- grep("^(?!V2)", names(DT), perl = TRUE)
-DT[, ..cols]
+cols <- union("title", names(cp_datatable))
+cols <- grep("V",   names(cp_datatable))
+cols <- grep("3$",  names(cp_datatable))
+cols <- grep(".2",  names(cp_datatable))
+cols <- grep("^V1|X$",  names(cp_datatable))
+cols <- grep("^(?!doi)", names(cp_datatable), perl = TRUE)
+cp_datatable[, ..cols]
 ```
 
 </div>
@@ -242,7 +319,7 @@ DT[, ..cols]
 
 ```{r,echo = T,collapse = TRUE}
 # R using Tibbles
-cp_tibble <- as_tibble(covid_papers) 
+
 
 cp_tibble[3:4,]
 slice(cp_tibble, 3:4) # same
@@ -250,27 +327,21 @@ slice(cp_tibble, 3:4) # same
 cp_tibble[-(3:7),]
 slice(cp_tibble, -(3:7)) # same
 
-filter(cp_tibble, V2 > 5)
-filter(cp_tibble, V4 %in% c("A", "C"))
+dim(filter(cp_tibble, year_pub > 2018))
+filter(cp_tibble, title %in% c("Deep convolutional approaches for the analysis of Covid-19 using chest X-Ray images from portable devices",
+                               "Evaluating the effect of city lock-down on controlling COVID-19 propagation through deep learning and network science models."))
 
-filter(cp_tibble, V1 == 1, V4 == "A")
+filter(cp_tibble, year_pub == 2019, title == "Deep convolutional approaches for the analysis of Covid-19 using chest X-Ray images from portable devices")
 
-distinct(cp_tibble) # distinct_all(cp_tibble)
-distinct(cp_tibble, across(c(V1, V4))) # returns selected cols
+dim(distinct(cp_tibble)) # distinct_all(cp_tibble)
+dim(distinct(cp_tibble, across(c(V1, title)))) # returns selected cols
 
-tidyr::drop_na(cp_tibble, names(cp_tibble))
+dim(tidyr::drop_na(cp_tibble, names(cp_tibble)[1:4]))
 
 
-slice_sample(cp_tibble, n = 3)      # n random rows
-# sample_n(cp_tibble, 3)
-slice_sample(cp_tibble, prop = 0.5) # fraction of rows
-# sample_frac(cp_tibble, 0.5)
-cp_tibble %>% slice_max(V1, n = 1)
-
-filter(cp_tibble, grepl("^B", V4))
-filter(cp_tibble, dplyr::between(V2, 3, 5))
-filter(cp_tibble, V2 > 3 & V2 < 5)
-filter(cp_tibble, V2 >= -1:1 & V2 <= 1:3)
+dim(filter(cp_tibble, grepl("deep learning", title)))
+dim(filter(cp_tibble, dplyr::between(year_pub, 2015, 2017)))
+dim(filter(cp_tibble, year_pub > 2015 & year_pub < 2017))
 ```
 
 </div>
@@ -282,30 +353,26 @@ filter(cp_tibble, V2 >= -1:1 & V2 <= 1:3)
 # R using data.table
 library(data.table)
 
-DT[3:4,]
-DT[3:4] # same
+cp_datatable[3:4,]
+cp_datatable[3:4] # same
 
-DT[!3:7,]
-DT[-(3:7)] # same
+cp_datatable[!3:7,]
+cp_datatable[-(3:7)] # same
 
-DT[V2 > 5]
-DT[V4 %chin% c("A", "C")] # fast %in% for character
+dim(cp_datatable[year_pub > 2018])
+cp_datatable[title %chin% c("Deep convolutional approaches for the analysis of Covid-19 using chest X-Ray images from portable devices",
+                               "Evaluating the effect of city lock-down on controlling COVID-19 propagation through deep learning and network science models.")] # fast %in% for character
 
-DT[V1 == 1 & V4 == "A"]
+cp_datatable[year_pub == 2019 & title == "Deep convolutional approaches for the analysis of Covid-19 using chest X-Ray images from portable devices"]
 
-unique(DT)
-unique(DT, by = c("V1", "V4")) # returns all cols
+dim(unique(cp_datatable))
+dim(unique(cp_datatable, by = c("V1", "title"))) # returns all cols
 
-na.omit(DT, cols = 1:4)  # fast S3 method with cols argument
+dim(na.omit(cp_datatable, cols = 1:4))  # fast S3 method with cols argument
 
-DT[sample(.N, 3)] # .N = nb of rows in DT
-DT[sample(.N, .N / 2)]
-DT[frankv(-V1, ties.method = "dense") < 2] 
-
-DT[V4 %like% "^B"]
-DT[V2 %between% c(3, 5)]
-DT[data.table::between(V2, 3, 5, incbounds = FALSE)]
-DT[V2 %inrange% list(-1:1, 1:3)] # see also ?inrange
+dim(cp_datatable[title %like% "deep learning"])
+dim(cp_datatable[year_pub %between% c(2015, 2017)])
+dim(cp_datatable[data.table::between(year_pub, 2015, 2017, incbounds = FALSE)])
 
 ```
 
@@ -313,7 +380,6 @@ DT[V2 %inrange% list(-1:1, 1:3)] # see also ?inrange
 </div>
 </div>
 
-# top_n(DF, 1, V1)
 On the other hand, data.table also provides convenience functions to filter rows based on a regular expression or to find values lying in one (or several) interval(s).
 
 Below, we will see that data.table has two optimized mechanisms to filter rows efficiently (keys and indices).
@@ -326,11 +392,10 @@ Below, we will see that data.table has two optimized mechanisms to filter rows e
 
 ```{r,echo = T,collapse = TRUE}
 # R using Tibbles
+cp_tibble %>% arrange(creation) %>% select(creation)
+cp_tibble %>% arrange(desc(creation)) %>% select(creation)
 
-arrange(DF, V3)
-arrange(DF, desc(V3))
-
-arrange(DF, V1, desc(V2))
+arrange(cp_tibble, year_pub, desc(creation)) %>% select(year_pub,creation)
 ```
 
 </div>
@@ -341,10 +406,10 @@ arrange(DF, V1, desc(V2))
 ```{r,echo=T,collapse = TRUE}
 # R using data.table
 
-DT[order(V3)] 
-DT[order(-V3)]
+cp_datatable[order(creation)] 
+cp_datatable[order(-creation)]
 
-DT[order(V1, -V2)]
+cp_datatable[order(year_pub, -creation)]
 ```
 
 </div>
@@ -361,25 +426,25 @@ DT[order(V1, -V2)]
 
 ```{r,echo = T,collapse = TRUE}
 # R using Tibbles
+n_distinct(cp_tibble)
 
-summarise(DF, sum(V1)) # returns a tibble
-summarise(DF, sumV1 = sum(V1)) # returns a tibble
+cp_tibble %>% summarise(sum(cited)) # returns a tibble
+cp_tibble %>% summarise(sum_citation = sum(cited)) # returns a tibble
 
-summarise(DF, sum(V1), sd(V3))
+summarise(cp_tibble, sum(cited), sd(cited))
 
-DF %>%
-  summarise(sumv1 = sum(V1),
-            sdv3  = sd(V3))
+cp_tibble %>%
+  summarise(sum_citation = sum(cited),
+            sd_citation = sd(creation))
 
-DF %>%
+cp_tibble %>%
   slice(1:4) %>%
-  summarise(sum(V1))
+  summarise(sum(cited))
 
-summarise(DF, dplyr::first(V3))
-summarise(DF, dplyr::last(V3))
-summarise(DF, nth(V3, 5))
-summarise(DF, n_distinct(V4))
-n_distinct(DF)
+cp_tibble %>% summarise(dplyr::first(year_pub))
+cp_tibble %>% summarise(dplyr::last(year_pub))
+cp_tibble %>% summarise(nth(year_pub, 5))
+cp_tibble %>% summarise(n_distinct(language))
 ```
 
 </div>
@@ -390,22 +455,23 @@ n_distinct(DF)
 ```{r,echo=T,collapse = TRUE}
 # R using data.table
 
-DT[, sum(V1)]    # returns a vector
-DT[, .(sum(V1))] # returns a data.table
-DT[, .(sumV1 = sum(V1))] # returns a data.table
+uniqueN(cp_datatable)
 
-DT[, .(sum(V1), sd(V3))]
+cp_datatable[, sum(cited)]    # returns a vector
+cp_datatable[, .(sum(cited))] # returns a data.table
+cp_datatable[, .(sum_citation = sum(cited))] # returns a data.table
 
-DT[, .(sumv1 = sum(V1),
-       sdv3  = sd(V3))]
+cp_datatable[, .(sum(cited), sd(cited))]
 
-DT[1:4, sum(V1)]
+cp_datatable[, .(sum_citation = sum(cited),
+                 sd_citation  = sd(cited))]
 
-DT[, data.table::first(V3)]
-DT[, data.table::last(V3)]
-DT[5, V3]
-DT[, uniqueN(V4)]
-uniqueN(DT)
+cp_datatable[1:4, sum(cited)]
+
+cp_datatable[, data.table::first(year_pub)]
+cp_datatable[, data.table::last(year_pub)]
+cp_datatable[5, year_pub]
+cp_datatable[, uniqueN(language)]
 ```
 
 </div>
@@ -425,26 +491,18 @@ In the following commands, with data.table, columns are modified by reference us
 
 ```{r,echo = T,collapse = TRUE}
 # R using Tibbles
-DF <- DF %>% mutate(V1 = V1^2)
-DF
+cp_tibble %>% select(oa)
+cp_tibble <- cp_tibble %>% mutate(oa = ifelse(oa == 'Y',1,0), log_cited = log(cited + 1))
+cp_tibble %>% select(oa,log_cited)
 
-DF <- mutate(DF, v5 = log(V1))
-
-
-DF <- mutate(DF, v6 = sqrt(V1), v7 = "X")
 
 # Create one column and remove the others
-transmute(DF, v8 = V3 + 1)
+transmute(cp_tibble, title_lower = tolower(title))
 
-DF <- select(DF, -v5)
+cp_tibble <- cp_tibble %>% select(-V1, -V2)
 
-DF <- select(DF, -v6, -v7)
-
-cols <- c("V3")
-DF <- select(DF, -one_of(cols))
-
-DF <- mutate(DF, V2 = base::replace(V2, V2 < 4, 0L))
-DF
+cols <- c('V3','doi')
+cp_tibble <- select(cp_tibble, -one_of(cols))
 ```
 
 </div>
@@ -454,30 +512,17 @@ DF
 
 ```{r,echo=T,collapse = TRUE}
 # R using data.table
-DT[, V1 := V1^2]
-DT
-
-DT[, v5 := log(V1)][] # adding [] prints the result
-
-
-DT[, c("v6", "v7") := .(sqrt(V1), "X")]
-
-DT[, ':='(v6 = sqrt(V1),
-          v7 = "X")]     # same, functional form
+cp_datatable[, c('oa','log_cited') := .(ifelse(oa == 'Y',1,0),log(cited+1))]
+cp_datatable[,oa,log_cited]
 
 
 # Create one column and remove the others
-DT[, .(v8 = V3 + 1)]
+cp_datatable[, .(title_lower = tolower(title))]
 
-DT[, v5 := NULL]
+cp_datatable[, c('V1', 'V2') := NULL]
 
-DT[, c("v6", "v7") := NULL]
-
-cols <- c("V3")
-DT[, (cols) := NULL] # ! not DT[, cols := NULL]
-
-DT[V2 < 4, V2 := 0L]
-DT
+cols <- c('V3','doi')
+cp_datatable[, (cols) := NULL] # ! not cp_datatable[, cols := NULL]
 ```
 
 </div>
@@ -490,7 +535,7 @@ DT
 by
 The dplyr::group_by() function and the corresponding by and keyby statements in data.table allow to run manipulate each group of observations and combine the results. The sole difference between by and keyby is that keyby orders the results and creates a key that will allow faster subsetting (cf. the indexing and keys section). Below, we arbitrary use one or the other.
 group_by() takes an existing tibble and converts it into a grouped tibble where operations will always be performed “by group”. Using ungroup() removes grouping. With data.table, by is always used on the fly.
-Note that it is possible to reorder the arguments in data.table: DT[i, j, by] <=> DT[i, by, j]. This is done below to better highlight the similarity with dplyr.
+Note that it is possible to reorder the arguments in data.table: cp_datatable[i, j, by] <=> cp_datatable[i, by, j]. This is done below to better highlight the similarity with dplyr.
 
 <div class = "row">
 <div class = "col-md-6">
@@ -498,49 +543,44 @@ Note that it is possible to reorder the arguments in data.table: DT[i, j, by] <=
 
 ```{r,echo = T,collapse = TRUE}
 # R using Tibbles
+cp_tibble <-  as_tibble(covid_papers) %>% filter(pmid!='null')
 
-DF %>%
-  group_by(V4) %>%
-  summarise(sumV2 = sum(V2))
+cp_tibble %>%
+  group_by(year_pub) %>%
+  summarise(nb_language = length(unique(language)))
 
 # By several groups
-DF %>%
-  group_by(V4, V1) %>%
-  summarise(sumV2 = sum(V2))
-
-
-# Output grouped by V4
-DF %>%
-  group_by(tolower(V4)) %>%
-  summarise(sumV1 = sum(V1))
-
+cp_tibble %>%
+  group_by(year_pub, source) %>%
+  summarise(mean_cited = mean(cited))
 
 # Assigning column name in by
-DF %>%
-  group_by(abc = tolower(V4)) %>%
-  summarise(sumV1 = sum(V1))
+cp_tibble %>%
+  group_by(PY = as.numeric(year_pub)) %>%
+  summarise(sum_cited = sum(cited))
 
-# Using a condition in by
-DF %>%
-  group_by(V4 == "A") %>%
-  summarise(sum(V1))
+# Using a condition
+cp_tibble %>%
+  group_by(source == "MED") %>%
+  summarise(mean(cited))
 
 # Count number of observations for each group
-DF %>%
-  group_by(V4) %>%
+cp_tibble %>%
+  group_by(source) %>%
   tally()
 
-DF %>%
-  group_by(V4) %>%
+cp_tibble %>%
+  group_by(source) %>%
   summarise(n())
-DF %>%
-  group_by(V4) %>%
+
+cp_tibble %>%
+  group_by(source) %>%
   group_size() # returns a vector
 
 # Add a column with number of observations for each group
-add_count(DF, V1)
-DF %>%
-  group_by(V1) %>%
+add_count(cp_tibble, year_pub) %>% select(year_pub,n)
+cp_tibble %>%
+  group_by(year_pub) %>%
   add_tally()
 ```
 
@@ -552,41 +592,29 @@ DF %>%
 ```{r,echo=T,collapse = TRUE}
 # R using data.table
 
-DT[, .(sumV2 = sum(V2)), by = "V4"]
-# one-liner:
-# reordered and indented:
-DT[, by = V4,
-     .(sumV2 = sum(V2))]
+cp_datatable <-  as.data.table(covid_papers)[pmid!='null',]
 
+cp_datatable[, .(nb_language = length(unique(language))), by = "year_pub"]
 
 # By several groups
-DT[, keyby = .(V4, V1),
-     .(sumV2 = sum(V2))]
-
-# output grouped by V4
-DT[, by = tolower(V4),
-     .(sumV1 = sum(V1))]
+cp_datatable[, keyby = .(year_pub, source),
+     .(mean_cited = mean(cited))]
 
 # Assigning column name in by
-DT[, keyby = .(abc = tolower(V4)),
-     .(sumV1 = sum(V1))]
+cp_datatable[, keyby = .(PY = as.numeric(year_pub)),
+     .(sum_cited = sum(cited))]
 
 # Using a condition in by
-DT[, keyby = V4 == "A",
-     sum(V1)]
+cp_datatable[, keyby = source == "MED",
+     mean(cited)]
 
 # Count number of observations for each group
-DT[, .N, by = V4]
-count(DF, V4)
+cp_datatable[, .N, by = source]
+count(cp_tibble, source)
 
 # Add a column with number of observations for each group
-DT[, n := .N, by = V1][]
-DT[, n := NULL] # rm column for consistency
+cp_datatable[, n := .N, by = source][]
 
-# Retrieve the first/last/nth observation for each group
-DT[, data.table::first(V2), by = V4]
-DT[, data.table::last(V2), by = V4]
-DT[, V2[2], by = V4]
 ```
 
 </div>
@@ -594,10 +622,9 @@ DT[, V2[2], by = V4]
 </div>
 
 
-Going further
-Advanced columns manipulation
+#### Advanced columns manipulation
 To manipulate multiple columns, dplyr_1.0.0 has introduced the across() function, superseding the _all, _at, and _if versions of summarise(), mutate(), and transmute().
-With data.table, we use .SD, which is a data.table containing the Subset of Data for each group, excluding the column(s) used in by. So, DT[, .SD] is DT itself and in the expression DT[, .SD, by = V4], .SD contains all the DT columns (except V4) for each values in V4 (see DT[, print(.SD), by = V4]). .SDcols allows to select the columns included in .SD.
+With data.table, we use .SD, which is a data.table containing the Subset of Data for each group, excluding the column(s) used in by. So, cp_datatable[, .SD] is cp_datatable itself and in the expression cp_datatable[, .SD, by = title], .SD contains all the cp_datatable columns (except title) for each values in title (see cp_datatable[, print(.SD), by = title]). .SDcols allows to select the columns included in .SD.
 
 
 <div class = "row">
@@ -607,41 +634,36 @@ With data.table, we use .SD, which is a data.table containing the Subset of Data
 ```{r,echo = T,collapse = TRUE}
 # R using Tibbles
 
-#Summarise all the columns
-DF %>% summarise(across(everything(), max))
-
+cp_tibble <- cp_tibble %>% mutate(PY = as.numeric(year_pub),log_cited =log(cited+1))
 # Summarise several columns
-DF %>% summarise(across(c(V1, V2), mean))
+cp_tibble %>% summarise(across(c(PY, cited), mean))
 
 
 # Summarise several columns by group
-DF %>%
-  group_by(V4) %>%
-  summarise(across(c(V1, V2), mean))
-# DF %>%
-#   group_by(V4) %>%
-#   summarise_at(c("V1", "V2"), mean)
-DF %>%
-  group_by(V4) %>%
-  summarise(across(any_of(c("V1", "V2", "Z0")), mean))
+cp_tibble %>%
+  group_by(source) %>%
+  summarise(across(c(PY, cited), mean))
+
+## using patterns (regex)
+cp_tibble %>%
+  group_by(source) %>%
+  summarise(across(ends_with('cited'), mean))
 
 # Summarise with more than one function by group
-DF %>%
-  group_by(V4) %>%
-  summarise(across(everything(),
-                   list(sum = sum, mean = mean)))
-# columns named automatically
-# DF %>%
-#   group_by(V4) %>%
-#   summarise_all(list(sum, mean))
+cp_tibble %>%
+  group_by(source) %>%
+  summarise(across(c(PY, cited),
+                   list(median = median, mean = mean)))
 
 # Summarise using a condition
-DF %>%
+cp_tibble %>%
   summarise(across(where(is.numeric),
                    mean))
-# summarise_if(DF, is.numeric, mean)
-DF %>% summarise(across(where(~ is.numeric(.x) && mean(.x) > 3), 
-                        mean))
+
+cp_tibble  %>%
+  group_by(source) %>%
+  summarise(across(where(~ is.numeric(.x) && median(.x)>0), 
+                        median))
 ```
 
 </div>
@@ -651,86 +673,70 @@ DF %>% summarise(across(where(~ is.numeric(.x) && mean(.x) > 3),
 
 ```{r,echo=T,collapse = TRUE}
 # R using data.table
-
-#Summarise all the columns
-DT[, lapply(.SD, max)]
+cp_datatable[,c('PY','log_cited') := .(as.numeric(year_pub),log(cited+1))]
 
 # Summarise several columns
-DT[, lapply(.SD, mean),
-     .SDcols = c("V1", "V2")]
+cp_datatable[, lapply(.SD, mean),
+     .SDcols = c('PY', 'cited')]
 
 # Summarise several columns by group
-DT[, by = V4,
+cp_datatable[, by = source,
      lapply(.SD, mean),
-     .SDcols = c("V1", "V2")]
+     .SDcols = c('PY', 'cited')]
 ## using patterns (regex)
-DT[, by = V4,
+
+cp_datatable[, by = source,
      lapply(.SD, mean),
-     .SDcols = patterns("V1|V2|Z0")]
+     .SDcols = patterns("cited")]
 
 
 # Summarise with more than one function by group
-DT[, by = V4,
-     c(lapply(.SD, sum),
-       lapply(.SD, mean))]
+cp_datatable[, by = source,
+     c(lapply(.SD, median),
+       lapply(.SD, mean)),
+     .SDcols = c('PY', 'cited')]
 
 
 # Summarise using a condition
-DT[, lapply(.SD, mean),
-     .SDcols = is.numeric]
-foo <- function(x) {is.numeric(x) && mean(x) > 3}
-DT[, lapply(.SD, mean),
-   .SDcols = foo]
+cp_datatable[, sapply(cp_datatable, is.numeric),with = FALSE][,lapply(.SD, mean)]
+
+foo <- function(x) {is.numeric(x) && median(x)>0}
+
+cp_datatable[, sapply(cp_datatable, foo),with = FALSE][,lapply(.SD, mean)]
 ```
 
 </div>
 </div>
 </div>
 
-#### Modify Multiples Varaibles
+#### Modify Multiples Variables
 
 <div class = "row">
 <div class = "col-md-6">
 <div class = "r">
 
 ```{r,echo = T,collapse = TRUE}
-# Modify all the columns
-DF %>%
-  mutate(across(everything(),
-                rev))
 
+tobinary = function(x){ifelse(x=='Y',1,0)}
 
 # Modify several columns (dropping the others)
-DF %>% transmute(across(c(V1, V2),
-                 sqrt))
-# transmute_at(DF, c("V1", "V2"), sqrt)
-DF %>% transmute(across(-any_of("V4"),
-                 exp))
-# transmute_at(DF, vars(-V4), exp)
+cp_tibble %>% transmute(across(c(has_data, oa),
+                 tobinary))
 
 
 # Modify several columns (keeping the others)
-DF <- DF %>%
-  mutate(across(all_of(c("V1", "V2")), sqrt))
-# DF <- mutate_at(DF, c("V1", "V2"), sqrt)
-DF <- DF %>%
-  mutate(across(-any_of("V4"),
-                 ~ "^"(.x, 2L)))
-DF
-# DF <- mutate_at(DF, vars(-V4), "^", 2L)
+cp_tibble <- cp_tibble %>%
+  mutate(across(all_of(c('pubtype','mesh')),
+                 ~ tolower(str_replace_all(.x,'-',''))))
+cp_tibble %>% select(pubtype,mesh)
 
+# Modify columns using a condition
 
-# Modify columns using a condition (dropping the others)
-DF %>%
-  transmute(across(where(is.numeric),
-                   ~ '-'(., 1L)))
-DF
-
-DF <- DF %>%
-  mutate(across(where(is.numeric),
-         as.integer))
-
-
+t = Sys.time()
+cp_tibble <- cp_tibble %>%
+  mutate(across(where(is.character),
+         toupper))
+Sys.time() - t
 ```
 
 </div>
@@ -739,39 +745,27 @@ DF <- DF %>%
 <div class = "r">
 
 ```{r,echo=T,collapse = TRUE}
-# Modify all the columns
-DT[, lapply(.SD, rev)]
-
-
 # Modify several columns (dropping the others)
-DT[, lapply(.SD, sqrt),
-     .SDcols = V1:V2]
-DT[, lapply(.SD, exp),
-     .SDcols = !"V4"]
+cp_datatable[, lapply(.SD, tobinary),
+     .SDcols = c('has_data', 'oa')]
 
 
 # Modify several columns (keeping the others)
-DT[, c("V1", "V2") := lapply(.SD, sqrt),
-     .SDcols = c("V1", "V2")]
+cp_datatable[, c('pubtype','mesh') := lapply(.SD, function(x){tolower(str_replace_all(x,'-',''))}),#cols <- setdiff(names(cp_datatable), "title")
+     .SDcols = c('pubtype','mesh') ]
+cp_datatable
 
-cols <- setdiff(names(DT), "V4")
-DT[, (cols) := lapply(.SD, "^", 2L),
-     .SDcols = cols]
-DT
-
-# Modify columns using a condition (dropping the others)
-DT[, .SD - 1,
-     .SDcols = is.numeric]
-DT
-DT[, (cols) := lapply(.SD, as.integer),
-     .SDcols = is.numeric]
+# Modify columns using a condition 
+t = Sys.time()
+for (j in  which(sapply(cp_datatable, class)=='character')) set(cp_datatable, i=NULL, j=j, value=tolower(cp_datatable[[j]]))
+Sys.time() - t 
 ```
 
 </div>
 </div>
 </div>
 
-The use of DT[,j] is very flexible, allowing to pass complex expressions in a straightforward way, or combine expressions with multiple outputs.
+The use of cp_datatable[,j] is very flexible, allowing to pass complex expressions in a straightforward way, or combine expressions with multiple outputs.
 
 #### More complex expression
 
@@ -783,11 +777,12 @@ The use of DT[,j] is very flexible, allowing to pass complex expressions in a st
 ```{r,echo = T,collapse = TRUE}
 # R using Tibbles
 
-DF %>%
-  group_by(V4) %>%
-  slice(1:2) %>%
-  transmute(V1 = V1,
-            V2 = "X")
+cp_tibble %>%
+  mutate(is_en = ifelse(language =='eng',1,0)) %>%
+  group_by(year_pub)  %>% 
+  summarize(sum_en = sum(is_en),
+            share_en = sum_en/n())
+
 ```
 
 </div>
@@ -798,14 +793,15 @@ DF %>%
 ```{r,echo=T,collapse = TRUE}
 # R using data.table
 
-DT[, by = V4,
-     .(V1[1:2], "X")]
+cp_datatable[,c('is_en','oa') := .(ifelse(language =='eng',1,0),
+                              ifelse(oa =='Y',1,0))][
+                                ,by = year_pub,.(sum_en = sum(is_en),
+                                                 share_en = sum(is_en)/.N)]
 
-# Use multiple expressions (with DT[,{j}])
-DT[, {print(V1) #  comments here!
-      print(summary(V1))
-      x <- V1 + sum(V2)
-     .(A = 1:.N, B = x) # last list returned as a data.table
+# Use multiple expressions (with cp_datatable[,{j}])
+cp_datatable[, {is_en = ifelse(language =='eng',1,0)
+      en_data = is_en + oa
+     .(eng_oa = ifelse(en_data == 2, 1,0)) # last list returned as a data.table
      }]
 ```
 
@@ -815,22 +811,22 @@ DT[, {print(V1) #  comments here!
 
 
 # Chain expressions
-The dplyr workflow relies on the magrittr pipe operator (%>%). The magrittr package can also be used with data.table objects, but data.table comes with its own chaining system: DT[ ... ][ ... ][ ... ].
+The dplyr workflow relies on the magrittr pipe operator (%>%). The magrittr package can also be used with data.table objects, but data.table comes with its own chaining system: cp_datatable[ ... ][ ... ][ ... ].
 
-Expression chaining using DT[][] (recommended)
-DT[, by = V4, 
+Expression chaining using cp_datatable[][] (recommended)
+cp_datatable[, by = title, 
      .(V1sum = sum(V1)) ][
      V1sum > 5]
-DF %>%
-  group_by(V4) %>%
+cp_tibble %>%
+  group_by(title) %>%
   summarise(V1sum = sum(V1)) %>%
   filter(V1sum > 5)
 Expression chaining using %>%
-DT[, by = V4, 
+cp_datatable[, by = title, 
      .(V1sum = sum(V1))] %>%
   .[order(-V1sum)]
-DF %>%
-  group_by(V4) %>%
+cp_tibble %>%
+  group_by(title) %>%
   summarise(V1sum = sum(V1)) %>%
   arrange(desc(V1sum))
 
@@ -845,108 +841,108 @@ The main differences between keys and indices are:
 Note: in the following code, we set both a key and an index to demonstrate their usage, but internally, indices are not used when a key already exists for the same columns(s).
 
 Set the key/index
-setkey(DT, V4)
-setindex(DT, V4)
-DT
-DF <- arrange(DF, V4) # ordered just for consistency
-DF
+setkey(cp_datatable, title)
+setindex(cp_datatable, title)
+cp_datatable
+cp_tibble <- arrange(cp_tibble, title) # ordered just for consistency
+cp_tibble
 Select the matching rows
-DT["A", on = "V4"]
-DT[c("A", "C"), on = .(V4)] # same as on = "V4"
-filter(DF, V4 == "A")
-filter(DF, V4 %in% c("A", "C"))
+cp_datatable["A", on = "title"]
+cp_datatable[c("A", "C"), on = .(title)] # same as on = "title"
+filter(cp_tibble, title == "A")
+filter(cp_tibble, title %in% c("A", "C"))
 Select the first matching row
-DT["B", on = "V4", mult = "first"]
-DT[c("B", "C"), on = "V4", mult = "first"]
-DF %>%
-  filter(V4 == "B") %>%
+cp_datatable["B", on = "title", mult = "first"]
+cp_datatable[c("B", "C"), on = "title", mult = "first"]
+cp_tibble %>%
+  filter(title == "B") %>%
   slice(1)
 # ?
 Select the last matching row
-DT["A", on = "V4", mult = "last"]
-DF %>%
-  filter(V4 == "A") %>%
+cp_datatable["A", on = "title", mult = "last"]
+cp_tibble %>%
+  filter(title == "A") %>%
   slice(n())
 Nomatch argument
 # (default) returns a row with "D" even if not found
-DT[c("A", "D"), on = "V4", nomatch = NA]
+cp_datatable[c("A", "D"), on = "title", nomatch = NA]
 # no rows for unmatched values
-DT[c("A", "D"), on = "V4", nomatch = 0]
+cp_datatable[c("A", "D"), on = "title", nomatch = 0]
 #
-filter(DF, V4 %in% c("A", "D"))
+filter(cp_tibble, title %in% c("A", "D"))
 Apply a function on the matching rows
-DT[c("A", "C"), sum(V1), on = "V4"]
-DF %>%
-  filter(V4 %in% c("A", "C")) %>%
+cp_datatable[c("A", "C"), sum(V1), on = "title"]
+cp_tibble %>%
+  filter(title %in% c("A", "C")) %>%
   summarise(sum(V1))
 Modify values for matching rows
-DT["A", V1 := 0, on = "V4"]
-DT
-DF <- DF %>%
-  mutate(V1 = base::replace(V1, V4 == "A", 0L)) %>%
-  arrange(V4)
-DF
+cp_datatable["A", V1 := 0, on = "title"]
+cp_datatable
+cp_tibble <- cp_tibble %>%
+  mutate(V1 = base::replace(V1, title == "A", 0L)) %>%
+  arrange(title)
+cp_tibble
 Use keys in by
-DT[!"B", sum(V1), on = "V4", by = .EACHI]
-DT[V4 != "B",
-   by = V4,
+cp_datatable[!"B", sum(V1), on = "title", by = .EACHI]
+cp_datatable[title != "B",
+   by = title,
    sum(V1)]   # same
-DF %>%
-  filter(V4 != "B") %>%
-  group_by(V4) %>%
+cp_tibble %>%
+  filter(title != "B") %>%
+  group_by(title) %>%
   summarise(sum(V1))
 Set keys/indices for multiple columns
-setkey(DT, V4, V1) # or setkeyv(DT, c("V4", "V1"))
-setindex(DT, V4, V1) # setindexv(DT, c("V4", "V1"))
-DT
-DF <- arrange(DF, V4, V1) # ordered just for consistency
-DF
+setkey(cp_datatable, title, V1) # or setkeyv(cp_datatable, c("title", "V1"))
+setindex(cp_datatable, title, V1) # setindexv(cp_datatable, c("title", "V1"))
+cp_datatable
+cp_tibble <- arrange(cp_tibble, title, V1) # ordered just for consistency
+cp_tibble
 Subset using multiple keys/indices
-DT[.("C", 1), on = .(V4, V1)]
-DT[.(c("B", "C"), 1), on = .(V4, V1)]
+cp_datatable[.("C", 1), on = .(title, V1)]
+cp_datatable[.(c("B", "C"), 1), on = .(title, V1)]
 # using which = TRUE only returns the matching rows indices
-DT[.(c("B", "C"), 1), on = .(V4, V1), which = TRUE]
-filter(DF, V1 == 1, V4 == "C")
-filter(DF, V1 == 1, V4 %in% c("B", "C"))
+cp_datatable[.(c("B", "C"), 1), on = .(title, V1), which = TRUE]
+filter(cp_tibble, V1 == 1, title == "C")
+filter(cp_tibble, V1 == 1, title %in% c("B", "C"))
 # ?
 Remove keys/indices
-setkey(DT, NULL)
-setindex(DT, NULL)
-DT
+setkey(cp_datatable, NULL)
+setindex(cp_datatable, NULL)
+cp_datatable
 # 
-DF
+cp_tibble
 
 set*() modifications
 In data.table, set*() functions modify objects by reference, making these operations fast and memory-efficient. In case this is not a desired behaviour, users can use copy(). The corresponding expressions in dplyr will be less memory-efficient.
 
 Replace values
-set(DT, i = 1L, j = 2L, value = 3L)
-DT
-DF[1, 2] <- 3L
-DF
+set(cp_datatable, i = 1L, j = 2L, value = 3L)
+cp_datatable
+cp_tibble[1, 2] <- 3L
+cp_tibble
 Reorder rows
-setorder(DT, V4, -V1)
-setorderv(DT, c("V4", "V1"), c(1, -1))
-DF <- arrange(DF, V4, desc(V1))
+setorder(cp_datatable, title, -V1)
+setorderv(cp_datatable, c("title", "V1"), c(1, -1))
+cp_tibble <- arrange(cp_tibble, title, desc(V1))
 Modify colnames
-setnames(DT, old = "V2", new = "v2")
-setnames(DT, old = -(c(1, 3)), new = "V2")
-DT
-DF <- rename(DF, v2 = V2)
-DF <- rename(DF, V2 = v2) # reset upper
-DF
+setnames(cp_datatable, old = "doi", new = "doi")
+setnames(cp_datatable, old = -(c(1, 3)), new = "doi")
+cp_datatable
+cp_tibble <- rename(cp_tibble, doi = doi)
+cp_tibble <- rename(cp_tibble, doi = doi) # reset upper
+cp_tibble
 Reorder columns
-setcolorder(DT, c("V4", "V1", "V2"))
-DT
-DF <- select(DF, V4, V1, V2)
-DF
+setcolorder(cp_datatable, c("title", "V1", "doi"))
+cp_datatable
+cp_tibble <- select(cp_tibble, title, V1, doi)
+cp_tibble
 Relocate columns
 # coming soon (#4358)
-DF %>%
-  relocate(V4, .after = V2)
+cp_tibble %>%
+  relocate(title, .after = doi)
 Convert data
-# ?setDT # data.frame or list to data.table
-# ?setDF # data.table to data.frame
+# ?setcp_datatable # data.frame or list to data.table
+# ?setcp_tibble # data.table to data.frame
 # ?setattr # modify attributes
 # 
 
@@ -954,80 +950,84 @@ Advanced use of by
 Context dependent expressions (cur_*()) have been introduced in dplyr 1.0.0, reflecting data.table aliases .I, .GRP, …
 
 Select first/last/… row by group
-DT[, .SD[1], by = V4]
-DT[, .SD[c(1, .N)], by = V4]
-DT[, tail(.SD, 2), by = V4]
-DF %>%
-  group_by(V4) %>%
+cp_datatable[, .SD[1], by = title]
+cp_datatable[, .SD[c(1, .N)], by = title]
+cp_datatable[, tail(.SD, 2), by = title]
+cp_tibble %>%
+  group_by(title) %>%
   slice(1)
-DF %>%
-  group_by(V4) %>%
+cp_tibble %>%
+  group_by(title) %>%
   slice(1, n())
-DF %>%
-  group_by(V4) %>%
+cp_tibble %>%
+  group_by(title) %>%
   group_map(~ tail(.x, 2))
 Select rows using a nested query
-DT[, .SD[which.min(V2)], by = V4]
-DF %>%
-  group_by(V4) %>%
-  arrange(V2) %>%
+cp_datatable[, .SD[which.min(doi)], by = title]
+cp_tibble %>%
+  group_by(title) %>%
+  arrange(doi) %>%
   slice(1)
 Add a group counter column
-DT[, Grp := .GRP, by = .(V4, V1)][]
-DT[, Grp := NULL] # delete for consistency
-DF %>%
-  group_by(V4, V1) %>%
+cp_datatable[, Grp := .GRP, by = .(title, V1)][]
+cp_datatable[, Grp := NULL] # delete for consistency
+cp_tibble %>%
+  group_by(title, V1) %>%
   mutate(Grp = cur_group_id())
-# DF %>% mutate(Grp = group_indices(., V4, V1))
+# cp_tibble %>% mutate(Grp = group_indices(., title, V1))
 Get row number of first (and last) observation by group
-DT[, .I, by = V4] # returns a data.table
-DT[, .I[1], by = V4]
-DT[, .I[c(1, .N)], by = V4]
-DF %>%
-  group_by(V4) %>%
+cp_datatable[, .I, by = title] # returns a data.table
+cp_datatable[, .I[1], by = title]
+cp_datatable[, .I[c(1, .N)], by = title]
+cp_tibble %>%
+  group_by(title) %>%
   mutate(cur_group_rows())
-#DF %>%
-#  group_by(V4) %>%
+#cp_tibble %>%
+#  group_by(title) %>%
 #  group_data() %>%
 #  tidyr::unnest(.rows)
-DF %>%
-  group_by(V4) %>%
+cp_tibble %>%
+  group_by(title) %>%
   summarize(cur_group_rows()[1])
-DF %>%
-  group_by(V4) %>%
+cp_tibble %>%
+  group_by(title) %>%
   summarize(cur_group_rows()[c(1, n())])
-# DF %>% group_by(V4) %>% group_rows() # returns a list
+# cp_tibble %>% group_by(title) %>% group_rows() # returns a list
 Handle list-columns by group
-DT[, .(.(V1)),  by = V4]  # return V1 as a list
-DT[, .(.(.SD)), by = V4] # subsets of the data
-DF %>%
-  group_by(V4) %>%
+cp_datatable[, .(.(V1)),  by = title]  # return V1 as a list
+cp_datatable[, .(.(.SD)), by = title] # subsets of the data
+cp_tibble %>%
+  group_by(title) %>%
   summarise(list(V1))
-DF %>%
-  group_by(V4) %>%
+cp_tibble %>%
+  group_by(title) %>%
   group_nest()
 Grouping sets (multiple by at once)
-rollup(DT,
-       .(SumV2 = sum(V2)),
-       by = c("V1", "V4"))
+rollup(cp_datatable,
+       .(Sumdoi = sum(doi)),
+       by = c("V1", "title"))
 
-rollup(DT,
-       .(SumV2 = sum(V2), .N),
-       by = c("V1", "V4"),
+rollup(cp_datatable,
+       .(Sumdoi = sum(doi), .N),
+       by = c("V1", "title"),
        id = TRUE)
 
-cube(DT,
-     .(SumV2 = sum(V2), .N),
-     by = c("V1", "V4"),
+cube(cp_datatable,
+     .(Sumdoi = sum(doi), .N),
+     by = c("V1", "title"),
      id = TRUE)
 
-groupingsets(DT,
-             .(SumV2 = sum(V2), .N),
-             by   = c("V1", "V4"),
-             sets = list("V1", c("V1", "V4")),
+groupingsets(cp_datatable,
+             .(Sumdoi = sum(doi), .N),
+             by   = c("V1", "title"),
+             sets = list("V1", c("V1", "title")),
              id   = TRUE)
 #
 
+https://cran.r-project.org/web/packages/data.table/vignettes/datatable-sd-usage.html
 
 
 # Pandas (Python)
+
+
+https://medium.com/bigdatarepublic/advanced-pandas-optimize-speed-and-memory-a654b53be6c2
