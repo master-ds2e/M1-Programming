@@ -35,6 +35,8 @@ library(reticulate)
 # Installations
 ## Windows
 
+https://uvastatlab.github.io/phdplus/installR.html
+
 - Go to https://www.anaconda.com/products/individual/get-started and dowload a windows installer. Or use the link below (Python 3.8)  
 64-bit : https://repo.anaconda.com/archive/Anaconda3-2020.07-Windows-x86_64.exe  
 32-bit : https://repo.anaconda.com/archive/Anaconda3-2020.07-Windows-x86.exe
@@ -55,8 +57,29 @@ https://stackoverflow.com/questions/41986507/unable-to-set-default-python-versio
 
 https://docs.anaconda.com/anaconda/install/linux/
 
+
+update
+
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
+sudo echo "deb http://cran.wustl.edu/bin/linux/ubuntu/xenial/" | sudo tee -a /etc/apt/sources.list
+sudo apt update
+sudo apt upgrade r-base r-base-dev
+sudo apt update
+sudo apt upgrade
+
+
 ## Mac ?
 
 # Environement
+
+# exercice 
+monty hall: https://levelup.gitconnected.com/the-monty-hall-problem-solved-ec4f3753a682
+monte carlo simulation :
+boostrap:
+cluster robust:
+nr http://www.jtrive.com/estimating-logistic-regression-coefficents-from-scratch-python-version.html
+nr http://www.jtrive.com/estimating-logistic-regression-coefficents-from-scratch-r-version.html
+
+
 
 
