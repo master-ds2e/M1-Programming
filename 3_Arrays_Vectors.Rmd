@@ -539,6 +539,7 @@ X[idx] = 1
 
 ```{r, collapse = TRUE}
 # R
+library(Matrix)
 
 mat = matrix(0,10000,10000)
 idx = round(runif(1000,1,10000**2))
