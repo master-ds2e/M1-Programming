@@ -11,9 +11,8 @@
 
 
 
-<title>3_Regex.utf8</title>
+<title>4_Regex.utf8</title>
 
-<script src="site_libs/header-attrs-2.1/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -352,7 +351,7 @@ div.tocify {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">TDP</a>
+      <a class="navbar-brand" href="index.html">Programming</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -360,28 +359,25 @@ div.tocify {
   <a href="index.html">Home</a>
 </li>
 <li>
-  <a href="1_Installs.html">Installs</a>
-</li>
-<li>
   <a href="2_Basics.html">Basics</a>
 </li>
 <li>
-  <a href="3_Regex.html">Regex</a>
+  <a href="3_Arrays_Vectors.html">Arrays/Vectors</a>
 </li>
 <li>
-  <a href="5_Data_Analysis.html">Data Analysis</a>
+  <a href="4_Regex.html">Regex</a>
 </li>
 <li>
-  <a href="6_Efficient_Prog.html">Efficient Programming</a>
+  <a href="5_Data_Analysis_R.html">Data Analysis (R)</a>
 </li>
 <li>
-  <a href="4_Best_practices.html">Best Pratices</a>
+  <a href="5_Data_Analysis_R.html">Data Analysis (Python)</a>
 </li>
 <li>
-  <a href="7_Typesetting_Systems.html">Typesetting Systems</a>
+  <a href="6_Efficient_Prog.html">Parallel</a>
 </li>
 <li>
-  <a href="8_Packages.html">Packages</a>
+  <a href="6_Best_practices.html">Best Pratices</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -410,8 +406,8 @@ div.python pre { background-color: #fdfcff; }
 <style>
 div.r pre { background-color: #fffffc; }
 </style>
-<div id="regular-expressions" class="section level1" number="1">
-<h1 number="1"><span class="header-section-number">1</span> Regular Expressions</h1>
+<div id="regular-expressions" class="section level1">
+<h1><span class="header-section-number">1</span> Regular Expressions</h1>
 <p>Regex are a way to express how a character sequence should be matched in a more flexible way than what we are used to do with Ctrl+F. Regular expression are commonly used in text manipulation, usually such patterns are used by string-searching algorithms for “find” or “find and replace” operations on strings, or for input validation.</p>
 <p>Except for control characters, (+ ? . * ^ $ ( ) [ ] { } | ), all characters match themselves. You can escape a control character by preceding it with a backslash.</p>
 <p>Il y a principalement deux normes :</p>
@@ -430,8 +426,8 @@ library(stringr)</code></pre>
 </div>
 </div>
 </div>
-<div id="character-classes" class="section level2" number="1.1">
-<h2 number="1.1"><span class="header-section-number">1.1</span> Character classes</h2>
+<div id="character-classes" class="section level2">
+<h2><span class="header-section-number">1.1</span> Character classes</h2>
 <table>
 <thead>
 <tr class="header">
@@ -493,8 +489,8 @@ library(stringr)</code></pre>
 </div>
 </div>
 </div>
-<div id="special-character-classes" class="section level2" number="1.2">
-<h2 number="1.2"><span class="header-section-number">1.2</span> Special Character Classes</h2>
+<div id="special-character-classes" class="section level2">
+<h2><span class="header-section-number">1.2</span> Special Character Classes</h2>
 <table>
 <thead>
 <tr class="header">
@@ -616,8 +612,8 @@ library(stringr)</code></pre>
 </div>
 </div>
 </div>
-<div id="grouping-with-parentheses" class="section level2" number="1.3">
-<h2 number="1.3"><span class="header-section-number">1.3</span> Grouping with Parentheses</h2>
+<div id="grouping-with-parentheses" class="section level2">
+<h2><span class="header-section-number">1.3</span> Grouping with Parentheses</h2>
 <table>
 <thead>
 <tr class="header">
@@ -655,8 +651,8 @@ library(stringr)</code></pre>
 </div>
 </div>
 </div>
-<div id="backreferences" class="section level2" number="1.4">
-<h2 number="1.4"><span class="header-section-number">1.4</span> Backreferences</h2>
+<div id="backreferences" class="section level2">
+<h2><span class="header-section-number">1.4</span> Backreferences</h2>
 <p>This matches a previously matched group again</p>
 <table>
 <colgroup>
@@ -697,8 +693,8 @@ library(stringr)</code></pre>
 </div>
 </div>
 </div>
-<div id="anchors" class="section level2" number="1.5">
-<h2 number="1.5"><span class="header-section-number">1.5</span> Anchors</h2>
+<div id="anchors" class="section level2">
+<h2><span class="header-section-number">1.5</span> Anchors</h2>
 <p>This needs to specify match position.</p>
 <table>
 <colgroup>
