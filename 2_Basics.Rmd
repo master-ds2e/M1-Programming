@@ -44,7 +44,7 @@
 ```
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE,error=TRUE,collapse = TRUE)
+knitr::opts_chunk$set(echo = TRUE,error=TRUE,collapse = T)
 library(reticulate)
 
 #  md_document:
@@ -75,11 +75,11 @@ library(reticulate)
 ```
 
 <style>
-div.python pre { background-color: #fdfcff; }
+div.python pre { background-color: #d0f5a9; }
 </style>
 
 <style>
-div.r pre { background-color: #fffffc; }
+div.r pre { background-color: #dfdddf; }
 </style>
 
 # Operations
@@ -91,7 +91,7 @@ Python and R work as classical calculator, using "+", "-", "*" and "/" we can do
 <div class = "col-md-6">
 <div class = "python">
 
-```{python , collapse = T}
+```{python}
 # Python 
 
 1+2
@@ -284,7 +284,7 @@ print('a' in y)
 x = 'Hello World'
 
 print('Hello' %in% x)
-str_detect(x,'Hello')
+stringr::str_detect(x,'Hello')
 ```
 </div>
 </div>
@@ -308,7 +308,7 @@ print('Hello' in x)
 ```{r,echo=T,collapse = TRUE}
 # R
 
-x = ['Hello','World']
+x = c('Hello','World')
 
 print('Hello' %in% x)
 ```
@@ -549,7 +549,7 @@ A Data frame in R is a matrix which can store different type of data, characters
 <div class = "r">
 
 ```{r,echo=T,collapse = TRUE}
-# Python
+# R
 
 df = data.frame(chr = letters[1:5], # letters is a vector of letter provided directly in R
                 num = seq(1,5,1),
@@ -610,7 +610,7 @@ A list permits us to assemble an assortment of disconnected objects behind one v
 <div class = "r">
 
 ```{r,echo=T,collapse = TRUE}
-# Python
+# R
 
 lst = list(df = df,
            mat = mat,
@@ -1008,7 +1008,45 @@ if(!is.integer(n)){
 </div>
 </div>
 </div>
+ 
 
+
+<div class = "row">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE}
+# R
+
+# Fast version of ifelse()
+x <- c(-3:3, NA)
+if_else(condition = x < 0,
+        true      = "neg",
+        false     = "pos",
+        missing   = "NA")
+
+
+x <- c(-3:3, NA)
+fifelse(test = x < 0,
+        yes  = "neg",
+        no   = "pos",
+        na   = "NA")
+
+
+# Vectorised ifelse statements
+
+
+x <- 1:10
+case_when(
+  x %% 6 == 0 ~ "fizz buzz",
+  x %% 2 == 0 ~ "fizz",
+  x %% 3 == 0 ~ "buzz",
+  TRUE ~ as.character(x)
+)
+
+```
+
+</div>
+</div>
 
 ## Loops
 

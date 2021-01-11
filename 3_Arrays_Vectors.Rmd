@@ -1,0 +1,568 @@
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,error=TRUE,collapse = T)
+library(reticulate)
+
+```
+
+<style>
+div.python pre { background-color: #d0f5a9; }
+</style>
+
+<style>
+div.r pre { background-color: #dfdddf; }
+</style>
+
+
+
+This chapter deepens the notions of arrays and vectors seen in the 'Basics' chapter.
+In python, numpy will be the main package to deal with arrays, while in R everything is contains in the base R.
+The main advantage of using vectors is to vectorize operation, instead of using loops to compute a function on each elements of a list, we can simply perform it on blocks of data in a more efficient may (faster, less memory used)
+
+
+let's first see an example to understand th benefit of using vectorized operation :
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "python">
+
+```{python}
+# Python 
+
+import numpy as np
+import time 
+
+arr = np.arange(2000000)
+
+lst = list(range(2000000))
+
+t = time.time()
+arr_2 = arr*2
+time.time() - t
+
+t = time.time()
+lst_2 = [i*2  for i in lst]
+time.time() - t
+
+
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r, collapse = TRUE}
+# R
+
+vec = c(1:2000000)
+
+t = Sys.time()
+vec_2 = vec*2
+Sys.time() - t
+
+t = Sys.time()
+vec_2_loop <- rep(0,length(vec))
+for(i in 1:length(vec)){
+  vec_2_loop[i] = vec[i]*2
+    }
+Sys.time() - t
+
+```
+
+</div>
+</div>
+</div>
+
+# Dealing with Arrays
+
+## Random array 
+
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "python">
+
+```{python}
+# Python 
+
+#generate an array
+arr = np.random.randn(4,5)
+
+arr
+
+# vectorise calculation
+arr+arr**2
+
+# show dimension
+arr.shape
+
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r, collapse = TRUE}
+# R
+
+#generate a matrix
+mat <- matrix(runif(4*5),4,5)
+
+mat
+
+# vectorise calculation
+mat+mat**2
+
+# show dimension
+dim(mat)
+
+```
+
+</div>
+</div>
+</div>
+
+## Array-Oriented Programming
+
+Imagine two square matrices representing interaction between entities. Each matrix is a basic network: having interaction = 1, no interaction = 0.
+You want to know if two entities that are linked in one network are also linked in an other network. Instead of checking each entities interaction sequentially in a loop, one can simply use matrix to do element-wise calculation and get the same answer.
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "python">
+
+```{python}
+# Python 
+
+#generate a list
+list_1 = [[0,1,0,1],[1,0,1,0],[0,1,0,1],[1,0,1,0]]
+network_1 = np.array(list_1)
+
+#generate a sequence
+list_2 = [[0,1,0,0],[1,0,0,0],[0,0,0,1],[0,0,1,0]]
+network_2 = np.array(list_2)
+
+network_12 = network_1*network_2
+network_12
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r, collapse = TRUE}
+# R
+
+#generate a sequence
+list_1 <- list(c(0,1,0,1),c(1,0,1,0),c(0,1,0,1),c(1,0,1,0))
+
+network_1 <- do.call(rbind,list_1)
+
+#generate a sequence
+list_2 = list(c(0,1,0,0),c(1,0,0,0),c(0,0,0,1),c(0,0,1,0))
+
+network_2 <- do.call(rbind,list_2)
+
+network_12 = network_1*network_2
+network_12
+
+```
+
+</div>
+</div>
+</div>
+
+# Conditional Logic
+
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "python">
+
+```{python}
+# Python 
+
+network_12 == 1
+
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r, collapse = TRUE}
+# R
+ 
+network_12 == 1
+
+```
+
+</div>
+</div>
+</div>
+
+
+On thing that we often need is to modify specific value in a array that are satisfiying a condition. The first thing we want to know is which cells is satisfying the condition. In Python np.where is very common while in R we use the which function.
+
+See how the execution time is changing depending on the size of the vector
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "python">
+
+```{python}
+# Python 
+
+arr = np.arange(200000)
+
+
+t = time.time()
+results = [(i if i%2==0 else 0) for i in arr]
+time.time() - t
+
+
+t = time.time()
+results = np.where(arr%2!=0,0,arr)
+time.time() - t
+```
+
+```{python}
+# Python 
+
+arr = np.arange(20000000)
+
+
+t = time.time()
+results = [(i if i%2==0 else 0) for i in arr]
+time.time() - t
+
+
+t = time.time()
+results = np.where(arr%2!=0,0,arr)
+time.time() - t
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r, collapse = TRUE}
+# R
+
+vec <- seq(1,200000)
+
+t <- Sys.time()
+results <- rep(0,length(vec))
+for(i in 1:length(vec)){
+  if(vec[i]%%2!=0){
+    results[i] = 0
+  } else {
+    results[i] = vec[i]
+  }
+}
+Sys.time() - t
+
+
+t <- Sys.time()
+results <- ifelse(vec%%2!=0,vec,0)
+Sys.time() - t
+
+```
+
+```{r, collapse = TRUE}
+# R
+
+vec <- seq(1,20000000)
+
+t <- Sys.time()
+results <- rep(0,length(vec))
+for(i in 1:length(vec)){
+  if(vec[i]%%2!=0){
+    results[i] = 0
+  } else {
+    results[i] = vec[i]
+  }
+}
+Sys.time() - t
+
+
+t <- Sys.time()
+results <- ifelse(vec%%2!=0,vec,0)
+Sys.time() - t
+
+
+## other way using where
+
+t <- Sys.time()
+vec[which(vec%%2==0)] = 0
+Sys.time() - t 
+
+```
+
+</div>
+</div>
+</div>
+
+# Operation on array
+
+
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "python">
+
+```{python}
+# Python 
+
+# nb of link
+network_12.sum()/2
+# same since there is only 0 and 1 
+(network_12>0).sum()/2
+
+# share of link 
+network_12.mean()
+
+
+# nb link by entities
+network_12.sum(axis=1)
+
+# share of link across entities (by columns)
+network_12.mean(1)
+
+
+
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r, collapse = TRUE}
+# R
+
+# nb of link
+sum(network_12)
+# same since there is only 0 and 1 
+sum(network_12[which(network_12>0,arr.ind = T)]) # see the arr.ind to get the two coordinates
+
+# share of link 
+mean(network_12)
+
+
+# nb link by entities
+apply(network_12,MARGIN = 2,FUN = sum)
+
+# share of link across entities (by columns)
+apply(network_12,MARGIN = 2,FUN = mean)
+
+
+```
+
+</div>
+</div>
+</div>
+
+- Reorder the object using sort()
+
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "python">
+
+```{python}
+# Python 
+
+arr = np.random.randn(10)
+
+arr
+arr.sort()
+
+
+```
+
+```{python}
+# Python 
+
+arr = np.random.randn(4,3)
+
+arr
+arr.sort(1)
+
+
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r, collapse = TRUE}
+# R
+
+arr <- runif(10)
+
+arr
+sort(arr)
+
+```
+
+```{r, collapse = TRUE}
+# R
+
+arr <- matrix(runif(4*3),4,3)
+
+arr
+apply(arr,MARGIN = 2, FUN = sort)
+
+```
+
+</div>
+</div>
+</div>
+
+# Algebra
+
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "python">
+
+```{python}
+# Python 
+from numpy.linalg import inv, qr 
+ 
+X = np.array([[0,1,5,1],[2,1,3,1],[2,1,9,6],[7,2,1,0],[8,3,5,5]]) 
+Y = np.array([0,1,2,5,4])
+
+X
+X.T.dot(X) 
+# same as 
+XtX = np.dot(X.T,X)
+# same as 
+X.T @ X
+
+# inverse Matrix
+inv(XtX)
+
+# Identity matrix
+np.diag(np.ones(3))
+
+```
+
+```{python}
+# Python 
+
+XtY = np.dot(X.T,Y)
+
+# OLS 
+Beta = inv(XtX).dot(XtY)
+Beta
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r, collapse = TRUE}
+# R
+
+ 
+X <- do.call(rbind,list(c(0,1,5,1),c(2,1,3,1),c(2,1,9,6),c(7,2,1,0),c(8,3,5,5))) 
+Y <- c(0,1,2,5,4)
+ 
+t(X)%*%X
+
+XtX <- t(X)%*%X
+
+# inverse Matrix
+solve(XtX)
+
+# Identity matrix
+diag(3)
+```
+
+```{r, collapse = TRUE}
+# R
+
+
+XtY = t(X)%*%Y
+
+# OLS 
+Beta = solve(XtX) %*% XtY
+Beta
+
+```
+
+</div>
+</div>
+</div>
+
+# Sparse
+
+When dealing with large array that are sparse (lot of element equalt to 0), it is inneficient to store this object as a dense matrix. Large matrix are sometimes difficult to store in the memory because they are weighty, when they dealing with sparse we can store it and do calculation with them in a very efficient way using the 'Compressed Sparse Column' (CSC) format. See how it change the weight of the matrix when changing the format to sparse matrix .
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "python">
+
+```{python}
+# Python 
+ 
+from scipy.sparse import csr_matrix
+
+X = np.zeros((10000,10000))
+
+idx = list(np.ndindex(X.shape))[np.random.randint(1,10000**2,1000)]
+
+X[idx] = 1
+```
+
+```{python}
+# Python 
+
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r, collapse = TRUE}
+# R
+
+mat = matrix(0,10000,10000)
+idx = round(runif(1000,1,10000**2))
+
+mat[idx] = 1
+
+print(object.size(mat),units = 'auto')
+
+sparse_mat = Matrix(mat,sparse = T)
+print(object.size(sparse_mat),units = 'auto')
+```
+
+```{r, collapse = TRUE}
+# R
+
+mat = matrix(0,10000,10000)
+idx = round(runif(100000,1,10000**2))
+
+mat[idx] = 1
+
+print(object.size(mat),units = 'auto')
+
+sparse_mat = Matrix(mat,sparse = T)
+print(object.size(sparse_mat),units = 'auto')
+```
+
+</div>
+</div>
+</div>
+

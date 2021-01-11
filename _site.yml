@@ -1,25 +1,23 @@
 name: "Techniques de Programmation M1 DS2E"
 navbar:
-  title: "TDP"
+  title: "Programming"
   left:
     - text: "Home"
       href: index.html
-    - text: "Installs"
-      href: 1_Installs.html
     - text: "Basics"
       href: 2_Basics.html
+    - text: "Arrays/Vectors"
+      href: 3_Arrays_Vectors.html
     - text: "Regex"
-      href: 3_Regex.html
-    - text: "Data Analysis"
-      href: 5_Data_Analysis.html
-    - text: "Efficient Programming"
+      href: 4_Regex.html
+    - text: "Data Analysis (R)"
+      href: 5_Data_Analysis_R.html
+    - text: "Data Analysis (Python)"
+      href: 5_Data_Analysis_R.html
+    - text: "Parallel"
       href: 6_Efficient_Prog.html
     - text: "Best Pratices"
-      href: 4_Best_practices.html
-    - text: "Typesetting Systems"
-      href: 7_Typesetting_Systems.html
-    - text: "Packages"
-      href: 8_Packages.html
+      href: 6_Best_practices.html
   right:
     - icon: fa-github fa-lg
       href: https://github.com/master-ds2e/
