@@ -1,3 +1,6 @@
+---
+title: "Arrays/Vectors"
+---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE,error=TRUE,collapse = T)

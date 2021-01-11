@@ -11,8 +11,9 @@
 
 
 
-<title>2_Basics.utf8</title>
+<title>Basics</title>
 
+<script src="site_libs/header-attrs-2.1/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -396,6 +397,7 @@ div.tocify {
 
 
 
+<h1 class="title toc-ignore">Basics</h1>
 
 </div>
 
@@ -447,10 +449,10 @@ div.python pre { background-color: #d0f5a9; }
 <style>
 div.r pre { background-color: #dfdddf; }
 </style>
-<div id="operations" class="section level1">
-<h1><span class="header-section-number">1</span> Operations</h1>
-<div id="arithmetic-operations" class="section level2">
-<h2><span class="header-section-number">1.1</span> Arithmetic Operations</h2>
+<div id="operations" class="section level1" number="1">
+<h1 number="1"><span class="header-section-number">1</span> Operations</h1>
+<div id="arithmetic-operations" class="section level2" number="1.1">
+<h2 number="1.1"><span class="header-section-number">1.1</span> Arithmetic Operations</h2>
 <p>Python and R work as classical calculator, using “+”, “-”, "*" and “/” we can do arithmetic operations in both language.</p>
 <div class="row">
 <div class="col-md-6">
@@ -560,8 +562,8 @@ div.r pre { background-color: #dfdddf; }
 </tbody>
 </table>
 </div>
-<div id="comparison-operators" class="section level2">
-<h2><span class="header-section-number">1.2</span> Comparison Operators</h2>
+<div id="comparison-operators" class="section level2" number="1.2">
+<h2 number="1.2"><span class="header-section-number">1.2</span> Comparison Operators</h2>
 <p>In order to compare some values we can use comparison operators to investigate in a given value is equal to, not equal, greater than … etc</p>
 <p>Theses operators are the same in both language.</p>
 <div class="row">
@@ -633,8 +635,8 @@ div.r pre { background-color: #dfdddf; }
 </tbody>
 </table>
 </div>
-<div id="logical-operators" class="section level2">
-<h2><span class="header-section-number">1.3</span> Logical operators</h2>
+<div id="logical-operators" class="section level2" number="1.3">
+<h2 number="1.3"><span class="header-section-number">1.3</span> Logical operators</h2>
 <div class="row">
 <div class="col-md-6">
 <div class="python">
@@ -707,8 +709,8 @@ x || y
 </tbody>
 </table>
 </div>
-<div id="membership-operators" class="section level2">
-<h2><span class="header-section-number">1.4</span> Membership operators</h2>
+<div id="membership-operators" class="section level2" number="1.4">
+<h2 number="1.4"><span class="header-section-number">1.4</span> Membership operators</h2>
 <p>in and not in are the membership operators in Python. They are used to test whether a value or variable is found in a sequence. In R %in% allows you to use the python in, but you have to be aware that they may not react the same way, the reason is that list of character can be directly decomposed in a character list in python, which is not the case in R. See how we can check that ‘Hello’ is in ‘Hello world’ using just in with python. In R we look if the string exactly match one element.</p>
 <div class="row">
 <div class="col-md-6">
@@ -761,12 +763,12 @@ print(&#39;Hello&#39; %in% x)
 </div>
 </div>
 </div>
-<div id="objects-variables" class="section level1">
-<h1><span class="header-section-number">2</span> Objects &amp; Variables</h1>
+<div id="objects-variables" class="section level1" number="2">
+<h1 number="2"><span class="header-section-number">2</span> Objects &amp; Variables</h1>
 <p>ref used : <a href="https://www.practicaldatascience.org/html/vars_v_objects.html" class="uri">https://www.practicaldatascience.org/html/vars_v_objects.html</a></p>
 <p>Variables are used to store data. In Python and R, we do not need to declare a variable before assigning a value to this variable. we can think of a variable as a name to refers to an object. There is a big difference between python and R on the way the computer is storing object and variables that we will see in the end of the section.</p>
-<div id="difference-between-r-and-python" class="section level2">
-<h2><span class="header-section-number">2.1</span> Difference between R and Python</h2>
+<div id="difference-between-r-and-python" class="section level2" number="2.1">
+<h2 number="2.1"><span class="header-section-number">2.1</span> Difference between R and Python</h2>
 <p><a href="https://learnanalyticshere.wordpress.com/2015/05/14/clash-of-the-titans-r-vs-python/" class="uri">https://learnanalyticshere.wordpress.com/2015/05/14/clash-of-the-titans-r-vs-python/</a></p>
 <p>While Python is a lot praised for being a general-purpose language with an easy-to-understand syntax, R’s functionality is developed with statisticians in thoughts, thus giving it field-specific advantages such as excessive features for data visualization.</p>
 <p>In R, a variable and an object are the same things, they refers to the same entities. If we assign to a new variable a variable that already exist, it will refers to two different objects.</p>
@@ -834,8 +836,8 @@ sd(with_char)
 <p>Also see here that R calulates the standard deviation with N - 1 as the denominator, and numpy with N. To get the same result we need to use ‘ddof=1’ as argument in std.</p>
 </div>
 </div>
-<div id="textual-and-numerical-variables" class="section level2">
-<h2><span class="header-section-number">2.2</span> Textual and numerical variables</h2>
+<div id="textual-and-numerical-variables" class="section level2" number="2.2">
+<h2 number="2.2"><span class="header-section-number">2.2</span> Textual and numerical variables</h2>
 <p>In R textual data are called ‘character’, in Python it is a string, abbreviate as ‘str’. " or ’ are used when we set a textual variable in both laguage, but we can also set a variable to textual variable if needed.</p>
 <p>Numerical variables a decomposed in three types. In Python we’ll have integer, float and complex. In R float is called ‘double’, reffering to double precision floating point. Without entering into details it means that the number have a precision up to 15 decimals. Float can refers to a precision of 7 decimals, however in Python the data-type ‘float’ has a precision of 15 numbers. They are ways to get more precisions using Numpy for example.</p>
 <p>Finaly we can check easily the data-type of the variable that we are dealing by asking the language with the command ‘type’ in Python, or ‘typeof’ in R.</p>
@@ -903,12 +905,12 @@ as.numeric(f)
 </div>
 </div>
 </div>
-<div id="other-data-type-r" class="section level2">
-<h2><span class="header-section-number">2.3</span> Other Data-Type (R)</h2>
+<div id="other-data-type-r" class="section level2" number="2.3">
+<h2 number="2.3"><span class="header-section-number">2.3</span> Other Data-Type (R)</h2>
 <p><a href="https://www.statmethods.net/input/datatypes.html" class="uri">https://www.statmethods.net/input/datatypes.html</a></p>
 <p>There is a lot of datatype in both language that we will discover along the course, for now we will focus only on basic data-type that are directly available without using anyother package or library,in R common data-type are Vector, Matrix, List, Data frame and factor.</p>
-<div id="vectors-and-matrices" class="section level3">
-<h3><span class="header-section-number">2.3.1</span> Vectors and Matrices</h3>
+<div id="vectors-and-matrices" class="section level3" number="2.3.1">
+<h3 number="2.3.1"><span class="header-section-number">2.3.1</span> Vectors and Matrices</h3>
 <div class="r">
 <div class="row">
 <div class="col-md-6">
@@ -1006,8 +1008,8 @@ i_mat
 ## [3,]    0    0    1</code></pre>
 </div>
 </div>
-<div id="data-frame" class="section level3">
-<h3><span class="header-section-number">2.3.2</span> Data frame</h3>
+<div id="data-frame" class="section level3" number="2.3.2">
+<h3 number="2.3.2"><span class="header-section-number">2.3.2</span> Data frame</h3>
 <p>A Data frame in R is a matrix which can store different type of data, characters, numerics or factors. Contrary to the matrix it does not have a fixed dimension it means that we can create a column very easily using the operator ‘$’.</p>
 <div class="r">
 <pre class="r"><code># R
@@ -1075,8 +1077,8 @@ class(t_df)
 ## [1] &quot;matrix&quot;</code></pre>
 </div>
 </div>
-<div id="arrays" class="section level3">
-<h3><span class="header-section-number">2.3.3</span> Arrays</h3>
+<div id="arrays" class="section level3" number="2.3.3">
+<h3 number="2.3.3"><span class="header-section-number">2.3.3</span> Arrays</h3>
 <p>Arrays is a generalisation of the matrix, it means that we can have a matrix with more than two dimension. we can modify them as we modify a matrix.</p>
 <div class="r">
 <pre class="r"><code># R
@@ -1115,8 +1117,8 @@ arr[,,1]
 ## [2,]    2    4</code></pre>
 </div>
 </div>
-<div id="lists" class="section level3">
-<h3><span class="header-section-number">2.3.4</span> Lists</h3>
+<div id="lists" class="section level3" number="2.3.4">
+<h3 number="2.3.4"><span class="header-section-number">2.3.4</span> Lists</h3>
 <p>A list permits us to assemble an assortment of disconnected objects behind one variable, it is also possible to store objects which can be of different types.</p>
 <div class="r">
 <pre class="r"><code># R
@@ -1173,12 +1175,12 @@ lst[[1]][1,] # first row of first element of the list
 </div>
 </div>
 </div>
-<div id="other-data-type-python" class="section level2">
-<h2><span class="header-section-number">2.4</span> Other Data-Type (Python)</h2>
+<div id="other-data-type-python" class="section level2" number="2.4">
+<h2 number="2.4"><span class="header-section-number">2.4</span> Other Data-Type (Python)</h2>
 <p>refused : <a href="https://thomas-cokelaer.info/tutorials/python/lists.html" class="uri">https://thomas-cokelaer.info/tutorials/python/lists.html</a></p>
 <p>In Python the most common are List, Turple, sets, Dictionnary. Note that for the moment when modifiying a variable we always use ‘=’. Keep in mind that using the ‘.’ can modify the object behind the variable in Python.</p>
-<div id="lists-1" class="section level3">
-<h3><span class="header-section-number">2.4.1</span> Lists</h3>
+<div id="lists-1" class="section level3" number="2.4.1">
+<h3 number="2.4.1"><span class="header-section-number">2.4.1</span> Lists</h3>
 <p>Keep in mind that Lists are mutable, as discussed in the Section “Difference between R and Python”</p>
 <div class="python">
 <pre class="python"><code># Python
@@ -1237,8 +1239,8 @@ a
 ## [12, 2, 3]</code></pre>
 </div>
 </div>
-<div id="turples" class="section level3">
-<h3><span class="header-section-number">2.4.2</span> Turples</h3>
+<div id="turples" class="section level3" number="2.4.2">
+<h3 number="2.4.2"><span class="header-section-number">2.4.2</span> Turples</h3>
 <p>The main difference between Lists and Turples is the fact that Turples is an immutable type of data making it faster to use.</p>
 <div class="python">
 <pre class="python"><code># Python
@@ -1282,8 +1284,8 @@ a
 ## (1, 2, 3)</code></pre>
 </div>
 </div>
-<div id="dictionaries" class="section level3">
-<h3><span class="header-section-number">2.4.3</span> Dictionaries</h3>
+<div id="dictionaries" class="section level3" number="2.4.3">
+<h3 number="2.4.3"><span class="header-section-number">2.4.3</span> Dictionaries</h3>
 <p>Dictionary refers to a way of storing data that is not sorted. It works with key and value associate with this key.</p>
 <div class="python">
 <pre class="python"><code># Python
@@ -1331,8 +1333,8 @@ a
 ## {&#39;a&#39;: 1, &#39;b&#39;: [12, 14], &#39;c&#39;: 3}</code></pre>
 </div>
 </div>
-<div id="sets" class="section level3">
-<h3><span class="header-section-number">2.4.4</span> Sets</h3>
+<div id="sets" class="section level3" number="2.4.4">
+<h3 number="2.4.4"><span class="header-section-number">2.4.4</span> Sets</h3>
 <p>Sets are unordered collection of unique elements. If we give to a set multiple time the same element it will automatically delete dupplicated values.</p>
 <div class="python">
 <pre class="python"><code># Python
@@ -1361,8 +1363,8 @@ a
 ## {&#39;a&#39;: 1, &#39;b&#39;: [12, 14], &#39;c&#39;: 3}</code></pre>
 </div>
 </div>
-<div id="arrays-1" class="section level3">
-<h3><span class="header-section-number">2.4.5</span> Arrays</h3>
+<div id="arrays-1" class="section level3" number="2.4.5">
+<h3 number="2.4.5"><span class="header-section-number">2.4.5</span> Arrays</h3>
 <p>In order to manipulate arrays in Python we need to use package numpy, this package is very usefull and will be covered in other chapters.</p>
 <p>First see that we can make an array usig R by starting from a vector R represents all arrays in column-major order, which is not the case in python.</p>
 <div class="row">
@@ -1441,8 +1443,8 @@ arr
 ##        [ 7,  8]])</code></pre>
 </div>
 </div>
-<div id="data-frame-1" class="section level3">
-<h3><span class="header-section-number">2.4.6</span> Data Frame</h3>
+<div id="data-frame-1" class="section level3" number="2.4.6">
+<h3 number="2.4.6"><span class="header-section-number">2.4.6</span> Data Frame</h3>
 <p>Pandas Data Frames are also very common data-type in Python. The package Pandas is also view deeper in following chapters.</p>
 <div class="python">
 <pre class="python"><code># Python
@@ -1508,11 +1510,11 @@ df2
 </div>
 </div>
 </div>
-<div id="control-flow" class="section level1">
-<h1><span class="header-section-number">3</span> Control flow</h1>
+<div id="control-flow" class="section level1" number="3">
+<h1 number="3"><span class="header-section-number">3</span> Control flow</h1>
 <p>There are two main control flow tools: choices, and loops. choices are very useful for establishing rules or conditions. Choices can be used to modify a value according to a certain condition, generally it allows to launch certain actions in specific cases. The loops when it allows to execute sequentially actions, it can be to interactively modify an object, more generally it allows to launch a procedure several times. we can for example create N similar objects but we can also modify the N lines of an object.</p>
-<div id="choices" class="section level2">
-<h2><span class="header-section-number">3.1</span> Choices</h2>
+<div id="choices" class="section level2" number="3.1">
+<h2 number="3.1"><span class="header-section-number">3.1</span> Choices</h2>
 <div class="row">
 <div class="col-md-6">
 <div class="python">
@@ -1602,8 +1604,8 @@ case_when(
 </div>
 </div>
 </div>
-<div id="loops" class="section level2">
-<h2><span class="header-section-number">3.2</span> Loops</h2>
+<div id="loops" class="section level2" number="3.2">
+<h2 number="3.2"><span class="header-section-number">3.2</span> Loops</h2>
 <p>Using for loops, we will iterate over a predefined number of iteration, sometimes we don’t know how many steps we need to perform a given task. Imagine that we want to optimize a function, we don’t know how many step we need until reaching an optimum but we can set a condition for which we will consider that the algorithm converged. For this kind of exercice we can use ‘while’ loops, it will iterate until a given condition is satisfied.</p>
 <div class="row">
 <div class="col-md-6">
@@ -1631,7 +1633,7 @@ while total &lt; 1:
     total += rnd
   
 total
-## 1.8259179263839593</code></pre>
+## 1.9933819724093778</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -1661,13 +1663,13 @@ while(total &lt; 1){
 }
   
 total
-## [1] 1.234382</code></pre>
+## [1] 1.204731</code></pre>
 </div>
 </div>
 </div>
 </div>
-<div id="list-set-and-dict-comprehensions-python" class="section level2">
-<h2><span class="header-section-number">3.3</span> List, Set and Dict comprehensions (Python)</h2>
+<div id="list-set-and-dict-comprehensions-python" class="section level2" number="3.3">
+<h2 number="3.3"><span class="header-section-number">3.3</span> List, Set and Dict comprehensions (Python)</h2>
 <p>List comprehension is very common and appreciate in the python language features, think of it as a loop for which we will directly store output in a list, set, or dict. we can use it as a filter for exemple.</p>
 <div class="python">
 <div class="row">
@@ -1684,14 +1686,14 @@ for val in lst:
   if val &gt; 2:
     results.append(val)
 time.time()-t
-## 0.018891572952270508
+## 0.019930124282836914
 results
 ## [3, 4]
 t = time.time() 
 # this loop their will produce the same output than a using List comprehension.
 results = [val for val in lst if val&gt;2]
 time.time()-t
-## 0.009999275207519531
+## 0.008947134017944336
 results
 ## [3, 4]</code></pre>
 </div>
@@ -1708,7 +1710,7 @@ for val in st:
   if val &gt; 2:
     results.add(val)
 time.time()-t
-## 0.015021085739135742
+## 0.013957977294921875
 results
 ## {3, 4}
 t = time.time() 
@@ -1716,7 +1718,7 @@ t = time.time()
 # this loop their will produce the same output than a using Set comprehension.
 results = {val for val in st if val&gt;2}
 time.time()-t
-## 0.01099538803100586
+## 0.009955644607543945
 results
 ## {3, 4}</code></pre>
 </div>
@@ -1733,14 +1735,14 @@ for val in dct:
   if dct[val] &gt; 2:
     results.update({str(val): dct[val]})
 time.time()-t
-## 0.01497197151184082
+## 0.014941692352294922
 results
 ## {&#39;c&#39;: 3, &#39;d&#39;: 4}
 t = time.time() 
 # this loop their will produce the same output than a using Dict comprehension.
 results = {str(val): dct[val] for val in dct if dct[val]&gt;2}
 time.time()-t
-## 0.009004354476928711
+## 0.00896906852722168
 results
 ## {&#39;c&#39;: 3, &#39;d&#39;: 4}</code></pre>
 </div>
@@ -1748,14 +1750,14 @@ results
 </div>
 </div>
 </div>
-<div id="functions" class="section level1">
-<h1><span class="header-section-number">4</span> Functions</h1>
+<div id="functions" class="section level1" number="4">
+<h1 number="4"><span class="header-section-number">4</span> Functions</h1>
 <p>Functions are very important in both language, being able to code ourself things are sometimes more efficient that looking for a package and understand it.<br />
 Being able to write our own function gives we more flexibility and a better understanding of what we are actually doing. Most of the time, this sentence is wrong and the way we are googling things and reading documentation can also have a major role on ability to play with existent code.<br />
 It’s important to not reinvent the wheel, while it is important to be able to construct it ourself. Read documentation carefully while using packages, sometimes packages are misleading and we can spend a lot of time understanding how they work. Look at the packages source code when we are not sure of what the function does behind.<br />
 The full power of programming comes with the fact that we can be autonomous by reading, modifying and writing codes and pre-existing codes.</p>
-<div id="general-functions" class="section level2">
-<h2><span class="header-section-number">4.1</span> General Functions</h2>
+<div id="general-functions" class="section level2" number="4.1">
+<h2 number="4.1"><span class="header-section-number">4.1</span> General Functions</h2>
 <div class="row">
 <div class="col-md-6">
 <div class="python">
@@ -1776,7 +1778,7 @@ clean_sum(seq =  seq)
 ## 1560
 time.time() - t
 
-## 0.010001420974731445
+## 0.01005411148071289
 def clean_sum2(seq):
   total = sum(filter(None,seq))#[val for val in seq if val is not None])
   return total
@@ -1786,7 +1788,7 @@ clean_sum2(seq =  seq)
 ## 1560
 time.time() - t
 
-## 0.009958744049072266</code></pre>
+## 0.008968591690063477</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -1809,7 +1811,7 @@ t = Sys.time()
 clean_sum(seq = seq)
 ## [1] 1560
 Sys.time() - t
-## Time difference of 0.006017923 secs
+## Time difference of 0.005973816 secs
 
 
 
@@ -1822,7 +1824,7 @@ t = Sys.time()
 clean_sum(seq = seq)
 ## [1] 1560
 Sys.time() - t
-## Time difference of 0.001991034 secs</code></pre>
+## Time difference of 0.002105951 secs</code></pre>
 </div>
 </div>
 </div>
@@ -1889,8 +1891,8 @@ x2
 </div>
 </div>
 </div>
-<div id="python-generators" class="section level2">
-<h2><span class="header-section-number">4.2</span> Python Generators</h2>
+<div id="python-generators" class="section level2" number="4.2">
+<h2 number="4.2"><span class="header-section-number">4.2</span> Python Generators</h2>
 <p>Generator usage in python is a simple way of creating iterators. The goal of this kind of function is to return an object for which we can iterate over it. The difference in terms of syntax hold in the fact that we will the statement ‘yield’ instead of ‘return’. In comparaison to ‘return’, using ‘yield’ will pause the function and the control of that generator will be trasnfered to the object that call this generator.<br />
 Generators are very very usefull when we deal with object taht can be too heavy to store all the information in our RAM. As a generators is an iterator, it will load in the RAM only the iteration that it is reading, meaning that we can have no size limit if we want to iterate over an object that is to heavy. This first example is made with a txt file with 1000 rows. We will see how RAM is used behind our machine to understand how it can be relevant to use genetaors.</p>
 <div class="row">
@@ -1913,9 +1915,9 @@ def read_file_to_lower():
 txt_clean = read_file_to_lower()
 
 process.memory_info().rss - r1 # in bytes
-## 131072
+## 65536
 time.time() - t
-## 0.037012577056884766
+## 0.06184649467468262
 type(txt_clean)
 ## &lt;class &#39;list&#39;&gt;</code></pre>
 </div>
@@ -1941,10 +1943,10 @@ memory_friendly_txt_clean = read_to_lower()
 txt_clean = [line_clean for line_clean in memory_friendly_txt_clean]
 
 process.memory_info().rss - r1 # in bytes
-## 12288
+## 20480
 time.time() - t
 
-## 0.03506135940551758
+## 0.032958030700683594
 type(memory_friendly_txt_clean)
 
 ## &lt;class &#39;generator&#39;&gt;</code></pre>
@@ -1953,8 +1955,8 @@ type(memory_friendly_txt_clean)
 </div>
 <p>Note how the memory used during the calculation is very different while the time spend does not really change.</p>
 </div>
-<div id="error-and-exception-handling" class="section level2">
-<h2><span class="header-section-number">4.3</span> Error and Exception Handling</h2>
+<div id="error-and-exception-handling" class="section level2" number="4.3">
+<h2 number="4.3"><span class="header-section-number">4.3</span> Error and Exception Handling</h2>
 <p>Most of the time writing a function is very task specific, but since data are often dirty and incomplete, our given task may not work. It is important to understand why a given function can produce an error. Being sure that this and this case can leads to errors is not so easy, but it’s important not to be too flexible to keep. In ths exemples we will see how setting the flexibility of the function can leads to different results that are more or less what we want.</p>
 <p>Look before we leap vs Easier to ask for forgiveness than permission.</p>
 <p>if we expect that 99 % of the time result will actually contain something iterable, I’d use the try/except approach. It will be faster if exceptions really are exceptional. If result is None more than 50 % of the time, then using if is probably better. So, whereas an if statement always costs us, it’s nearly free to set up a try/except block. But when an Exception actually occurs, the cost is much higher.</p>
@@ -2034,29 +2036,29 @@ results = [calc_try(values) for values in list_]</code></pre>
 t= time.time()
 results = [calc3(values) for values in list_]
 time.time()-t
-## 0.1548905372619629
+## 0.1409168243408203
 t= time.time()
 results = [calc_try(values) for values in list_]
 time.time()-t
-## 0.09557867050170898</code></pre>
+## 0.09921908378601074</code></pre>
 <pre class="python"><code>list_ = create_dirty_list(0.33)
 t= time.time()
 results = [calc3(values) for values in list_]
 time.time()-t
-## 0.11184358596801758
+## 0.09907817840576172
 t= time.time()
 results = [calc_try(values) for values in list_]
 time.time()-t
-## 0.10307836532592773</code></pre>
+## 0.11492061614990234</code></pre>
 <pre class="python"><code>list_ = create_dirty_list(0.75)
 t= time.time()
 results = [calc3(values) for values in list_]
 time.time()-t
-## 0.08562016487121582
+## 0.04402279853820801
 t= time.time()
 results = [calc_try(values) for values in list_]
 time.time()-t
-## 0.11685514450073242</code></pre>
+## 0.09401893615722656</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -2139,39 +2141,39 @@ list_ &lt;- create_dirty_list(0.01)
 t &lt;- Sys.time()
 results &lt;- lapply(list_,FUN = calc3)
 Sys.time()-t
-## Time difference of 0.04900599 secs
+## Time difference of 0.04304385 secs
 t &lt;- Sys.time()
 results &lt;- lapply(list_,FUN = calc_try)
 Sys.time()-t
-## Time difference of 1.25299 secs</code></pre>
+## Time difference of 1.137042 secs</code></pre>
 <pre class="r"><code># compare it 
 list_ = create_dirty_list(0.33)
 t &lt;- Sys.time()
 results &lt;- lapply(list_,FUN = calc3)
 Sys.time()-t
-## Time difference of 0.03601694 secs
+## Time difference of 0.033952 secs
 t &lt;- Sys.time()
 results &lt;- lapply(list_,FUN = calc_try)
 Sys.time()-t
-## Time difference of 0.8917258 secs</code></pre>
+## Time difference of 0.80409 secs</code></pre>
 <pre class="r"><code># compare it 
 list_ = create_dirty_list(0.75)
 t &lt;- Sys.time()
 results &lt;- lapply(list_,FUN = calc3)
 Sys.time()-t
-## Time difference of 0.01902413 secs
+## Time difference of 0.01902485 secs
 t &lt;- Sys.time()
 results &lt;- lapply(list_,FUN = calc_try)
 Sys.time()-t
-## Time difference of 0.4199989 secs</code></pre>
+## Time difference of 0.481998 secs</code></pre>
 </div>
 </div>
 </div>
 <p><a href="https://www.w3schools.com/python/python_ref_string.asp" class="uri">https://www.w3schools.com/python/python_ref_string.asp</a> <a href="https://thomas-cokelaer.info/tutorials/python/strings.html" class="uri">https://thomas-cokelaer.info/tutorials/python/strings.html</a></p>
 </div>
 </div>
-<div id="dealing-with-strings" class="section level1">
-<h1><span class="header-section-number">5</span> Dealing with strings</h1>
+<div id="dealing-with-strings" class="section level1" number="5">
+<h1 number="5"><span class="header-section-number">5</span> Dealing with strings</h1>
 <div class="row">
 <div class="col-md-6">
 <div class="python">
@@ -2192,7 +2194,7 @@ wd_info = &#39;\nCurrent working directory: &#39;
 infos = time_info+time_+mem_info+str(mem)+cpu_info+str(cpu)+wd_info+wd
 
 print(infos)
-## Time: Mon Jan 11 10:14:49 2021
+## Time: Mon Jan 11 11:46:36 2021
 ## RAM (GB): 137.069338624
 ## # CPU: 56
 ## Current working directory: C:\Users\Beta\Documents\GitHub\M1_TDP</code></pre>
@@ -2217,10 +2219,10 @@ infos &lt;- paste0(time_info,time_,
            cpu_info,as.character(cpu),
            wd_info,wd)
 print(infos) 
-## [1] &quot;Time: 2021-01-11 10:14:50\nRAM (GB): 137.069338624\n# CPUs: 56\nCurrent working directory: C:/Users/Beta/Documents/GitHub/M1_TDP&quot;
+## [1] &quot;Time: 2021-01-11 11:46:37\nRAM (GB): 137.069338624\n# CPUs: 56\nCurrent working directory: C:/Users/Beta/Documents/GitHub/M1_TDP&quot;
 
 cat(infos) 
-## Time: 2021-01-11 10:14:50
+## Time: 2021-01-11 11:46:37
 ## RAM (GB): 137.069338624
 ## # CPUs: 56
 ## Current working directory: C:/Users/Beta/Documents/GitHub/M1_TDP</code></pre>
@@ -2363,30 +2365,30 @@ def get_infos_3():
 
 t = time.time()
 get_infos()
-## Time: Mon Jan 11 10:14:51 2021
+## Time: Mon Jan 11 11:46:38 2021
 ## RAM (GB): 137.069338624
 ## # CPUs: 56
 ## Current working directory: C:\Users\Beta\Documents\GitHub\M1_TDP
 print(time.time()-t)
 
-## 0.008959770202636719
+## 0.009953498840332031
 t = time.time()
 get_infos_2()
-## Time: Mon Jan 11 10:14:51 2021 
+## Time: Mon Jan 11 11:46:38 2021 
 ##   RAM (GB): 137.069338624
 ##   # CPUs: 56 
 ##   Current working directory: C:\Users\Beta\Documents\GitHub\M1_TDP
 print(time.time()-t)
-## 0.008959531784057617
+## 0.009952783584594727
 t = time.time()
 get_infos_3()
-## Time: Mon Jan 11 10:14:51 2021 
+## Time: Mon Jan 11 11:46:38 2021 
 ##   RAM (GB): 137.069338624
 ##   # CPUs: 56 
 ##   Current working directory: C:\Users\Beta\Documents\GitHub\M1_TDP
 print(time.time()-t)
 
-## 0.009956121444702148</code></pre>
+## 0.010018587112426758</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -2497,27 +2499,27 @@ get_infos_2&lt;- function(){
 
 t = Sys.time()
 get_infos()
-## Time: 2021-01-11 10:14:51
+## Time: 2021-01-11 11:46:38
 ## RAM (GB): 137.069338624
 ## # CPUs: 56
 ## Current working directory: C:/Users/Beta/Documents/GitHub/M1_TDP
 Sys.time()-t
-## Time difference of 0.2204702 secs
+## Time difference of 0.2280941 secs
 
 t = Sys.time()
 get_infos_2()
-## Time: 2021-01-11 10:14:51 
+## Time: 2021-01-11 11:46:38 
 ##   RAM (GB): 137.069338624
 ##   # CPUs: 56 
 ##   Current working directory: C:/Users/Beta/Documents/GitHub/M1_TDP
 Sys.time()-t
-## Time difference of 0.2341359 secs</code></pre>
+## Time difference of 0.2339909 secs</code></pre>
 </div>
 </div>
 </div>
 </div>
-<div id="exercices" class="section level1">
-<h1><span class="header-section-number">6</span> Exercices</h1>
+<div id="exercices" class="section level1" number="6">
+<h1 number="6"><span class="header-section-number">6</span> Exercices</h1>
 </div>
 
 
