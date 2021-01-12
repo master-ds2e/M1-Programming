@@ -1,6 +1,9 @@
-name: "Techniques de Programmation M1 DS2E"
+name: "Programming technics (6ETCS)"
+
+author:  "Pierre Pelletier"
+email: "[p.pelletier@unistra.fr]"
 navbar:
-  title: "Programming"
+  title: "M1 Programming"
   left:
     - text: "Home"
       href: index.html
