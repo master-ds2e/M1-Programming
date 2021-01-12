@@ -1,5 +1,7 @@
 ---
 title: "Basics"
+abstract: "This capter introduce the basics of R and Python. The goal of this chapter is to discover the different type of object that we can deal with for each language, to understand the logic of control flows and function writting. Along this chapter we will see what differs between R and Python but also how similar they can be.\nThe chapter ends with 3 Exercices from Euler Project. By forming a group of 2, solve at least one exercice in the language of your choice. try to compare different approach."
+
 ---
 
 ```{css, echo=FALSE}
