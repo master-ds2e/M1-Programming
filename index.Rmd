@@ -1,5 +1,8 @@
 ---
 title: "Programming technics (6 ECTS)"
+author:  "[Pierre Pelletier]"
+output:
+  html_document
 ---
 
 # Description
