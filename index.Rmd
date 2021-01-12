@@ -8,7 +8,7 @@ output:
 # Description
 
 This course  aims at providing students with fundamental programming concepts including data structures, libraries, re-usable functions, efficient codes. 
-Python and R programming languages will be used, both having become very popular for data science in academia and the private sector. The course will also focus on how to report results of data analysis using high-quality typesetting system (LaTex, Markdown) and hosts of source codes (GitHub).
+Python and R programming languages will be used, both became very popular for data science in academia and the private sector. The course will also focus on how to report results of data analysis using high-quality typesetting system (LaTex, Markdown) and hosts of source codes (GitHub).
 
 # Exams
 
