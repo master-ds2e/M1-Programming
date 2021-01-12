@@ -46,6 +46,16 @@ if (window.hljs) {
 </script>
 
 
+<style type="text/css">
+  p.abstract{
+    text-align: center;
+    font-weight: bold;
+  }
+  div.abstract{
+    margin: auto;
+    width: 90%;
+  }
+</style>
 
 <style type="text/css">
 h1 {
@@ -352,7 +362,7 @@ div.tocify {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">Programming</a>
+      <a class="navbar-brand" href="index.html">M1 Programming</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -398,6 +408,10 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Basics</h1>
+<div class="abstract">
+<p class="abstract">Abstract</p>
+This capter introduce the basics of R and Python. The goal of this chapter is to discover the different type of object that we can deal with for each language, to understand the logic of control flows and function writting. Along this chapter we will see what differs between R and Python but also how similar they can be. The chapter ends with 3 Exercices from Euler Project. By forming a group of 2, solve at least one exercice in the language of your choice. try to compare different approach.
+</div>
 
 </div>
 
@@ -1633,7 +1647,7 @@ while total &lt; 1:
     total += rnd
   
 total
-## 1.9933819724093778</code></pre>
+## 1.5680642894849397</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -1663,7 +1677,7 @@ while(total &lt; 1){
 }
   
 total
-## [1] 1.204731</code></pre>
+## [1] 1.473757</code></pre>
 </div>
 </div>
 </div>
@@ -1686,14 +1700,14 @@ for val in lst:
   if val &gt; 2:
     results.append(val)
 time.time()-t
-## 0.019930124282836914
+## 0.014924049377441406
 results
 ## [3, 4]
 t = time.time() 
 # this loop their will produce the same output than a using List comprehension.
 results = [val for val in lst if val&gt;2]
 time.time()-t
-## 0.008947134017944336
+## 0.009965896606445312
 results
 ## [3, 4]</code></pre>
 </div>
@@ -1710,7 +1724,7 @@ for val in st:
   if val &gt; 2:
     results.add(val)
 time.time()-t
-## 0.013957977294921875
+## 0.013950109481811523
 results
 ## {3, 4}
 t = time.time() 
@@ -1718,7 +1732,7 @@ t = time.time()
 # this loop their will produce the same output than a using Set comprehension.
 results = {val for val in st if val&gt;2}
 time.time()-t
-## 0.009955644607543945
+## 0.008970260620117188
 results
 ## {3, 4}</code></pre>
 </div>
@@ -1735,14 +1749,14 @@ for val in dct:
   if dct[val] &gt; 2:
     results.update({str(val): dct[val]})
 time.time()-t
-## 0.014941692352294922
+## 0.017940044403076172
 results
 ## {&#39;c&#39;: 3, &#39;d&#39;: 4}
 t = time.time() 
 # this loop their will produce the same output than a using Dict comprehension.
 results = {str(val): dct[val] for val in dct if dct[val]&gt;2}
 time.time()-t
-## 0.00896906852722168
+## 0.009965181350708008
 results
 ## {&#39;c&#39;: 3, &#39;d&#39;: 4}</code></pre>
 </div>
@@ -1778,7 +1792,7 @@ clean_sum(seq =  seq)
 ## 1560
 time.time() - t
 
-## 0.01005411148071289
+## 0.008970260620117188
 def clean_sum2(seq):
   total = sum(filter(None,seq))#[val for val in seq if val is not None])
   return total
@@ -1788,7 +1802,7 @@ clean_sum2(seq =  seq)
 ## 1560
 time.time() - t
 
-## 0.008968591690063477</code></pre>
+## 0.009967327117919922</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -1811,7 +1825,7 @@ t = Sys.time()
 clean_sum(seq = seq)
 ## [1] 1560
 Sys.time() - t
-## Time difference of 0.005973816 secs
+## Time difference of 0.005973101 secs
 
 
 
@@ -1824,7 +1838,7 @@ t = Sys.time()
 clean_sum(seq = seq)
 ## [1] 1560
 Sys.time() - t
-## Time difference of 0.002105951 secs</code></pre>
+## Time difference of 0.002000809 secs</code></pre>
 </div>
 </div>
 </div>
@@ -1915,9 +1929,9 @@ def read_file_to_lower():
 txt_clean = read_file_to_lower()
 
 process.memory_info().rss - r1 # in bytes
-## 65536
+## 131072
 time.time() - t
-## 0.06184649467468262
+## 0.03197669982910156
 type(txt_clean)
 ## &lt;class &#39;list&#39;&gt;</code></pre>
 </div>
@@ -1946,7 +1960,7 @@ process.memory_info().rss - r1 # in bytes
 ## 20480
 time.time() - t
 
-## 0.032958030700683594
+## 0.0329892635345459
 type(memory_friendly_txt_clean)
 
 ## &lt;class &#39;generator&#39;&gt;</code></pre>
@@ -2036,29 +2050,29 @@ results = [calc_try(values) for values in list_]</code></pre>
 t= time.time()
 results = [calc3(values) for values in list_]
 time.time()-t
-## 0.1409168243408203
+## 0.1389608383178711
 t= time.time()
 results = [calc_try(values) for values in list_]
 time.time()-t
-## 0.09921908378601074</code></pre>
+## 0.09605813026428223</code></pre>
 <pre class="python"><code>list_ = create_dirty_list(0.33)
 t= time.time()
 results = [calc3(values) for values in list_]
 time.time()-t
-## 0.09907817840576172
+## 0.09900927543640137
 t= time.time()
 results = [calc_try(values) for values in list_]
 time.time()-t
-## 0.11492061614990234</code></pre>
+## 0.09802865982055664</code></pre>
 <pre class="python"><code>list_ = create_dirty_list(0.75)
 t= time.time()
 results = [calc3(values) for values in list_]
 time.time()-t
-## 0.04402279853820801
+## 0.04308271408081055
 t= time.time()
 results = [calc_try(values) for values in list_]
 time.time()-t
-## 0.09401893615722656</code></pre>
+## 0.09440493583679199</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -2141,31 +2155,31 @@ list_ &lt;- create_dirty_list(0.01)
 t &lt;- Sys.time()
 results &lt;- lapply(list_,FUN = calc3)
 Sys.time()-t
-## Time difference of 0.04304385 secs
+## Time difference of 0.04202509 secs
 t &lt;- Sys.time()
 results &lt;- lapply(list_,FUN = calc_try)
 Sys.time()-t
-## Time difference of 1.137042 secs</code></pre>
+## Time difference of 1.140933 secs</code></pre>
 <pre class="r"><code># compare it 
 list_ = create_dirty_list(0.33)
 t &lt;- Sys.time()
 results &lt;- lapply(list_,FUN = calc3)
 Sys.time()-t
-## Time difference of 0.033952 secs
+## Time difference of 0.03407001 secs
 t &lt;- Sys.time()
 results &lt;- lapply(list_,FUN = calc_try)
 Sys.time()-t
-## Time difference of 0.80409 secs</code></pre>
+## Time difference of 0.798398 secs</code></pre>
 <pre class="r"><code># compare it 
 list_ = create_dirty_list(0.75)
 t &lt;- Sys.time()
 results &lt;- lapply(list_,FUN = calc3)
 Sys.time()-t
-## Time difference of 0.01902485 secs
+## Time difference of 0.0240171 secs
 t &lt;- Sys.time()
 results &lt;- lapply(list_,FUN = calc_try)
 Sys.time()-t
-## Time difference of 0.481998 secs</code></pre>
+## Time difference of 0.4329741 secs</code></pre>
 </div>
 </div>
 </div>
@@ -2194,7 +2208,7 @@ wd_info = &#39;\nCurrent working directory: &#39;
 infos = time_info+time_+mem_info+str(mem)+cpu_info+str(cpu)+wd_info+wd
 
 print(infos)
-## Time: Mon Jan 11 11:46:36 2021
+## Time: Tue Jan 12 15:13:06 2021
 ## RAM (GB): 137.069338624
 ## # CPU: 56
 ## Current working directory: C:\Users\Beta\Documents\GitHub\M1_TDP</code></pre>
@@ -2219,10 +2233,10 @@ infos &lt;- paste0(time_info,time_,
            cpu_info,as.character(cpu),
            wd_info,wd)
 print(infos) 
-## [1] &quot;Time: 2021-01-11 11:46:37\nRAM (GB): 137.069338624\n# CPUs: 56\nCurrent working directory: C:/Users/Beta/Documents/GitHub/M1_TDP&quot;
+## [1] &quot;Time: 2021-01-12 15:13:08\nRAM (GB): 137.069338624\n# CPUs: 56\nCurrent working directory: C:/Users/Beta/Documents/GitHub/M1_TDP&quot;
 
 cat(infos) 
-## Time: 2021-01-11 11:46:37
+## Time: 2021-01-12 15:13:08
 ## RAM (GB): 137.069338624
 ## # CPUs: 56
 ## Current working directory: C:/Users/Beta/Documents/GitHub/M1_TDP</code></pre>
@@ -2365,30 +2379,30 @@ def get_infos_3():
 
 t = time.time()
 get_infos()
-## Time: Mon Jan 11 11:46:38 2021
+## Time: Tue Jan 12 15:13:09 2021
 ## RAM (GB): 137.069338624
 ## # CPUs: 56
 ## Current working directory: C:\Users\Beta\Documents\GitHub\M1_TDP
 print(time.time()-t)
 
-## 0.009953498840332031
+## 0.009966135025024414
 t = time.time()
 get_infos_2()
-## Time: Mon Jan 11 11:46:38 2021 
+## Time: Tue Jan 12 15:13:09 2021 
 ##   RAM (GB): 137.069338624
 ##   # CPUs: 56 
 ##   Current working directory: C:\Users\Beta\Documents\GitHub\M1_TDP
 print(time.time()-t)
-## 0.009952783584594727
+## 0.00907444953918457
 t = time.time()
 get_infos_3()
-## Time: Mon Jan 11 11:46:38 2021 
+## Time: Tue Jan 12 15:13:09 2021 
 ##   RAM (GB): 137.069338624
 ##   # CPUs: 56 
 ##   Current working directory: C:\Users\Beta\Documents\GitHub\M1_TDP
 print(time.time()-t)
 
-## 0.010018587112426758</code></pre>
+## 0.011028289794921875</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -2499,21 +2513,21 @@ get_infos_2&lt;- function(){
 
 t = Sys.time()
 get_infos()
-## Time: 2021-01-11 11:46:38
+## Time: 2021-01-12 15:13:09
 ## RAM (GB): 137.069338624
 ## # CPUs: 56
 ## Current working directory: C:/Users/Beta/Documents/GitHub/M1_TDP
 Sys.time()-t
-## Time difference of 0.2280941 secs
+## Time difference of 0.2294729 secs
 
 t = Sys.time()
 get_infos_2()
-## Time: 2021-01-11 11:46:38 
+## Time: 2021-01-12 15:13:09 
 ##   RAM (GB): 137.069338624
 ##   # CPUs: 56 
 ##   Current working directory: C:/Users/Beta/Documents/GitHub/M1_TDP
 Sys.time()-t
-## Time difference of 0.2339909 secs</code></pre>
+## Time difference of 0.2339699 secs</code></pre>
 </div>
 </div>
 </div>
