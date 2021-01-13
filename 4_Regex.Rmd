@@ -10,22 +10,295 @@ div.python pre { background-color: #fdfcff; }
 div.r pre { background-color: #fffffc; }
 </style>
 
+
+# Dealing with strings
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "python">
+
+```{python , collapse = T}
+# Python 
+import time
+import psutil
+import os
+
+time_ = time.ctime(time.time())
+time_info = 'Time: '
+mem = psutil.virtual_memory().total/1e9
+mem_info = '\nRAM (GB): '
+cpu = psutil.cpu_count()
+cpu_info = '\n# CPU: '
+wd = os.getcwd()
+wd_info = '\nCurrent working directory: '
+
+infos = time_info+time_+mem_info+str(mem)+cpu_info+str(cpu)+wd_info+wd
+
+print(infos)
+
+```
+
+In R we use cat() to take into account '\n' (new line), Python automatically understand it with print.
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r, collapse = TRUE}
+# R
+library(benchmarkme)
+time_ <- Sys.time()
+time_info <- 'Time: '
+mem <- get_ram()/1e9
+mem_info <- '\nRAM (GB): '
+cpu <- get_cpu()$no_of_cores
+cpu_info <- '\n# CPUs: '
+wd = getwd()
+wd_info = '\nCurrent working directory: '
+
+infos <- paste0(time_info,time_,
+           mem_info,as.character(mem),
+           cpu_info,as.character(cpu),
+           wd_info,wd)
+print(infos) 
+
+cat(infos) 
+
+```
+
+</div>
+</div>
+</div>
+
+
+Here is some information on the computer where this document was compiled. 
+
+The working directory is the path to the folder where we are working, If we read or write on a file without specifiying the exact path (only the name of the file), the program will search for this file in the current working directory.
+
+'\', the backslash character is used to specify special character, tabulation, new lines, backslash or quotes and so on. When dealing with path this may be confusing for the machine. We can specify that the string must be read as it is by using 'r' before the quote.  
+
+Here is a list of escape character that can be usefull
+
+ Escape Sequence | Description 
+- | -:
+ \\t 	| Insert a tab in the text at this point.
+ \\b 	| Insert a backspace in the text at this point.
+ \\n 	| Insert a newline in the text at this point.
+ \\r 	| Insert a carriage return in the text at this point.
+ \\f 	| Insert a formfeed in the text at this point.
+ \\' 	| Insert a single quote character in the text at this point.
+ \\" 	| Insert a double quote character in the text at this point.
+ \\\ 	| Insert a backslash character in the text at this point.   
+ 
+source : https://docs.oracle.com/javase/tutorial/java/data/characters.html
+ 
+<div class = "row">
+<div class = "col-md-6">
+<div class = "python">
+
+
+```{python, collapse = T}
+# Python 
+
+wd_t = r'C:\Users\mypath\to\myfolder'
+wd_t
+print(wd_t)
+```
+
+- The point of the r'...' notation is for writing raw strings and use different rules for interpreting backslash escape sequences. If we're just getting the value from another variable, there's no need for an r.
+
+- A string in Python is workng as an array, we can easily select pieces of the string with the position of the letters. In R a string is a block that we need to decompose ourself if we want to select a specific letter. The nb of character present in a string will be then the length of the object.
+We can modify string in several ways which are listed here : https://www.w3schools.com/python/python_ref_string.asp  
+We see here some classical examples 
+```{python , collapse = T, error= T}
+# Python 
+
+wd_info = 'Current working directory:\n'+os.getcwd()
+slc_infos = wd_info[10:20]
+len(slc_info)
+slc_infos
+slc_infos = list(slc_infos)
+slc_infos
+
+# immutable
+slc_infos[7] = '0'
+slc_infos
+
+# count
+wd_info.count('s')
+
+# modify the string
+wd_info.title()
+wd_info.upper()
+wd_info.lower()
+splt_inf = wd_info.split(': ')
+splt_inf
+' '.join(splt_inf)
+
+```
+- In Python, the % sign lets us produce formatted output. We can also use "{}".format() in order to change automatically values in raw text. Let's rewritte our function.
+```{python , collapse = T}
+# Python 
+
+def get_infos():
+  time_info = 'Time: '+time.ctime(time.time())
+  mem_info = '\nRAM (GB): '+str(psutil.virtual_memory().total/1e9)
+  cpu_info = '\n# CPUs: '+str(psutil.cpu_count())
+  wd_info = '\nCurrent working directory: '+os.getcwd()
+  infos = time_info+mem_info+cpu_info+wd_info
+  print(infos)
+
+
+def get_infos_2():
+  infos = '''Time: %s 
+  RAM (GB): %s
+  # CPUs: %s 
+  Current working directory: %s'''% (time.ctime(time.time()),
+  psutil.virtual_memory().total/1e9,
+  psutil.cpu_count(),
+  os.getcwd())
+  print(infos)
+  
+def get_infos_3():
+  infos = '''Time: {t} 
+  RAM (GB): {ram}
+  # CPUs: {cpu} 
+  Current working directory: {wd}'''.format(t = time.ctime(time.time()),
+  ram = psutil.virtual_memory().total/1e9,
+  cpu = psutil.cpu_count(),
+  wd = os.getcwd())
+  print(infos)
+  
+  
+
+t = time.time()
+get_infos()
+print(time.time()-t)
+
+
+t = time.time()
+get_infos_2()
+print(time.time()-t)
+
+t = time.time()
+get_infos_3()
+print(time.time()-t)
+
+
+```
+</div>
+</div>
+
+<div class = "col-md-6">
+<div class = "r">
+```{r, collapse = T}
+# R 
+
+wd_t = 'C:\\Users\\mypath\\to\\myfolder'
+print(wd_t)
+cat(wd_t)
+```
+ - In R they are no way of told R to read literal backslash, we need to double it while writting it. Also we need to split the string before accessing to element of this string.  
+The function 'strsplit' is made to work with vector also, it automatically create a list for which each element of this list is the decomposed string.  
+That's why we see '[[1]]' after each strsplit function calls. We want to access only the first element because there is only one string in the object submitted to the function.
+```{r , collapse = T, error= T}
+# R 
+library(stringr)
+library(tools)
+
+wd_info  <- paste0('Current working directory: ',getwd())
+slc_infos <- wd_info[10:20]
+slc_infos
+slc_infos <- paste(strsplit(wd_info,split = '')[[1]][10:20],collapse = "")
+
+nchar(slc_infos)
+slc_infos
+slc_infos <- strsplit(slc_infos,split = '')[[1]]
+slc_infos
+
+# mutable
+slc_infos[7] = '0'
+
+# count
+length(which(strspilt(wd_info,split = '')[[1]]=='S'))
+
+# modify the string
+toTitleCase(wd_info)
+toupper(wd_info)
+tolower(wd_info)
+```
+
+
+```{r , collapse = T}
+paste0('a :','1','b :','2','c :','3')
+paste('a :','1','b :','2','c :','3')
+
+paste0(c('a :','1','b :','2','c :','3')) # do nothing with a vector
+paste(c('a :','1','b :','2','c :','3'),collapse = " ") # safer to use this
+str_c(c('a :','1','b :','2','c :','3'),collapse = " ")
+
+paste0(c('a :','b :','c :'),c('1','2','3'))
+paste(c('a :','b :','c :'),c('1','2','3'))
+paste(c('a :','b :','c :'),c('1','2','3'),collapse = ".")
+
+paste0(c('a :','b :','c :'),c('0'))
+paste(c('a :','b :','c :'),c('0'),collapse = "~")
+str_c(c('a :~','b :~','c :~'),c('0'))
+
+```
+
+
+- In R the use of % is also possible for formatting strings. We can directly use sprintf to print the formated string but is also possible to store it for later use. Then we can use cat to print the string containing escape character or we can use writeLines as in 'get_info_2'
+
+```{r , collapse = T}
+
+# R
+library(doParallel)
+
+get_infos <- function(){
+  time_info = paste0('Time: ',Sys.time())
+  mem_info = paste0('\nRAM (GB): ',as.character(get_ram()/1e9))
+  cpu_info = paste0('\n# CPUs: ',as.character(detectCores()))
+  wd_info = paste0('\nCurrent working directory: ',getwd())
+  infos = paste0(time_info,mem_info,cpu_info,wd_info)
+  cat(infos)
+}
+
+
+get_infos_2<- function(){
+  infos = sprintf('Time: %s 
+  RAM (GB): %s
+  # CPUs: %s 
+  Current working directory: %s',
+  Sys.time(),
+  get_ram()/1e9,
+  detectCores(),
+  getwd())
+  writeLines(infos) # other way of take into account escape character
+}
+
+t = Sys.time()
+get_infos()
+Sys.time()-t
+
+t = Sys.time()
+get_infos_2()
+Sys.time()-t
+
+
+```
+
+</div>
+</div>
+</div>
+
 # Regular Expressions
 
 Regex are a way to express how a character sequence should be matched in a more flexible way than what we are used to do with Ctrl+F.
 Regular expression are commonly used in text manipulation, usually such patterns are used by string-searching algorithms for "find" or "find and replace" operations on strings, or for input validation. 
 
 Except for control characters, (+ ? . * ^ $ ( ) [ ] { } | \), all characters match themselves. You can escape a control character by preceding it with a backslash.
-
-Il y a principalement deux normes :
-
-• PCRE (Perl-Compatible Regular Expressions). Associé au langage de
-programmation PERL, elle est notamment exploitée par la bibliothèque re de
-Python.
-• POSIX étendu, fruit d’un effort de normalisation, elle est censée être plus
-simple, mais est en revanche plus lente. L’intérêt pour nous est que R s’appuie
-sur cette norme (sauf à indiquer explicitement l’option perl=TRUE).
-Regular Expression Examples
 
 <div class = "row">
 <div class = "col-md-6">
@@ -287,3 +560,73 @@ library(stringr)
 Materials:
 
 https://www.tutorialspoint.com/python/python_reg_expressions.htm
+
+
+# Dealing with text in a basic Webscarpping example
+
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "python">
+
+```{python,echo = T,collapse = TRUE}
+# Python 
+
+# import libraries
+from bs4 import BeautifulSoup
+import re
+import urllib3
+
+http = urllib3.PoolManager()
+
+# specify the url
+urlpage = 'https://genius.com/13-organise-bande-organisee-lyrics'
+
+def get_song_contents(urlpage):
+  req = urllib3.PoolManager()
+  res = req.request('GET', urlpage)
+  res.status
+  soup = BeautifulSoup(res.data, 'html.parser')
+  contents = soup.find_all(class_= 'Lyrics__Container-sc-1ynbvzw-2 jgQsqn')
+  return(contents)
+  
+def clean_contents(contents):
+  ## throwaway HTML tags
+  cleanr = re.compile('<.*?>')
+  # replace tags by . to 
+  text = re.sub(cleanr, '.', str(contents))
+  ## throwaway unicode
+  string_encode = text.encode(encoding='utf-8')
+  string_decode = string_encode.decode('utf-8')
+  ## remove .
+  clean_txt = re.sub('[.]{2,}|\\u2005',' ',string_decode)
+  return(clean_txt)
+  
+def split_song(clean_text)
+  raw_text_splited = raw_text.split('[')
+  title = raw_text_splited[2]
+  splited_text = raw_text_splited[3:]
+  song_structure = [str(i.split(']')[1]) for i in splited_text]
+
+song_txt = get_song_contents(urlpage)
+clean_txt = clean_contents(song_txt)
+
+
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE}
+# R
+library(stringr)
+
+
+
+```
+
+</div>
+</div>
+</div>

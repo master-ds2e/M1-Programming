@@ -10,6 +10,18 @@ div.python pre { background-color: #d0f5a9; }
 div.r pre { background-color: #dfdddf; }
 </style>
 
+- exercice 
+monty hall: https://levelup.gitconnected.com/the-monty-hall-problem-solved-ec4f3753a682
+monte carlo simulation :
+boostrap:
+cluster robust:
+nr http://www.jtrive.com/estimating-logistic-regression-coefficents-from-scratch-python-version.html
+nr http://www.jtrive.com/estimating-logistic-regression-coefficents-from-scratch-r-version.html
+
+
+
+
+
 
 http://eric.univ-lyon2.fr/~ricco/tanagra/fichiers/fr_Tanagra_R_Python_Data_Perfs.pdf
 https://juba.github.io/tidyverse/06-tidyverse.html

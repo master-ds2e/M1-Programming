@@ -1,7 +1,5 @@
 ---
 title: "Basics"
-abstract: "This capter introduce the basics of R and Python. The goal of this chapter is to discover the different type of object that we can deal with for each language, to understand the logic of control flows and function writting. Along this chapter we will see what differs between R and Python but also how similar they can be.\nThe chapter ends with 3 Exercices from Euler Project. By forming a group of 2, solve at least one exercice in the language of your choice. try to compare different approach."
-
 ---
 
 ```{css, echo=FALSE}
@@ -85,6 +83,11 @@ div.python pre { background-color: #d0f5a9; }
 div.r pre { background-color: #dfdddf; }
 </style>
 
+This capter introduce the basics of R and Python. The goal of this chapter is to discover the different type of object that we can deal with for each language, to understand the logic of control flows and function writting. Along this chapter we will see what differs between R and Python but also how similar they can be.\nThe chapter ends with 3 Exercices from Euler Project. By forming a group of 2, solve at least one exercice in the language of your choice. try to compare different approach.
+
+
+<p>&nbsp;</p>
+
 # Operations
 
 ## Arithmetic Operations
@@ -121,6 +124,8 @@ Python and R work as classical calculator, using "+", "-", "*" and "/" we can do
 </div>
 </div>
 </div>
+
+<p>&nbsp;</p>
 
 We can also apply exponantiation, Modulo and floor division easily in both language. Note that in R we can writte the exponantiation "^". It is used for exclusive-or (bitwise) in Python.
 
@@ -166,6 +171,8 @@ Operator (R) | Operator (Python) |	Description
 %% | % |	Modulo
 %/% | // |	floor Division
 
+
+<p>&nbsp;</p>
 ##  Comparison Operators
 
 In order to compare some values we can use comparison operators to investigate in a given value is equal to, not equal, greater than ... etc
@@ -212,6 +219,8 @@ Operator (R/Python) |	Description
 == 	| Equal to
 != 	| Not equal to
 
+<p>&nbsp;</p>
+
 ## Logical operators
 
 
@@ -256,9 +265,11 @@ Operator (R)| Operator (Python)|	Description
 \| |or|	Element-wise logical OR
 \|\|  | |	Logical OR
 
+
+<p>&nbsp;</p>
 ## Membership operators
 
-in and not in are the membership operators in Python. They are used to test whether a value or variable is found in a sequence. In R %in% allows you to use the python in, but you have to be aware that they may not react the same way, the reason is that list of character can be directly decomposed in a character list in python, which is not the case in R.
+In and not in are membership operators in Python. They are used to test whether a value or variable is found in a sequence. In R %in% allows you to use the python in, but you have to be aware that they may not react the same way, the reason is that list of character can be directly decomposed in a character list in python, which is not the case in R.
 See how we can check that 'Hello' is in 'Hello world' using just in with python. In R we look if the string exactly match one element.
 
 
@@ -294,6 +305,9 @@ stringr::str_detect(x,'Hello')
 </div>
 
 
+
+<p>&nbsp;</p>
+
 <div class = "row">
 <div class = "col-md-6">
 <div class = "python">
@@ -320,6 +334,8 @@ print('Hello' %in% x)
 </div>
 
 
+<p>&nbsp;</p>
+
 # Objects & Variables
 
 ref used : https://www.practicaldatascience.org/html/vars_v_objects.html
@@ -327,6 +343,7 @@ ref used : https://www.practicaldatascience.org/html/vars_v_objects.html
 Variables are used to store data. In Python and R, we do not need to declare a variable before assigning a value to this variable. we can think of a variable as a name to refers to an object. There is a big difference between python and R on the way the computer is storing object and variables that we will see in the end of the section.
 
 
+<p>&nbsp;</p>
 
 ## Difference between R and Python
 
@@ -340,7 +357,6 @@ In R, a variable and an object are the same things, they refers to the same enti
 Things in Python are more conventional, but since some people learned R before Python it's important to notice that variables refers to an objet but they are still two entities.
 It means that two variables can refer to a single object. If two variables are pointing the same object, the modification made with one variable will be also available when using the other variable.
 
-In R two variable can refers to the same object, but once one variable is changed, a new space in the memomry is allocated to a new object.
 
 we mostly should never use for loops in R - they're horribly slow because they execute a function call with every iteration. (One should vectorize and use the apply family of functions instead. Weird, I know..) Vectorization is king in R if we want fast code. Assuming we vectorize both our R and Python code (and other factors), we should probably get the same order of magnitude in speed. For data larger than memory (we can specify the limit), R starts to become a bad choice. 
 
@@ -382,6 +398,8 @@ sd(with_char)
 </div>
 </div>
 
+<p>&nbsp;</p>
+
 See how R do not show any error and directly remove NA to compute the standart deviation and also convert string to numeric if possible. If converting the string to numeric is not feasible, R finally return a NA. This is not an error message but a warning message. 
 
 We need to writte our code carefully since R can do calculation for a while and just return NA without stopping the process which is not the case in Python. 
@@ -389,6 +407,8 @@ We need to writte our code carefully since R can do calculation for a while and 
 Also see here that R calulates the standard deviation with N - 1 as the denominator, and numpy with N. To get the same result we need to use 'ddof=1' as argument in std.
 </div>
 
+
+<p>&nbsp;</p>
 ## Textual and numerical variables
 
 In R textual data are called 'character', in Python it is a string, abbreviate as 'str'. " or ' are used when we set a textual variable in both laguage, but we can also set a variable to textual variable if needed.
@@ -457,11 +477,14 @@ as.numeric(f)
 </div>
 </div>
 
+<p>&nbsp;</p>
+
 ## Other Data-Type (R)
 https://www.statmethods.net/input/datatypes.html
 
 There is a lot of datatype in both language that we will discover along the course, for now we will focus only on basic data-type that are directly available without using anyother package or library,in R common data-type are Vector, Matrix, List, Data frame and factor.
 
+<p>&nbsp;</p>
 
 ### Vectors and Matrices
 
@@ -545,6 +568,8 @@ i_mat
 
 </div>
 
+<p>&nbsp;</p>
+
 ### Data frame
 
 A Data frame in R is a matrix which can store different type of data, characters, numerics or factors. Contrary to the matrix it does not have a fixed dimension it means that we can create a column very easily using the operator '$'.
@@ -587,6 +612,8 @@ class(t_df)
 ```
 </div>
 
+<p>&nbsp;</p>
+
 ### Arrays
 
 Arrays is a generalisation of the matrix, it means that we can have a matrix with more than two dimension. we can modify them as we modify a matrix.
@@ -604,6 +631,9 @@ arr[,1,]
 arr[,,1]
 ```
 </div>
+
+
+<p>&nbsp;</p>
 
 ### Lists 
 
@@ -627,12 +657,16 @@ lst[[1]][1,] # first row of first element of the list
 
 
 
+<p>&nbsp;</p>
+
 ## Other Data-Type (Python)
 
 refused : https://thomas-cokelaer.info/tutorials/python/lists.html
 
 In Python the most common are List, Turple, sets, Dictionnary.
 Note that for the moment when modifiying a variable we always use '='. Keep in mind that using the '.' can modify the object behind the variable in Python.
+
+<p>&nbsp;</p>
 
 ### Lists 
 
@@ -689,6 +723,9 @@ a
 ```
 </div>
 
+
+
+<p>&nbsp;</p>
 ### Turples
 
 The main difference between Lists and Turples is the fact that Turples is an immutable type of data making it faster to use.
@@ -730,6 +767,8 @@ a
 ```
 </div>
 
+
+<p>&nbsp;</p>
 ### Dictionaries
 
 Dictionary refers to a way of storing data that is not sorted. It works with key and value associate with this key.
@@ -775,6 +814,8 @@ a
 
 </div>
 
+
+<p>&nbsp;</p>
 ### Sets
 
 Sets are unordered collection of unique elements. If we give to a set multiple time the same element it will automatically delete dupplicated values.
@@ -811,6 +852,7 @@ a
 </div>
 
 
+<p>&nbsp;</p>
 ### Arrays
 
 In order to manipulate arrays in Python we need to use package numpy, this package is very usefull and will be covered in other chapters.
@@ -889,6 +931,7 @@ arr
 </div>
 
 
+<p>&nbsp;</p>
 ### Data Frame
 
 Pandas Data Frames are also very common data-type in Python. The package Pandas is also view deeper in following chapters.
@@ -940,6 +983,7 @@ df2
 </div>
 
 
+<p>&nbsp;</p>
 # Control flow
 
 There are two main control flow tools: choices, and loops. 
@@ -1051,6 +1095,7 @@ case_when(
 </div>
 </div>
 
+<p>&nbsp;</p>
 ## Loops
 
 Using for loops, we will iterate over a predefined number of iteration, sometimes we don't know how many steps we need to perform a given task. Imagine that we want to optimize a function, we don't know how many step we need until reaching an optimum but we can set a condition for which we will consider that the algorithm converged. For this kind of exercice we can use 'while' loops, it will iterate until a given condition is satisfied.
@@ -1128,6 +1173,7 @@ total
 </div>
 </div>
 
+<p>&nbsp;</p>
 ## List, Set and Dict comprehensions (Python)
 
 List comprehension is very common and appreciate in the python language features, think of it as a loop for which we will directly store output in a list, set, or dict. we can use it as a filter for exemple.
@@ -1226,6 +1272,7 @@ results
 
 
 
+<p>&nbsp;</p>
 # Functions
 
 
@@ -1236,6 +1283,7 @@ The full power of programming comes with the fact that we can be autonomous by r
 
 
 
+<p>&nbsp;</p>
 ## General Functions 
 
 
@@ -1387,6 +1435,7 @@ x2
 </div>
 
 
+<p>&nbsp;</p>
 
 ## Python Generators
 
@@ -1464,6 +1513,8 @@ type(memory_friendly_txt_clean)
 
 
 Note how the memory used during the calculation is very different while the time spend does not really change. 
+
+<p>&nbsp;</p>
 
 ## Error and Exception Handling
 
@@ -1714,288 +1765,7 @@ Sys.time()-t
 https://www.w3schools.com/python/python_ref_string.asp
 https://thomas-cokelaer.info/tutorials/python/strings.html
 
-# Dealing with strings
-
-<div class = "row">
-<div class = "col-md-6">
-<div class = "python">
-
-```{python , collapse = T}
-# Python 
-import time
-import psutil
-import os
-
-time_ = time.ctime(time.time())
-time_info = 'Time: '
-mem = psutil.virtual_memory().total/1e9
-mem_info = '\nRAM (GB): '
-cpu = psutil.cpu_count()
-cpu_info = '\n# CPU: '
-wd = os.getcwd()
-wd_info = '\nCurrent working directory: '
-
-infos = time_info+time_+mem_info+str(mem)+cpu_info+str(cpu)+wd_info+wd
-
-print(infos)
-
-```
-
-In R we use cat() to take into account '\n' (new line), Python automatically understand it with print.
-
-</div>
-</div>
-<div class = "col-md-6">
-<div class = "r">
-
-```{r, collapse = TRUE}
-# R
-library(benchmarkme)
-time_ <- Sys.time()
-time_info <- 'Time: '
-mem <- get_ram()/1e9
-mem_info <- '\nRAM (GB): '
-cpu <- get_cpu()$no_of_cores
-cpu_info <- '\n# CPUs: '
-wd = getwd()
-wd_info = '\nCurrent working directory: '
-
-infos <- paste0(time_info,time_,
-           mem_info,as.character(mem),
-           cpu_info,as.character(cpu),
-           wd_info,wd)
-print(infos) 
-
-cat(infos) 
-
-```
-
-</div>
-</div>
-</div>
-
-
-Here is some information on the computer where this document was compiled. 
-
-The working directory is the path to the folder where we are working, If we read or write on a file without specifiying the exact path (only the name of the file), the program will search for this file in the current working directory.
-
-'\', the backslash character is used to specify special character, tabulation, new lines, backslash or quotes and so on. When dealing with path this may be confusing for the machine. We can specify that the string must be read as it is by using 'r' before the quote.  
-
-Here is a list of escape character that can be usefull
-
- Escape Sequence | Description 
-- | -:
- \\t 	| Insert a tab in the text at this point.
- \\b 	| Insert a backspace in the text at this point.
- \\n 	| Insert a newline in the text at this point.
- \\r 	| Insert a carriage return in the text at this point.
- \\f 	| Insert a formfeed in the text at this point.
- \\' 	| Insert a single quote character in the text at this point.
- \\" 	| Insert a double quote character in the text at this point.
- \\\ 	| Insert a backslash character in the text at this point.   
- 
-source : https://docs.oracle.com/javase/tutorial/java/data/characters.html
- 
-<div class = "row">
-<div class = "col-md-6">
-<div class = "python">
-
-
-```{python, collapse = T}
-# Python 
-
-wd_t = r'C:\Users\mypath\to\myfolder'
-wd_t
-print(wd_t)
-```
-
-- The point of the r'...' notation is for writing raw strings and use different rules for interpreting backslash escape sequences. If we're just getting the value from another variable, there's no need for an r.
-
-- A string in Python is workng as an array, we can easily select pieces of the string with the position of the letters. In R a string is a block that we need to decompose ourself if we want to select a specific letter. The nb of character present in a string will be then the length of the object.
-We can modify string in several ways which are listed here : https://www.w3schools.com/python/python_ref_string.asp  
-We see here some classical examples 
-```{python , collapse = T, error= T}
-# Python 
-
-wd_info = 'Current working directory:\n'+os.getcwd()
-slc_infos = wd_info[10:20]
-len(slc_info)
-slc_infos
-slc_infos = list(slc_infos)
-slc_infos
-
-# immutable
-slc_infos[7] = '0'
-slc_infos
-
-# count
-wd_info.count('s')
-
-# modify the string
-wd_info.title()
-wd_info.upper()
-wd_info.lower()
-splt_inf = wd_info.split(': ')
-splt_inf
-' '.join(splt_inf)
-
-```
-- In Python, the % sign lets us produce formatted output. We can also use "{}".format() in order to change automatically values in raw text. Let's rewritte our function.
-```{python , collapse = T}
-# Python 
-
-def get_infos():
-  time_info = 'Time: '+time.ctime(time.time())
-  mem_info = '\nRAM (GB): '+str(psutil.virtual_memory().total/1e9)
-  cpu_info = '\n# CPUs: '+str(psutil.cpu_count())
-  wd_info = '\nCurrent working directory: '+os.getcwd()
-  infos = time_info+mem_info+cpu_info+wd_info
-  print(infos)
-
-
-def get_infos_2():
-  infos = '''Time: %s 
-  RAM (GB): %s
-  # CPUs: %s 
-  Current working directory: %s'''% (time.ctime(time.time()),
-  psutil.virtual_memory().total/1e9,
-  psutil.cpu_count(),
-  os.getcwd())
-  print(infos)
-  
-def get_infos_3():
-  infos = '''Time: {t} 
-  RAM (GB): {ram}
-  # CPUs: {cpu} 
-  Current working directory: {wd}'''.format(t = time.ctime(time.time()),
-  ram = psutil.virtual_memory().total/1e9,
-  cpu = psutil.cpu_count(),
-  wd = os.getcwd())
-  print(infos)
-  
-  
-
-t = time.time()
-get_infos()
-print(time.time()-t)
-
-
-t = time.time()
-get_infos_2()
-print(time.time()-t)
-
-t = time.time()
-get_infos_3()
-print(time.time()-t)
-
-
-```
-</div>
-</div>
-
-<div class = "col-md-6">
-<div class = "r">
-```{r, collapse = T}
-# R 
-
-wd_t = 'C:\\Users\\mypath\\to\\myfolder'
-print(wd_t)
-cat(wd_t)
-```
- - In R they are no way of told R to read literal backslash, we need to double it while writting it. Also we need to split the string before accessing to element of this string.  
-The function 'strsplit' is made to work with vector also, it automatically create a list for which each element of this list is the decomposed string.  
-That's why we see '[[1]]' after each strsplit function calls. We want to access only the first element because there is only one string in the object submitted to the function.
-```{r , collapse = T, error= T}
-# R 
-library(stringr)
-library(tools)
-
-wd_info  <- paste0('Current working directory: ',getwd())
-slc_infos <- wd_info[10:20]
-slc_infos
-slc_infos <- paste(strsplit(wd_info,split = '')[[1]][10:20],collapse = "")
-
-nchar(slc_infos)
-slc_infos
-slc_infos <- strsplit(slc_infos,split = '')[[1]]
-slc_infos
-
-# mutable
-slc_infos[7] = '0'
-
-# count
-length(which(strspilt(wd_info,split = '')[[1]]=='S'))
-
-# modify the string
-toTitleCase(wd_info)
-toupper(wd_info)
-tolower(wd_info)
-```
-
-- We see here howwhen using paste and paste0, with and without the argument collapse, leads to different results. str_c works similarly, this function comes from the very popular stringr library 
-
-```{r , collapse = T}
-paste0('a :','1','b :','2','c :','3')
-paste('a :','1','b :','2','c :','3')
-
-paste0(c('a :','1','b :','2','c :','3')) # do nothing with a vector
-paste(c('a :','1','b :','2','c :','3'),collapse = " ") # safer to use this
-str_c(c('a :','1','b :','2','c :','3'),collapse = " ")
-
-paste0(c('a :','b :','c :'),c('1','2','3'))
-paste(c('a :','b :','c :'),c('1','2','3'))
-paste(c('a :','b :','c :'),c('1','2','3'),collapse = ".")
-
-paste0(c('a :','b :','c :'),c('0'))
-paste(c('a :','b :','c :'),c('0'),collapse = "~")
-str_c(c('a :~','b :~','c :~'),c('0'))
-
-```
-
-
-- In R the use of % is also possible for formatting strings. We can directly use sprintf to print the formated string but is also possible to store it for later use. Then we can use cat to print the string containing escape character or we can use writeLines as in 'get_info_2'
-
-```{r , collapse = T}
-
-# R
-library(doParallel)
-
-get_infos <- function(){
-  time_info = paste0('Time: ',Sys.time())
-  mem_info = paste0('\nRAM (GB): ',as.character(get_ram()/1e9))
-  cpu_info = paste0('\n# CPUs: ',as.character(detectCores()))
-  wd_info = paste0('\nCurrent working directory: ',getwd())
-  infos = paste0(time_info,mem_info,cpu_info,wd_info)
-  cat(infos)
-}
-
-
-get_infos_2<- function(){
-  infos = sprintf('Time: %s 
-  RAM (GB): %s
-  # CPUs: %s 
-  Current working directory: %s',
-  Sys.time(),
-  get_ram()/1e9,
-  detectCores(),
-  getwd())
-  writeLines(infos) # other way of take into account escape character
-}
-
-t = Sys.time()
-get_infos()
-Sys.time()-t
-
-t = Sys.time()
-get_infos_2()
-Sys.time()-t
-
-
-```
-
-</div>
-</div>
-</div>
+<p>&nbsp;</p>
 
 # Exercices
 
