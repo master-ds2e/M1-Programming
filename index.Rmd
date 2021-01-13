@@ -1,20 +1,22 @@
 ---
 title: "Programming technics (6 ECTS)"
-author:  "[Pierre Pelletier]"
+author:  "Pierre Pelletier [p.pelletier@unistra.fr]"
 output:
   html_document
 ---
 
+<p>&nbsp;</p>
+
 # Description
 
-<<<<<<< Updated upstream
-This course  aims at providing students with fundamental programming concepts including data structures, libraries, re-usable functions, efficient codes. 
-Python and R programming languages will be used, both became very popular for data science in academia and the private sector. The course will also focus on how to report results of data analysis using high-quality typesetting system (LaTex, Markdown) and hosts of source codes (GitHub).
-=======
-- This course is part of the second semester of M1 DS2E. It aims at providing students with fundamental programming concepts including data structures, libraries, re-usable functions, efficient codes.\ Python and R programming languages will be used, both having become very popular for data science in academia and the private sector.
->>>>>>> Stashed changes
 
-# Exams
+- This course  aims at providing students with fundamental programming concepts including data structures, libraries, re-usable functions, efficient codes. 
+Python and R programming languages will be used, both became very popular for data science in academia and the private sector. The course will also focus on how to report results of data analysis using high-quality typesetting system (LaTex, Markdown) and hosts of source codes (GitHub).
+
+<p>&nbsp;</p>
+
+- This course is part of the second semester of M1 DS2E. It aims at providing students with fundamental programming concepts including data structures, libraries, re-usable functions, efficient codes.\ Python and R programming languages will be used, both having become very popular for data science in academia and the private sector.
+
 <p>&nbsp;</p>
 
 - Each session will be divided into two parts, first we will go through the course using this site as a support. In the second part of the course students will be asked to solve exercises and present their approaches to others. The aim is to familiarize the student with presenting and explaining their codes, but it is even more important that it serves the students to benchmark their different approaches in order to better understand how to improve them.
@@ -34,14 +36,13 @@ Python and R programming languages will be used, both became very popular for da
     <p>&nbsp;</p>
     - Chapter 'Efficient Programmation' is an introduction to parallel computing in which its benefits and limitations will be discussed. 
 
-# Installations
-<p>&nbsp;</p>
 <p>&nbsp;</p>
 
-## Windows
+# Exams 
 
-- There are three different grades in this course. :
-    - a written exam at the end of the semester to be held on xxx.
+
+- There are three different grades in this course :
+    - A written exam at the end of the semester to be held on xxx.
 <p>&nbsp;</p>
     - A project to be handed in by groups of 2-3. This project is totally free but here is a guideline: 
         - The project has to do data processing. After defining the type of question you want to address, select the type of data you will use (cross sectional data, mail, time series, article, website, simulated database, kaggle ...).
@@ -51,35 +52,31 @@ Python and R programming languages will be used, both became very popular for da
      - The project must be presented orally, the students will discuss the issues raised in the project. They will present the weak and strong points of their codes and the different approaches used to address them during the creation of their tools
 
 <p>&nbsp;</p>
-<p>&nbsp;</p>
-
-- Installations:
-    - Windows :
-
-https://uvastatlab.github.io/phdplus/installR.html
-
-- Go to https://www.anaconda.com/products/individual/get-started and dowload a windows installer. Or use the link below (Python 3.8)  
-64-bit : https://repo.anaconda.com/archive/Anaconda3-2020.07-Windows-x86_64.exe  
-32-bit : https://repo.anaconda.com/archive/Anaconda3-2020.07-Windows-x86.exe
-  
-
-## Linux
-    - Linux:
-https://linuxconfig.org/rstudio-on-ubuntu-18-04-bionic-beaver-linux
-
-https://www.digitalocean.com/community/tutorials/how-to-install-the-anaconda-python-distribution-on-ubuntu-18-04
-
-https://www.robertroos.net/blog/github-desktop-ubuntu/
-
-https://linuxize.com/post/how-to-install-pip-on-ubuntu-18.04/
-
-http://www.psych.mcgill.ca/labs/mogillab/anaconda2/lib/python2.7/site-packages/spyder/doc/installation.html
-
-https://stackoverflow.com/questions/41986507/unable-to-set-default-python-version-to-python3-in-ubuntu
-
-https://docs.anaconda.com/anaconda/install/linux/
 
 
+# Installs
+
+Here are some link that you can use to download and install stuff that we will need.
+
+
+- windows:
+    - https://uvastatlab.github.io/phdplus/installR.html
+    - Go to https://www.anaconda.com/products/individual/get-started and dowload a windows installer. Or use the link below (Python 3.8)  
+    - https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-from-an-environment-yml-file
+    
+- Linux:     
+    - https://linuxconfig.org/rstudio-on-ubuntu-18-04-bionic-beaver-linux
+    - https://www.digitalocean.com/community/tutorials/how-to-install-the-anaconda-python-distribution-on-ubuntu-18-04
+    - https://www.robertroos.net/blog/github-desktop-ubuntu/
+    - https://linuxize.com/post/how-to-install-pip-on-ubuntu-18.04/
+    - http://www.psych.mcgill.ca/labs/mogillab/anaconda2/lib/python2.7/site-packages/spyder/doc/installation.html
+    - https://stackoverflow.com/questions/41986507/unable-to-set-default-python-version-to-python3-in-ubuntu
+    - https://docs.anaconda.com/anaconda/install/linux/
+
+
+
+
+<!---
 update
 
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
@@ -88,19 +85,5 @@ sudo apt update
 sudo apt upgrade r-base r-base-dev
 sudo apt update
 sudo apt upgrade
-
-
-## Mac ?
-
-
-# exercice 
-monty hall: https://levelup.gitconnected.com/the-monty-hall-problem-solved-ec4f3753a682
-monte carlo simulation :
-boostrap:
-cluster robust:
-nr http://www.jtrive.com/estimating-logistic-regression-coefficents-from-scratch-python-version.html
-nr http://www.jtrive.com/estimating-logistic-regression-coefficents-from-scratch-r-version.html
-
-
-
+-->
 
