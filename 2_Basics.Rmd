@@ -340,7 +340,6 @@ In R, a variable and an object are the same things, they refers to the same enti
 Things in Python are more conventional, but since some people learned R before Python it's important to notice that variables refers to an objet but they are still two entities.
 It means that two variables can refer to a single object. If two variables are pointing the same object, the modification made with one variable will be also available when using the other variable.
 
-In R two variable can refers to the same object, but once one variable is changed, a new space in the memomry is allocated to a new object.
 
 we mostly should never use for loops in R - they're horribly slow because they execute a function call with every iteration. (One should vectorize and use the apply family of functions instead. Weird, I know..) Vectorization is king in R if we want fast code. Assuming we vectorize both our R and Python code (and other factors), we should probably get the same order of magnitude in speed. For data larger than memory (we can specify the limit), R starts to become a bad choice. 
 
@@ -1932,7 +1931,6 @@ toupper(wd_info)
 tolower(wd_info)
 ```
 
-- We see here howwhen using paste and paste0, with and without the argument collapse, leads to different results. str_c works similarly, this function comes from the very popular stringr library 
 
 ```{r , collapse = T}
 paste0('a :','1','b :','2','c :','3')
