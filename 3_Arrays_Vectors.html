@@ -13,7 +13,6 @@
 
 <title>Arrays/Vectors</title>
 
-<script src="site_libs/header-attrs-2.1/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -368,18 +367,6 @@ div.tocify {
 <li>
   <a href="4_Regex.html">Regex</a>
 </li>
-<li>
-  <a href="5_Data_Analysis_R.html">Data Analysis (R)</a>
-</li>
-<li>
-  <a href="5_Data_Analysis_R.html">Data Analysis (Python)</a>
-</li>
-<li>
-  <a href="6_Efficient_Prog.html">Parallel</a>
-</li>
-<li>
-  <a href="6_Best_practices.html">Best Pratices</a>
-</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
@@ -425,12 +412,12 @@ lst = list(range(2000000))
 t = time.time()
 arr_2 = arr*2
 time.time() - t
-## 0.014981985092163086
+## 0.012943744659423828
 t = time.time()
 lst_2 = [i*2  for i in lst]
 time.time() - t
 
-## 0.2532179355621338</code></pre>
+## 0.21681523323059082</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -442,7 +429,7 @@ vec = c(1:2000000)
 t = Sys.time()
 vec_2 = vec*2
 Sys.time() - t
-## Time difference of 0.01096082 secs
+## Time difference of 0.007965088 secs
 
 t = Sys.time()
 vec_2_loop &lt;- rep(0,length(vec))
@@ -450,14 +437,14 @@ for(i in 1:length(vec)){
   vec_2_loop[i] = vec[i]*2
     }
 Sys.time() - t
-## Time difference of 0.4010119 secs</code></pre>
+## Time difference of 0.3548281 secs</code></pre>
 </div>
 </div>
 </div>
-<div id="dealing-with-arrays" class="section level1" number="1">
-<h1 number="1"><span class="header-section-number">1</span> Dealing with Arrays</h1>
-<div id="random-array" class="section level2" number="1.1">
-<h2 number="1.1"><span class="header-section-number">1.1</span> Random array</h2>
+<div id="dealing-with-arrays" class="section level1">
+<h1><span class="header-section-number">1</span> Dealing with Arrays</h1>
+<div id="random-array" class="section level2">
+<h2><span class="header-section-number">1.1</span> Random array</h2>
 <div class="row">
 <div class="col-md-6">
 <div class="python">
@@ -469,17 +456,17 @@ arr = np.random.randn(4,5)
 arr
 
 # vectorise calculation
-## array([[ 1.70197547, -1.2704916 , -0.79325489, -0.50608175,  0.58215124],
-##        [-0.1809559 ,  0.70211991, -0.24292755,  0.6522302 , -0.09317269],
-##        [ 0.17352726, -0.07622003, -0.38586812,  0.75767914,  2.10534183],
-##        [ 0.46638356, -0.56482234, -0.54625319,  1.2808873 ,  0.58554601]])
+## array([[-0.89175774, -0.22743115,  1.28353081, -0.35040757,  0.07676614],
+##        [ 0.22825174,  0.24544224, -0.00711583, -0.86305425, -0.10946772],
+##        [-1.9760103 , -0.24313402,  0.04960618,  0.20645931, -0.82929186],
+##        [ 0.04125383,  0.59603541,  0.44421745, -2.10830653,  1.21627942]])
 arr+arr**2
 
 # show dimension
-## array([[ 4.59869596,  0.34365731, -0.16400157, -0.24996301,  0.92105131],
-##        [-0.14821086,  1.19509227, -0.18391376,  1.07763444, -0.08449154],
-##        [ 0.20363897, -0.07041054, -0.23697391,  1.33175683,  6.53780606],
-##        [ 0.68389719, -0.24579806, -0.24786064,  2.92155956,  0.92841013]])
+## array([[-0.09652588, -0.17570622,  2.93098215, -0.2276221 ,  0.08265918],
+##        [ 0.2803506 ,  0.30568413, -0.0070652 , -0.11819161, -0.09748454],
+##        [ 1.92860641, -0.18401987,  0.05206695,  0.24908475, -0.14156687],
+##        [ 0.04295571,  0.95129362,  0.64154659,  2.3366499 ,  2.69561503]])
 arr.shape
 ## (4, 5)</code></pre>
 </div>
@@ -492,19 +479,19 @@ arr.shape
 mat &lt;- matrix(runif(4*5),4,5)
 
 mat
-##           [,1]      [,2]       [,3]      [,4]      [,5]
-## [1,] 0.1296858 0.2981862 0.06679001 0.4401434 0.3064526
-## [2,] 0.3033357 0.8335709 0.31013267 0.1040222 0.8795535
-## [3,] 0.9099030 0.3906364 0.05916465 0.3861523 0.0278680
-## [4,] 0.8223938 0.9836415 0.68892725 0.5882701 0.2725045
+##           [,1]      [,2]      [,3]      [,4]      [,5]
+## [1,] 0.6672790 0.7027222 0.8775594 0.5037980 0.8456721
+## [2,] 0.3094942 0.2232115 0.3877762 0.8139345 0.4245501
+## [3,] 0.4241086 0.5051176 0.8527634 0.1907854 0.6608710
+## [4,] 0.4390378 0.9658993 0.7961686 0.4418324 0.4314648
 
 # vectorise calculation
 mat+mat**2
-##           [,1]      [,2]       [,3]      [,4]       [,5]
-## [1,] 0.1465042 0.3871013 0.07125092 0.6338696 0.40036578
-## [2,] 0.3953483 1.5284115 0.40631494 0.1148428 1.65316776
-## [3,] 1.7378264 0.5432332 0.06266510 0.5352658 0.02864462
-## [4,] 1.4987254 1.9511920 1.16354802 0.9343319 0.34676313
+##           [,1]      [,2]      [,3]      [,4]      [,5]
+## [1,] 1.1125403 1.1965406 1.6476700 0.7576105 1.5608333
+## [2,] 0.4052808 0.2730349 0.5381465 1.4764238 0.6047928
+## [3,] 0.6039767 0.7602614 1.5799687 0.2271845 1.0976214
+## [4,] 0.6317921 1.8988609 1.4300529 0.6370482 0.6176267
 
 # show dimension
 dim(mat)
@@ -513,8 +500,8 @@ dim(mat)
 </div>
 </div>
 </div>
-<div id="array-oriented-programming" class="section level2" number="1.2">
-<h2 number="1.2"><span class="header-section-number">1.2</span> Array-Oriented Programming</h2>
+<div id="array-oriented-programming" class="section level2">
+<h2><span class="header-section-number">1.2</span> Array-Oriented Programming</h2>
 <p>Imagine two square matrices representing interaction between entities. Each matrix is a basic network: having interaction = 1, no interaction = 0. You want to know if two entities that are linked in one network are also linked in an other network. Instead of checking each entities interaction sequentially in a loop, one can simply use matrix to do element-wise calculation and get the same answer.</p>
 <div class="row">
 <div class="col-md-6">
@@ -563,8 +550,8 @@ network_12
 </div>
 </div>
 </div>
-<div id="conditional-logic" class="section level1" number="2">
-<h1 number="2"><span class="header-section-number">2</span> Conditional Logic</h1>
+<div id="conditional-logic" class="section level1">
+<h1><span class="header-section-number">2</span> Conditional Logic</h1>
 <div class="row">
 <div class="col-md-6">
 <div class="python">
@@ -604,11 +591,11 @@ t = time.time()
 results = [(i if i%2==0 else 0) for i in arr]
 time.time() - t
 
-## 0.15692853927612305
+## 0.13909149169921875
 t = time.time()
 results = np.where(arr%2!=0,0,arr)
 time.time() - t
-## 0.024953126907348633</code></pre>
+## 0.01703166961669922</code></pre>
 <pre class="python"><code># Python 
 
 arr = np.arange(20000000)
@@ -618,11 +605,11 @@ t = time.time()
 results = [(i if i%2==0 else 0) for i in arr]
 time.time() - t
 
-## 12.667114019393921
+## 13.364055871963501
 t = time.time()
 results = np.where(arr%2!=0,0,arr)
 time.time() - t
-## 0.8654999732971191</code></pre>
+## 0.8269374370574951</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -641,13 +628,13 @@ for(i in 1:length(vec)){
   }
 }
 Sys.time() - t
-## Time difference of 0.07969594 secs
+## Time difference of 0.080899 secs
 
 
 t &lt;- Sys.time()
 results &lt;- ifelse(vec%%2!=0,vec,0)
 Sys.time() - t
-## Time difference of 0.01498485 secs</code></pre>
+## Time difference of 0.01504207 secs</code></pre>
 <pre class="r"><code># R
 
 vec &lt;- seq(1,20000000)
@@ -662,13 +649,13 @@ for(i in 1:length(vec)){
   }
 }
 Sys.time() - t
-## Time difference of 6.483668 secs
+## Time difference of 6.67807 secs
 
 
 t &lt;- Sys.time()
 results &lt;- ifelse(vec%%2!=0,vec,0)
 Sys.time() - t
-## Time difference of 2.012247 secs
+## Time difference of 1.936649 secs
 
 
 ## other way using where
@@ -676,13 +663,13 @@ Sys.time() - t
 t &lt;- Sys.time()
 vec[which(vec%%2==0)] = 0
 Sys.time() - t 
-## Time difference of 1.232617 secs</code></pre>
+## Time difference of 1.26543 secs</code></pre>
 </div>
 </div>
 </div>
 </div>
-<div id="operation-on-array" class="section level1" number="3">
-<h1 number="3"><span class="header-section-number">3</span> Operation on array</h1>
+<div id="operation-on-array" class="section level1">
+<h1><span class="header-section-number">3</span> Operation on array</h1>
 <div class="row">
 <div class="col-md-6">
 <div class="python">
@@ -747,8 +734,8 @@ apply(network_12,MARGIN = 2,FUN = mean)
 arr = np.random.randn(10)
 
 arr
-## array([-0.80332982, -0.75681882, -1.18097666,  0.4883254 ,  0.08376877,
-##         0.40133712, -0.48745261,  0.2091205 , -0.96871787, -0.48686817])
+## array([ 0.4963034 ,  1.00985313, -0.17130448,  0.2448227 , -0.22124955,
+##        -0.47196038, -1.50757838, -1.95990256, -0.12024486, -1.78904134])
 arr.sort()
 </code></pre>
 <pre class="python"><code># Python 
@@ -756,10 +743,10 @@ arr.sort()
 arr = np.random.randn(4,3)
 
 arr
-## array([[ 0.25470218,  0.21596867, -0.16175977],
-##        [-1.3311492 ,  0.97763277,  1.86605401],
-##        [ 0.13768778, -2.87062014,  0.87804886],
-##        [-0.22748177,  0.07216911,  1.41422699]])
+## array([[-0.18073801,  0.07178152,  0.5114034 ],
+##        [ 0.70729104, -1.63125627, -0.28095382],
+##        [ 0.20097   , -0.94943231,  0.9269868 ],
+##        [ 0.39308133, -0.50457046,  1.10667563]])
 arr.sort(1)
 </code></pre>
 </div>
@@ -771,33 +758,33 @@ arr.sort(1)
 arr &lt;- runif(10)
 
 arr
-##  [1] 0.41321184 0.60921262 0.53239812 0.77587935 0.06240621 0.34538881
-##  [7] 0.77622718 0.28183229 0.16428151 0.58642137
+##  [1] 0.24255487 0.06821335 0.23206444 0.88857132 0.22477185 0.12379917
+##  [7] 0.32103887 0.86791610 0.60211723 0.22483888
 sort(arr)
-##  [1] 0.06240621 0.16428151 0.28183229 0.34538881 0.41321184 0.53239812
-##  [7] 0.58642137 0.60921262 0.77587935 0.77622718</code></pre>
+##  [1] 0.06821335 0.12379917 0.22477185 0.22483888 0.23206444 0.24255487
+##  [7] 0.32103887 0.60211723 0.86791610 0.88857132</code></pre>
 <pre class="r"><code># R
 
 arr &lt;- matrix(runif(4*3),4,3)
 
 arr
-##           [,1]       [,2]      [,3]
-## [1,] 0.5813943 0.30673546 0.8809896
-## [2,] 0.3614639 0.30520307 0.8468506
-## [3,] 0.7529683 0.04536145 0.7746907
-## [4,] 0.6443070 0.87884231 0.9211857
+##            [,1]      [,2]        [,3]
+## [1,] 0.08193665 0.7021035 0.354113296
+## [2,] 0.42831405 0.2321202 0.095261272
+## [3,] 0.25608000 0.9918019 0.300391369
+## [4,] 0.86407712 0.7408130 0.002087045
 apply(arr,MARGIN = 2, FUN = sort)
-##           [,1]       [,2]      [,3]
-## [1,] 0.3614639 0.04536145 0.7746907
-## [2,] 0.5813943 0.30520307 0.8468506
-## [3,] 0.6443070 0.30673546 0.8809896
-## [4,] 0.7529683 0.87884231 0.9211857</code></pre>
+##            [,1]      [,2]        [,3]
+## [1,] 0.08193665 0.2321202 0.002087045
+## [2,] 0.25608000 0.7021035 0.095261272
+## [3,] 0.42831405 0.7408130 0.300391369
+## [4,] 0.86407712 0.9918019 0.354113296</code></pre>
 </div>
 </div>
 </div>
 </div>
-<div id="algebra" class="section level1" number="4">
-<h1 number="4"><span class="header-section-number">4</span> Algebra</h1>
+<div id="algebra" class="section level1">
+<h1><span class="header-section-number">4</span> Algebra</h1>
 <div class="row">
 <div class="col-md-6">
 <div class="python">
@@ -897,8 +884,8 @@ Beta
 </div>
 </div>
 </div>
-<div id="sparse" class="section level1" number="5">
-<h1 number="5"><span class="header-section-number">5</span> Sparse</h1>
+<div id="sparse" class="section level1">
+<h1><span class="header-section-number">5</span> Sparse</h1>
 <p>When dealing with large array that are sparse (lot of element equalt to 0), it is inneficient to store this object as a dense matrix. Large matrix are sometimes difficult to store in the memory because they are weighty, when they dealing with sparse we can store it and do calculation with them in a very efficient way using the ‘Compressed Sparse Column’ (CSC) format. See how it change the weight of the matrix when changing the format to sparse matrix .</p>
 <div class="row">
 <div class="col-md-6">
