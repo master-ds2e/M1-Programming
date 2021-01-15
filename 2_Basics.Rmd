@@ -2,47 +2,6 @@
 title: "Basics"
 ---
 
-```{css, echo=FALSE}
-#.r-chunk {
-#  background-color: lightpink;
-#}
-#
-#.py-chunk {
-#  background-color: lightblue;
-#}
-#toc: true
-#    number_sections: true
-#    theme: flatly
-#    highlight: kate
-#    toc_float:
-#      collapsed: false
-#      smooth_scroll: true
-#  
-#
-#author: "Pierre Pelletier"
-#date: "3 septembre 2020"
-#output:
-#  html_document:
-#  toc: true
-#  toc_float: true
-#  toc_collapsed: true
-#  toc_depth: 3
-#  number_sections: true
-#  theme: lumen
-#
-#toc: true
-#    number_sections: true
-#    theme: flatly
-#    highlight: kate
-#    toc_float:
-#      collapsed: false
-#      smooth_scroll: true
-#
-#
-
-
-
-```
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE,error=TRUE,collapse = T)
@@ -82,6 +41,9 @@ div.python pre { background-color: #d0f5a9; }
 <style>
 div.r pre { background-color: #dfdddf; }
 </style>
+
+
+<p>&nbsp;</p>
 
 This capter introduce the basics of R and Python. The goal of this chapter is to discover the different type of object that we can deal with for each language, to understand the logic of control flows and function writting. Along this chapter we will see what differs between R and Python but also how similar they can be.\nThe chapter ends with 3 Exercices from Euler Project. By forming a group of 2, solve at least one exercice in the language of your choice. try to compare different approach.
 
@@ -127,7 +89,7 @@ Python and R work as classical calculator, using "+", "-", "*" and "/" we can do
 
 <p>&nbsp;</p>
 
-We can also apply exponantiation, Modulo and floor division easily in both language. Note that in R we can writte the exponantiation "^". It is used for exclusive-or (bitwise) in Python.
+We can also apply exponantiation, Modulo and floor division easily in both language. Note that in R we can write the exponantiation "^". It is used for exclusive-or (bitwise) in Python.
 
 
 <div class = "row">
@@ -328,6 +290,7 @@ print('Hello' in x)
 x = c('Hello','World')
 
 print('Hello' %in% x)
+stringr::str_detect('Hello',x)
 ```
 </div>
 </div>
@@ -400,11 +363,10 @@ sd(with_char)
 
 <p>&nbsp;</p>
 
-See how R do not show any error and directly remove NA to compute the standart deviation and also convert string to numeric if possible. If converting the string to numeric is not feasible, R finally return a NA. This is not an error message but a warning message. 
+- See how R do not show any error and directly remove NA to compute the standart deviation and also convert string to numeric if possible. If converting the string to numeric is not feasible, R finally return a NA. This is not an error message but a warning message.  
+We need to write our code carefully since R can do calculation for a while and just return NA without stopping the process which is not the case in Python. 
 
-We need to writte our code carefully since R can do calculation for a while and just return NA without stopping the process which is not the case in Python. 
-
-Also see here that R calulates the standard deviation with N - 1 as the denominator, and numpy with N. To get the same result we need to use 'ddof=1' as argument in std.
+- see here that R calulates the standard deviation with N - 1 as the denominator, and numpy with N. To get the same result we need to use 'ddof=1' as argument in std.
 </div>
 
 
@@ -482,7 +444,7 @@ as.numeric(f)
 ## Other Data-Type (R)
 https://www.statmethods.net/input/datatypes.html
 
-There is a lot of datatype in both language that we will discover along the course, for now we will focus only on basic data-type that are directly available without using anyother package or library,in R common data-type are Vector, Matrix, List, Data frame and factor.
+There is a lot of datatype in both language that we will discover along the course, for now we will focus only on basic data-type that are directly available without using anyother package or library,in R common data-type are Vector, Matrix, List, Dataframe.
 
 <p>&nbsp;</p>
 
@@ -637,7 +599,7 @@ arr[,,1]
 
 ### Lists 
 
-A list permits us to assemble an assortment of disconnected objects behind one variable, it is also possible to store objects which can be of different types.
+A list permits us to assemble an assortment of disconnected objects behind one object, it is also possible to store objects which can be of different types.
 
 
 <div class = "r">
@@ -712,6 +674,7 @@ a = a*2 # replicate the list n times
 len(a) # number of elements in the list
 
 ```
+
 ```{python,echo = T,collapse = TRUE}
 # mutable
 
@@ -843,7 +806,7 @@ a
 ```{python,echo = T,collapse = TRUE}
 # mutable
 
-a = {'a':1, 'b':2, 'c':3}
+a = {1, 2, 3}
 b = a
 b['b'] = [12,14]
 a
@@ -857,7 +820,7 @@ a
 
 In order to manipulate arrays in Python we need to use package numpy, this package is very usefull and will be covered in other chapters.
 
-First see that we can make an array usig R by starting from a vector
+First see that we can make an array using R by starting from a vector
 R represents all arrays in column-major order, which is not the case in python.
 
 <div class = "row">
@@ -900,7 +863,7 @@ arr
 </div>
 </div>
 
-As ou can see R and Python does not store vector in the same way: R is storing them by column while python does it by row. Using "order = 'F'" alows us to store vecotr into matrix by column.
+As ou can see R and Python does not store vector in the same way: R is storing them by column while python does it by row. Using "order = 'F'" alows us to store vector into matrix by column.
 
 
 <div class = "python">
@@ -932,6 +895,7 @@ arr
 
 
 <p>&nbsp;</p>
+
 ### Data Frame
 
 Pandas Data Frames are also very common data-type in Python. The package Pandas is also view deeper in following chapters.
@@ -984,6 +948,7 @@ df2
 
 
 <p>&nbsp;</p>
+
 # Control flow
 
 There are two main control flow tools: choices, and loops. 
@@ -1098,7 +1063,7 @@ case_when(
 <p>&nbsp;</p>
 ## Loops
 
-Using for loops, we will iterate over a predefined number of iteration, sometimes we don't know how many steps we need to perform a given task. Imagine that we want to optimize a function, we don't know how many step we need until reaching an optimum but we can set a condition for which we will consider that the algorithm converged. For this kind of exercice we can use 'while' loops, it will iterate until a given condition is satisfied.
+Using for loops, we iterate over a predefined number of iteration, sometimes we don't know how many steps we need to perform a given task. Imagine that we want to optimize a function, we don't know how many step we need until reaching an optimum but we can set a condition for which we will consider that the algorithm converged. For this kind of exercice we can use 'while' loops, it will iterate until a given condition is satisfied.
 
 
 <div class = "row">
