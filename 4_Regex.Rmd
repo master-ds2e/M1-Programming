@@ -600,7 +600,7 @@ library(stringr)
 
 Materials:
 
-https://www.tutorialspoint.com/python/python_reg_expressions.htm
+https://www.tutorialspoint.com/python/python_reg_expressions.html
 
 # Exercices
 
