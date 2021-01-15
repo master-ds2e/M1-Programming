@@ -295,10 +295,13 @@ Sys.time()-t
 
 # Regular Expressions
 
-Regex are a way to express how a character sequence should be matched in a more flexible way than what we are used to do with Ctrl+F.
-Regular expression are commonly used in text manipulation, usually such patterns are used by string-searching algorithms for "find" or "find and replace" operations on strings, or for input validation. 
+- Text used in this section is the abstract of 'ImageNet Classification with Deep Convolutional Neural Networks' (Alex Krizhevsky, Ilya Sutskever, and Geoffrey E. Hinton 2012) presented at 'Advances in Neural Information Processing Systems 25' (NIPS 2012)
 
-Except for control characters, (+ ? . * ^ $ ( ) [ ] { } | \), all characters match themselves. You can escape a control character by preceding it with a backslash.
+'<p>We trained a large, deep convolutional neural network to classify the 1.3 million high-resolution images in the LSVRC-2010 ImageNet training set into the 1000 different classes. On the test data, we achieved top-1 and top-5 error rates of 39.7\% and 18.9\% which is considerably better than the previous state-of-the-art results. The neural network, which has 60 million parameters and 500,000 neurons, consists of five convolutional layers, some of which are followed by max-pooling layers, and two globally connected layers with a final 1000-way softmax. To make training faster, we used non-saturating neurons and a very efficient GPU implementation of convolutional nets. To reduce overfitting in the globally connected layers we employed a new regularization method that proved to be very effective.</p>'
+
+- Regex are a way to express how a character sequence should be matched, it is a a very flexible tool. Regular expression are commonly used in text manipulation, usually such patterns are used by string-searching algorithms for "find" or "find and replace" operations on strings, or for input validation. 
+
+- Except for control characters, (+ ? . * ^ $ ( ) [ ] { } | \), all characters match themselves. You can escape a control character by preceding it with a backslash.
 
 <div class = "row">
 <div class = "col-md-6">
@@ -307,6 +310,15 @@ Except for control characters, (+ ? . * ^ $ ( ) [ ] { } | \), all characters mat
 ```{python,echo = T,collapse = TRUE}
 # Python 
 import re
+
+abstract = open("data/imagenet_abstract.txt", "r").read()
+ 
+re.search('deep',abstract)
+
+re.findall('deep',abstract)
+
+re.sub(r'\\','',abstract)
+
 
 ```
 
@@ -318,7 +330,13 @@ import re
 ```{r,echo=T,collapse = TRUE}
 # R
 library(stringr)
+library(readr)
 
+abstract <- as.character(read_file('data/imagenet_abstract.txt'))
+  
+str_locate_all(pattern = 'deep',abstract)
+
+str_replace_all(abstract,'\\\\','')
 ```
 
 </div>
@@ -347,6 +365,12 @@ rub[ye]|Match "ruby" or "rube"
 # Python 
 import re
 
+re.findall('top-[15]',abstract)
+
+# you can also create an iterator
+re.finditer('[0-9]',abstract)
+
+
 ```
 
 </div>
@@ -357,6 +381,11 @@ import re
 ```{r,echo=T,collapse = TRUE}
 # R
 library(stringr)
+
+str_match_all(abstract,'top-[15]')
+
+str_locate_all(abstract,'[0-9]')
+
 
 ```
 
@@ -384,6 +413,8 @@ Example|Description
 # Python 
 import re
 
+re.sub('\w','',abstract)
+
 ```
 
 </div>
@@ -395,6 +426,7 @@ import re
 # R
 library(stringr)
 
+str_replace_all(abstract,'\\w','')
 ```
 
 </div>
@@ -428,6 +460,10 @@ Example|Description
 # Python 
 import re
 
+re.findall('\d{2,4}',abstract)
+
+re.findall('<.*?>',abstract)
+
 ```
 
 </div>
@@ -438,6 +474,10 @@ import re
 ```{r,echo=T,collapse = TRUE}
 # R
 library(stringr)
+
+str_extract_all(abstract,'\\d{2,4}')
+
+str_extract_all('<.*?>',abstract)
 
 ```
 
@@ -460,6 +500,7 @@ Example|Description
 ```{python,echo = T,collapse = TRUE}
 # Python 
 import re
+
 
 ```
 

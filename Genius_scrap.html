@@ -13074,11 +13074,32 @@ div#notebook {
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
 
-<a href="4_Regex.html">Go back to Regex chapter</a>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Scarpping-Genius.com">Scarpping Genius.com<a class="anchor-link" href="#Scarpping-Genius.com">&#182;</a></h1><p>In this exercice we will capture all lyrics from an album using 'genius.com' and attributes each words to an artist.</p>
+<ul>
+<li><p>First we need to get the url of the album, for this example we will use '13-Organisé'. ('<a href="https://genius.com/albums/13-organise/13-organise">https://genius.com/albums/13-organise/13-organise</a>') but you can select other albums if you want.</p>
+</li>
+<li><p>Using this list of urls we can navigate through each song and capture lyrics.</p>
+</li>
+<li><p>For each url, using regular expression, we will capture the singer and the word used for each verses.</p>
+</li>
+<li><p>We finally remove (french) stopwords, and create a dictionnary with a list of token for each artist for the whole album</p>
+</li>
+</ul>
+<p><a href="4_Regex.html">Go back to Regex chapter</a></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p><ul>
+<li>Import modules</li>
+</ul>
 
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># libraries</span>
@@ -13120,9 +13141,19 @@ div#notebook {
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Get relevant information from the web page </li>
+</ul>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_page</span><span class="p">(</span><span class="n">urlpage</span><span class="p">,</span><span class="n">html_class</span><span class="p">):</span>
@@ -13138,9 +13169,19 @@ div#notebook {
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Clean web pages contents</li>
+</ul>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">clean_contents</span><span class="p">(</span><span class="n">contents</span><span class="p">):</span>
@@ -13167,9 +13208,19 @@ div#notebook {
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Extract each verses from a song</li>
+</ul>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_verses</span><span class="p">(</span><span class="n">clean_txt</span><span class="p">):</span>
@@ -13185,9 +13236,19 @@ div#notebook {
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Store each words in a dictionnary for each artist</li>
+</ul>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_artists_words</span><span class="p">(</span><span class="n">verses</span><span class="p">,</span><span class="n">artists_words</span><span class="p">):</span>
@@ -13196,6 +13257,7 @@ div#notebook {
     <span class="k">for</span> <span class="n">verse</span> <span class="ow">in</span> <span class="n">verses</span><span class="p">:</span>
         <span class="k">if</span> <span class="s1">&#39;:&#39;</span> <span class="ow">in</span> <span class="n">verse</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
             <span class="n">names</span> <span class="o">=</span> <span class="n">verse</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">names</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39; et &#39;</span><span class="p">,</span><span class="s1">&#39;/&#39;</span><span class="p">,</span><span class="n">names</span><span class="p">)</span>
             <span class="n">names</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="n">names</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
             <span class="n">words</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;[^\w\s]|&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="n">verse</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
             <span class="n">words</span> <span class="o">=</span> <span class="n">words</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
@@ -13222,9 +13284,22 @@ div#notebook {
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Run-the-code">Run the code<a class="anchor-link" href="#Run-the-code">&#182;</a></h1><ul>
+<li><p>first set urlpage with the album of your choice.</p>
+</li>
+<li><p>make a list with all song's url.</p>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># specify the url   </span>
@@ -13244,7 +13319,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">urls_list</span>
@@ -13260,7 +13335,7 @@ div#notebook {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[7]:</div>
+    <div class="prompt output_prompt">Out[20]:</div>
 
 
 
@@ -13288,9 +13363,22 @@ div#notebook {
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li><p>create an empty dict</p>
+</li>
+<li><p>for each url, try to get web page content, cleaned the information, and update the dictionnary for each artist</p>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">artists_words</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
@@ -13325,30 +13413,24 @@ div#notebook {
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>still empty, wait 15 more secs
-still empty, wait 15 more secs
-still empty, wait 15 more secs
-Paroles de &#34;Bande organisée&#34; ft. JuL, Elams, Houari, Kofs, Naps, SCH, Solda  /  Soso Maness]. . 
-still empty, wait 15 more secs
+<pre>Paroles de &#34;Bande organisée&#34; ft. JuL, Elams, Houari, Kofs, Naps, SCH, Solda  /  Soso Maness]. . 
 still empty, wait 15 more secs
 Paroles de &#34;L&#39;étoile sur le maillot&#34; ft. JuL, As, SCH, Le Rat Luciano, Stone Black, Alonzo, L&#39;Algérino  /  Veazy]. . 
 Paroles de &#34;Combien&#34; ft. Many, JuL, Solda, Moubarak, Soprano, Elams, Soso Maness, Veazy, Jhonson]. . 
-still empty, wait 15 more secs
 Paroles de &#34;Partout c&#39;est la même&#34; ft. SAF, JuL, As, Elams, Fahar, Friz, Vincenzo, DRIME]. . 
-still empty, wait 15 more secs
 Paroles de &#34;Ma gadji&#34; ft. JuL, Youzi, 2Bang, Soso Maness, SAF, Don Choa, Oussagaza  /  Kofs]. . 
-Paroles de &#34;Tout a changé&#34; ft. Le Rat Luciano, Soprano, JuL, L&#39;Algérino, Sysa, Solda, Menzo, Stone Black  /  Fahar]. . 
 still empty, wait 15 more secs
+Paroles de &#34;Tout a changé&#34; ft. Le Rat Luciano, Soprano, JuL, L&#39;Algérino, Sysa, Solda, Menzo, Stone Black  /  Fahar]. . 
 Paroles de &#34;War Zone&#34; ft. As, AM La Scampia, Zbig, JuL, Houari, Alonzo, Thabiti  /  Naps]. . 
 still empty, wait 15 more secs
+still empty, wait 15 more secs
 Paroles de &#34;Heat&#34; ft. Keny Arkana, Graya, 100 Blaze, Sauzer, JuL, Elams, Sat l’Artificier  /  Banguiz]. . 
-still empty, wait 15 more secs
-still empty, wait 15 more secs
 Paroles de &#34;Miami Vice&#34; ft. THABITI, Sysa, DRIME, JuL, Kamikaz, Zbig, Moubarak]. . 
-still empty, wait 15 more secs
 Paroles de &#34;C&#39;est maintenant&#34; ft. SCH, L&#39;Algérino, Kamikaz, JuL, Naps, Kofs, Alonzo, Sat l&#39;Artificier]. . 
-still empty, wait 15 more secs
 Paroles de &#34;13 balles&#34; ft. Kofs, MOH, 100 Blaze, JuL, Naps, Dadinho, A-Deal, Zak  /  Diego]. . 
+still empty, wait 15 more secs
+still empty, wait 15 more secs
+still empty, wait 15 more secs
 Paroles de &#34;La nuit&#34; ft. JuL, Soso Maness, K-Ra, Bil-K, Djiha, Kamikaz, Fahar, Jazzy Jazz]. . 
 Paroles de &#34;Je suis Marseille&#34; ft. Le Rat Luciano, SCH, Fahar, Shurik’n, Alonzo, L’Algérino, JuL  /  Akhenaton]. . 
 Paroles de &#34;13 Organisé&#34;]. . 
@@ -13360,9 +13442,19 @@ Paroles de &#34;13 Organisé&#34;]. .
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>get number of artist</li>
+</ul>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">artists_words</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
@@ -13378,13 +13470,13 @@ Paroles de &#34;13 Organisé&#34;]. .
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[11]:</div>
+    <div class="prompt output_prompt">Out[22]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>57</pre>
+<pre>56</pre>
 </div>
 
 </div>
@@ -13392,10 +13484,20 @@ Paroles de &#34;13 Organisé&#34;]. .
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Get number of words used for each artist after removing stopwords</li>
+</ul>
+
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="prompt input_prompt">In&nbsp;[23]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">nb_words</span> <span class="o">=</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="n">artists_words</span><span class="p">[</span><span class="n">name</span><span class="p">])</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">artists_words</span><span class="p">}</span>
@@ -13412,7 +13514,7 @@ Paroles de &#34;13 Organisé&#34;]. .
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[12]:</div>
+    <div class="prompt output_prompt">Out[23]:</div>
 
 
 
@@ -13422,8 +13524,8 @@ Paroles de &#34;13 Organisé&#34;]. .
  (&#39;fahar&#39;, 654),
  (&#34;l&#39;algérino&#34;, 514),
  (&#39;solda&#39;, 469),
- (&#39;sch&#39;, 437),
- (&#39;leratluciano&#39;, 435),
+ (&#39;sch&#39;, 445),
+ (&#39;leratluciano&#39;, 443),
  (&#39;alonzo&#39;, 408),
  (&#39;sysa&#39;, 373),
  (&#39;kofs&#39;, 357),
@@ -13436,15 +13538,23 @@ Paroles de &#34;13 Organisé&#34;]. .
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Get number of unique tokens for each artist and sort it</li>
+</ul>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[24]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">nb_unique_words</span> <span class="o">=</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">artists_words</span><span class="p">[</span><span class="n">name</span><span class="p">]))</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">artists_words</span><span class="p">}</span>
 <span class="nb">sorted</span><span class="p">(</span><span class="n">nb_unique_words</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">item</span><span class="p">:</span> <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)[:</span><span class="mi">10</span><span class="p">]</span>
-
-<span class="n">Counter</span><span class="p">(</span><span class="n">artists_words</span><span class="p">[</span><span class="s2">&quot;jul&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">most_common</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13457,7 +13567,59 @@ Paroles de &#34;13 Organisé&#34;]. .
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[10]:</div>
+    <div class="prompt output_prompt">Out[24]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[(&#39;jul&#39;, 774),
+ (&#39;fahar&#39;, 347),
+ (&#34;l&#39;algérino&#34;, 338),
+ (&#39;sch&#39;, 306),
+ (&#39;alonzo&#39;, 297),
+ (&#39;leratluciano&#39;, 291),
+ (&#39;kamikaz&#39;, 275),
+ (&#39;sosomaness&#39;, 255),
+ (&#39;solda&#39;, 254),
+ (&#39;sysa&#39;, 249)]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>count word appearence for a give artist</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[25]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Counter</span><span class="p">(</span><span class="n">artists_words</span><span class="p">[</span><span class="s2">&quot;jul&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">most_common</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[25]:</div>
 
 
 
@@ -13487,6 +13649,27 @@ Paroles de &#34;13 Organisé&#34;]. .
 
 </div>
 
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="4_Regex.html">Go back to Regex chapter</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
 </div>
 </div>
 
