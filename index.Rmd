@@ -9,47 +9,43 @@ output:
 
 # Description
 
+- This course is part of the second semester of M1 DS2E/SE. It aims at providing students with fundamental programming concepts including data structures, libraries, re-usable functions, efficient codes.\ Python and R programming languages will be used, both having become very popular for data science in academia and the private sector. The course will also focus on how to report results of data analysis using Markdown and hosts of source codes (GitHub).
 
-- This course  aims at providing students with fundamental programming concepts including data structures, libraries, re-usable functions, efficient codes. 
-Python and R programming languages will be used, both became very popular for data science in academia and the private sector. The course will also focus on how to report results of data analysis using high-quality typesetting system (LaTex, Markdown) and hosts of source codes (GitHub).
-
-<p>&nbsp;</p>
-
-- This course is part of the second semester of M1 DS2E. It aims at providing students with fundamental programming concepts including data structures, libraries, re-usable functions, efficient codes.\ Python and R programming languages will be used, both having become very popular for data science in academia and the private sector.
 
 <p>&nbsp;</p>
 
-- Each session will be divided into two parts, first we will go through the course using this site as a support. In the second part of the course students will be asked to solve exercises and present their approaches to others. The aim is to familiarize the student with presenting and explaining their codes, but it is even more important that it serves the students to benchmark their different approaches in order to better understand how to improve them.
+- Each session will be divided into two parts, first we will go through the course using this site as a support. In the second part of the course students will be asked to solve exercises and present their approaches to others. The aim is to familiarize students with presenting and explaining their codes, but it is even more important that it serves students to benchmark their different approaches in order to better understand how to improve their code.
 
 <p>&nbsp;</p>
 
-- The courses is structured as follows (each section is covered with R and Python):
-     - Chapter 'Basics' will go through the simplest operations we can perform. It covers the different types of objects present in the two languages, the use of control flows, string manipulation and the creation of functions.
-    <p>&nbsp;</p>
-    - Chapter 'Arrays/Vectors' introduces the use of vectors and matrices to perform operations. It highlights the benefits of vectorization and briefly discusses how to deal with sparse matrix.
-    <p>&nbsp;</p>
-    - Chapter 'Regex' gives an overview of regular expression. It summarizes the first two chapters by applying the regular expressions in a very basic webscrapping exercise.
-    <p>&nbsp;</p>
-    - Chapters 'Data Analysis', in R we will use of Tibbles and data.table to store data, while in Python we will focus on pandas. Basics operation on dataframe like Slicing, filtering, groupping, merging are covered in the chapter as well as reading and writting data on your computer and the benefits of using keys and index.
-    <p>&nbsp;</p>
-    - Chapter 'Best Practices' is about coding in a conventional way to improve the readability of the code by others. It will also explain how to communicate and make your code accessible via github, but also how to produce reports or feed a blog with RMarkdown.
-    <p>&nbsp;</p>
-    - Chapter 'Efficient Programmation' is an introduction to parallel computing in which its benefits and limitations will be discussed. 
+This lecture is structured as follows (each section is covered with R and Python):
+- Chapter 'Basics' will go through the simplest operations we can perform. It covers the different types of objects present in the two languages, the use of control flows, and the creation of functions.
+<p>&nbsp;</p>
+- Chapter 'Arrays/Vectors' introduces the use of vectors and matrices to perform operations. It highlights the benefits of vectorization and briefly discusses how to deal with sparse matrix.
+<p>&nbsp;</p>
+- Chapter 'Regex' gives an overview of regular expression and string manipulation. It summarizes the first two chapters by applying the regular expressions in a very basic webscrapping exercise.
+<p>&nbsp;</p>
+- Chapter 'Data Analysis', in R we will use of Tibbles and data.table to store data, while in Python we will focus on pandas. Basic operations on dataframe like slicing, filtering, grouping, merging are covered in the chapter as well as reading and writing data.
+<p>&nbsp;</p>
+- Chapter 'Best Practices' is about coding in a conventional way to improve the readability of the code by others. It will also explain how to communicate and make your code accessible via github, but also how to produce reports or feed a blog with RMarkdown.
+<p>&nbsp;</p>
+- Chapter 'Efficient Programming' is an introduction to parallel computing in which its benefits and limitations will be discussed. 
 
 <p>&nbsp;</p>
 
 # Exams 
 
 
-- There are three different grades in this course :
-    - A written exam at the end of the semester to be held on xxx.
+There are three different grades in this course :
+
+- A written exam at the end of the semester (date comming up soon).
 <p>&nbsp;</p>
-    - A project to be handed in by groups of 2-3. This project is totally free but here is a guideline: 
-        - The project has to do data processing. After defining the type of question you want to address, select the type of data you will use (cross sectional data, mail, time series, article, website, simulated database, kaggle, <a href="https://archive.ics.uci.edu/ml/index.php">UCI</a> ...).
-        - The goal of this project will be to create a tool to answer it. This tool can be almost anything, there must be something you always dreamed to automate.
-        - The tools developed must be searchable, documented and usable via the Github platform. The slides of the presentation must be in markdown.
+- A project to be handed in by groups of 2-3. This project is totally unbounded but here is a guideline: 
+    - The project has to do data processing. After defining the type of question you want to address, select the type of data you will use (cross sectional data, emails, time series, articles, websites, maps, simulated databases, <a href="https://www.kaggle.com/datasets">kaggle</a>, <a href="https://archive.ics.uci.edu/ml/index.php">UCI</a> ...).
+    - The goal of this project is to create a tool to answer your question. This tool can be almost anything, there must be something you always dreamed to automate.
+    - The tool developed must be documented and usable through the Github platform. The slides of the presentation must be in markdown.
 <p>&nbsp;</p>
-     - The project must be presented orally, the students will discuss the issues raised in the project. They will present the weak and strong points of their codes and the different approaches used to address them during the creation of their tools
+- The project must be presented orally, students will discuss the issues raised in the project. They will present the weak and strong points of their codes and the different approaches used to address them during the creation of their tools.
 
 <p>&nbsp;</p>
 
