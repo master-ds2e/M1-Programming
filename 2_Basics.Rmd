@@ -1346,11 +1346,11 @@ Sys.time() - t
 
 
 clean_sum2 <- function(seq){
-  sum(na.rm(seq))
+  total <- sum(na.rm(seq))
   return(total)
 }
 
-t = Sys.time()
+t <- Sys.time()
 clean_sum(seq = seq)
 Sys.time() - t
 

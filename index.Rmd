@@ -45,7 +45,7 @@ Python and R programming languages will be used, both became very popular for da
     - A written exam at the end of the semester to be held on xxx.
 <p>&nbsp;</p>
     - A project to be handed in by groups of 2-3. This project is totally free but here is a guideline: 
-        - The project has to do data processing. After defining the type of question you want to address, select the type of data you will use (cross sectional data, mail, time series, article, website, simulated database, kaggle ...).
+        - The project has to do data processing. After defining the type of question you want to address, select the type of data you will use (cross sectional data, mail, time series, article, website, simulated database, kaggle, <a href="https://archive.ics.uci.edu/ml/index.php">UCI</a> ...).
         - The goal of this project will be to create a tool to answer it. This tool can be almost anything, there must be something you always dreamed to automate.
         - The tools developed must be searchable, documented and usable via the Github platform. The slides of the presentation must be in markdown.
 <p>&nbsp;</p>
