@@ -1241,9 +1241,9 @@ results
 # Functions
 
 
-Functions are very important in both language, being able to code ourself things are sometimes more efficient that looking for a package and understand it.  
-Being able to write our own function gives we more flexibility and a better understanding of what we are actually doing.   Most of the time, this sentence is wrong and the way we are googling things and reading documentation can also have a major role on ability to play with existent code.  
-It's important to not reinvent the wheel, while it is important to be able to construct it ourself. Read documentation carefully while using packages, sometimes packages are misleading and we can spend a lot of time understanding how they work. Look at the packages source code when we are not sure of what the function does behind.  
+Functions are very important in both languages, being able to code ourselves things are sometimes more efficient than looking for a package and understand it.  
+Being able to write our own functions gives us more flexibility and a better understanding of what we are actually doing.
+It is important to not reinvent the wheel, but it is important to be able to construct it ourself. Read documentation carefully while using packages, sometimes packages are misleading and we can spend a lot of time understanding how they work. Look at the packages source code when we are not sure of what the function does behind.  
 The full power of programming comes with the fact that we can be autonomous by reading, modifying and writing codes and pre-existing codes.
 
 
