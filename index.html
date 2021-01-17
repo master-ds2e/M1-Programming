@@ -26,8 +26,6 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -362,20 +360,9 @@ div.tocify {
 <li>
   <a href="2_Basics.html">Basics</a>
 </li>
-<li>
-  <a href="3_Arrays_Vectors.html">Arrays/Vectors</a>
-</li>
-<li>
-  <a href="4_Regex.html">Regex</a>
-</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="https://github.com/master-ds2e/">
-    <span class="fa fa-github fa-lg"></span>
-     
-  </a>
-</li>
+        
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -397,27 +384,20 @@ div.tocify {
 <div id="description" class="section level1">
 <h1><span class="header-section-number">1</span> Description</h1>
 <ul>
-<li>This course aims at providing students with fundamental programming concepts including data structures, libraries, re-usable functions, efficient codes. Python and R programming languages will be used, both became very popular for data science in academia and the private sector. The course will also focus on how to report results of data analysis using high-quality typesetting system (LaTex, Markdown) and hosts of source codes (GitHub).</li>
+<li>This course is part of the second semester of M1 DS2E/SE. It aims at providing students with fundamental programming concepts including data structures, libraries, re-usable functions, efficient codes. Python and R programming languages will be used, both having become very popular for data science in academia and the private sector. The course will also focus on how to report results of data analysis using Markdown and hosts of source codes (GitHub).</li>
 </ul>
 <p>
  
 </p>
 <ul>
-<li>This course is part of the second semester of M1 DS2E. It aims at providing students with fundamental programming concepts including data structures, libraries, re-usable functions, efficient codes. Python and R programming languages will be used, both having become very popular for data science in academia and the private sector.</li>
+<li>Each session will be divided into two parts, first we will go through the course using this site as a support. In the second part of the course students will be asked to solve exercises and present their approaches to others. The aim is to familiarize students with presenting and explaining their codes, but it is even more important that it serves students to benchmark their different approaches in order to better understand how to improve their code.</li>
 </ul>
 <p>
  
 </p>
+<p>This lecture is structured as follows (each section is covered with R and Python):</p>
 <ul>
-<li>Each session will be divided into two parts, first we will go through the course using this site as a support. In the second part of the course students will be asked to solve exercises and present their approaches to others. The aim is to familiarize the student with presenting and explaining their codes, but it is even more important that it serves the students to benchmark their different approaches in order to better understand how to improve them.</li>
-</ul>
-<p>
- 
-</p>
-<ul>
-<li>The courses is structured as follows (each section is covered with R and Python):
-<ul>
-<li>Chapter ‘Basics’ will go through the simplest operations we can perform. It covers the different types of objects present in the two languages, the use of control flows, string manipulation and the creation of functions.
+<li>Chapter ‘Basics’ will go through the simplest operations we can perform. It covers the different types of objects present in the two languages, the use of control flows, and the creation of functions.
 <p>
  
 </p></li>
@@ -425,11 +405,11 @@ div.tocify {
 <p>
  
 </p></li>
-<li>Chapter ‘Regex’ gives an overview of regular expression. It summarizes the first two chapters by applying the regular expressions in a very basic webscrapping exercise.
+<li>Chapter ‘Regex’ gives an overview of regular expression and string manipulation. It summarizes the first two chapters by applying the regular expressions in a very basic webscrapping exercise.
 <p>
  
 </p></li>
-<li>Chapters ‘Data Analysis’, in R we will use of Tibbles and data.table to store data, while in Python we will focus on pandas. Basics operation on dataframe like Slicing, filtering, groupping, merging are covered in the chapter as well as reading and writting data on your computer and the benefits of using keys and index.
+<li>Chapter ‘Data Analysis’, in R we will use of Tibbles and data.table to store data, while in Python we will focus on pandas. Basic operations on dataframe like slicing, filtering, grouping, merging are covered in the chapter as well as reading and writing data.
 <p>
  
 </p></li>
@@ -437,8 +417,7 @@ div.tocify {
 <p>
  
 </p></li>
-<li>Chapter ‘Efficient Programmation’ is an introduction to parallel computing in which its benefits and limitations will be discussed.</li>
-</ul></li>
+<li>Chapter ‘Efficient Programming’ is an introduction to parallel computing in which its benefits and limitations will be discussed.</li>
 </ul>
 <p>
  
@@ -446,24 +425,22 @@ div.tocify {
 </div>
 <div id="exams" class="section level1">
 <h1><span class="header-section-number">2</span> Exams</h1>
+<p>There are three different grades in this course :</p>
 <ul>
-<li>There are three different grades in this course :
-<ul>
-<li>A written exam at the end of the semester to be held on xxx.
+<li>A written exam at the end of the semester (date comming up soon).
 <p>
  
 </p></li>
-<li>A project to be handed in by groups of 2-3. This project is totally free but here is a guideline:
+<li>A project to be handed in by groups of 2-3. This project is totally unbounded but here is a guideline:
 <ul>
-<li>The project has to do data processing. After defining the type of question you want to address, select the type of data you will use (cross sectional data, mail, time series, article, website, simulated database, kaggle, <a href="https://archive.ics.uci.edu/ml/index.php">UCI</a> …).</li>
-<li>The goal of this project will be to create a tool to answer it. This tool can be almost anything, there must be something you always dreamed to automate.</li>
-<li>The tools developed must be searchable, documented and usable via the Github platform. The slides of the presentation must be in markdown.
+<li>The project has to do data processing. After defining the type of question you want to address, select the type of data you will use (cross sectional data, emails, time series, articles, websites, maps, simulated databases, <a href="https://www.kaggle.com/datasets">kaggle</a>, <a href="https://archive.ics.uci.edu/ml/index.php">UCI</a> …).</li>
+<li>The goal of this project is to create a tool to answer your question. This tool can be almost anything, there must be something you always dreamed to automate.</li>
+<li>The tool developed must be documented and usable through the Github platform. The slides of the presentation must be in markdown.
 <p>
  
 </p></li>
 </ul></li>
-<li>The project must be presented orally, the students will discuss the issues raised in the project. They will present the weak and strong points of their codes and the different approaches used to address them during the creation of their tools</li>
-</ul></li>
+<li>The project must be presented orally, students will discuss the issues raised in the project. They will present the weak and strong points of their codes and the different approaches used to address them during the creation of their tools.</li>
 </ul>
 <p>
  
@@ -476,8 +453,7 @@ div.tocify {
 <li>windows:
 <ul>
 <li><a href="https://uvastatlab.github.io/phdplus/installR.html" class="uri">https://uvastatlab.github.io/phdplus/installR.html</a></li>
-<li>Go to <a href="https://www.anaconda.com/products/individual/get-started" class="uri">https://www.anaconda.com/products/individual/get-started</a> and dowload a windows installer. Or use the link below (Python 3.8)<br />
-</li>
+<li><a href="https://www.anaconda.com/products/individual/get-started" class="uri">https://www.anaconda.com/products/individual/get-started</a></li>
 <li><a href="https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-from-an-environment-yml-file" class="uri">https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-from-an-environment-yml-file</a></li>
 </ul></li>
 <li>Linux:
@@ -491,6 +467,22 @@ div.tocify {
 <li><a href="https://docs.anaconda.com/anaconda/install/linux/" class="uri">https://docs.anaconda.com/anaconda/install/linux/</a></li>
 </ul></li>
 </ul>
+</div>
+<div id="materials-used-in-this-course" class="section level1">
+<h1><span class="header-section-number">4</span> Materials used in this course</h1>
+<p>Hadley Wickham. R for Data Science: Import, Tidy, Transform, Visualize, and Model Data</p>
+<p>Zed A. Shaw. Learn Python the Hard Way: A Very Simple Introduction to the Terrifyingly Beautiful World of Computers and Code</p>
+<p>Luciano Ramalho. Fluent Python</p>
+<p>Robin Lovelace. Efficient R Programming by Colin Gillespie</p>
+<p>Wes McKinney. Python for Data Analysis</p>
+<p><a href="https://www.anotherbookondatascience.com/" class="uri">https://www.anotherbookondatascience.com/</a></p>
+<p><a href="https://www.business-science.io/business/2018/10/08/python-and-r.html" class="uri">https://www.business-science.io/business/2018/10/08/python-and-r.html</a></p>
+<p><a href="https://www.practicaldatascience.org/html/vars_v_objects.html" class="uri">https://www.practicaldatascience.org/html/vars_v_objects.html</a></p>
+<p><a href="https://learnanalyticshere.wordpress.com/2015/05/14/clash-of-the-titans-r-vs-python/" class="uri">https://learnanalyticshere.wordpress.com/2015/05/14/clash-of-the-titans-r-vs-python/</a></p>
+<p><a href="https://www.statmethods.net/input/datatypes.html" class="uri">https://www.statmethods.net/input/datatypes.html</a></p>
+<p><a href="https://thomas-cokelaer.info/tutorials/python/lists.html" class="uri">https://thomas-cokelaer.info/tutorials/python/lists.html</a></p>
+<p><a href="https://www.python.org/dev/peps/pep-0008/#introduction" class="uri">https://www.python.org/dev/peps/pep-0008/#introduction</a></p>
+<p>To be completed..</p>
 <!---
 update
 

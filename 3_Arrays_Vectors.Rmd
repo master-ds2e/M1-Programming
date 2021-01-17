@@ -507,6 +507,45 @@ Beta
 </div>
 </div>
 
+# Vectorized conditional logic
+
+<div class = "row">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE}
+# R
+library(dplyr)
+# Fast version of ifelse()
+x <- c(-3:3, NA)
+if_else(condition = x < 0,
+        true      = "neg",
+        false     = "pos",
+        missing   = "NA")
+
+
+x <- c(-3:3, NA)
+fifelse(test = x < 0,
+        yes  = "neg",
+        no   = "pos",
+        na   = "NA")
+
+
+# Vectorised ifelse statements
+
+
+x <- 1:10
+case_when(
+  x %% 6 == 0 ~ "fizz buzz",
+  x %% 2 == 0 ~ "fizz",
+  x %% 3 == 0 ~ "buzz",
+  TRUE ~ as.character(x)
+)
+
+```
+
+</div>
+</div>
+
 # Sparse
 
 When dealing with large array that are sparse (lot of element equalt to 0), it is inneficient to store this object as a dense matrix. Large matrix are sometimes difficult to store in the memory because they are weighty, when they dealing with sparse we can store it and do calculation with them in a very efficient way using the 'Compressed Sparse Column' (CSC) format. See how it change the weight of the matrix when changing the format to sparse matrix .

@@ -25,8 +25,6 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -361,20 +359,9 @@ div.tocify {
 <li>
   <a href="2_Basics.html">Basics</a>
 </li>
-<li>
-  <a href="3_Arrays_Vectors.html">Arrays/Vectors</a>
-</li>
-<li>
-  <a href="4_Regex.html">Regex</a>
-</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="https://github.com/master-ds2e/">
-    <span class="fa fa-github fa-lg"></span>
-     
-  </a>
-</li>
+        
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -389,62 +376,45 @@ div.tocify {
 </div>
 
 
-<style type="text/css">
-#.r-chunk {
-#  background-color: lightpink;
-#}
-#
-#.py-chunk {
-#  background-color: lightblue;
-#}
-#toc: true
-#    number_sections: true
-#    theme: flatly
-#    highlight: kate
-#    toc_float:
-#      collapsed: false
-#      smooth_scroll: true
-#  
-#
-#author: "Pierre Pelletier"
-#date: "3 septembre 2020"
-#output:
-#  html_document:
-#  toc: true
-#  toc_float: true
-#  toc_collapsed: true
-#  toc_depth: 3
-#  number_sections: true
-#  theme: lumen
-#
-#toc: true
-#    number_sections: true
-#    theme: flatly
-#    highlight: kate
-#    toc_float:
-#      collapsed: false
-#      smooth_scroll: true
-#
-#
-
-
-
-</style>
 <style>
 div.python pre { background-color: #d0f5a9; }
 </style>
 <style>
 div.r pre { background-color: #dfdddf; }
 </style>
-<p>This capter introduce the basics of R and Python. The goal of this chapter is to discover the different type of object that we can deal with for each language, to understand the logic of control flows and function writting. Along this chapter we will see what differs between R and Python but also how similar they can be.chapter ends with 3 Exercices from Euler Project. By forming a group of 2, solve at least one exercice in the language of your choice. try to compare different approach.</p>
 <p>
  
 </p>
+<p>This capter introduces the basics of R and Python. The goal of this chapter is to discover the different types of object that we can deal with for each language, as well as understanding the logic of control flows and function writing. The chapter ends with 3 Exercices from Euler Project. By forming a group of 2, solve at least one exercice in the language of your choice and try to compare different approaches.</p>
+<p>
+ 
+</p>
+<div id="rpython" class="section level1">
+<h1><span class="header-section-number">1</span> R/Python</h1>
+<p>Both data science languages are great for business analysis. They can both be used for similar purpose when viewed from a purely machine learning perspective. Both have packages or libraries dedicated to wrangling, preprocessing, and applying machine learning to data. Both are great choices for reproducibile research. Where things become really interesting is their differences, as well as combining languages.</p>
+<div id="r-strengths" class="section level2">
+<h2><span class="header-section-number">1.1</span> R Strengths</h2>
+<p>The S language was a precursor to R developed by John Chambers (statistician) at Bell Labs in 1976 as a programming language designed to implement statistics. The R statistical programming language was developed at the University of Auckland, New Zealand, to increase S capacities. S and R developers were not software engineers or computer scientists, they were researchers that developed tools in order carry out research and communicate results more efficiently.</p>
+<p>R is a language with roots in statistics, data analysis, data exploration, and data visualization. It has utilities for reporting and communicate including RMarkdown and Shiny.</p>
+<p>R is expanding rapidly with the emergence of the tidyverse (tidyverse.org), a set of tools with a common programming-interface that use functional verbs (functions like mutate() and summarize()) to perform intuitive operations connected by the pipe (%&gt;%). The tidyverse is very advantageous because it makes data mining very efficient. Iterating through your exploratory analysis is as simple as writing a paragraph describing what you intend to do to the data.</p>
+</div>
+<div id="python-strengths" class="section level2">
+<h2><span class="header-section-number">1.2</span> Python Strengths</h2>
+<p>The Python language is a general-purpose programming language created by Guido van Rossum (Computer Scientist) in 1991. The language was developed to be readable and to cover many programming paradigms. One of Python’s greatest strengths is its flexibility which allows to handle web frameworks, data base connectivity, networking, web scraping, text and image processing, many of those features are very useful to various tasks in machine learning.</p>
+<p>In essence, the foundations of Python are in computer science and mathematics. With over 100,000 open source libraries, Python has the largest ecosystem of any programming language, making it a unique choice for those who want high flexibility.</p>
+<p>Python has great data science libraries including Scikit Learn, the most popular machine learning library which is easy to pick up, includes support for pipelines to simplify the machine learning workflow, and has almost all of the algorithms one needs in one place. Another very common library is TensorFlow, developed by software engineers at Google to perform deep learning, commonly used for image recognition and natural language processing tasks (NLTK is also very useful for NLP). Facebook also have his own deep learning framework named PyTorch which is a concurrent of Tenserflow and Keras (which is desinged for efficiently building neural networks).</p>
+<ul>
+<li><p>R is selected for exploration due to the tidyverse and datatable readability and efficiency.</p></li>
+<li><p>Python is preferred for machine learning because of Scikit Learn, TenserFlow and Keras, PyTorch machine learning pipeline capability.</p></li>
+<li><p>R is favored for communication because of the advanced reporting utilities including RMarkdown and Shiny (interactive web apps) and ggplot2 for visualization.</p></li>
+</ul>
+</div>
+</div>
 <div id="operations" class="section level1">
-<h1><span class="header-section-number">1</span> Operations</h1>
+<h1><span class="header-section-number">2</span> Operations</h1>
 <div id="arithmetic-operations" class="section level2">
-<h2><span class="header-section-number">1.1</span> Arithmetic Operations</h2>
-<p>Python and R work as classical calculator, using “+”, “-”, "*" and “/” we can do arithmetic operations in both language.</p>
+<h2><span class="header-section-number">2.1</span> Arithmetic Operations</h2>
+<p>Python and R work as classical calculator, using “+”, “-”, "*" and “/” we can do arithmetic operations in both languages.</p>
 <div class="row">
 <div class="col-md-6">
 <div class="python">
@@ -478,7 +448,7 @@ div.r pre { background-color: #dfdddf; }
 <p>
  
 </p>
-<p>We can also apply exponantiation, Modulo and floor division easily in both language. Note that in R we can writte the exponantiation “^”. It is used for exclusive-or (bitwise) in Python.</p>
+<p>We can also apply exponantiation, Modulo and floor division easily in both language. Note that in R we can write the exponantiation “^”. It is used for exclusive-or (XOR) in Python.</p>
 <div class="row">
 <div class="col-md-6">
 <div class="python">
@@ -560,8 +530,8 @@ div.r pre { background-color: #dfdddf; }
 </p>
 </div>
 <div id="comparison-operators" class="section level2">
-<h2><span class="header-section-number">1.2</span> Comparison Operators</h2>
-<p>In order to compare some values we can use comparison operators to investigate in a given value is equal to, not equal, greater than … etc</p>
+<h2><span class="header-section-number">2.2</span> Comparison Operators</h2>
+<p>In order to compare some values, we can use comparison operators to investigate if a given value is equal to, not equal to, greater than, etc.</p>
 <p>Theses operators are the same in both language.</p>
 <div class="row">
 <div class="col-md-6">
@@ -636,7 +606,7 @@ div.r pre { background-color: #dfdddf; }
 </p>
 </div>
 <div id="logical-operators" class="section level2">
-<h2><span class="header-section-number">1.3</span> Logical operators</h2>
+<h2><span class="header-section-number">2.3</span> Logical operators</h2>
 <div class="row">
 <div class="col-md-6">
 <div class="python">
@@ -713,8 +683,8 @@ x || y
 </p>
 </div>
 <div id="membership-operators" class="section level2">
-<h2><span class="header-section-number">1.4</span> Membership operators</h2>
-<p>In and not in are membership operators in Python. They are used to test whether a value or variable is found in a sequence. In R %in% allows you to use the python in, but you have to be aware that they may not react the same way, the reason is that list of character can be directly decomposed in a character list in python, which is not the case in R. See how we can check that ‘Hello’ is in ‘Hello world’ using just in with python. In R we look if the string exactly match one element.</p>
+<h2><span class="header-section-number">2.4</span> Membership operators</h2>
+<p>‘In’ and ‘not in’ are membership operators in Python. They are used to test whether a value or variable is found in a sequence. In R ‘%in%’ allows you to use the python in, but you have to be aware that they may not react the same way, the reason is that list of character can be directly decomposed in a character list in python, which is not the case in R. See how we can check that ‘Hello’ is in ‘Hello world’ using just in with python. In R we look if the string exactly match one element.</p>
 <div class="row">
 <div class="col-md-6">
 <div class="python">
@@ -763,7 +733,9 @@ print(&#39;Hello&#39; in x)
 x = c(&#39;Hello&#39;,&#39;World&#39;)
 
 print(&#39;Hello&#39; %in% x)
-## [1] TRUE</code></pre>
+## [1] TRUE
+stringr::str_detect(&#39;Hello&#39;,x)
+## [1]  TRUE FALSE</code></pre>
 </div>
 </div>
 </div>
@@ -773,19 +745,17 @@ print(&#39;Hello&#39; %in% x)
 </div>
 </div>
 <div id="objects-variables" class="section level1">
-<h1><span class="header-section-number">2</span> Objects &amp; Variables</h1>
-<p>ref used : <a href="https://www.practicaldatascience.org/html/vars_v_objects.html" class="uri">https://www.practicaldatascience.org/html/vars_v_objects.html</a></p>
-<p>Variables are used to store data. In Python and R, we do not need to declare a variable before assigning a value to this variable. we can think of a variable as a name to refers to an object. There is a big difference between python and R on the way the computer is storing object and variables that we will see in the end of the section.</p>
+<h1><span class="header-section-number">3</span> Objects &amp; Variables</h1>
+<p>In Python and R, we do not need to declare a variable before assigning a value to this variable. we can think of a variable as a name to refers to an object. There is a difference between Python and R on the way the computer is storing objects and variables.</p>
 <p>
  
 </p>
-<div id="difference-between-r-and-python" class="section level2">
-<h2><span class="header-section-number">2.1</span> Difference between R and Python</h2>
-<p><a href="https://learnanalyticshere.wordpress.com/2015/05/14/clash-of-the-titans-r-vs-python/" class="uri">https://learnanalyticshere.wordpress.com/2015/05/14/clash-of-the-titans-r-vs-python/</a></p>
-<p>While Python is a lot praised for being a general-purpose language with an easy-to-understand syntax, R’s functionality is developed with statisticians in thoughts, thus giving it field-specific advantages such as excessive features for data visualization.</p>
-<p>In R, a variable and an object are the same things, they refers to the same entities. If we assign to a new variable a variable that already exist, it will refers to two different objects.</p>
-<p>Things in Python are more conventional, but since some people learned R before Python it’s important to notice that variables refers to an objet but they are still two entities. It means that two variables can refer to a single object. If two variables are pointing the same object, the modification made with one variable will be also available when using the other variable.</p>
-<p>we mostly should never use for loops in R - they’re horribly slow because they execute a function call with every iteration. (One should vectorize and use the apply family of functions instead. Weird, I know..) Vectorization is king in R if we want fast code. Assuming we vectorize both our R and Python code (and other factors), we should probably get the same order of magnitude in speed. For data larger than memory (we can specify the limit), R starts to become a bad choice.</p>
+<div id="some-differences-between-r-and-python" class="section level2">
+<h2><span class="header-section-number">3.1</span> Some differences between R and Python</h2>
+<p>While Python is much appreciated for being a versatile language with an easy-to-understand syntax, R’s functionalities are developed by statisticians, thus giving it field-specific advantages.</p>
+<p>In R, a variable and an object are the same things, they refer to the same entities. If we assign to a new variable a variable that already exist, it will refers to two different objects.</p>
+<p>Things in Python are more conventional, but since most of you learned R before Python it is important to notice that variables refers to an objet but they are still two entities. It means that two variables can refer to a single object. If two variables are pointing the same object, the modification made with one variable will be also available when using the other variable.</p>
+<p>We mostly should never use for loops in R - they’re very slow because they execute a function call with every iteration. One should vectorize and use the apply family of functions instead (Weird, I know..). Vectorization is king in R if we want fast code. Assuming we vectorize both our R and Python codes (and other factors), we should probably get the same order of magnitude in speed. For data larger than memory (we can specify the limit), R starts to become a bad choice.</p>
 <div class="row">
 <div class="col-md-6">
 <div class="python">
@@ -845,18 +815,20 @@ sd(with_char)
 <p>
  
 </p>
-<p>See how R do not show any error and directly remove NA to compute the standart deviation and also convert string to numeric if possible. If converting the string to numeric is not feasible, R finally return a NA. This is not an error message but a warning message.</p>
-<p>We need to writte our code carefully since R can do calculation for a while and just return NA without stopping the process which is not the case in Python.</p>
-<p>Also see here that R calulates the standard deviation with N - 1 as the denominator, and numpy with N. To get the same result we need to use ‘ddof=1’ as argument in std.</p>
+<ul>
+<li><p>See how R does not show any error and directly remove NA to compute the standard deviation and also converts string to numeric if possible. If converting the string to numeric is not feasible, R finally return a NA. This is not an error message but a warning message.<br />
+We need to write our code carefully since R can do calculation for a while and just return NA without stopping the process which is not the case in Python.</p></li>
+<li><p>see here that R calulates the standard deviation with N - 1 as the denominator, and numpy with N. To get the same result we need to use ‘ddof=1’ as argument in std.</p></li>
+</ul>
 </div>
 <p>
  
 </p>
 </div>
 <div id="textual-and-numerical-variables" class="section level2">
-<h2><span class="header-section-number">2.2</span> Textual and numerical variables</h2>
-<p>In R textual data are called ‘character’, in Python it is a string, abbreviate as ‘str’. " or ’ are used when we set a textual variable in both laguage, but we can also set a variable to textual variable if needed.</p>
-<p>Numerical variables a decomposed in three types. In Python we’ll have integer, float and complex. In R float is called ‘double’, reffering to double precision floating point. Without entering into details it means that the number have a precision up to 15 decimals. Float can refers to a precision of 7 decimals, however in Python the data-type ‘float’ has a precision of 15 numbers. They are ways to get more precisions using Numpy for example.</p>
+<h2><span class="header-section-number">3.2</span> Textual and numerical variables</h2>
+<p>In R textual data are called ‘character’, in Python it is a string, abbreviate as ‘str’. " or ’ are used when we set a textual variable in both language, but we can also set a variable to textual variable if needed.</p>
+<p>Numerical variables a decomposed in three types. In Python we have integer, float and complex. In R float is called ‘double’, reffering to double precision floating point. Without entering into details, it means that the number have a precision up to 15 decimals. Float can refers to a precision of 7 decimals, however in Python the data-type ‘float’ has a precision of 15 numbers. They are ways to get more precisions using Numpy for example.</p>
 <p>Finaly we can check easily the data-type of the variable that we are dealing by asking the language with the command ‘type’ in Python, or ‘typeof’ in R.</p>
 <div class="row">
 <div class="col-md-6">
@@ -926,14 +898,13 @@ as.numeric(f)
 </p>
 </div>
 <div id="other-data-type-r" class="section level2">
-<h2><span class="header-section-number">2.3</span> Other Data-Type (R)</h2>
-<p><a href="https://www.statmethods.net/input/datatypes.html" class="uri">https://www.statmethods.net/input/datatypes.html</a></p>
-<p>There is a lot of datatype in both language that we will discover along the course, for now we will focus only on basic data-type that are directly available without using anyother package or library,in R common data-type are Vector, Matrix, List, Data frame and factor.</p>
+<h2><span class="header-section-number">3.3</span> Other Data-Type (R)</h2>
+<p>There is a lot of datatypes in both language that we will discover along this course, for now, we will focus only on basic data-type that are directly available without using anyother package or library,in R common data-type are Vector, Matrix, List, Dataframe.</p>
 <p>
  
 </p>
 <div id="vectors-and-matrices" class="section level3">
-<h3><span class="header-section-number">2.3.1</span> Vectors and Matrices</h3>
+<h3><span class="header-section-number">3.3.1</span> Vectors and Matrices</h3>
 <div class="r">
 <div class="row">
 <div class="col-md-6">
@@ -1035,8 +1006,8 @@ i_mat
 </p>
 </div>
 <div id="data-frame" class="section level3">
-<h3><span class="header-section-number">2.3.2</span> Data frame</h3>
-<p>A Data frame in R is a matrix which can store different type of data, characters, numerics or factors. Contrary to the matrix it does not have a fixed dimension it means that we can create a column very easily using the operator ‘$’.</p>
+<h3><span class="header-section-number">3.3.2</span> Data frame</h3>
+<p>A Data frame in R is a matrix which can store different types of data, characters, numerics or factors. Contrary to the matrix, it does not have a fixed dimension which means that we can create a column very easily using the operator ‘$’.</p>
 <div class="r">
 <pre class="r"><code># R
 
@@ -1107,8 +1078,8 @@ class(t_df)
 </p>
 </div>
 <div id="arrays" class="section level3">
-<h3><span class="header-section-number">2.3.3</span> Arrays</h3>
-<p>Arrays is a generalisation of the matrix, it means that we can have a matrix with more than two dimension. we can modify them as we modify a matrix.</p>
+<h3><span class="header-section-number">3.3.3</span> Arrays</h3>
+<p>Arrays is a generalisation of the matrix, meaning that we can have a matrix with more than two dimensions. We can modify them as we modify a matrix.</p>
 <div class="r">
 <pre class="r"><code># R
 
@@ -1150,8 +1121,8 @@ arr[,,1]
 </p>
 </div>
 <div id="lists" class="section level3">
-<h3><span class="header-section-number">2.3.4</span> Lists</h3>
-<p>A list permits us to assemble an assortment of disconnected objects behind one variable, it is also possible to store objects which can be of different types.</p>
+<h3><span class="header-section-number">3.3.4</span> Lists</h3>
+<p>A list permits us to assemble an assortment of disconnected objects behind one object, it is also possible to store objects which can be of different types.</p>
 <div class="r">
 <pre class="r"><code># R
 
@@ -1211,14 +1182,13 @@ lst[[1]][1,] # first row of first element of the list
 </div>
 </div>
 <div id="other-data-type-python" class="section level2">
-<h2><span class="header-section-number">2.4</span> Other Data-Type (Python)</h2>
-<p>refused : <a href="https://thomas-cokelaer.info/tutorials/python/lists.html" class="uri">https://thomas-cokelaer.info/tutorials/python/lists.html</a></p>
-<p>In Python the most common are List, Turple, sets, Dictionnary. Note that for the moment when modifiying a variable we always use ‘=’. Keep in mind that using the ‘.’ can modify the object behind the variable in Python.</p>
+<h2><span class="header-section-number">3.4</span> Other Data-Type (Python)</h2>
+<p>In Python the most common are List, Turple, sets, Dictionnary. Note that for the moment, for modifiying a variable we always use ‘=’. Keep in mind that using the ‘.’ can modify the object behind the variable in Python.</p>
 <p>
  
 </p>
 <div id="lists-1" class="section level3">
-<h3><span class="header-section-number">2.4.1</span> Lists</h3>
+<h3><span class="header-section-number">3.4.1</span> Lists</h3>
 <p>Keep in mind that Lists are mutable, as discussed in the Section “Difference between R and Python”</p>
 <div class="python">
 <pre class="python"><code># Python
@@ -1281,8 +1251,8 @@ a
 </p>
 </div>
 <div id="turples" class="section level3">
-<h3><span class="header-section-number">2.4.2</span> Turples</h3>
-<p>The main difference between Lists and Turples is the fact that Turples is an immutable type of data making it faster to use.</p>
+<h3><span class="header-section-number">3.4.2</span> Turples</h3>
+<p>The main difference between Lists and Turples is the fact that Turples is an immutable type of data, making it faster to use.</p>
 <div class="python">
 <pre class="python"><code># Python
 
@@ -1316,11 +1286,7 @@ len(a) # number of elements in the turple
 
 a = (1,2,3)
 b = a
-b[0] = 12
-## Error in py_call_impl(callable, dots$args, dots$keywords): TypeError: &#39;tuple&#39; object does not support item assignment
-## 
-## Detailed traceback: 
-##   File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;
+b += (4,5)
 a
 ## (1, 2, 3)</code></pre>
 </div>
@@ -1329,7 +1295,7 @@ a
 </p>
 </div>
 <div id="dictionaries" class="section level3">
-<h3><span class="header-section-number">2.4.3</span> Dictionaries</h3>
+<h3><span class="header-section-number">3.4.3</span> Dictionaries</h3>
 <p>Dictionary refers to a way of storing data that is not sorted. It works with key and value associate with this key.</p>
 <div class="python">
 <pre class="python"><code># Python
@@ -1381,8 +1347,8 @@ a
 </p>
 </div>
 <div id="sets" class="section level3">
-<h3><span class="header-section-number">2.4.4</span> Sets</h3>
-<p>Sets are unordered collection of unique elements. If we give to a set multiple time the same element it will automatically delete dupplicated values.</p>
+<h3><span class="header-section-number">3.4.4</span> Sets</h3>
+<p>Sets are unordered collection of unique elements. If we give to a set multiple time the same element, it will automatically delete dupplicated values.</p>
 <div class="python">
 <pre class="python"><code># Python
 
@@ -1403,20 +1369,20 @@ a
 ## {1, 2, 3, 4, 5}</code></pre>
 <pre class="python"><code># mutable
 
-a = {&#39;a&#39;:1, &#39;b&#39;:2, &#39;c&#39;:3}
+a = {1, 2, 3}
 b = a
-b[&#39;b&#39;] = [12,14]
+b.update([12,14])
 a
-## {&#39;a&#39;: 1, &#39;b&#39;: [12, 14], &#39;c&#39;: 3}</code></pre>
+## {1, 2, 3, 12, 14}</code></pre>
 </div>
 <p>
  
 </p>
 </div>
 <div id="arrays-1" class="section level3">
-<h3><span class="header-section-number">2.4.5</span> Arrays</h3>
+<h3><span class="header-section-number">3.4.5</span> Arrays</h3>
 <p>In order to manipulate arrays in Python we need to use package numpy, this package is very usefull and will be covered in other chapters.</p>
-<p>First see that we can make an array usig R by starting from a vector R represents all arrays in column-major order, which is not the case in python.</p>
+<p>First see that we can make an array using R by starting from a vector. R represents all arrays in column-major order, which is not the case in python.</p>
 <div class="row">
 <div class="col-md-6">
 <div class="python">
@@ -1465,7 +1431,7 @@ arr
 </div>
 </div>
 </div>
-<p>As ou can see R and Python does not store vector in the same way: R is storing them by column while python does it by row. Using “order = ‘F’” alows us to store vecotr into matrix by column.</p>
+<p>As you can see, R and Python does not store vector in the same way: R is storing them by column while python does it by row. Using “order = ‘F’” alows us to store vector into matrix by column.</p>
 <div class="python">
 <pre class="python"><code># Python
 
@@ -1497,7 +1463,7 @@ arr
 </p>
 </div>
 <div id="data-frame-1" class="section level3">
-<h3><span class="header-section-number">2.4.6</span> Data Frame</h3>
+<h3><span class="header-section-number">3.4.6</span> Data Frame</h3>
 <p>Pandas Data Frames are also very common data-type in Python. The package Pandas is also view deeper in following chapters.</p>
 <div class="python">
 <pre class="python"><code># Python
@@ -1542,7 +1508,7 @@ df[&#39;vec&#39;]
 vec2 = range(3,9)
 df[&#39;vec2&#39;] = vec2 # add values from other vector
 a
-## {&#39;a&#39;: 1, &#39;b&#39;: [12, 14], &#39;c&#39;: 3}</code></pre>
+## {1, 2, 3, 12, 14}</code></pre>
 <pre class="python"><code># mutable
 
 df2 = df
@@ -1567,10 +1533,10 @@ df2
 </div>
 </div>
 <div id="control-flow" class="section level1">
-<h1><span class="header-section-number">3</span> Control flow</h1>
-<p>There are two main control flow tools: choices, and loops. choices are very useful for establishing rules or conditions. Choices can be used to modify a value according to a certain condition, generally it allows to launch certain actions in specific cases. The loops when it allows to execute sequentially actions, it can be to interactively modify an object, more generally it allows to launch a procedure several times. we can for example create N similar objects but we can also modify the N lines of an object.</p>
+<h1><span class="header-section-number">4</span> Control flow</h1>
+<p>There are two main control flow tools: choices, and loops. ‘Choices’ are very useful for establishing rules or conditions. ‘Choices’ can be used to modify a value according to a certain condition, generally it allows to launch certain actions in specific cases. The ‘loops’ when it allows to execute sequentially actions, it can be to interactively modify an object, more generally it allows to launch a procedure several times. For example, we can create N similar objects but we can also modify the N lines of an object.</p>
 <div id="choices" class="section level2">
-<h2><span class="header-section-number">3.1</span> Choices</h2>
+<h2><span class="header-section-number">4.1</span> Choices</h2>
 <div class="row">
 <div class="col-md-6">
 <div class="python">
@@ -1625,47 +1591,13 @@ if(!is.integer(n)){
 </div>
 </div>
 </div>
-<div class="row">
-<div class="r">
-<pre class="r"><code># R
-
-# Fast version of ifelse()
-x &lt;- c(-3:3, NA)
-if_else(condition = x &lt; 0,
-        true      = &quot;neg&quot;,
-        false     = &quot;pos&quot;,
-        missing   = &quot;NA&quot;)
-## Error in if_else(condition = x &lt; 0, true = &quot;neg&quot;, false = &quot;pos&quot;, missing = &quot;NA&quot;): impossible de trouver la fonction &quot;if_else&quot;
-
-
-x &lt;- c(-3:3, NA)
-fifelse(test = x &lt; 0,
-        yes  = &quot;neg&quot;,
-        no   = &quot;pos&quot;,
-        na   = &quot;NA&quot;)
-## Error in fifelse(test = x &lt; 0, yes = &quot;neg&quot;, no = &quot;pos&quot;, na = &quot;NA&quot;): impossible de trouver la fonction &quot;fifelse&quot;
-
-
-# Vectorised ifelse statements
-
-
-x &lt;- 1:10
-case_when(
-  x %% 6 == 0 ~ &quot;fizz buzz&quot;,
-  x %% 2 == 0 ~ &quot;fizz&quot;,
-  x %% 3 == 0 ~ &quot;buzz&quot;,
-  TRUE ~ as.character(x)
-)
-## Error in case_when(x%%6 == 0 ~ &quot;fizz buzz&quot;, x%%2 == 0 ~ &quot;fizz&quot;, x%%3 == : impossible de trouver la fonction &quot;case_when&quot;</code></pre>
-</div>
-</div>
 <p>
  
 </p>
 </div>
 <div id="loops" class="section level2">
-<h2><span class="header-section-number">3.2</span> Loops</h2>
-<p>Using for loops, we will iterate over a predefined number of iteration, sometimes we don’t know how many steps we need to perform a given task. Imagine that we want to optimize a function, we don’t know how many step we need until reaching an optimum but we can set a condition for which we will consider that the algorithm converged. For this kind of exercice we can use ‘while’ loops, it will iterate until a given condition is satisfied.</p>
+<h2><span class="header-section-number">4.2</span> Loops</h2>
+<p>Using ‘Loops’, we iterate over a predefined number of iterations. Sometimes we do not know how many steps we need to perform a given task. Imagine that we want to optimize a function, we don’t know how many steps we need until reaching an optimum, but we can set a condition for which we will consider that the algorithm converged. For this kind of exercice we can use ‘while’ loops, it will iterate until a given condition is satisfied.</p>
 <div class="row">
 <div class="col-md-6">
 <div class="python">
@@ -1692,7 +1624,7 @@ while total &lt; 1:
     total += rnd
   
 total
-## 1.6267595046638987</code></pre>
+## 1.384898600423558</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -1722,7 +1654,7 @@ while(total &lt; 1){
 }
   
 total
-## [1] 2.729173</code></pre>
+## [1] 2.641468</code></pre>
 </div>
 </div>
 </div>
@@ -1731,7 +1663,7 @@ total
 </p>
 </div>
 <div id="list-set-and-dict-comprehensions-python" class="section level2">
-<h2><span class="header-section-number">3.3</span> List, Set and Dict comprehensions (Python)</h2>
+<h2><span class="header-section-number">4.3</span> List, Set and Dict comprehensions (Python)</h2>
 <p>List comprehension is very common and appreciate in the python language features, think of it as a loop for which we will directly store output in a list, set, or dict. we can use it as a filter for exemple.</p>
 <div class="python">
 <div class="row">
@@ -1748,14 +1680,14 @@ for val in lst:
   if val &gt; 2:
     results.append(val)
 time.time()-t
-## 0.014990091323852539
+## 0.01445460319519043
 results
 ## [3, 4]
 t = time.time() 
 # this loop their will produce the same output than a using List comprehension.
 results = [val for val in lst if val&gt;2]
 time.time()-t
-## 0.00996708869934082
+## 0.008965730667114258
 results
 ## [3, 4]</code></pre>
 </div>
@@ -1772,7 +1704,7 @@ for val in st:
   if val &gt; 2:
     results.add(val)
 time.time()-t
-## 0.014077425003051758
+## 0.01403951644897461
 results
 ## {3, 4}
 t = time.time() 
@@ -1780,7 +1712,7 @@ t = time.time()
 # this loop their will produce the same output than a using Set comprehension.
 results = {val for val in st if val&gt;2}
 time.time()-t
-## 0.009965896606445312
+## 0.00996088981628418
 results
 ## {3, 4}</code></pre>
 </div>
@@ -1797,14 +1729,14 @@ for val in dct:
   if dct[val] &gt; 2:
     results.update({str(val): dct[val]})
 time.time()-t
-## 0.015093803405761719
+## 0.014870166778564453
 results
 ## {&#39;c&#39;: 3, &#39;d&#39;: 4}
 t = time.time() 
 # this loop their will produce the same output than a using Dict comprehension.
 results = {str(val): dct[val] for val in dct if dct[val]&gt;2}
 time.time()-t
-## 0.009965658187866211
+## 0.010957002639770508
 results
 ## {&#39;c&#39;: 3, &#39;d&#39;: 4}</code></pre>
 </div>
@@ -1816,16 +1748,15 @@ results
 </div>
 </div>
 <div id="functions" class="section level1">
-<h1><span class="header-section-number">4</span> Functions</h1>
-<p>Functions are very important in both language, being able to code ourself things are sometimes more efficient that looking for a package and understand it.<br />
-Being able to write our own function gives we more flexibility and a better understanding of what we are actually doing. Most of the time, this sentence is wrong and the way we are googling things and reading documentation can also have a major role on ability to play with existent code.<br />
-It’s important to not reinvent the wheel, while it is important to be able to construct it ourself. Read documentation carefully while using packages, sometimes packages are misleading and we can spend a lot of time understanding how they work. Look at the packages source code when we are not sure of what the function does behind.<br />
-The full power of programming comes with the fact that we can be autonomous by reading, modifying and writing codes and pre-existing codes.</p>
+<h1><span class="header-section-number">5</span> Functions</h1>
+<p>Functions are very important in both languages, being able to code ourselves things are sometimes more efficient than looking for a package and understand it.<br />
+Being able to write our own functions gives us more flexibility and a better understanding of what we are actually doing. It is important to not reinvent the wheel, but it is important to be able to construct it ourself. Read documentation carefully while using packages, sometimes packages are misleading and we can spend a lot of time understanding how they work. Look at the packages source code when we are not sure of what the function does behind.<br />
+The full power of programming comes is the fact that we can be autonomous by reading, modifying and writing codes and pre-existing codes.</p>
 <p>
  
 </p>
 <div id="general-functions" class="section level2">
-<h2><span class="header-section-number">4.1</span> General Functions</h2>
+<h2><span class="header-section-number">5.1</span> General Functions</h2>
 <div class="row">
 <div class="col-md-6">
 <div class="python">
@@ -1846,7 +1777,7 @@ clean_sum(seq =  seq)
 ## 1560
 time.time() - t
 
-## 0.009958028793334961
+## 0.009960412979125977
 def clean_sum2(seq):
   total = sum(filter(None,seq))#[val for val in seq if val is not None])
   return total
@@ -1856,7 +1787,7 @@ clean_sum2(seq =  seq)
 ## 1560
 time.time() - t
 
-## 0.009967565536499023</code></pre>
+## 0.009962081909179688</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -1879,7 +1810,7 @@ t = Sys.time()
 clean_sum(seq = seq)
 ## [1] 1560
 Sys.time() - t
-## Time difference of 0.005974054 secs
+## Time difference of 0.005979061 secs
 
 
 
@@ -1892,13 +1823,13 @@ t &lt;- Sys.time()
 clean_sum(seq = seq)
 ## [1] 1560
 Sys.time() - t
-## Time difference of 0.001989841 secs</code></pre>
+## Time difference of 0.001991034 secs</code></pre>
 </div>
 </div>
 </div>
 <p>Functions in Python are objects, they can have attributes and methods like objects. The functions can have data variables and even functions written inside of them.<br />
-Suppose we want to apply several transformation to data, we can create multiple functions to do the different task that we want to perform. we can stock functions in list a apply them sequentially very easily.<br />
-Note that we can separate the output into several variables by specifiying the different values before the assignation. we cannot do that in R directly bt the zeallot package can tackle this problem.</p>
+Suppose we want to apply several transformation to data, we can create multiple functions to do the different tasks that we want to perform. We can stock functions in list a apply them sequentially very easily.<br />
+Note that we can separate the output into several variables by specifiying the different values before the assignation. We cannot do that in R directly bt the zeallot package can tackle this problem.</p>
 <div class="row">
 <div class="col-md-6">
 <div class="python">
@@ -1962,78 +1893,11 @@ x2
  
 </p>
 </div>
-<div id="python-generators" class="section level2">
-<h2><span class="header-section-number">4.2</span> Python Generators</h2>
-<p>Generator usage in python is a simple way of creating iterators. The goal of this kind of function is to return an object for which we can iterate over it. The difference in terms of syntax hold in the fact that we will the statement ‘yield’ instead of ‘return’. In comparaison to ‘return’, using ‘yield’ will pause the function and the control of that generator will be trasnfered to the object that call this generator.<br />
-Generators are very very usefull when we deal with object taht can be too heavy to store all the information in our RAM. As a generators is an iterator, it will load in the RAM only the iteration that it is reading, meaning that we can have no size limit if we want to iterate over an object that is to heavy. This first example is made with a txt file with 1000 rows. We will see how RAM is used behind our machine to understand how it can be relevant to use genetaors.</p>
-<div class="row">
-<div class="col-md-6">
-<div class="python">
-<pre class="python"><code># Python 
-import os
-import psutil
-import re
-process = psutil.Process(os.getpid())
-
-t = time.time()
-r1 = process.memory_info().rss 
-def read_file_to_lower():
-  with open(&quot;data/text.txt&quot;, &quot;r&quot;) as txt:
-    txt_list = txt.read().split(&#39;\n&#39;)
-    txt_list_low = [re.sub(&#39; &#39;,&#39;&#39;,row.lower()) for row in txt_list] # re.sub here is used to modify each &#39; &#39; by nothing.
-  return txt_list_low
-
-txt_clean = read_file_to_lower()
-
-process.memory_info().rss - r1 # in bytes
-## 65536
-time.time() - t
-## 0.027983665466308594
-type(txt_clean)
-## &lt;class &#39;list&#39;&gt;</code></pre>
-</div>
-</div>
-<div class="col-md-6">
-<div class="python">
-<pre class="python"><code># Python
-
-process = psutil.Process(os.getpid())
-
-t = time.time()
-r1 = process.memory_info().rss 
-
-def read_to_lower():
-  with open(&quot;data/text.txt&quot;, &quot;r&quot;) as txt:
-    txt_line = txt.readline()
-    while txt_line:
-      txt_line = txt.readline()
-      yield re.sub(&#39; &#39;,&#39;&#39;,txt_line.lower())
-
-
-memory_friendly_txt_clean = read_to_lower()
-txt_clean = [line_clean for line_clean in memory_friendly_txt_clean]
-
-process.memory_info().rss - r1 # in bytes
-## 32768
-time.time() - t
-
-## 0.03109431266784668
-type(memory_friendly_txt_clean)
-
-## &lt;class &#39;generator&#39;&gt;</code></pre>
-</div>
-</div>
-</div>
-<p>Note how the memory used during the calculation is very different while the time spend does not really change.</p>
-<p>
- 
-</p>
-</div>
 <div id="error-and-exception-handling" class="section level2">
-<h2><span class="header-section-number">4.3</span> Error and Exception Handling</h2>
-<p>Most of the time writing a function is very task specific, but since data are often dirty and incomplete, our given task may not work. It is important to understand why a given function can produce an error. Being sure that this and this case can leads to errors is not so easy, but it’s important not to be too flexible to keep. In ths exemples we will see how setting the flexibility of the function can leads to different results that are more or less what we want.</p>
+<h2><span class="header-section-number">5.2</span> Error and Exception Handling</h2>
+<p>Most of the time, writing a function is very task-specific, but since data are often dirty and incomplete, our given task may not work. It is important to understand why a given function can produce an error. Being sure that this and this case can leads to errors is not so easy, but it’s important not to be too flexible to keep. In those examples, we are going to see how setting the flexibility of the function can leads to different results that are more or less efficient.</p>
 <p>Look before we leap vs Easier to ask for forgiveness than permission.</p>
-<p>if we expect that 99 % of the time result will actually contain something iterable, I’d use the try/except approach. It will be faster if exceptions really are exceptional. If result is None more than 50 % of the time, then using if is probably better. So, whereas an if statement always costs us, it’s nearly free to set up a try/except block. But when an Exception actually occurs, the cost is much higher.</p>
+<p>If we expect that 99 % of the time result will actually contain something iterable, we would use the try/except approach. It will be faster if exceptions really are exceptional. If result is None more than 50 % of the time, then using ‘if’ is probably better. So, whereas an ‘if’ statement always costs us, it’s nearly free to set up a try/except block. But when an Exception actually occurs, the cost is much higher.</p>
 <div class="row">
 <div class="col-md-6">
 <div class="python">
@@ -2110,29 +1974,29 @@ results = [calc_try(values) for values in list_]</code></pre>
 t= time.time()
 results = [calc3(values) for values in list_]
 time.time()-t
-## 0.1620955467224121
+## 0.13410401344299316
 t= time.time()
 results = [calc_try(values) for values in list_]
 time.time()-t
-## 0.09563708305358887</code></pre>
+## 0.09194231033325195</code></pre>
 <pre class="python"><code>list_ = create_dirty_list(0.33)
 t= time.time()
 results = [calc3(values) for values in list_]
 time.time()-t
-## 0.0990748405456543
+## 0.12007689476013184
 t= time.time()
 results = [calc_try(values) for values in list_]
 time.time()-t
-## 0.10115981101989746</code></pre>
+## 0.10402345657348633</code></pre>
 <pre class="python"><code>list_ = create_dirty_list(0.75)
 t= time.time()
 results = [calc3(values) for values in list_]
 time.time()-t
-## 0.06501221656799316
+## 0.04752087593078613
 t= time.time()
 results = [calc_try(values) for values in list_]
 time.time()-t
-## 0.10094666481018066</code></pre>
+## 0.09901666641235352</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -2215,42 +2079,61 @@ list_ &lt;- create_dirty_list(0.01)
 t &lt;- Sys.time()
 results &lt;- lapply(list_,FUN = calc3)
 Sys.time()-t
-## Time difference of 0.04693198 secs
+## Time difference of 0.04983306 secs
 t &lt;- Sys.time()
 results &lt;- lapply(list_,FUN = calc_try)
 Sys.time()-t
-## Time difference of 1.168025 secs</code></pre>
+## Time difference of 1.215982 secs</code></pre>
 <pre class="r"><code># compare it 
 list_ = create_dirty_list(0.33)
 t &lt;- Sys.time()
 results &lt;- lapply(list_,FUN = calc3)
 Sys.time()-t
-## Time difference of 0.03503299 secs
+## Time difference of 0.03502512 secs
 t &lt;- Sys.time()
 results &lt;- lapply(list_,FUN = calc_try)
 Sys.time()-t
-## Time difference of 0.8489802 secs</code></pre>
+## Time difference of 0.8559611 secs</code></pre>
 <pre class="r"><code># compare it 
 list_ = create_dirty_list(0.75)
 t &lt;- Sys.time()
 results &lt;- lapply(list_,FUN = calc3)
 Sys.time()-t
-## Time difference of 0.01902413 secs
+## Time difference of 0.04098797 secs
 t &lt;- Sys.time()
 results &lt;- lapply(list_,FUN = calc_try)
 Sys.time()-t
-## Time difference of 0.4209831 secs</code></pre>
+## Time difference of 0.444983 secs</code></pre>
 </div>
 </div>
 </div>
-<p><a href="https://www.w3schools.com/python/python_ref_string.asp" class="uri">https://www.w3schools.com/python/python_ref_string.asp</a> <a href="https://thomas-cokelaer.info/tutorials/python/strings.html" class="uri">https://thomas-cokelaer.info/tutorials/python/strings.html</a></p>
 <p>
  
 </p>
 </div>
 </div>
 <div id="exercices" class="section level1">
-<h1><span class="header-section-number">5</span> Exercices</h1>
+<h1><span class="header-section-number">6</span> Exercices</h1>
+<div id="exercice-1" class="section level2">
+<h2><span class="header-section-number">6.1</span> Exercice 1</h2>
+<p>If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23.</p>
+<p>Find the sum of all the multiples of 3 or 5 below 1000.</p>
+</div>
+<div id="exercice-2" class="section level2">
+<h2><span class="header-section-number">6.2</span> Exercice 2</h2>
+<p>By listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see that the 6th prime is 13.</p>
+<p>What is the 10 001st prime number?</p>
+</div>
+<div id="exercice-3" class="section level2">
+<h2><span class="header-section-number">6.3</span> Exercice 3</h2>
+<p>You are given the following information, but you may prefer to do some research for yourself.</p>
+<ul>
+<li>1 Jan 1900 was a Monday.</li>
+<li>Thirty days has September, April, June and November. All the rest have thirty-one, Saving February alone, Which has twenty-eight, rain or shine. And on leap years, twenty-nine.</li>
+<li>A leap year occurs on any year evenly divisible by 4, but not on a century unless it is divisible by 400.</li>
+</ul>
+<p>How many Sundays fell on the first of the month during the twentieth century (1 Jan 1901 to 31 Dec 2000)?</p>
+</div>
 </div>
 
 
