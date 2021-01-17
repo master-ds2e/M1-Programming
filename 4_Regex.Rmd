@@ -90,8 +90,7 @@ Here is a list of escape character that can be usefull
  \\' 	| Insert a single quote character in the text at this point.
  \\" 	| Insert a double quote character in the text at this point.
  \\\ 	| Insert a backslash character in the text at this point.   
- 
-source : https://docs.oracle.com/javase/tutorial/java/data/characters.html
+
  
 <div class = "row">
 <div class = "col-md-6">
@@ -598,10 +597,15 @@ library(stringr)
 </div>
 </div>
 
-Materials:
+# Exercice
 
-https://www.tutorialspoint.com/python/python_reg_expressions.html
-
-# Exercices
+Try to translate this code in R, you can use different website or album if you want. 
 
 <a href="Genius_scrap.html">Example with 'rap genius'</a>
+
+# References used
+
+https://docs.oracle.com/javase/tutorial/java/data/characters.html
+https://www.tutorialspoint.com/python/python_reg_expressions.html
+https://www.w3schools.com/python/python_ref_string.asp
+https://thomas-cokelaer.info/tutorials/python/strings.html

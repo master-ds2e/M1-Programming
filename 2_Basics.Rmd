@@ -46,7 +46,7 @@ div.r pre { background-color: #dfdddf; }
 <p>&nbsp;</p>
 
 This capter introduces the basics of R and Python. The goal of this chapter is to discover the different types of object that we can deal with for each language, as well as understanding the logic of control flows and function writing.
-The chapter ends with 3 Exercices from Euler Project. By forming a group of 2, solve at least one exercice in the language of your choice and try to compare different approach.
+The chapter ends with 3 Exercices from Euler Project. By forming a group of 2, solve at least one exercice in the language of your choice and try to compare different approaches.
 
 
 <p>&nbsp;</p>
@@ -60,7 +60,7 @@ Both data science languages are great for business analysis. They can both be us
 
 ## R Strengths
 
-Let’s start with R. The S language was a precursor to R developed by John Chambers (statistician) at Bell Labs in 1976 as a programming language designed to implement statistics. The R statistical programming language was developed at the University of Auckland, New Zealand, to increase S capacities. S and R developers were not software engineers or computer scientists, they were researchers that developed tools in order carry out research and communicate results more efficiently. 
+The S language was a precursor to R developed by John Chambers (statistician) at Bell Labs in 1976 as a programming language designed to implement statistics. The R statistical programming language was developed at the University of Auckland, New Zealand, to increase S capacities. S and R developers were not software engineers or computer scientists, they were researchers that developed tools in order carry out research and communicate results more efficiently. 
 
 R is a language with roots in statistics, data analysis, data exploration, and data visualization. It has utilities for reporting and communicate including RMarkdown and Shiny. 
 
@@ -333,7 +333,6 @@ stringr::str_detect('Hello',x)
 
 # Objects & Variables
 
-ref used : https://www.practicaldatascience.org/html/vars_v_objects.html
 
 In Python and R, we do not need to declare a variable before assigning a value to this variable. we can think of a variable as a name to refers to an object. There is a difference between Python and R on the way the computer is storing objects and variables.
 
@@ -341,8 +340,6 @@ In Python and R, we do not need to declare a variable before assigning a value t
 <p>&nbsp;</p>
 
 ## Some differences between R and Python
-
-https://learnanalyticshere.wordpress.com/2015/05/14/clash-of-the-titans-r-vs-python/
 
 While Python is much appreciated for being a versatile language with an easy-to-understand syntax, R's functionalities are developed by statisticians, thus giving it field-specific advantages.
 
@@ -473,7 +470,6 @@ as.numeric(f)
 <p>&nbsp;</p>
 
 ## Other Data-Type (R)
-https://www.statmethods.net/input/datatypes.html
 
 There is a lot of datatypes in both language that we will discover along this course, for now, we will focus only on basic data-type that are directly available without using anyother package or library,in R common data-type are Vector, Matrix, List, Dataframe.
 
@@ -654,7 +650,7 @@ lst[[1]][1,] # first row of first element of the list
 
 ## Other Data-Type (Python)
 
-refused : https://thomas-cokelaer.info/tutorials/python/lists.html
+
 
 In Python the most common are List, Turple, sets, Dictionnary.
 Note that for the moment, for modifiying a variable we always use '='. Keep in mind that using the '.' can modify the object behind the variable in Python.
@@ -755,7 +751,7 @@ len(a) # number of elements in the turple
 
 a = (1,2,3)
 b = a
-b[0] = 12
+b += (4,5)
 a
 
 ```
@@ -839,7 +835,7 @@ a
 
 a = {1, 2, 3}
 b = a
-b['b'] = [12,14]
+b.update([12,14])
 a
 ```
 
@@ -1053,43 +1049,6 @@ if(!is.integer(n)){
 </div>
  
 
-
-<div class = "row">
-<div class = "r">
-
-```{r,echo = T,collapse = TRUE}
-# R
-
-# Fast version of ifelse()
-x <- c(-3:3, NA)
-if_else(condition = x < 0,
-        true      = "neg",
-        false     = "pos",
-        missing   = "NA")
-
-
-x <- c(-3:3, NA)
-fifelse(test = x < 0,
-        yes  = "neg",
-        no   = "pos",
-        na   = "NA")
-
-
-# Vectorised ifelse statements
-
-
-x <- 1:10
-case_when(
-  x %% 6 == 0 ~ "fizz buzz",
-  x %% 2 == 0 ~ "fizz",
-  x %% 3 == 0 ~ "buzz",
-  TRUE ~ as.character(x)
-)
-
-```
-
-</div>
-</div>
 
 <p>&nbsp;</p>
 ## Loops
@@ -1433,92 +1392,13 @@ x2
 
 <p>&nbsp;</p>
 
-## Python Generators
-
-Generator usages in Python is a simple way of creating iterators. The goal of this kind of function is to return an object for which we can iterate over it. The difference in terms of syntax hold in the fact that we will the statement 'yield' instead of 'return'. In comparaison to 'return', using 'yield' will pause the function and the control of that generator will be trasnfered to the object that call this generator.  
-Generators are very useful when we deal with objects which can be too heavy to store all the information in the memory.
-As a generators is an iterator, it will load in the RAM only the iteration that it is reading, meaning that we can have no size limit if we want to iterate over an object that is to heavy.
-This first example is made with a txt file with 1000 rows. We will see how RAM is used behind our machine to understand how it can be relevant to use generators. 
-
-
-<div class = "row">
-<div class = "col-md-6">
-<div class = "python">
-```{python,echo = T,collapse = TRUE}
-# Python 
-import os
-import psutil
-import re
-process = psutil.Process(os.getpid())
-
-t = time.time()
-r1 = process.memory_info().rss 
-def read_file_to_lower():
-  with open("data/text.txt", "r") as txt:
-    txt_list = txt.read().split('\n')
-    txt_list_low = [re.sub(' ','',row.lower()) for row in txt_list] # re.sub here is used to modify each ' ' by nothing.
-  return txt_list_low
-
-txt_clean = read_file_to_lower()
-
-process.memory_info().rss - r1 # in bytes
-time.time() - t
-
-type(txt_clean)
-
-```
-
-</div>
-</div>
-
-<div class = "col-md-6">
-<div class = "python">
-
-```{python,echo=T,collapse = TRUE}
-# Python
-
-process = psutil.Process(os.getpid())
-
-t = time.time()
-r1 = process.memory_info().rss 
-
-def read_to_lower():
-  with open("data/text.txt", "r") as txt:
-    txt_line = txt.readline()
-    while txt_line:
-      txt_line = txt.readline()
-      yield re.sub(' ','',txt_line.lower())
-
-
-memory_friendly_txt_clean = read_to_lower()
-txt_clean = [line_clean for line_clean in memory_friendly_txt_clean]
-
-process.memory_info().rss - r1 # in bytes
-time.time() - t
-
-
-type(memory_friendly_txt_clean)
-
-
-
-```
-
-</div>
-</div>
-</div>
-
-
-Note how the memory used during the calculation is very different while the time spend does not really change. 
-
-<p>&nbsp;</p>
-
 ## Error and Exception Handling
 
 Most of the time, writing a function is very task-specific, but since data are often dirty and incomplete, our given task may not work. It is important to understand why a given function can produce an error. Being sure that this and this case can leads to errors is not so easy, but it's important not to be too flexible to keep. In those examples, we are going to see how setting the flexibility of the function can leads to different results that are more or less efficient.
 
 Look before we leap vs Easier to ask for forgiveness than permission.
 
-If we expect that 99 % of the time result will actually contain something iterable, we would use the try/except approach. It will be faster if exceptions really are exceptional. If result is None more than 50 % of the time, then using if is probably better.
+If we expect that 99 % of the time result will actually contain something iterable, we would use the try/except approach. It will be faster if exceptions really are exceptional. If result is None more than 50 % of the time, then using 'if' is probably better.
 So, whereas an 'if' statement always costs us, it's nearly free to set up a try/except block. But when an Exception actually occurs, the cost is much higher.
 
 <div class = "row">
@@ -1758,11 +1638,38 @@ Sys.time()-t
 </div>
 
 
-https://www.w3schools.com/python/python_ref_string.asp
-https://thomas-cokelaer.info/tutorials/python/strings.html
 
 <p>&nbsp;</p>
 
 # Exercices
 
+## Exercice 1
 
+
+If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23.
+
+Find the sum of all the multiples of 3 or 5 below 1000.
+
+
+## Exercice 2
+
+By listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see that the 6th prime is 13.
+
+What is the 10 001st prime number?
+
+## Exercice 3
+
+
+
+You are given the following information, but you may prefer to do some research for yourself.
+
+- 1 Jan 1900 was a Monday.
+- Thirty days has September,
+    April, June and November.
+    All the rest have thirty-one,
+    Saving February alone,
+    Which has twenty-eight, rain or shine.
+    And on leap years, twenty-nine.
+- A leap year occurs on any year evenly divisible by 4, but not on a century unless it is divisible by 400.
+
+How many Sundays fell on the first of the month during the twentieth century (1 Jan 1901 to 31 Dec 2000)?

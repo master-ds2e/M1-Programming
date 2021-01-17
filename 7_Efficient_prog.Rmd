@@ -1,0 +1,86 @@
+---
+title: "Efficient Programming"
+---
+
+# Parallel computing
+
+
+
+## Python Generators
+
+Generator usages in Python is a simple way of creating iterators. The goal of this kind of function is to return an object for which we can iterate over it. The difference in terms of syntax hold in the fact that we will the statement 'yield' instead of 'return'. In comparaison to 'return', using 'yield' will pause the function and the control of that generator will be trasnfered to the object that call this generator.  
+Generators are very useful when we deal with objects which can be too heavy to store all the information in the memory.
+As a generators is an iterator, it will load in the RAM only the iteration that it is reading, meaning that we can have no size limit if we want to iterate over an object that is to heavy.
+This first example is made with a txt file with 1000 rows. We will see how RAM is used behind our machine to understand how it can be relevant to use generators. 
+
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "python">
+```{python,echo = T,collapse = TRUE}
+# Python 
+import os
+import psutil
+import re
+process = psutil.Process(os.getpid())
+
+t = time.time()
+r1 = process.memory_info().rss 
+def read_file_to_lower():
+  with open("data/text.txt", "r") as txt:
+    txt_list = txt.read().split('\n')
+    txt_list_low = [re.sub(' ','',row.lower()) for row in txt_list] # re.sub here is used to modify each ' ' by nothing.
+  return txt_list_low
+
+txt_clean = read_file_to_lower()
+
+process.memory_info().rss - r1 # in bytes
+time.time() - t
+
+type(txt_clean)
+
+```
+
+</div>
+</div>
+
+<div class = "col-md-6">
+<div class = "python">
+
+```{python,echo=T,collapse = TRUE}
+# Python
+
+process = psutil.Process(os.getpid())
+
+t = time.time()
+r1 = process.memory_info().rss 
+
+def read_to_lower():
+  with open("data/text.txt", "r") as txt:
+    txt_line = txt.readline()
+    while txt_line:
+      txt_line = txt.readline()
+      yield re.sub(' ','',txt_line.lower())
+
+
+memory_friendly_txt_clean = read_to_lower()
+txt_clean = [line_clean for line_clean in memory_friendly_txt_clean]
+
+process.memory_info().rss - r1 # in bytes
+time.time() - t
+
+
+type(memory_friendly_txt_clean)
+
+
+
+```
+
+</div>
+</div>
+</div>
+
+
+Note how the memory used during the calculation is very different while the time spend does not really change. 
+
+<p>&nbsp;</p>

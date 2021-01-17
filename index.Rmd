@@ -19,6 +19,7 @@ output:
 <p>&nbsp;</p>
 
 This lecture is structured as follows (each section is covered with R and Python):
+
 - Chapter 'Basics' will go through the simplest operations we can perform. It covers the different types of objects present in the two languages, the use of control flows, and the creation of functions.
 <p>&nbsp;</p>
 - Chapter 'Arrays/Vectors' introduces the use of vectors and matrices to perform operations. It highlights the benefits of vectorization and briefly discusses how to deal with sparse matrix.
@@ -57,7 +58,7 @@ Here are some link that you can use to download and install stuff that we will n
 
 - windows:
     - https://uvastatlab.github.io/phdplus/installR.html
-    - Go to https://www.anaconda.com/products/individual/get-started and dowload a windows installer. Or use the link below (Python 3.8)  
+    - https://www.anaconda.com/products/individual/get-started
     - https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-from-an-environment-yml-file
     
 - Linux:     
@@ -71,6 +72,33 @@ Here are some link that you can use to download and install stuff that we will n
 
 
 
+# Materials used in this course
+
+Hadley Wickham. R for Data Science: Import, Tidy, Transform, Visualize, and Model Data
+
+Zed A. Shaw. Learn Python the Hard Way: A Very Simple Introduction to the Terrifyingly Beautiful World of Computers and Code
+
+Luciano Ramalho. Fluent Python
+
+Robin Lovelace. Efficient R Programming by Colin Gillespie
+
+Wes McKinney. Python for Data Analysis
+
+https://www.anotherbookondatascience.com/
+
+https://www.business-science.io/business/2018/10/08/python-and-r.html
+
+https://www.practicaldatascience.org/html/vars_v_objects.html
+
+https://learnanalyticshere.wordpress.com/2015/05/14/clash-of-the-titans-r-vs-python/
+
+https://www.statmethods.net/input/datatypes.html
+
+https://thomas-cokelaer.info/tutorials/python/lists.html
+
+https://www.python.org/dev/peps/pep-0008/#introduction
+
+To be completed..
 
 <!---
 update
