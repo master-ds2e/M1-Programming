@@ -1408,7 +1408,7 @@ So, whereas an 'if' statement always costs us, it's nearly free to set up a try/
 # Python 
 import numpy as np
 
-# Let's create a function that create a dirty dict for which we want to calculate the sd in each cat
+# Let's create a function that create a dirty list
 def create_dirty_list(None_prop):
   list_ = list()
   for i in range(10000):
@@ -1422,7 +1422,7 @@ def create_dirty_list(None_prop):
       list_.append(values)
   return list_
 
-# let's create a function to return a tuple with the cat and the sd
+# randomly take two values to compute the ratio 
 def calc1(values):
   output = values[random.sample(range(1, len(values)+1),1)[0]-1]/values[random.sample(range(1, len(values)+1),1)[0]-1]
   return output
@@ -1434,7 +1434,6 @@ results = [calc1(values) for  values in list_]
 ```
 
 ```{python,echo = T,collapse = TRUE}
-# The issue seems to be the fact that a key has no values.
 # Let's change the function
 
 def calc2(values):
@@ -1447,7 +1446,6 @@ results = [calc2(values) for values in list_]
 ```
 
 ```{python,echo = T,collapse = TRUE}
-# The issue seems to be the fact that a key has no values.
 # Let's change the function
 
 def calc3(values):
@@ -1516,7 +1514,7 @@ time.time()-t
 
 ```{r,warning=F}
 # R
-# Let's create a function that create a dirty dict for which we want to calculate the sd in each cat
+# Let's create a function that create a list 
 create_dirty_list <- function(None_prop){
   list_ <- list()
   for(i in seq(1,10000,1)){
@@ -1533,7 +1531,8 @@ create_dirty_list <- function(None_prop){
   }
   return(list_)
   }
-# let's create a function to return a tuple with the cat and the sd
+
+# randomly take two values to compute the ratio 
 calc1 <- function(values){
   output <- values[round(runif(1,1,length(values)))]/values[round(runif(1,1,length(values)))]
   return(output)
@@ -1546,7 +1545,6 @@ results <- lapply(list_,FUN = calc1)
 ```
 
 ```{r,warning=F}
-# The issue seems to be the fact that a key has no values.
 # Let's change the function
 
 calc2 <- function(values){
@@ -1561,7 +1559,6 @@ results <- lapply(list_,FUN = calc2)
 ```
 
 ```{r,warning=F}
-# The issue seems to be the fact that a key has no values.
 # Let's change the function
 
 calc3 <- function(values){
