@@ -25,6 +25,8 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -359,9 +361,29 @@ div.tocify {
 <li>
   <a href="2_Basics.html">Basics</a>
 </li>
+<li>
+  <a href="3_Arrays_Vectors.html">Arrays/Vectors</a>
+</li>
+<li>
+  <a href="4_Regex.html">Regex</a>
+</li>
+<li>
+  <a href="5_Data_Analysis_R.html">Data Analysis (R)</a>
+</li>
+<li>
+  <a href="6_Best_practices.html">Best Pratices</a>
+</li>
+<li>
+  <a href="7_Efficient_prog.html">Efficient Prog</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/master-ds2e/">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -377,10 +399,10 @@ div.tocify {
 
 
 <style>
-div.python pre { background-color: #fdfcff; }
+div.python pre { background-color: #d0f5a9; }
 </style>
 <style>
-div.r pre { background-color: #fffffc; }
+div.r pre { background-color: #dfdddf; }
 </style>
 <div id="dealing-with-strings" class="section level1">
 <h1><span class="header-section-number">1</span> Dealing with strings</h1>
@@ -404,7 +426,7 @@ wd_info = &#39;\nCurrent working directory: &#39;
 infos = time_info+time_+mem_info+str(mem)+cpu_info+str(cpu)+wd_info+wd
 
 print(infos)
-## Time: Mon Jan 18 07:40:55 2021
+## Time: Wed Jan 20 22:28:59 2021
 ## RAM (GB): 137.069338624
 ## # CPU: 56
 ## Current working directory: C:\Users\Beta\Documents\GitHub\M1_TDP</code></pre>
@@ -429,10 +451,10 @@ infos &lt;- paste0(time_info,time_,
            cpu_info,as.character(cpu),
            wd_info,wd)
 print(infos) 
-## [1] &quot;Time: 2021-01-18 07:40:56\nRAM (GB): 137.069338624\n# CPUs: 56\nCurrent working directory: C:/Users/Beta/Documents/GitHub/M1_TDP&quot;
+## [1] &quot;Time: 2021-01-20 22:28:59\nRAM (GB): 137.069338624\n# CPUs: 56\nCurrent working directory: C:/Users/Beta/Documents/GitHub/M1_TDP&quot;
 
 cat(infos) 
-## Time: 2021-01-18 07:40:56
+## Time: 2021-01-20 22:28:59
 ## RAM (GB): 137.069338624
 ## # CPUs: 56
 ## Current working directory: C:/Users/Beta/Documents/GitHub/M1_TDP</code></pre>
@@ -574,30 +596,30 @@ def get_infos_3():
 
 t = time.time()
 get_infos()
-## Time: Mon Jan 18 07:40:57 2021
+## Time: Wed Jan 20 22:29:00 2021
 ## RAM (GB): 137.069338624
 ## # CPUs: 56
 ## Current working directory: C:\Users\Beta\Documents\GitHub\M1_TDP
 print(time.time()-t)
 
-## 0.010962724685668945
+## 0.008960962295532227
 t = time.time()
 get_infos_2()
-## Time: Mon Jan 18 07:40:57 2021 
+## Time: Wed Jan 20 22:29:00 2021 
 ##   RAM (GB): 137.069338624
 ##   # CPUs: 56 
 ##   Current working directory: C:\Users\Beta\Documents\GitHub\M1_TDP
 print(time.time()-t)
-## 0.014944791793823242
+## 0.008960247039794922
 t = time.time()
 get_infos_3()
-## Time: Mon Jan 18 07:40:57 2021 
+## Time: Wed Jan 20 22:29:00 2021 
 ##   RAM (GB): 137.069338624
 ##   # CPUs: 56 
 ##   Current working directory: C:\Users\Beta\Documents\GitHub\M1_TDP
 print(time.time()-t)
 
-## 0.010057926177978516</code></pre>
+## 0.008960723876953125</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -705,21 +727,21 @@ get_infos_2&lt;- function(){
 
 t = Sys.time()
 get_infos()
-## Time: 2021-01-18 07:40:57
+## Time: 2021-01-20 22:29:01
 ## RAM (GB): 137.069338624
 ## # CPUs: 56
 ## Current working directory: C:/Users/Beta/Documents/GitHub/M1_TDP
 Sys.time()-t
-## Time difference of 0.2351019 secs
+## Time difference of 0.232975 secs
 
 t = Sys.time()
 get_infos_2()
-## Time: 2021-01-18 07:40:57 
+## Time: 2021-01-20 22:29:01 
 ##   RAM (GB): 137.069338624
 ##   # CPUs: 56 
 ##   Current working directory: C:/Users/Beta/Documents/GitHub/M1_TDP
 Sys.time()-t
-## Time difference of 0.2344999 secs</code></pre>
+## Time difference of 0.234004 secs</code></pre>
 </div>
 </div>
 </div>
@@ -833,7 +855,7 @@ re.findall(&#39;top-[15]&#39;,abstract)
 ## [&#39;top-1&#39;, &#39;top-5&#39;]
 re.finditer(&#39;[0-9]&#39;,abstract)
 
-## &lt;callable_iterator object at 0x0000000029074CC8&gt;</code></pre>
+## &lt;callable_iterator object at 0x000000002793E108&gt;</code></pre>
 </div>
 </div>
 <div class="col-md-6">

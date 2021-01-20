@@ -3,13 +3,12 @@ title: "Regex"
 ---
 
 <style>
-div.python pre { background-color: #fdfcff; }
+div.python pre { background-color: #d0f5a9; }
 </style>
 
 <style>
-div.r pre { background-color: #fffffc; }
+div.r pre { background-color: #dfdddf; }
 </style>
-
 
 # Dealing with strings
 

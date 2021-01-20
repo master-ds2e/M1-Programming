@@ -1,5 +1,5 @@
 ---
-title: "Arrays/Vectors"
+title: "Arrays"
 ---
 
 ```{r setup, include=FALSE}
@@ -20,10 +20,13 @@ div.r pre { background-color: #dfdddf; }
 
 This chapter deepens the notions of arrays and vectors seen in the 'Basics' chapter.
 In python, numpy will be the main package to deal with arrays, while in R everything is contains in the base R.
-The main advantage of using vectors is to vectorize operation, instead of using loops to compute a function on each elements of a list, we can simply perform it on blocks of data in a more efficient may (faster, less memory used)
+The main advantage of using vectors is to vectorize operation, instead of using loops to compute a function on each elements of a list, we can simply perform it on blocks of data in a more efficient way.
 
 
-let's first see an example to understand th benefit of using vectorized operation :
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+let's first see an example to understand the benefit of using vectorized operation :
 
 <div class = "row">
 <div class = "col-md-6">
@@ -77,7 +80,100 @@ Sys.time() - t
 </div>
 </div>
 
-# Dealing with Arrays
+
+# Create arrays 
+
+The NumPy library contains multidimensional array and matrix data structures, it provides methods to efficiently operate on it. If you do not have numpy on you computer, open a terminal and run ```pip install numpy```.
+
+To use numpy one need to load the module by running ```import numpy as np```, you can just import numpy but then you will need to write numpy.something to perform calculation. In order to keep code standardized we simply say that we will refers to numpy using np.
+
+Numpy allows to perform fast and efficient calculation. The main difference between Numpy and python list is that all elements in a numpy array must be homogenous, Numpy uses less memory to store data.
+
+- Starting from existing list or vector :
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "python">
+
+```{python}
+# Python 
+
+import numpy as np
+
+arr = np.array([1, 2, 3, 4])
+arr
+
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r, collapse = TRUE}
+# R
+
+arr = matrix(c(1, 2, 3, 4), 4, 1)
+arr
+```
+
+</div>
+</div>
+</div>
+
+- Create arrays with zero, one, sequence
+
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "python">
+
+```{python}
+# Python 
+
+np.zeros([2, 3])
+
+
+np.ones((2, 3))
+
+
+np.arange(1, 7)
+
+
+np.arange(1, 7).reshape(2, 3)
+
+## remerber from first chapter that array in R and Python aren't store the same way, set order = 'F' to get the same results
+
+
+np.arange(1, 7).reshape([2, 3], order = 'F')
+
+np.linspace(1, 4,num = 10)
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r, collapse = TRUE}
+# R
+
+matrix(rep(0,2*3), 2, 3)
+
+matrix(rep(1,2*3), 2, 3)
+
+seq(1,6)
+
+matrix(seq(1,6),2,3)
+
+seq(1, 4, length.out = 10)
+
+```
+
+</div>
+</div>
+</div>
+
 
 ## Random array 
 
@@ -90,15 +186,9 @@ Sys.time() - t
 # Python 
 
 #generate an array
-arr = np.random.randn(4,5)
+arr_rd = np.random.randn(4,5)
 
-arr
-
-# vectorise calculation
-arr+arr**2
-
-# show dimension
-arr.shape
+arr_rd
 
 ```
 
@@ -111,15 +201,10 @@ arr.shape
 # R
 
 #generate a matrix
-mat <- matrix(runif(4*5),4,5)
+mat_rd <- matrix(runif(4*5),4,5)
 
-mat
+mat_rd
 
-# vectorise calculation
-mat+mat**2
-
-# show dimension
-dim(mat)
 
 ```
 
@@ -127,7 +212,272 @@ dim(mat)
 </div>
 </div>
 
-## Array-Oriented Programming
+## Indexing and slicing
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "python">
+
+```{python}
+# Python 
+
+arr = np.arange(1,7).reshape(2,3)
+arr[0]
+arr[0:2]
+arr[1:]
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r, collapse = TRUE}
+# R
+
+
+mat <- matrix(1:6,2,3,byrow = T)
+mat[1,]
+mat[1:3,]
+mat[2:dim(mat)[1],]
+```
+
+</div>
+</div>
+</div>
+
+## Shape and size
+    
+
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "python">
+
+```{python}
+# Python 
+
+# .ndim gives the number of axes, or dimensions, of the array.
+arr_rd.ndim
+
+# .size gives the total number of elements of the array. 
+arr_rd.size
+
+# .shape display a tuple of integers with the number of elements stored along each dimension of the array
+arr_rd.shape
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r, collapse = TRUE}
+# R
+
+# length gives the total number of elements of the array.
+length(mat_rd)
+
+# dim display a vector of integers with the number of elements stored along each dimension of the array
+dim(mat_rd)
+
+```
+
+</div>
+</div>
+</div>
+
+# Modifiying arrays
+
+## Add elements 
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "python">
+
+```{python}
+# Python 
+arr
+
+# /!\ using append it convert the array to a 1d array
+arr_1d = np.append(arr, [7, 8, 9])
+arr_1d
+
+# using insert you can add rows and columns 
+np.insert(arr, len(arr), [7, 8, 9], axis = 0)
+
+np.insert(arr, 2, [7, 8], axis = 1)
+
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r, collapse = TRUE}
+# R
+mat
+
+rbind(mat,7:9)
+
+cbind(mat,7:8)
+```
+
+</div>
+</div>
+</div>
+
+- Combining/splitting arrays
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "python">
+
+```{python}
+# Python 
+arr0 = np.zeros([2,3])
+arr1 = np.ones([2,3])
+
+arr01 = np.vstack([arr0,arr1])
+arr01
+
+#or 
+np.concatenate([arr0,arr1], axis = 0)
+
+np.hstack([arr0,arr1])
+
+#or
+np.concatenate([arr0,arr1], axis = 1)
+
+np.hsplit(arr01,3)
+np.vsplit(arr01,4)
+
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r, collapse = TRUE}
+# R
+
+mat0 = matrix(0,2,3)
+mat1 = matrix(1,2,3)
+
+mat01 = rbind(mat0,mat1)
+mat01
+
+cbind(mat0,mat1)
+
+# horizontal
+asplit(mat01,2)
+
+#vertical
+asplit(mat01,1)
+
+```
+
+</div>
+</div>
+</div>
+
+
+
+
+## Delete elements
+
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "python">
+
+```{python}
+# Python 
+
+np.delete(arr,1 , axis = 1)
+
+np.delete(arr,1 , axis = 0)
+
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r, collapse = TRUE}
+# R
+
+mat[,-2]
+
+mat[-2,]
+```
+
+</div>
+</div>
+</div>
+
+## Sorting
+
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "python">
+
+```{python}
+# Python 
+
+arr = np.random.randn(10)
+
+arr
+arr.sort()
+
+
+```
+
+```{python}
+# Python 
+
+arr = np.random.randn(4,3)
+
+arr
+arr.sort(1)
+
+
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r, collapse = TRUE}
+# R
+
+arr <- runif(10)
+
+arr
+sort(arr)
+
+```
+
+```{r, collapse = TRUE}
+# R
+
+arr <- matrix(runif(4*3),4,3)
+
+arr
+apply(arr,MARGIN = 2, FUN = sort)
+
+```
+
+</div>
+</div>
+</div>
+
+# Conditional Logic on array
 
 Imagine two square matrices representing interaction between entities. Each matrix is a basic network: having interaction = 1, no interaction = 0.
 You want to know if two entities that are linked in one network are also linked in an other network. Instead of checking each entities interaction sequentially in a loop, one can simply use matrix to do element-wise calculation and get the same answer.
@@ -178,7 +528,8 @@ network_12
 </div>
 </div>
 
-# Conditional Logic
+
+## Select specific elements
 
 
 <div class = "row">
@@ -188,8 +539,13 @@ network_12
 ```{python}
 # Python 
 
-network_12 == 1
+network_12 > 0
 
+network_12[network_12>0]
+
+filter(lambda x: x>0, network_12)
+# gives you an interable
+list(filter(lambda x: x>0, network_12))
 ```
 
 </div>
@@ -200,8 +556,9 @@ network_12 == 1
 ```{r, collapse = TRUE}
 # R
  
-network_12 == 1
+network_12 > 0
 
+network_12[network_12>0]
 ```
 
 </div>
@@ -299,7 +656,7 @@ results <- ifelse(vec%%2!=0,vec,0)
 Sys.time() - t
 
 
-## other way using where
+## other way using which
 
 t <- Sys.time()
 vec[which(vec%%2==0)] = 0
@@ -311,123 +668,47 @@ Sys.time() - t
 </div>
 </div>
 
-# Operation on array
-
-
+## Other conditional vectorization 
 
 <div class = "row">
-<div class = "col-md-6">
-<div class = "python">
-
-```{python}
-# Python 
-
-# nb of link
-network_12.sum()/2
-# same since there is only 0 and 1 
-(network_12>0).sum()/2
-
-# share of link 
-network_12.mean()
-
-
-# nb link by entities
-network_12.sum(axis=1)
-
-# share of link across entities (by columns)
-network_12.mean(1)
-
-
-
-```
-
-</div>
-</div>
-<div class = "col-md-6">
 <div class = "r">
 
-```{r, collapse = TRUE}
+```{r,echo = T,collapse = TRUE}
 # R
-
-# nb of link
-sum(network_12)
-# same since there is only 0 and 1 
-sum(network_12[which(network_12>0,arr.ind = T)]) # see the arr.ind to get the two coordinates
-
-# share of link 
-mean(network_12)
-
-
-# nb link by entities
-apply(network_12,MARGIN = 2,FUN = sum)
-
-# share of link across entities (by columns)
-apply(network_12,MARGIN = 2,FUN = mean)
+library(dplyr)
+# Fast version of ifelse()
+x <- c(-3:3, NA)
+if_else(condition = x < 0,
+        true      = "neg",
+        false     = "pos",
+        missing   = "NA")
 
 
-```
-
-</div>
-</div>
-</div>
-
-- Reorder the object using sort()
+x <- c(-3:3, NA)
+fifelse(test = x < 0,
+        yes  = "neg",
+        no   = "pos",
+        na   = "NA")
 
 
-<div class = "row">
-<div class = "col-md-6">
-<div class = "python">
-
-```{python}
-# Python 
-
-arr = np.random.randn(10)
-
-arr
-arr.sort()
+# Vectorised ifelse statements
 
 
-```
-
-```{python}
-# Python 
-
-arr = np.random.randn(4,3)
-
-arr
-arr.sort(1)
-
+x <- 1:10
+case_when(
+  x %% 6 == 0 ~ "fizz buzz",
+  x %% 2 == 0 ~ "fizz",
+  x %% 3 == 0 ~ "buzz",
+  TRUE ~ as.character(x)
+)
 
 ```
 
 </div>
 </div>
-<div class = "col-md-6">
-<div class = "r">
 
-```{r, collapse = TRUE}
-# R
 
-arr <- runif(10)
 
-arr
-sort(arr)
-
-```
-
-```{r, collapse = TRUE}
-# R
-
-arr <- matrix(runif(4*3),4,3)
-
-arr
-apply(arr,MARGIN = 2, FUN = sort)
-
-```
-
-</div>
-</div>
-</div>
 
 # Algebra
 
@@ -507,48 +788,10 @@ Beta
 </div>
 </div>
 
-# Vectorized conditional logic
 
-<div class = "row">
-<div class = "r">
-
-```{r,echo = T,collapse = TRUE}
-# R
-library(dplyr)
-# Fast version of ifelse()
-x <- c(-3:3, NA)
-if_else(condition = x < 0,
-        true      = "neg",
-        false     = "pos",
-        missing   = "NA")
+# Operation on array
 
 
-x <- c(-3:3, NA)
-fifelse(test = x < 0,
-        yes  = "neg",
-        no   = "pos",
-        na   = "NA")
-
-
-# Vectorised ifelse statements
-
-
-x <- 1:10
-case_when(
-  x %% 6 == 0 ~ "fizz buzz",
-  x %% 2 == 0 ~ "fizz",
-  x %% 3 == 0 ~ "buzz",
-  TRUE ~ as.character(x)
-)
-
-```
-
-</div>
-</div>
-
-# Sparse
-
-When dealing with large array that are sparse (lot of element equalt to 0), it is inneficient to store this object as a dense matrix. Large matrix are sometimes difficult to store in the memory because they are weighty, when they dealing with sparse we can store it and do calculation with them in a very efficient way using the 'Compressed Sparse Column' (CSC) format. See how it change the weight of the matrix when changing the format to sparse matrix .
 
 <div class = "row">
 <div class = "col-md-6">
@@ -556,18 +799,23 @@ When dealing with large array that are sparse (lot of element equalt to 0), it i
 
 ```{python}
 # Python 
- 
-from scipy.sparse import csr_matrix
 
-X = np.zeros((10000,10000))
+# nb of link
+network_12.sum()/2
+# same since there is only 0 and 1 
+(network_12>0).sum()/2
 
-idx = list(np.ndindex(X.shape))[np.random.randint(1,10000**2,1000)]
+# share of link 
+network_12.mean()
 
-X[idx] = 1
-```
 
-```{python}
-# Python 
+# nb link by entities
+network_12.sum(axis=1)
+
+# share of link across entities (by columns)
+network_12.mean(1)
+
+
 
 ```
 
@@ -578,34 +826,172 @@ X[idx] = 1
 
 ```{r, collapse = TRUE}
 # R
-library(Matrix)
 
-mat = matrix(0,10000,10000)
-idx = round(runif(1000,1,10000**2))
+# nb of link
+sum(network_12)
+# same since there is only 0 and 1 
+sum(network_12[which(network_12>0,arr.ind = T)]) # see the arr.ind to get the two coordinates
 
-mat[idx] = 1
+# share of link 
+mean(network_12)
 
-print(object.size(mat),units = 'auto')
 
-sparse_mat = Matrix(mat,sparse = T)
-print(object.size(sparse_mat),units = 'auto')
+# nb link by entities
+apply(network_12,MARGIN = 2,FUN = sum)
+
+# share of link across entities (by columns)
+apply(network_12,MARGIN = 2,FUN = mean)
+
+
 ```
+
+</div>
+</div>
+</div>
+
+
+## Apply familly (R)
+
+
+The apply() family allows to manipulate slices of data from matrices, arrays, lists and dataframes in a repetitive way. It avoid explicit use of loop constructs. They act on an input list, matrix or array and apply a named function with one or several optional arguments.
+
+### apply:
+
+apply takes a matrix as input, transform it by row or by columns and returns a matrix
+
+<div class = "r">
 
 ```{r, collapse = TRUE}
 # R
 
-mat = matrix(0,10000,10000)
-idx = round(runif(100000,1,10000**2))
+mat_1 = matrix(1:(4*4),4,4)
 
-mat[idx] = 1
+# by row
+apply(mat_1,MARGIN = 1,FUN = sum)
 
-print(object.size(mat),units = 'auto')
+# by columns
+apply(mat_1,MARGIN = 2,FUN = function(x){x**2})
 
-sparse_mat = Matrix(mat,sparse = T)
-print(object.size(sparse_mat),units = 'auto')
+
 ```
 
 </div>
+
+### lapply
+
+
+lapply takes a list as input, transform it and returns a list.
+
+
+<div class = "r">
+
+```{r, collapse = TRUE}
+# R
+
+list_1 = list(mat_1,seq(1,8,0.5))
+list_1
+
+# by row
+lapply(list_1,FUN = function(x){x**2})
+
+# by columns
+lapply(list_1,FUN = sum)
+
+
+```
+
 </div>
+
+### sapply
+
+sapply takes a list as input, transform it and returns a matrix.
+
+<div class = "r">
+
+```{r, collapse = TRUE}
+# R
+
+list_1 = list(mat_1,seq(1,8,length.out = length(mat_1)))
+list_1
+
+# by row
+sapply(list_1,FUN = function(x){x**2})
+
+# by columns
+sapply(list_1,FUN = sum)
+
+
+```
+
 </div>
+
+
+### mapply
+
+mapply is used for ‘multivariate’ apply. The main goal is to vectorize arguments to a function that is not usually accepting vectors as arguments. Depending on the size of the outputs it return a matrix or a list.
+
+<div class = "r">
+
+```{r, collapse = TRUE}
+# R
+
+# returns a matrix (all length.out = 5)
+mapply(FUN = function(x,y,z){seq(x,y,length.out = z)},1,1:5,5)
+
+# returns a list (length.out goes from 1 to 5)
+mapply(FUN = function(x,y,z){seq(x,y,length.out = z)},1,1:5,1:5)
+
+
+```
+
+</div>
+
+## Map (Python)
+
+In python we can use ```map``` to do the same thing than apply familly in R. Using ```map``` and a bit of manipulation, you can compute all type of R apply functions.
+
+```map``` takes different kind of input, it transforms it by row if the object is an array and returns a iterable. then you can transform this into a list or an array.
+
+<div class = "python">
+
+```{python, collapse = TRUE}
+# Python
+
+arr_1 = np.arange(1,17).reshape([4,4], order = 'F')
+
+# by row
+map(np.sum,arr_1)
+list(map(np.sum,arr_1))
+
+# by columns, tranpose the array
+# lapply
+list(map(lambda x: x**2,arr_1.T))
+
+# apply
+np.array(list(map(lambda x: x**2,arr_1.T)))
+
+
+```
+
+</div>
+
+
+### mapply
+
+<div class = "python">
+
+```{python, collapse = TRUE}
+# Python
+
+# returns a matrix (all length.out = 5)
+#mapply(FUN = function(x,y,z){seq(x,y,length.out = z)},1,1:5,5)
+
+# returns a list (length.out goes from 1 to 5)
+#mapply(FUN = function(x,y,z){seq(x,y,length.out = z)},1,1:5,1:5)
+
+
+```
+
+</div>
+
 

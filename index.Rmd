@@ -98,6 +98,11 @@ https://thomas-cokelaer.info/tutorials/python/lists.html
 
 https://www.python.org/dev/peps/pep-0008/#introduction
 
+https://www.datacamp.com/community/tutorials/r-tutorial-apply-family#as
+
+https://towardsdatascience.com/the-ultimate-beginners-guide-to-numpy-f5a2f99aef54
+
+https://towardsdatascience.com/getting-started-with-git-and-github-6fcd0f2d4ac6
 To be completed..
 
 <!---

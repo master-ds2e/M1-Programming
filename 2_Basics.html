@@ -25,6 +25,8 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -359,9 +361,29 @@ div.tocify {
 <li>
   <a href="2_Basics.html">Basics</a>
 </li>
+<li>
+  <a href="3_Arrays_Vectors.html">Arrays/Vectors</a>
+</li>
+<li>
+  <a href="4_Regex.html">Regex</a>
+</li>
+<li>
+  <a href="5_Data_Analysis_R.html">Data Analysis (R)</a>
+</li>
+<li>
+  <a href="6_Best_practices.html">Best Pratices</a>
+</li>
+<li>
+  <a href="7_Efficient_prog.html">Efficient Prog</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/master-ds2e/">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -1183,7 +1205,7 @@ lst[[1]][1,] # first row of first element of the list
 </div>
 <div id="other-data-type-python" class="section level2">
 <h2><span class="header-section-number">3.4</span> Other Data-Type (Python)</h2>
-<p>In Python the most common are List, Turple, sets, Dictionnary. Note that for the moment, for modifiying a variable we always use ‘=’. Keep in mind that using the ‘.’ can modify the object behind the variable in Python.</p>
+<p>In Python the most common are List, tuple, sets, Dictionnary. Note that for the moment, for modifiying a variable we always use ‘=’. Keep in mind that using the ‘.’ can modify the object behind the variable in Python.</p>
 <p>
  
 </p>
@@ -1250,17 +1272,17 @@ a
  
 </p>
 </div>
-<div id="turples" class="section level3">
-<h3><span class="header-section-number">3.4.2</span> Turples</h3>
-<p>The main difference between Lists and Turples is the fact that Turples is an immutable type of data, making it faster to use.</p>
+<div id="tuples" class="section level3">
+<h3><span class="header-section-number">3.4.2</span> tuples</h3>
+<p>The main difference between Lists and tuples is the fact that tuples is an immutable type of data, making it faster to use.</p>
 <div class="python">
 <pre class="python"><code># Python
 
 a = (1, 2, 3)
-a.count(2) # count elements of the turple which are exactly equal to 2
+a.count(2) # count elements of the tuple which are exactly equal to 2
 ## 1
 a
-# access the element of a turple
+# access the element of a tuple
 ## (1, 2, 3)
 a[0]
 ## 1
@@ -1279,8 +1301,8 @@ a[:]
 a += (4,5) 
 a
 ## (1, 2, 3, 4, 5)
-a = a*2 # replicate the turple n times
-len(a) # number of elements in the turple
+a = a*2 # replicate the tuple n times
+len(a) # number of elements in the tuple
 ## 10</code></pre>
 <pre class="python"><code># immutable
 
@@ -1624,7 +1646,7 @@ while total &lt; 1:
     total += rnd
   
 total
-## 1.301730525230074</code></pre>
+## 1.185537675778459</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -1654,7 +1676,7 @@ while(total &lt; 1){
 }
   
 total
-## [1] 1.175289</code></pre>
+## [1] 1.003724</code></pre>
 </div>
 </div>
 </div>
@@ -1680,14 +1702,14 @@ for val in lst:
   if val &gt; 2:
     results.append(val)
 time.time()-t
-## 0.01393747329711914
+## 0.014934301376342773
 results
 ## [3, 4]
 t = time.time() 
 # this loop their will produce the same output than a using List comprehension.
 results = [val for val in lst if val&gt;2]
 time.time()-t
-## 0.009956598281860352
+## 0.00995635986328125
 results
 ## [3, 4]</code></pre>
 </div>
@@ -1704,7 +1726,7 @@ for val in st:
   if val &gt; 2:
     results.add(val)
 time.time()-t
-## 0.014943122863769531
+## 0.014934539794921875
 results
 ## {3, 4}
 t = time.time() 
@@ -1712,7 +1734,7 @@ t = time.time()
 # this loop their will produce the same output than a using Set comprehension.
 results = {val for val in st if val&gt;2}
 time.time()-t
-## 0.010567903518676758
+## 0.009956121444702148
 results
 ## {3, 4}</code></pre>
 </div>
@@ -1729,14 +1751,14 @@ for val in dct:
   if dct[val] &gt; 2:
     results.update({str(val): dct[val]})
 time.time()-t
-## 0.015502691268920898
+## 0.0159299373626709
 results
 ## {&#39;c&#39;: 3, &#39;d&#39;: 4}
 t = time.time() 
 # this loop their will produce the same output than a using Dict comprehension.
 results = {str(val): dct[val] for val in dct if dct[val]&gt;2}
 time.time()-t
-## 0.008961200714111328
+## 0.009956121444702148
 results
 ## {&#39;c&#39;: 3, &#39;d&#39;: 4}</code></pre>
 </div>
@@ -1777,7 +1799,7 @@ clean_sum(seq =  seq)
 ## 1560
 time.time() - t
 
-## 0.009955883026123047
+## 0.0119476318359375
 def clean_sum2(seq):
   total = sum(filter(None,seq))#[val for val in seq if val is not None])
   return total
@@ -1787,7 +1809,7 @@ clean_sum2(seq =  seq)
 ## 1560
 time.time() - t
 
-## 0.009956836700439453</code></pre>
+## 0.009955883026123047</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -1810,7 +1832,7 @@ t = Sys.time()
 clean_sum(seq = seq)
 ## [1] 1560
 Sys.time() - t
-## Time difference of 0.005971909 secs
+## Time difference of 0.005972862 secs
 
 
 
@@ -1823,7 +1845,7 @@ t &lt;- Sys.time()
 clean_sum(seq = seq)
 ## [1] 1560
 Sys.time() - t
-## Time difference of 0.002984047 secs</code></pre>
+## Time difference of 0.001991034 secs</code></pre>
 </div>
 </div>
 </div>
@@ -1972,29 +1994,29 @@ results = [calc_try(values) for values in list_]</code></pre>
 t= time.time()
 results = [calc3(values) for values in list_]
 time.time()-t
-## 0.14339566230773926
+## 0.12445211410522461
 t= time.time()
 results = [calc_try(values) for values in list_]
 time.time()-t
-## 0.10563230514526367</code></pre>
+## 0.10254931449890137</code></pre>
 <pre class="python"><code>list_ = create_dirty_list(0.33)
 t= time.time()
 results = [calc3(values) for values in list_]
 time.time()-t
-## 0.10414862632751465
+## 0.0886087417602539
 t= time.time()
 results = [calc_try(values) for values in list_]
 time.time()-t
-## 0.0937950611114502</code></pre>
+## 0.08960652351379395</code></pre>
 <pre class="python"><code>list_ = create_dirty_list(0.75)
 t= time.time()
 results = [calc3(values) for values in list_]
 time.time()-t
-## 0.046793460845947266
+## 0.048787593841552734
 t= time.time()
 results = [calc_try(values) for values in list_]
 time.time()-t
-## 0.09662914276123047</code></pre>
+## 0.09657430648803711</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -2076,31 +2098,31 @@ list_ &lt;- create_dirty_list(0.01)
 t &lt;- Sys.time()
 results &lt;- lapply(list_,FUN = calc3)
 Sys.time()-t
-## Time difference of 0.04891896 secs
+## Time difference of 0.0448029 secs
 t &lt;- Sys.time()
 results &lt;- lapply(list_,FUN = calc_try)
 Sys.time()-t
-## Time difference of 1.239016 secs</code></pre>
+## Time difference of 1.137985 secs</code></pre>
 <pre class="r"><code># compare it 
 list_ = create_dirty_list(0.33)
 t &lt;- Sys.time()
 results &lt;- lapply(list_,FUN = calc3)
 Sys.time()-t
-## Time difference of 0.03698015 secs
+## Time difference of 0.03186011 secs
 t &lt;- Sys.time()
 results &lt;- lapply(list_,FUN = calc_try)
 Sys.time()-t
-## Time difference of 0.8600271 secs</code></pre>
+## Time difference of 0.815407 secs</code></pre>
 <pre class="r"><code># compare it 
 list_ = create_dirty_list(0.75)
 t &lt;- Sys.time()
 results &lt;- lapply(list_,FUN = calc3)
 Sys.time()-t
-## Time difference of 0.01904798 secs
+## Time difference of 0.019912 secs
 t &lt;- Sys.time()
 results &lt;- lapply(list_,FUN = calc_try)
 Sys.time()-t
-## Time difference of 0.4280491 secs</code></pre>
+## Time difference of 0.4002359 secs</code></pre>
 </div>
 </div>
 </div>
@@ -2114,7 +2136,7 @@ Sys.time()-t
 <div id="exercice-1" class="section level2">
 <h2><span class="header-section-number">6.1</span> Exercice 1</h2>
 <p>If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23.</p>
-<p>Find the sum of all the multiples of 3 or 5 below 1000.</p>
+<p>Find the sum of all the multiples of 3 or 5 below 10000.</p>
 </div>
 <div id="exercice-2" class="section level2">
 <h2><span class="header-section-number">6.2</span> Exercice 2</h2>

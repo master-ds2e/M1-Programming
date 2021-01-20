@@ -9,21 +9,21 @@ navbar:
       href: index.html
     - text: "Basics"
       href: 2_Basics.html
-    #- text: "Arrays/Vectors"
-    #  href: 3_Arrays_Vectors.html
-    #- text: "Regex"
-    #  href: 4_Regex.html
-    #- text: "Data Analysis (R)"
-    #  href: 5_Data_Analysis_R.html
+    - text: "Arrays/Vectors"
+      href: 3_Arrays_Vectors.html
+    - text: "Regex"
+      href: 4_Regex.html
+    - text: "Data Analysis (R)"
+      href: 5_Data_Analysis_R.html
     #- text: "Data Analysis (Python)"
     #  href: 5_Data_Analysis_R.html
-    #- text: "Best Pratices"
-    #  href: 6_Best_practices.html
-    #- text: "Efficient Prog"
-    #  href: 7_Efficient_prog.html
-  #right:
-  #  - icon: fa-github fa-lg
-  #    href: https://github.com/master-ds2e/
+    - text: "Best Pratices"
+      href: 6_Best_practices.html
+    - text: "Efficient Prog"
+      href: 7_Efficient_prog.html
+  right:
+    - icon: fa-github fa-lg
+      href: https://github.com/master-ds2e/
 output:
   html_document:
     theme: flatly
