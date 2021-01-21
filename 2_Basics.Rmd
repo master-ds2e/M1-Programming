@@ -1673,5 +1673,7 @@ How many Sundays fell on the first of the month during the twentieth century (1 
 
 
 
-<a href="exo_chap_1.html">Possible solutions in R and Python</a>
+<p>&nbsp;</p>
+
+<a href="exo_chap_1.html">Possible solutions in R and Python without vectorisation</a>
 
