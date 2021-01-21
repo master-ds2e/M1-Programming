@@ -359,6 +359,9 @@ div.tocify {
 <li>
   <a href="2_Basics.html">Basics</a>
 </li>
+<li>
+  <a href="3_Arrays_Vectors.html">Arrays/Vectors</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -378,8 +381,9 @@ div.tocify {
 
 <div id="parallel-computing" class="section level1">
 <h1><span class="header-section-number">1</span> Parallel computing</h1>
-<div id="python-generators" class="section level2">
-<h2><span class="header-section-number">1.1</span> Python Generators</h2>
+</div>
+<div id="python-generators" class="section level1">
+<h1><span class="header-section-number">2</span> Python Generators</h1>
 <p>Generator usages in Python is a simple way of creating iterators. The goal of this kind of function is to return an object for which we can iterate over it. The difference in terms of syntax hold in the fact that we will the statement ‘yield’ instead of ‘return’. In comparaison to ‘return’, using ‘yield’ will pause the function and the control of that generator will be trasnfered to the object that call this generator.<br />
 Generators are very useful when we deal with objects which can be too heavy to store all the information in the memory. As a generators is an iterator, it will load in the RAM only the iteration that it is reading, meaning that we can have no size limit if we want to iterate over an object that is to heavy. This first example is made with a txt file with 1000 rows. We will see how RAM is used behind our machine to understand how it can be relevant to use generators.</p>
 <div class="row">
@@ -402,9 +406,9 @@ def read_file_to_lower():
 txt_clean = read_file_to_lower()
 
 process.memory_info().rss - r1 # in bytes
-## 167936
+## 118784
 time.time() - t
-## 0.029131650924682617
+## 0.9707217216491699
 type(txt_clean)
 ## &lt;class &#39;list&#39;&gt;</code></pre>
 </div>
@@ -430,10 +434,10 @@ memory_friendly_txt_clean = read_to_lower()
 txt_clean = [line_clean for line_clean in memory_friendly_txt_clean]
 
 process.memory_info().rss - r1 # in bytes
-## 0
+## 65536
 time.time() - t
 
-## 0.03502821922302246
+## 0.033847808837890625
 type(memory_friendly_txt_clean)
 
 ## &lt;class &#39;generator&#39;&gt;</code></pre>
@@ -444,6 +448,61 @@ type(memory_friendly_txt_clean)
 <p>
  
 </p>
+</div>
+<div id="sparse-matrix" class="section level1">
+<h1><span class="header-section-number">3</span> Sparse Matrix</h1>
+<p>When dealing with large array that are sparse (lot of element equalt to 0), it is inneficient to store this object as a dense matrix. Large matrix are sometimes difficult to store in the memory because they are weighty, when they dealing with sparse we can store it and do calculation with them in a very efficient way using the ‘Compressed Sparse Column’ (CSC) format. See how it change the weight of the matrix when changing the format to sparse matrix .</p>
+<div class="row">
+<div class="col-md-6">
+<div class="python">
+<pre class="python"><code># Python 
+ 
+#from scipy.sparse import csr_matrix
+#
+#X = np.zeros((10000,10000))
+#
+#idx = list(np.ndindex(X.shape))[np.random.randint(1,10000**2,1000)]
+#
+#X[idx] = 1</code></pre>
+<pre class="python"><code># Python </code></pre>
+</div>
+</div>
+<div class="col-md-6">
+<div class="r">
+<pre class="r"><code># R
+library(Matrix)
+## 
+## Attaching package: &#39;Matrix&#39;
+## The following objects are masked from &#39;package:tidyr&#39;:
+## 
+##     expand, pack, unpack
+
+mat = matrix(0,10000,10000)
+idx = round(runif(1000,1,10000**2))
+
+mat[idx] = 1
+
+print(object.size(mat),units = &#39;auto&#39;)
+## 762.9 Mb
+
+sparse_mat = Matrix(mat,sparse = T)
+print(object.size(sparse_mat),units = &#39;auto&#39;)
+## 52.2 Kb</code></pre>
+<pre class="r"><code># R
+
+mat = matrix(0,10000,10000)
+idx = round(runif(100000,1,10000**2))
+
+mat[idx] = 1
+
+print(object.size(mat),units = &#39;auto&#39;)
+## 762.9 Mb
+
+sparse_mat = Matrix(mat,sparse = T)
+print(object.size(sparse_mat),units = &#39;auto&#39;)
+## 1.2 Mb</code></pre>
+</div>
+</div>
 </div>
 </div>
 

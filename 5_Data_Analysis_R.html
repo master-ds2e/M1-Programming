@@ -359,6 +359,9 @@ div.tocify {
 <li>
   <a href="2_Basics.html">Basics</a>
 </li>
+<li>
+  <a href="3_Arrays_Vectors.html">Arrays/Vectors</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -489,17 +492,14 @@ dataset %&gt;% function1(arg1) %&gt;% function2(arg2)</p></li>
 
 
 library(tidyverse)
-## -- Attaching packages ------------------------------------------------------------------------ tidyverse 1.3.0 --
+## -- Attaching packages --------------------------------------------------------------------------------------------- tidyverse 1.3.0 --
 ## v ggplot2 3.3.0     v purrr   0.3.3
 ## v tibble  3.0.0     v forcats 0.5.0
 ## v tidyr   1.0.2
-## -- Conflicts --------------------------------------------------------------------------- tidyverse_conflicts() --
+## -- Conflicts ------------------------------------------------------------------------------------------------ tidyverse_conflicts() --
 ## x purrr::accumulate() masks foreach::accumulate()
-## x tidyr::expand()     masks Matrix::expand()
 ## x dplyr::filter()     masks stats::filter()
 ## x dplyr::lag()        masks stats::lag()
-## x tidyr::pack()       masks Matrix::pack()
-## x tidyr::unpack()     masks Matrix::unpack()
 ## x purrr::when()       masks foreach::when()
 covid_papers &lt;- read_csv(&quot;data/covid_papers.csv&quot;)
 ## Parsed with column specification:
@@ -554,7 +554,7 @@ dim(slice_sample(covid_papers,prop = 0.001))
 t &lt;- Sys.time()
 doi_clean &lt;- filter(covid_papers,doi != &#39;null&#39;)
 Sys.time()-t
-## Time difference of 0.01851296 secs</code></pre>
+## Time difference of 0.01796317 secs</code></pre>
 <p><b> Using Pipes </b></p>
 <pre class="r"><code># R
 
@@ -566,12 +566,12 @@ dim(covid_papers %&gt;% slice_sample(prop = 0.001))
 t = Sys.time()
 doi_clean &lt;- covid_papers %&gt;% filter(doi != &#39;null&#39;)
 Sys.time() - t
-## Time difference of 0.01793098 secs
+## Time difference of 0.01891804 secs
 
 t = Sys.time()
 doi_clean &lt;- covid_papers[which(covid_papers$doi != &#39;null&#39;),]
 Sys.time() - t
-## Time difference of 0.02302408 secs</code></pre>
+## Time difference of 0.02389216 secs</code></pre>
 </div>
 <p><a href="https://atrebas.github.io/post/2019-03-03-datatable-dplyr/" class="uri">https://atrebas.github.io/post/2019-03-03-datatable-dplyr/</a></p>
 </div>
@@ -1687,7 +1687,7 @@ cp_tibble &lt;- cp_tibble %&gt;%
   mutate(across(where(is.character),
          toupper))
 Sys.time() - t
-## Time difference of 10.4189 secs</code></pre>
+## Time difference of 11.4042 secs</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -1712,7 +1712,7 @@ cp_datatable[, c(&#39;pubtype&#39;,&#39;mesh&#39;) := lapply(.SD, function(x){to
 t = Sys.time()
 for(j in  which(sapply(cp_datatable, class)==&#39;character&#39;)){set(cp_datatable, i=NULL, j=j, value=toupper(cp_datatable[[j]]))}
 Sys.time() - t 
-## Time difference of 10.49791 secs</code></pre>
+## Time difference of 10.23817 secs</code></pre>
 </div>
 </div>
 </div>

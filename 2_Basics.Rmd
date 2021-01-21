@@ -652,7 +652,7 @@ lst[[1]][1,] # first row of first element of the list
 
 
 
-In Python the most common are List, Turple, sets, Dictionnary.
+In Python the most common are List, tuple, sets, Dictionnary.
 Note that for the moment, for modifiying a variable we always use '='. Keep in mind that using the '.' can modify the object behind the variable in Python.
 
 <p>&nbsp;</p>
@@ -716,19 +716,19 @@ a
 
 
 <p>&nbsp;</p>
-### Turples
+### tuples
 
-The main difference between Lists and Turples is the fact that Turples is an immutable type of data, making it faster to use.
+The main difference between Lists and tuples is the fact that tuples is an immutable type of data, making it faster to use.
 
 <div class = "python">
 ```{python,echo=T,collapse = TRUE}
 # Python
 
 a = (1, 2, 3)
-a.count(2) # count elements of the turple which are exactly equal to 2
+a.count(2) # count elements of the tuple which are exactly equal to 2
 
 a
-# access the element of a turple
+# access the element of a tuple
 a[0]
 a.index(3)
 a[1:]
@@ -742,8 +742,8 @@ a[:]
 # modify
 a += (4,5) 
 a
-a = a*2 # replicate the turple n times
-len(a) # number of elements in the turple
+a = a*2 # replicate the tuple n times
+len(a) # number of elements in the tuple
 
 ```
 ```{python,echo = T,collapse = TRUE}
@@ -1645,7 +1645,7 @@ Sys.time()-t
 
 If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23.
 
-Find the sum of all the multiples of 3 or 5 below 1000.
+Find the sum of all the multiples of 3 or 5 below 10000.
 
 
 ## Exercice 2
@@ -1670,3 +1670,10 @@ You are given the following information, but you may prefer to do some research 
 - A leap year occurs on any year evenly divisible by 4, but not on a century unless it is divisible by 400.
 
 How many Sundays fell on the first of the month during the twentieth century (1 Jan 1901 to 31 Dec 2000)?
+
+
+
+<p>&nbsp;</p>
+
+<a href="exo_chap_1.html">Possible solutions in R and Python without vectorisation</a>
+
