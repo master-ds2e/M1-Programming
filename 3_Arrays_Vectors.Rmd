@@ -883,7 +883,7 @@ apply(network_12,MARGIN = 2,FUN = mean)
 
 The apply() family allows to manipulate slices of data from matrices, arrays, lists and dataframes in a repetitive way. It avoid explicit use of loop constructs. They act on an input list, matrix or array and apply a function with one or several optional arguments.
 
-### apply:
+### apply
 
 apply takes a matrix as input, transform it by row or by columns and returns a matrix
 
@@ -1031,16 +1031,16 @@ df_1.apply(sum)
 
 ## Exercice 1
 
-Try to vectorize exercices from chapter 1, you can also compare it with apply/map functions. 
+The series, $1^{1} + 2^{2} + 3^{3} + ... + 10^{10} = 10405071317$.
+
+Find the last ten digits of the series, $1^{1} + 2^{2} + 3^{3} + ... + 1000^{1000}$.
 
 ## Exercice 2
+
+Try to vectorize exercices from chapter 1, you can also compare it with apply/map functions. 
+
+## Exercice 3
 
 2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder.
 
 What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?
-
-## Exercice 3
-
-The series, $1^{1} + 2^{2} + 3^{3} + ... + 10^{10} = 10405071317$.
-
-Find the last ten digits of the series, $1^{1} + 2^{2} + 3^{3} + ... + 1000^{1000}$.
