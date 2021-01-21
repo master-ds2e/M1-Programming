@@ -89,6 +89,21 @@ To use numpy one need to load the module by running ```import numpy as np```, yo
 
 Numpy allows to perform fast and efficient calculation. The main difference between Numpy and python list is that all elements in a numpy array must be homogenous, Numpy uses less memory to store data.
 
+Functions | Tasks
+-|-:
+array	| Create numpy array
+ndim |	Dimension of the array
+shape	| Size of the array (Number of rows and Columns)
+size	| Total number of elements in the array
+dtype	| Type of elements in the array, i.e., int64, character
+reshape	| Reshapes the array without changing the original shape
+resize	| Reshapes the array. Also change the original shape
+arange	| Create sequence of numbers in array
+Itemsize	| Size in bytes of each item
+diag	| Create a diagonal matrix
+vstack	| Stacking vertically
+hstack	| Stacking horizontally
+
 - Starting from existing list or vector :
 
 <div class = "row">
@@ -121,7 +136,7 @@ arr
 </div>
 </div>
 
-- Create arrays with zero, one, sequence
+- Create arrays with zero, one, sequence..
 
 
 <div class = "row">
@@ -221,9 +236,9 @@ mat_rd
 ```{python}
 # Python 
 
-arr = np.arange(1,7).reshape(2,3)
+arr = np.arange(1,10).reshape(3,3)
 arr[0]
-arr[0:2]
+arr[:2]
 arr[1:]
 ```
 
@@ -236,9 +251,9 @@ arr[1:]
 # R
 
 
-mat <- matrix(1:6,2,3,byrow = T)
+mat <- matrix(1:9,3,3,byrow = T)
 mat[1,]
-mat[1:3,]
+mat[1:2,]
 mat[2:dim(mat)[1],]
 ```
 
@@ -259,9 +274,18 @@ mat[2:dim(mat)[1],]
 
 # .ndim gives the number of axes, or dimensions, of the array.
 arr_rd.ndim
+```
+
+```{python}
+# Python 
 
 # .size gives the total number of elements of the array. 
 arr_rd.size
+
+```
+
+```{python}
+# Python 
 
 # .shape display a tuple of integers with the number of elements stored along each dimension of the array
 arr_rd.shape
@@ -277,6 +301,11 @@ arr_rd.shape
 
 # length gives the total number of elements of the array.
 length(mat_rd)
+
+```
+
+```{r, collapse = TRUE}
+#R
 
 # dim display a vector of integers with the number of elements stored along each dimension of the array
 dim(mat_rd)
@@ -684,13 +713,6 @@ if_else(condition = x < 0,
         missing   = "NA")
 
 
-x <- c(-3:3, NA)
-fifelse(test = x < 0,
-        yes  = "neg",
-        no   = "pos",
-        na   = "NA")
-
-
 # Vectorised ifelse statements
 
 
@@ -791,6 +813,16 @@ Beta
 
 # Operation on array
 
+Operator	| Equivalent |Description
+-|:-:|-:
++	| np.add	| Addition (e.g., 1 + 1 = 2)
+-	| np.subtract	| Subtraction (e.g., 3 - 2 = 1)
+-	| np.negative |	Unary negation (e.g., -2)
+*	| np.multiply	| Multiplication (e.g., 2 * 3 = 6)
+/	| np.divide	| Division (e.g., 3 / 2 = 1.5)
+// |	np.floor_divide	| Floor division (e.g., 3 // 2 = 1)
+**	| np.power	| Exponentiation (e.g., 2 ** 3 = 8)
+%	| np.mod | Modulus/remainder (e.g., 9 % 4 = 1)
 
 
 <div class = "row">
@@ -950,7 +982,7 @@ mapply(FUN = function(x,y,z){seq(x,y,length.out = z)},1,1:5,1:5)
 
 In python we can use ```map``` to do the same thing than apply familly in R. Using ```map``` and a bit of manipulation, you can compute all type of R apply functions.
 
-```map``` takes different kind of input, it transforms it by row if the object is an array and returns a iterable. then you can transform this into a list or an array.
+```map``` takes different kind of input, it transforms it by row if the object is an array and returns a iterator.You can then transform this into a list or an array.
 
 <div class = "python">
 
@@ -968,26 +1000,30 @@ list(map(np.sum,arr_1))
 list(map(lambda x: x**2,arr_1.T))
 
 # apply
-np.array(list(map(lambda x: x**2,arr_1.T)))
+np.fromiter(map(lambda x: x**2,arr_1.T), dtype = np.int)
 
 
 ```
 
 </div>
 
+- Pandas' apply function:
 
-### mapply
+Using pandas one can also use apply function, the difference with map is that by default it works by columns since variables in a df are store by colmuns.
 
 <div class = "python">
 
 ```{python, collapse = TRUE}
 # Python
 
-# returns a matrix (all length.out = 5)
-#mapply(FUN = function(x,y,z){seq(x,y,length.out = z)},1,1:5,5)
+import pandas as pd
+arr_1 = np.arange(1,17).reshape([4,4], order = 'F')
 
-# returns a list (length.out goes from 1 to 5)
-#mapply(FUN = function(x,y,z){seq(x,y,length.out = z)},1,1:5,1:5)
+#transform the array into a DataFrame
+df_1 = pd.DataFrame(arr_1)
+
+# Apply the function by column
+df_1.apply(sum)
 
 
 ```
@@ -995,3 +1031,16 @@ np.array(list(map(lambda x: x**2,arr_1.T)))
 </div>
 
 
+# Exercices
+
+## Exercice 1
+
+2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder.
+
+What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?
+
+## Exercice 2
+
+The series, $1^{1} + 2^{2} + 3^{3} + ... + 10^{10} = 10405071317$.
+
+Find the last ten digits of the series, $1^{1} + 2^{2} + 3^{3} + ... + 1000^{1000}$.

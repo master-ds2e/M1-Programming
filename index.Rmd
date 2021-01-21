@@ -103,6 +103,15 @@ https://www.datacamp.com/community/tutorials/r-tutorial-apply-family#as
 https://towardsdatascience.com/the-ultimate-beginners-guide-to-numpy-f5a2f99aef54
 
 https://towardsdatascience.com/getting-started-with-git-and-github-6fcd0f2d4ac6
+
+https://docs.oracle.com/javase/tutorial/java/data/characters.html
+
+https://www.tutorialspoint.com/python/python_reg_expressions.html
+
+https://www.w3schools.com/python/python_ref_string.asp
+
+https://thomas-cokelaer.info/tutorials/python/strings.html
+
 To be completed..
 
 <!---

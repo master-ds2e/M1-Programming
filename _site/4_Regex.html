@@ -25,8 +25,6 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -364,26 +362,9 @@ div.tocify {
 <li>
   <a href="3_Arrays_Vectors.html">Arrays/Vectors</a>
 </li>
-<li>
-  <a href="4_Regex.html">Regex</a>
-</li>
-<li>
-  <a href="5_Data_Analysis_R.html">Data Analysis (R)</a>
-</li>
-<li>
-  <a href="6_Best_practices.html">Best Pratices</a>
-</li>
-<li>
-  <a href="7_Efficient_prog.html">Efficient Prog</a>
-</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="https://github.com/master-ds2e/">
-    <span class="fa fa-github fa-lg"></span>
-     
-  </a>
-</li>
+        
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -426,7 +407,7 @@ wd_info = &#39;\nCurrent working directory: &#39;
 infos = time_info+time_+mem_info+str(mem)+cpu_info+str(cpu)+wd_info+wd
 
 print(infos)
-## Time: Wed Jan 20 22:28:59 2021
+## Time: Thu Jan 21 16:10:33 2021
 ## RAM (GB): 137.069338624
 ## # CPU: 56
 ## Current working directory: C:\Users\Beta\Documents\GitHub\M1_TDP</code></pre>
@@ -451,10 +432,10 @@ infos &lt;- paste0(time_info,time_,
            cpu_info,as.character(cpu),
            wd_info,wd)
 print(infos) 
-## [1] &quot;Time: 2021-01-20 22:28:59\nRAM (GB): 137.069338624\n# CPUs: 56\nCurrent working directory: C:/Users/Beta/Documents/GitHub/M1_TDP&quot;
+## [1] &quot;Time: 2021-01-21 16:10:33\nRAM (GB): 137.069338624\n# CPUs: 56\nCurrent working directory: C:/Users/Beta/Documents/GitHub/M1_TDP&quot;
 
 cat(infos) 
-## Time: 2021-01-20 22:28:59
+## Time: 2021-01-21 16:10:33
 ## RAM (GB): 137.069338624
 ## # CPUs: 56
 ## Current working directory: C:/Users/Beta/Documents/GitHub/M1_TDP</code></pre>
@@ -596,30 +577,30 @@ def get_infos_3():
 
 t = time.time()
 get_infos()
-## Time: Wed Jan 20 22:29:00 2021
+## Time: Thu Jan 21 16:10:35 2021
 ## RAM (GB): 137.069338624
 ## # CPUs: 56
 ## Current working directory: C:\Users\Beta\Documents\GitHub\M1_TDP
 print(time.time()-t)
 
-## 0.008960962295532227
+## 0.009954690933227539
 t = time.time()
 get_infos_2()
-## Time: Wed Jan 20 22:29:00 2021 
+## Time: Thu Jan 21 16:10:35 2021 
 ##   RAM (GB): 137.069338624
 ##   # CPUs: 56 
 ##   Current working directory: C:\Users\Beta\Documents\GitHub\M1_TDP
 print(time.time()-t)
-## 0.008960247039794922
+## 0.008955240249633789
 t = time.time()
 get_infos_3()
-## Time: Wed Jan 20 22:29:00 2021 
+## Time: Thu Jan 21 16:10:35 2021 
 ##   RAM (GB): 137.069338624
 ##   # CPUs: 56 
 ##   Current working directory: C:\Users\Beta\Documents\GitHub\M1_TDP
 print(time.time()-t)
 
-## 0.008960723876953125</code></pre>
+## 0.007964849472045898</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -727,21 +708,21 @@ get_infos_2&lt;- function(){
 
 t = Sys.time()
 get_infos()
-## Time: 2021-01-20 22:29:01
+## Time: 2021-01-21 16:10:35
 ## RAM (GB): 137.069338624
 ## # CPUs: 56
 ## Current working directory: C:/Users/Beta/Documents/GitHub/M1_TDP
 Sys.time()-t
-## Time difference of 0.232975 secs
+## Time difference of 0.2271719 secs
 
 t = Sys.time()
 get_infos_2()
-## Time: 2021-01-20 22:29:01 
+## Time: 2021-01-21 16:10:35 
 ##   RAM (GB): 137.069338624
 ##   # CPUs: 56 
 ##   Current working directory: C:/Users/Beta/Documents/GitHub/M1_TDP
 Sys.time()-t
-## Time difference of 0.234004 secs</code></pre>
+## Time difference of 0.2309792 secs</code></pre>
 </div>
 </div>
 </div>
@@ -855,7 +836,7 @@ re.findall(&#39;top-[15]&#39;,abstract)
 ## [&#39;top-1&#39;, &#39;top-5&#39;]
 re.finditer(&#39;[0-9]&#39;,abstract)
 
-## &lt;callable_iterator object at 0x000000002793E108&gt;</code></pre>
+## &lt;callable_iterator object at 0x000000002AA42448&gt;</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -1197,12 +1178,21 @@ library(stringr)</code></pre>
 </div>
 <div id="exercice" class="section level1">
 <h1><span class="header-section-number">3</span> Exercice</h1>
+<div id="exercice-1" class="section level2">
+<h2><span class="header-section-number">3.1</span> Exercice 1</h2>
+<p>A palindromic number reads the same both ways. The largest palindrome made from the product of two 2-digit numbers is 9009 = 91 × 99.</p>
+<p>Find the largest palindrome made from the product of two 3-digit numbers.</p>
+</div>
+<div id="execrice-2" class="section level2">
+<h2><span class="header-section-number">3.2</span> Execrice 2</h2>
+<p><span class="math inline">\(2^{15} = 32768\)</span> and the sum of its digits is 3 + 2 + 7 + 6 + 8 = 26.</p>
+<p>What is the sum of the digits of the number <span class="math inline">\(2^{1000}\)</span>?</p>
+</div>
+</div>
+<div id="exercice-3" class="section level1">
+<h1><span class="header-section-number">4</span> Exercice 3</h1>
 <p>Try to translate this code in R, you can use different website or album if you want.</p>
 <p><a href="Genius_scrap.html">Example with ‘rap genius’</a></p>
-</div>
-<div id="references-used" class="section level1">
-<h1><span class="header-section-number">4</span> References used</h1>
-<p><a href="https://docs.oracle.com/javase/tutorial/java/data/characters.html" class="uri">https://docs.oracle.com/javase/tutorial/java/data/characters.html</a> <a href="https://www.tutorialspoint.com/python/python_reg_expressions.html" class="uri">https://www.tutorialspoint.com/python/python_reg_expressions.html</a> <a href="https://www.w3schools.com/python/python_ref_string.asp" class="uri">https://www.w3schools.com/python/python_ref_string.asp</a> <a href="https://thomas-cokelaer.info/tutorials/python/strings.html" class="uri">https://thomas-cokelaer.info/tutorials/python/strings.html</a></p>
 </div>
 
 

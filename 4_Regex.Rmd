@@ -598,13 +598,20 @@ library(stringr)
 
 # Exercice
 
+## Exercice 1 
+A palindromic number reads the same both ways. The largest palindrome made from the product of two 2-digit numbers is 9009 = 91 × 99.
+
+Find the largest palindrome made from the product of two 3-digit numbers.
+
+## Execrice 2
+
+$2^{15} = 32768$ and the sum of its digits is 3 + 2 + 7 + 6 + 8 = 26.
+
+What is the sum of the digits of the number $2^{1000}$?
+
+# Exercice 3
+
 Try to translate this code in R, you can use different website or album if you want. 
 
 <a href="Genius_scrap.html">Example with 'rap genius'</a>
 
-# References used
-
-https://docs.oracle.com/javase/tutorial/java/data/characters.html
-https://www.tutorialspoint.com/python/python_reg_expressions.html
-https://www.w3schools.com/python/python_ref_string.asp
-https://thomas-cokelaer.info/tutorials/python/strings.html

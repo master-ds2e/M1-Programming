@@ -25,8 +25,6 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -364,26 +362,9 @@ div.tocify {
 <li>
   <a href="3_Arrays_Vectors.html">Arrays/Vectors</a>
 </li>
-<li>
-  <a href="4_Regex.html">Regex</a>
-</li>
-<li>
-  <a href="5_Data_Analysis_R.html">Data Analysis (R)</a>
-</li>
-<li>
-  <a href="6_Best_practices.html">Best Pratices</a>
-</li>
-<li>
-  <a href="7_Efficient_prog.html">Efficient Prog</a>
-</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="https://github.com/master-ds2e/">
-    <span class="fa fa-github fa-lg"></span>
-     
-  </a>
-</li>
+        
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -573,7 +554,7 @@ dim(slice_sample(covid_papers,prop = 0.001))
 t &lt;- Sys.time()
 doi_clean &lt;- filter(covid_papers,doi != &#39;null&#39;)
 Sys.time()-t
-## Time difference of 0.01792097 secs</code></pre>
+## Time difference of 0.01692581 secs</code></pre>
 <p><b> Using Pipes </b></p>
 <pre class="r"><code># R
 
@@ -585,12 +566,12 @@ dim(covid_papers %&gt;% slice_sample(prop = 0.001))
 t = Sys.time()
 doi_clean &lt;- covid_papers %&gt;% filter(doi != &#39;null&#39;)
 Sys.time() - t
-## Time difference of 0.01792097 secs
+## Time difference of 0.01991081 secs
 
 t = Sys.time()
 doi_clean &lt;- covid_papers[which(covid_papers$doi != &#39;null&#39;),]
 Sys.time() - t
-## Time difference of 0.02190399 secs</code></pre>
+## Time difference of 0.02389407 secs</code></pre>
 </div>
 <p><a href="https://atrebas.github.io/post/2019-03-03-datatable-dplyr/" class="uri">https://atrebas.github.io/post/2019-03-03-datatable-dplyr/</a></p>
 </div>
@@ -1706,7 +1687,7 @@ cp_tibble &lt;- cp_tibble %&gt;%
   mutate(across(where(is.character),
          toupper))
 Sys.time() - t
-## Time difference of 9.97033 secs</code></pre>
+## Time difference of 9.527673 secs</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -1731,7 +1712,7 @@ cp_datatable[, c(&#39;pubtype&#39;,&#39;mesh&#39;) := lapply(.SD, function(x){to
 t = Sys.time()
 for(j in  which(sapply(cp_datatable, class)==&#39;character&#39;)){set(cp_datatable, i=NULL, j=j, value=toupper(cp_datatable[[j]]))}
 Sys.time() - t 
-## Time difference of 9.388267 secs</code></pre>
+## Time difference of 9.265088 secs</code></pre>
 </div>
 </div>
 </div>
