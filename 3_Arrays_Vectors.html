@@ -13,6 +13,7 @@
 
 <title>Arrays</title>
 
+<script src="site_libs/header-attrs-2.1/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -408,12 +409,12 @@ lst = list(range(2000000))
 t = time.time()
 arr_2 = arr*2
 time.time() - t
-## 0.015929460525512695
+## 0.011949539184570312
 t = time.time()
 lst_2 = [i*2  for i in lst]
 time.time() - t
 
-## 0.22899246215820312</code></pre>
+## 0.21106982231140137</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -425,7 +426,7 @@ vec = c(1:2000000)
 t = Sys.time()
 vec_2 = vec*2
 Sys.time() - t
-## Time difference of 0.006969929 secs
+## Time difference of 0.006968975 secs
 
 t = Sys.time()
 vec_2_loop &lt;- rep(0,length(vec))
@@ -433,12 +434,12 @@ for(i in 1:length(vec)){
   vec_2_loop[i] = vec[i]*2
     }
 Sys.time() - t
-## Time difference of 0.3146131 secs</code></pre>
+## Time difference of 0.342489 secs</code></pre>
 </div>
 </div>
 </div>
-<div id="create-arrays" class="section level1">
-<h1><span class="header-section-number">1</span> Create arrays</h1>
+<div id="create-arrays" class="section level1" number="1">
+<h1 number="1"><span class="header-section-number">1</span> Create arrays</h1>
 <p>The NumPy library contains multidimensional array and matrix data structures, it provides methods to efficiently operate on it. If you do not have numpy on you computer, open a terminal and run <code>pip install numpy</code>.</p>
 <p>To use numpy one need to load the module by running <code>import numpy as np</code>, you can just import numpy but then you will need to write numpy.something to perform calculation. In order to keep code standardized we simply say that we will refers to numpy using np.</p>
 <p>Numpy allows to perform fast and efficient calculation. The main difference between Numpy and python list is that all elements in a numpy array must be homogenous, Numpy uses less memory to store data.</p>
@@ -590,8 +591,8 @@ seq(1, 4, length.out = 10)
 </div>
 </div>
 </div>
-<div id="random-array" class="section level2">
-<h2><span class="header-section-number">1.1</span> Random array</h2>
+<div id="random-array" class="section level2" number="1.1">
+<h2 number="1.1"><span class="header-section-number">1.1</span> Random array</h2>
 <div class="row">
 <div class="col-md-6">
 <div class="python">
@@ -601,10 +602,10 @@ seq(1, 4, length.out = 10)
 arr_rd = np.random.randn(4,5)
 
 arr_rd
-## array([[-0.44093783,  0.70271119,  0.27502376, -0.72373358, -0.02320896],
-##        [-1.71767234, -1.09524143, -0.19713101, -0.47952786,  0.4797565 ],
-##        [ 0.32410181, -0.41137169, -1.00733593, -1.21712875, -1.2606063 ],
-##        [ 1.40541141,  0.37398149,  1.12339041, -0.61704766, -1.46222658]])</code></pre>
+## array([[ 1.37825303, -0.44842449,  0.43129529, -0.70881137,  0.90072572],
+##        [-0.15605575, -0.97798249, -0.37847772, -1.35493777,  0.66889525],
+##        [ 1.16625322, -0.90592642, -0.483807  , -0.46465304, -1.41281767],
+##        [-0.51889789,  0.37195094,  0.56999552,  1.41072301,  1.08365275]])</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -615,17 +616,17 @@ arr_rd
 mat_rd &lt;- matrix(runif(4*5),4,5)
 
 mat_rd
-##           [,1]      [,2]      [,3]      [,4]      [,5]
-## [1,] 0.4628214 0.5950925 0.6146809 0.2769882 0.9504937
-## [2,] 0.1330040 0.4147631 0.4437490 0.4793050 0.1276581
-## [3,] 0.3826514 0.9937606 0.6465490 0.6471387 0.5223582
-## [4,] 0.8512781 0.3963793 0.4580403 0.8392079 0.7165052</code></pre>
+##           [,1]       [,2]      [,3]      [,4]      [,5]
+## [1,] 0.8223458 0.03799799 0.5024586 0.6130117 0.4394536
+## [2,] 0.8668301 0.31477905 0.6120102 0.4038400 0.1953971
+## [3,] 0.4539151 0.57059801 0.3931311 0.3776940 0.6291643
+## [4,] 0.4132240 0.53917526 0.7960246 0.5691992 0.1404577</code></pre>
 </div>
 </div>
 </div>
 </div>
-<div id="indexing-and-slicing" class="section level2">
-<h2><span class="header-section-number">1.2</span> Indexing and slicing</h2>
+<div id="indexing-and-slicing" class="section level2" number="1.2">
+<h2 number="1.2"><span class="header-section-number">1.2</span> Indexing and slicing</h2>
 <div class="row">
 <div class="col-md-6">
 <div class="python">
@@ -659,8 +660,8 @@ mat[2:dim(mat)[1],]
 </div>
 </div>
 </div>
-<div id="shape-and-size" class="section level2">
-<h2><span class="header-section-number">1.3</span> Shape and size</h2>
+<div id="shape-and-size" class="section level2" number="1.3">
+<h2 number="1.3"><span class="header-section-number">1.3</span> Shape and size</h2>
 <div class="row">
 <div class="col-md-6">
 <div class="python">
@@ -698,10 +699,10 @@ dim(mat_rd)
 </div>
 </div>
 </div>
-<div id="modifiying-arrays" class="section level1">
-<h1><span class="header-section-number">2</span> Modifiying arrays</h1>
-<div id="add-elements" class="section level2">
-<h2><span class="header-section-number">2.1</span> Add elements</h2>
+<div id="modifiying-arrays" class="section level1" number="2">
+<h1 number="2"><span class="header-section-number">2</span> Modifiying arrays</h1>
+<div id="add-elements" class="section level2" number="2.1">
+<h2 number="2.1"><span class="header-section-number">2.1</span> Add elements</h2>
 <div class="row">
 <div class="col-md-6">
 <div class="python">
@@ -840,8 +841,8 @@ asplit(mat01,1)
 </div>
 </div>
 </div>
-<div id="delete-elements" class="section level2">
-<h2><span class="header-section-number">2.2</span> Delete elements</h2>
+<div id="delete-elements" class="section level2" number="2.2">
+<h2 number="2.2"><span class="header-section-number">2.2</span> Delete elements</h2>
 <div class="row">
 <div class="col-md-6">
 <div class="python">
@@ -869,8 +870,8 @@ mat[-2,]
 </div>
 </div>
 </div>
-<div id="sorting" class="section level2">
-<h2><span class="header-section-number">2.3</span> Sorting</h2>
+<div id="sorting" class="section level2" number="2.3">
+<h2 number="2.3"><span class="header-section-number">2.3</span> Sorting</h2>
 <div class="row">
 <div class="col-md-6">
 <div class="python">
@@ -879,8 +880,8 @@ mat[-2,]
 arr = np.random.randn(10)
 
 arr
-## array([-0.05534689, -1.91333394,  1.26829846, -1.57450142, -0.18395722,
-##        -0.76031109, -0.1283583 , -0.04303842,  0.47865569, -2.18623966])
+## array([ 0.1909127 , -0.80776392,  1.23701798, -0.80133688, -0.19534472,
+##         0.70470071,  0.57060057,  0.04694371, -0.49579639, -0.10471733])
 arr.sort()
 </code></pre>
 <pre class="python"><code># Python 
@@ -888,10 +889,10 @@ arr.sort()
 arr = np.random.randn(4,3)
 
 arr
-## array([[ 0.61061239,  0.54304179,  1.12110101],
-##        [-0.30100014, -2.19439175,  0.81137824],
-##        [ 1.40500845, -1.47357679, -0.88083396],
-##        [-0.05806414,  0.42385686,  0.60166642]])
+## array([[-0.3686882 , -0.94861888, -0.4282952 ],
+##        [ 0.4502898 ,  0.49218971,  2.06196401],
+##        [-1.05419983,  3.03251775,  2.36080367],
+##        [-0.29686438,  1.01843272,  0.09371542]])
 arr.sort(1)
 </code></pre>
 </div>
@@ -903,34 +904,34 @@ arr.sort(1)
 arr &lt;- runif(10)
 
 arr
-##  [1] 0.3587907 0.6604005 0.3493275 0.2968597 0.6134442 0.5627736 0.2376900
-##  [8] 0.2051303 0.2501417 0.5024596
+##  [1] 0.40640333 0.86979055 0.50719659 0.01018125 0.75554270 0.49805405
+##  [7] 0.85644079 0.36789341 0.51176759 0.21135712
 sort(arr)
-##  [1] 0.2051303 0.2376900 0.2501417 0.2968597 0.3493275 0.3587907 0.5024596
-##  [8] 0.5627736 0.6134442 0.6604005</code></pre>
+##  [1] 0.01018125 0.21135712 0.36789341 0.40640333 0.49805405 0.50719659
+##  [7] 0.51176759 0.75554270 0.85644079 0.86979055</code></pre>
 <pre class="r"><code># R
 
 arr &lt;- matrix(runif(4*3),4,3)
 
 arr
-##            [,1]      [,2]       [,3]
-## [1,] 0.48748980 0.8262806 0.45799982
-## [2,] 0.70065077 0.6296590 0.38898924
-## [3,] 0.06511509 0.2398506 0.22916020
-## [4,] 0.27121141 0.9123559 0.04561813
+##            [,1]      [,2]      [,3]
+## [1,] 0.75087845 0.9102698 0.6369779
+## [2,] 0.24853844 0.8528263 0.2142201
+## [3,] 0.76444157 0.3291956 0.8706128
+## [4,] 0.07193228 0.8156847 0.3337128
 apply(arr,MARGIN = 2, FUN = sort)
-##            [,1]      [,2]       [,3]
-## [1,] 0.06511509 0.2398506 0.04561813
-## [2,] 0.27121141 0.6296590 0.22916020
-## [3,] 0.48748980 0.8262806 0.38898924
-## [4,] 0.70065077 0.9123559 0.45799982</code></pre>
+##            [,1]      [,2]      [,3]
+## [1,] 0.07193228 0.3291956 0.2142201
+## [2,] 0.24853844 0.8156847 0.3337128
+## [3,] 0.75087845 0.8528263 0.6369779
+## [4,] 0.76444157 0.9102698 0.8706128</code></pre>
 </div>
 </div>
 </div>
 </div>
 </div>
-<div id="conditional-logic-on-array" class="section level1">
-<h1><span class="header-section-number">3</span> Conditional Logic on array</h1>
+<div id="conditional-logic-on-array" class="section level1" number="3">
+<h1 number="3"><span class="header-section-number">3</span> Conditional Logic on array</h1>
 <p>Imagine two square matrices representing interaction between entities. Each matrix is a basic network: having interaction = 1, no interaction = 0. You want to know if two entities that are linked in one network are also linked in an other network. Instead of checking each entities interaction sequentially in a loop, one can simply use matrix to do element-wise calculation and get the same answer.</p>
 <div class="row">
 <div class="col-md-6">
@@ -977,8 +978,8 @@ network_12
 </div>
 </div>
 </div>
-<div id="select-specific-elements" class="section level2">
-<h2><span class="header-section-number">3.1</span> Select specific elements</h2>
+<div id="select-specific-elements" class="section level2" number="3.1">
+<h2 number="3.1"><span class="header-section-number">3.1</span> Select specific elements</h2>
 <div class="row">
 <div class="col-md-6">
 <div class="python">
@@ -1023,11 +1024,11 @@ t = time.time()
 results = [(i if i%2==0 else 0) for i in arr]
 time.time() - t
 
-## 0.10055661201477051
+## 0.1324150562286377
 t = time.time()
 results = np.where(arr%2!=0,0,arr)
 time.time() - t
-## 0.012943029403686523</code></pre>
+## 0.017920732498168945</code></pre>
 <pre class="python"><code># Python 
 
 arr = np.arange(20000000)
@@ -1037,11 +1038,11 @@ t = time.time()
 results = [(i if i%2==0 else 0) for i in arr]
 time.time() - t
 
-## 8.850279808044434
+## 12.344438552856445
 t = time.time()
 results = np.where(arr%2!=0,0,arr)
 time.time() - t
-## 0.34249019622802734</code></pre>
+## 0.84578537940979</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -1060,13 +1061,13 @@ for(i in 1:length(vec)){
   }
 }
 Sys.time() - t
-## Time difference of 0.08861303 secs
+## Time difference of 0.07865405 secs
 
 
 t &lt;- Sys.time()
 results &lt;- ifelse(vec%%2!=0,vec,0)
 Sys.time() - t
-## Time difference of 0.01891398 secs</code></pre>
+## Time difference of 0.01493287 secs</code></pre>
 <pre class="r"><code># R
 
 vec &lt;- seq(1,20000000)
@@ -1081,13 +1082,13 @@ for(i in 1:length(vec)){
   }
 }
 Sys.time() - t
-## Time difference of 6.453898 secs
+## Time difference of 6.414556 secs
 
 
 t &lt;- Sys.time()
 results &lt;- ifelse(vec%%2!=0,vec,0)
 Sys.time() - t
-## Time difference of 1.8987 secs
+## Time difference of 1.934487 secs
 
 
 ## other way using which
@@ -1095,13 +1096,13 @@ Sys.time() - t
 t &lt;- Sys.time()
 vec[which(vec%%2==0)] = 0
 Sys.time() - t 
-## Time difference of 1.206285 secs</code></pre>
+## Time difference of 1.209666 secs</code></pre>
 </div>
 </div>
 </div>
 </div>
-<div id="other-conditional-vectorization" class="section level2">
-<h2><span class="header-section-number">3.2</span> Other conditional vectorization</h2>
+<div id="other-conditional-vectorization" class="section level2" number="3.2">
+<h2 number="3.2"><span class="header-section-number">3.2</span> Other conditional vectorization</h2>
 <div class="row">
 <div class="r">
 <pre class="r"><code># R
@@ -1139,8 +1140,8 @@ case_when(
 </div>
 </div>
 </div>
-<div id="algebra" class="section level1">
-<h1><span class="header-section-number">4</span> Algebra</h1>
+<div id="algebra" class="section level1" number="4">
+<h1 number="4"><span class="header-section-number">4</span> Algebra</h1>
 <div class="row">
 <div class="col-md-6">
 <div class="python">
@@ -1240,8 +1241,8 @@ Beta
 </div>
 </div>
 </div>
-<div id="operation-on-array" class="section level1">
-<h1><span class="header-section-number">5</span> Operation on array</h1>
+<div id="operation-on-array" class="section level1" number="5">
+<h1 number="5"><span class="header-section-number">5</span> Operation on array</h1>
 <table>
 <thead>
 <tr class="header">
@@ -1346,11 +1347,11 @@ apply(network_12,MARGIN = 2,FUN = mean)
 </div>
 </div>
 </div>
-<div id="apply-familly-r" class="section level2">
-<h2><span class="header-section-number">5.1</span> Apply familly (R)</h2>
+<div id="apply-familly-r" class="section level2" number="5.1">
+<h2 number="5.1"><span class="header-section-number">5.1</span> Apply familly (R)</h2>
 <p>The apply() family allows to manipulate slices of data from matrices, arrays, lists and dataframes in a repetitive way. It avoid explicit use of loop constructs. They act on an input list, matrix or array and apply a function with one or several optional arguments.</p>
-<div id="apply" class="section level3">
-<h3><span class="header-section-number">5.1.1</span> apply</h3>
+<div id="apply" class="section level3" number="5.1.1">
+<h3 number="5.1.1"><span class="header-section-number">5.1.1</span> apply</h3>
 <p>apply takes a matrix as input, transform it by row or by columns and returns a matrix</p>
 <div class="r">
 <pre class="r"><code># R
@@ -1370,8 +1371,8 @@ apply(mat_1,MARGIN = 2,FUN = function(x){x**2})
 ## [4,]   16   64  144  256</code></pre>
 </div>
 </div>
-<div id="lapply" class="section level3">
-<h3><span class="header-section-number">5.1.2</span> lapply</h3>
+<div id="lapply" class="section level3" number="5.1.2">
+<h3 number="5.1.2"><span class="header-section-number">5.1.2</span> lapply</h3>
 <p>lapply takes a list as input, transform it and returns a list.</p>
 <div class="r">
 <pre class="r"><code># R
@@ -1410,8 +1411,8 @@ lapply(list_1,FUN = sum)
 ## [1] 67.5</code></pre>
 </div>
 </div>
-<div id="sapply" class="section level3">
-<h3><span class="header-section-number">5.1.3</span> sapply</h3>
+<div id="sapply" class="section level3" number="5.1.3">
+<h3 number="5.1.3"><span class="header-section-number">5.1.3</span> sapply</h3>
 <p>sapply takes a list as input, transform it and returns a matrix.</p>
 <div class="r">
 <pre class="r"><code># R
@@ -1454,8 +1455,8 @@ sapply(list_1,FUN = sum)
 ## [1] 136  72</code></pre>
 </div>
 </div>
-<div id="mapply" class="section level3">
-<h3><span class="header-section-number">5.1.4</span> mapply</h3>
+<div id="mapply" class="section level3" number="5.1.4">
+<h3 number="5.1.4"><span class="header-section-number">5.1.4</span> mapply</h3>
 <p>mapply is used for ‘multivariate’ apply. The main goal is to vectorize arguments to a function that is not usually accepting vectors as arguments. Depending on the size of the outputs it return a matrix or a list.</p>
 <div class="r">
 <pre class="r"><code># R
@@ -1488,8 +1489,8 @@ mapply(FUN = function(x,y,z){seq(x,y,length.out = z)},1,1:5,1:5)
 </div>
 </div>
 </div>
-<div id="map-python" class="section level2">
-<h2><span class="header-section-number">5.2</span> Map (Python)</h2>
+<div id="map-python" class="section level2" number="5.2">
+<h2 number="5.2"><span class="header-section-number">5.2</span> Map (Python)</h2>
 <p>In python we can use <code>map</code> to do the same thing than apply familly in R with a bit of manipulation.</p>
 <p><code>map</code> takes different kind of input, it transforms it by row if the object is an array and returns an iterator.You can then transform this into a list or an array.</p>
 <div class="python">
@@ -1499,7 +1500,7 @@ arr_1 = np.arange(1,17).reshape([4,4], order = &#39;F&#39;)
 
 # by row, by columns you need to tranpose the array
 map(np.sum,arr_1)
-## &lt;map object at 0x000000003174A708&gt;
+## &lt;map object at 0x00000000278FFE08&gt;
 list(map(np.sum,arr_1))
 ## [28, 32, 36, 40]
 np.fromiter(map(sum,arr_1.T), dtype = np.int)
@@ -1548,22 +1549,32 @@ df_1.apply(sum)
 </div>
 </div>
 </div>
-<div id="exercices" class="section level1">
-<h1><span class="header-section-number">6</span> Exercices</h1>
-<div id="exercice-1" class="section level2">
-<h2><span class="header-section-number">6.1</span> Exercice 1</h2>
+<div id="exercices" class="section level1" number="6">
+<h1 number="6"><span class="header-section-number">6</span> Exercices</h1>
+<div id="exercice-1" class="section level2" number="6.1">
+<h2 number="6.1"><span class="header-section-number">6.1</span> Exercice 1</h2>
 <p>The series, <span class="math inline">\(1^{1} + 2^{2} + 3^{3} + ... + 10^{10} = 10405071317\)</span>.</p>
 <p>Find the last ten digits of the series, <span class="math inline">\(1^{1} + 2^{2} + 3^{3} + ... + 1000^{1000}\)</span>.</p>
 </div>
-<div id="exercice-2" class="section level2">
-<h2><span class="header-section-number">6.2</span> Exercice 2</h2>
+<div id="exercice-2" class="section level2" number="6.2">
+<h2 number="6.2"><span class="header-section-number">6.2</span> Exercice 2</h2>
 <p>Try to vectorize exercices from chapter 1, you can also compare it with apply/map functions.</p>
 </div>
-<div id="exercice-3" class="section level2">
-<h2><span class="header-section-number">6.3</span> Exercice 3</h2>
+<div id="exercice-3" class="section level2" number="6.3">
+<h2 number="6.3"><span class="header-section-number">6.3</span> Exercice 3</h2>
 <p>2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder.</p>
-<p>What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?</p>
-<p><a href="exo_chap_2.html">Solutions</a></p>
+<p>What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20? ## Solutions</p>
+<p><a href="exo_chap_2.html">Solutions for exercice 1, 2 and 3</a></p>
+</div>
+<div id="exercice-4" class="section level2" number="6.4">
+<h2 number="6.4"><span class="header-section-number">6.4</span> Exercice 4</h2>
+<p>A palindromic number reads the same both ways. The largest palindrome made from the product of two 2-digit numbers is 9009 = 91 × 99.</p>
+<p>Find the largest palindrome made from the product of two 3-digit numbers.</p>
+</div>
+<div id="execrice-5" class="section level2" number="6.5">
+<h2 number="6.5"><span class="header-section-number">6.5</span> Execrice 5</h2>
+<p><span class="math inline">\(2^{15} = 32768\)</span> and the sum of its digits is 3 + 2 + 7 + 6 + 8 = 26.</p>
+<p>What is the sum of the digits of the number <span class="math inline">\(2^{1000}\)</span>?</p>
 </div>
 </div>
 
