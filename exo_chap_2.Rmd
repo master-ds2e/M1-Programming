@@ -27,14 +27,14 @@ Find the last ten digits of the series, $1^{1} + 2^{2} + 3^{3} + ... + 1000^{100
 
 <div class = "r">
 ```{r}
-# Wrong answer using R ..
+# R
 
 1000**1000
 
 library(gmp)
 
 sum_n_power_last_digit <- function(n, last_digit){
-  sum_n = stringr::str_split(as.character(sum(gmp::as.bigz(seq(1:n)**seq(1:n)))),'')[[1]]
+  sum_n = stringr::str_split(as.character(sum(as.bigz(seq(1, n))**(seq(1, n)))),'')[[1]]
   return(sum_n[(length(sum_n)-last_digit):length(sum_n)])
 }
 
@@ -375,6 +375,7 @@ time.time() - t
 ```{python}
 # Python
 import numpy as np
+import time
 
 t = time.time() 
 seq = np.arange(11,21)
@@ -390,4 +391,19 @@ time.time() - t
 
 </div>
 
+
+# Exercice 4
+```{python}
+np.sum(np.array(list(str(2**1000)),dtype=np.int))
+
+```
+
+# Exercice 5
+
+```{python}
+three_digits = np.arange(100,1000)
+products = np.repeat(three_digits, len(three_digits))*np.tile(three_digits,len(three_digits))
+palindromes = np.fromiter(map(lambda x: x if str(x)[:int(len(str(x))/2)]==str(x)[int(len(str(x))/2):][::-1] else 0,products),dtype = int)
+np.max(palindromes)
+```
 <a href="3_Arrays_Vectors.html"> Go back to chapter 2</a>
