@@ -418,7 +418,7 @@ t = Sys.time()
 sum_n_power_last_digit(1000,10)
 ##  [1] &quot;1&quot; &quot;9&quot; &quot;1&quot; &quot;1&quot; &quot;0&quot; &quot;8&quot; &quot;4&quot; &quot;6&quot; &quot;7&quot; &quot;0&quot; &quot;0&quot;
 Sys.time() - t
-## Time difference of 0.01692104 secs</code></pre>
+## Time difference of 0.01692414 secs</code></pre>
 </div>
 <div id="python" class="section level2">
 <h2><span class="header-section-number">1.1</span> Python</h2>
@@ -446,7 +446,7 @@ time.time() - t
 
 
 # In a function with python object
-## 0.023894786834716797
+## 0.022899627685546875
 def sum_n_power_last_digit(n,last_digit):
   sum_n = np.sum(np.power(np.arange(1,n+1, dtype=&quot;object&quot;),np.arange(1,n+1, dtype=&quot;object&quot;)))
   return str(sum_n)[-last_digit:]
@@ -455,7 +455,7 @@ t = time.time()
 sum_n_power_last_digit(1000,10)
 ## &#39;9110846700&#39;
 time.time() - t
-## 0.023894548416137695</code></pre>
+## 0.02389693260192871</code></pre>
 </div>
 </div>
 </div>
@@ -482,7 +482,7 @@ t &lt;- Sys.time()
 get_sum_multiples_below1(10000,3,5)
 ## [1] 23331668
 Sys.time() - t
-## Time difference of 0.02289891 secs
+## Time difference of 0.02090716 secs
 
 
 
@@ -496,7 +496,7 @@ t &lt;- Sys.time()
 get_sum_multiples_below2(10000,3,5)
 ## [1] 23331668
 Sys.time() - t
-## Time difference of 0.02887607 secs
+## Time difference of 0.02986693 secs
 
 
 
@@ -510,7 +510,7 @@ t &lt;- Sys.time()
 get_sum_multiples_below3(10000,3,5)
 ## [1] 23331668
 Sys.time() - t
-## Time difference of 0.002987146 secs</code></pre>
+## Time difference of 0.002989054 secs</code></pre>
 </div>
 </div>
 <div id="python-1" class="section level3">
@@ -532,7 +532,7 @@ get_sum_multiples_below1(10000,3,5)
 ## 23331668
 time.time() - t
 
-## 0.01493525505065918
+## 0.011944770812988281
 def get_sum_multiples_below2(below,mutiple_1,multiple_2):
   multiples = [i if ((i % mutiple_1 == 0) or (i % multiple_2 == 0)) else 0 for i in range(below)]
   return sum(multiples)
@@ -542,7 +542,7 @@ get_sum_multiples_below2(10000,3,5)
 ## 23331668
 time.time() - t
 
-## 0.012942790985107422
+## 0.012944221496582031
 def get_sum_multiples_below3(below,mutiple_1,multiple_2):
   seq = list(range(below))
   multiples = map(lambda i: i if ((i % mutiple_1 == 0) or (i % multiple_2 == 0)) else 0, seq) 
@@ -553,7 +553,7 @@ get_sum_multiples_below3(10000,3,5)
 ## 23331668
 time.time() - t
 
-## 0.013939857482910156
+## 0.011945962905883789
 def get_sum_multiples_below4(below,mutiple_1,multiple_2):
   seq = np.arange(below)
   seq = seq[((seq % mutiple_1 == 0) | (seq % multiple_2 == 0))]
@@ -563,7 +563,16 @@ t = time.time()
 get_sum_multiples_below4(10000,3,5)
 ## 23331668
 time.time() - t
-## 0.011947154998779297</code></pre>
+
+
+# Mohammad
+## 0.010951042175292969
+t = time.time()
+div = sum(list(filter(lambda x: x % 3 == 0 or x % 5 == 0, range(1,1000))))
+print(div)
+## 233168
+time.time() - t
+## 0.01891922950744629</code></pre>
 </div>
 </div>
 </div>
@@ -602,7 +611,7 @@ t &lt;- Sys.time()
 nth_prime(10001)
 ## [1] 104743
 Sys.time() - t
-## Time difference of 1.558651 secs
+## Time difference of 1.621164 secs
 
 
 nth_prime2 &lt;- function(nth){
@@ -623,7 +632,7 @@ t &lt;- Sys.time()
 nth_prime2(10001)
 ## [1] 104743
 Sys.time() - t
-## Time difference of 2.399162 secs</code></pre>
+## Time difference of 2.407747 secs</code></pre>
 </div>
 </div>
 <div id="python-2" class="section level3">
@@ -659,7 +668,7 @@ print(p)
 time.time() - t
 
 # Corentin
-## 0.1802051067352295
+## 0.17821574211120605
 import math
 
 def return_ith_prime(ith):
@@ -676,7 +685,7 @@ print(return_ith_prime(10001))
 ## 104743
 time.time() - t
 
-## 0.2847452163696289
+## 0.2927110195159912
 def nth_prime2(nth):
   primes = [2,3]
   i = 3
@@ -694,7 +703,7 @@ t = time.time()
 nth_prime2(10001)
 ## 104743
 time.time() - t
-## 0.8091869354248047</code></pre>
+## 0.8412928581237793</code></pre>
 </div>
 </div>
 </div>
@@ -708,19 +717,31 @@ time.time() - t
 <div class="r">
 <pre class="r"><code># R
 
+smallest_multiple &lt;- function(n){
+    i = 0
+    results = 1
+    exp = 5
+    while(i&lt;n){
+        i = ifelse(i+9 &lt; n,i+10,n)
+        limit = 10**exp
+        exp = exp +5
+        
+        seq_ = seq(i-9,i)
+        integer = seq(results,limit,results)
+        integer = matrix(rep(integer,length(seq_)),length(integer),length(seq_))
+        divider = matrix(rep(seq_,dim(integer)[1]),dim(integer)[1],length(seq_),byrow = T)
+        results = apply(integer%%divider,1,FUN = base::sum)==0 
+        results = min(integer[results,])
+        
+    }
+    return(results)
+    }
+
 t = Sys.time() 
- 
-seq_ = seq(11,21)
-integer = seq(2520,10**9,2520)
-integers = matrix(rep(integer,length(seq_)),length(integer),length(seq_))
-divider = matrix(rep(seq_,dim(integers)[1]),dim(integers)[1],length(seq_),byrow = T)
-
-results = apply(integers%%divider,1,FUN = sum)==0
-min(integer[results])
+smallest_multiple(20)
 ## [1] 232792560
-
 Sys.time() - t
-## Time difference of 0.813412 secs</code></pre>
+## Time difference of 10.98003 secs</code></pre>
 </div>
 </div>
 <div id="python-3" class="section level2">
@@ -748,28 +769,168 @@ print(smallest_multiple(np.arange(1, 21)))
 ## 232792560
 time.time() - t
 
-## 94.2423746585846</code></pre>
+## 96.5624418258667</code></pre>
 <pre class="python"><code># Python
+
 import numpy as np
+import time
 
 t = time.time() 
-seq = np.arange(11,21)
-integer = np.arange(2520,10**9,2520)
-divider = np.ones([len(integer),1])*seq
-integer = np.array([integer]*len(seq)).T
-
-results = integer[np.where(np.fromiter(map(sum,np.mod(integer,divider)), dtype = int) == 0)]
-np.min(results)
-## 232792560
+def smallest_multiple(n):
+    i = 0
+    results = 1
+    exp = 5
+    while i&lt;n:
+        i = i+10 if (i+9) &lt; n else n
+        limit = 10**exp
+        exp += 5
+        
+        seq = np.arange(i-9,i+1)
+        integer = np.arange(results,limit,results)
+        divider = np.ones([len(integer),1])*seq
+        integer = np.array([integer]*len(seq)).T
+        results = np.min(integer[np.where(np.fromiter(map(sum,np.mod(integer,divider)), dtype = int) == 0)])
+    return results
+    
 time.time() - t
-## 1.2671196460723877</code></pre>
+## 0.009959936141967773
+smallest_multiple(20)
+## 232792560
+t = time.time() </code></pre>
+<pre class="python"><code># Python
+# Mohammad
+import numpy as np
+import pandas as pd
+import time
+import math
+import time
+
+def DivisibleParN(N):
+    ##Calcul des nombres premiers qui sont inférieurs à N et les stocker dans jj
+    global jj
+    jj=[1]
+    XX=[1]
+    YY=[1]
+    ZZ=[1]
+    Di=np.arange(2,N+1)
+    Seq2=np.arange(2,3)
+    Seq3=np.arange(2,int(math.sqrt(Seq2[-1]))+1,1)
+    n=0
+    while jj[-1]&lt;N:
+          if all (Seq2[-1]%x!=0 for x in Seq3):
+                jj=np.append(jj,Seq2[-1])
+                Seq2=np.append(Seq2,Seq2[-1]+1)
+                Seq3=np.arange(2,int(math.sqrt(Seq2[-1]))+1,1)
+          else:
+                Seq2=np.append(Seq2,Seq2[-1]+1)
+                Seq3=np.arange(2,int(math.sqrt(Seq2[-1]))+1,1)
+    jj=jj[0:(len(jj)-1)]
+
+    #########Calcul du plus petit commun multiple
+    for x in Di:
+        for y in Di:
+            if ((round(x ** (1 / y)) ** y == x)&amp;(x ** (1 / y)in jj)):
+                ZZ=np.append(ZZ,x ** (1 / y))
+                XX=np.append(XX,x)
+                YY=np.append(YY,y)
+    V=pd.DataFrame(dict(XX=XX, YY=YY,ZZ=ZZ))
+     
+    # Trouver la factorisation où il se produit le plus.(ex: entre 4, 8 et 16 on on va garder que le 16)
+    V_mod = V.drop_duplicates(subset=[&#39;ZZ&#39;], keep=&#39;last&#39;)
+    number_column = V_mod.loc[:,&#39;XX&#39;]
+    numbers = number_column.values
+    for ii in jj:
+        if all (x%ii!=0 for x in numbers): numbers = np.append(numbers,ii)
+    return np.prod(numbers)
+    
+t = time.time()
+print (DivisibleParN(20),&#39;est divisible par tous les chiffres.&#39;)
+## 232792560 est divisible par tous les chiffres.
+time.time() - t
+## 0.023894548416137695</code></pre>
 </div>
 </div>
 </div>
 <div id="exercice-4" class="section level1">
 <h1><span class="header-section-number">4</span> Exercice 4</h1>
-<p>np.sum(np.array(list(str(2**1000)),dtype=np.int))</p>
-<p>three_digits = np.arange(100,1000) products = np.repeat(three_digits, len(three_digits))*np.tile(three_digits,len(three_digits)) palindromes = np.fromiter(map(lambda x: x if str(x)[:int(len(str(x))/2)]==str(x)[int(len(str(x))/2):][::-1] else 0,products),dtype = int) np.max(palindromes) <a href="3_Arrays_Vectors.html"> Go back to chapter 2</a></p>
+<pre class="python"><code>np.sum(np.array(list(str(2**1000)),dtype=np.int))
+
+# Nikola
+## 1366
+print(sum(int(i) for i in str(2**1000)))
+## 1366</code></pre>
+</div>
+<div id="exercice-5" class="section level1">
+<h1><span class="header-section-number">5</span> Exercice 5</h1>
+<pre class="python"><code># Python
+# Tamara
+
+import numpy as np
+import time
+ 
+t = time.time()
+
+def isPalindrome(p):
+    for i in range (p.size//2):
+        if p[i]!=p[-i-1]:
+            return False
+    return True
+
+def cutNb(n):
+    count=10
+    res=np.array([])
+    while n//10 != 0:
+        res=np.append(res,[n%10])
+        n=n//10
+    res=np.append(res,[n%10])
+    return np.flip(res)  #inverse l&#39;ordre de la liste
+
+maxpal=0
+maxi=0
+maxj=100
+
+for i in range(999, 100, -1):
+    for j in range(i, maxj, -1): 
+        if isPalindrome(cutNb(i*j)):
+            if maxpal&lt;i*j: 
+                maxpal=i*j
+                maxi=i
+                maxj=j
+            break
+   
+            
+
+print(&#39;le palindrome est:&#39;,maxpal,&#39;avec i=&#39;,maxi,&#39;et j=&#39;,maxj)
+## le palindrome est: 906609 avec i= 993 et j= 913
+time.time() - t   
+
+# Julian
+## 0.3484625816345215
+t = time.time()
+pal = []
+for i in range(100, 1000):
+    for x in range(100, 1000):
+        n = str(i*x)
+        if n[0] == n[-1] and n[1] == n[-2] and n[2] == n[-3]:
+            pal.append(i*x)
+
+
+print(max(pal))
+## 906609
+time.time() - t
+
+#
+## 0.4012303352355957
+t = time.time()
+three_digits = np.arange(100,1000)
+products = np.repeat(three_digits, len(three_digits))*np.tile(three_digits,len(three_digits))
+palindromes = list(filter(lambda x: str(x)==str(x)[::-1],list(products)))
+print(max(palindromes))
+## 906609
+time.time() - t
+
+## 1.3500995635986328</code></pre>
+<p><a href="3_Arrays_Vectors.html"> Go back to chapter 2</a></p>
 </div>
 
 

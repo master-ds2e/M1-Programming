@@ -552,7 +552,7 @@ wd_info = &#39;\nCurrent working directory: &#39;
 infos = time_info+time_+wd_info+wd
 
 print(infos)
-## Time: Tue Jan 26 10:42:54 2021
+## Time: Tue Jan 26 23:30:09 2021
 ## Current working directory: C:\Users\Beta\Documents\GitHub\M1_TDP</code></pre>
 <p>In R we use cat() to take into account ‘’ (new line), Python automatically understand it with print.</p>
 </div>
@@ -569,10 +569,10 @@ wd_info = &#39;\nCurrent working directory: &#39;
 infos &lt;- paste0(time_info,time_,
            wd_info,wd)
 print(infos) 
-## [1] &quot;Time: 2021-01-26 10:42:54\nCurrent working directory: C:/Users/Beta/Documents/GitHub/M1_TDP&quot;
+## [1] &quot;Time: 2021-01-26 23:30:09\nCurrent working directory: C:/Users/Beta/Documents/GitHub/M1_TDP&quot;
 
 cat(infos) 
-## Time: 2021-01-26 10:42:54
+## Time: 2021-01-26 23:30:09
 ## Current working directory: C:/Users/Beta/Documents/GitHub/M1_TDP</code></pre>
 </div>
 </div>
@@ -655,26 +655,15 @@ def get_infos_3():
   
   
 
-t = time.time()
 get_infos()
-## Time: Tue Jan 26 10:42:54 2021
+## Time: Tue Jan 26 23:30:09 2021
 ## Current working directory: C:\Users\Beta\Documents\GitHub\M1_TDP
-print(time.time()-t)
-
-## 0.015887737274169922
-t = time.time()
 get_infos_2()
-## Time: Tue Jan 26 10:42:54 2021 
+## Time: Tue Jan 26 23:30:09 2021 
 ##   Current working directory: C:\Users\Beta\Documents\GitHub\M1_TDP
-print(time.time()-t)
-## 0.008965015411376953
-t = time.time()
 get_infos_3()
-## Time: Tue Jan 26 10:42:54 2021 
-##   Current working directory: C:\Users\Beta\Documents\GitHub\M1_TDP
-print(time.time()-t)
-
-## 0.008958578109741211</code></pre>
+## Time: Tue Jan 26 23:30:09 2021 
+##   Current working directory: C:\Users\Beta\Documents\GitHub\M1_TDP</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -701,19 +690,13 @@ get_infos_2&lt;- function(){
   writeLines(infos) # other way of take into account escape character
 }
 
-t = Sys.time()
 get_infos()
-## Time: 2021-01-26 10:42:54
+## Time: 2021-01-26 23:30:09
 ## Current working directory: C:/Users/Beta/Documents/GitHub/M1_TDP
-Sys.time()-t
-## Time difference of 0.002035856 secs
 
-t = Sys.time()
 get_infos_2()
-## Time: 2021-01-26 10:42:54 
-##   Current working directory: C:/Users/Beta/Documents/GitHub/M1_TDP
-Sys.time()-t
-## Time difference of 0.001993179 secs</code></pre>
+## Time: 2021-01-26 23:30:09 
+##   Current working directory: C:/Users/Beta/Documents/GitHub/M1_TDP</code></pre>
 </div>
 </div>
 </div>
@@ -737,37 +720,53 @@ connected layers we employed a new regularization method that proved to be very 
 <ul>
 <li><p>Regex are a way to express how a character sequence should be matched, it is a a very flexible tool. Regular expression are commonly used in text manipulation, usually such patterns are used by string-searching algorithms for “find” or “find and replace” operations on strings, or for input validation.</p></li>
 <li><p>Except for control characters, (+ ? . * ^ $ ( ) [ ] { } | ), all characters match themselves. You can escape a control character by preceding it with a backslash.</p></li>
-<li><p>Some functions in the re module :</p></li>
+<li><p>Some functions in ‘re’ (Python) and ‘stingr’(R) :</p></li>
 </ul>
 <table>
+<colgroup>
+<col width="20%" />
+<col width="40%" />
+<col width="40%" />
+</colgroup>
 <thead>
 <tr class="header">
-<th>Function</th>
+<th>Re</th>
+<th align="left">Stringr</th>
 <th align="right">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>findall</td>
+<td align="left">str_match_all</td>
 <td align="right">Returns a list containing all matches</td>
 </tr>
 <tr class="even">
-<td>search</td>
-<td align="right">Returns a Match object if there is a match anywhere in the string</td>
+<td>finditer</td>
+<td align="left"></td>
+<td align="right">Returns a iterator containing all matches</td>
 </tr>
 <tr class="odd">
-<td>split</td>
-<td align="right">Returns a list where the string has been split at each match</td>
+<td>search</td>
+<td align="left">str_locate_all</td>
+<td align="right">Returns a Match object if there is a match anywhere in the string</td>
 </tr>
 <tr class="even">
+<td>split</td>
+<td align="left">str_split</td>
+<td align="right">Returns a list where the string has been split at each match</td>
+</tr>
+<tr class="odd">
 <td>sub</td>
+<td align="left">str_replace_all</td>
 <td align="right">Replaces one or many matches with a string</td>
 </tr>
 </tbody>
 </table>
 <ul>
-<li>Metacharacters are characters with a special meaning in Regex:</li>
+<li>Metacharacters are characters with a special meaning in Regex, their uses are discussed in more detail in the next few sections :</li>
 </ul>
+<p>parentheses can be used for grouping. Square brackets define a character class, and curly braces are used by a quantifier with specific limits.</p>
 <table>
 <colgroup>
 <col width="20%" />
@@ -825,7 +824,12 @@ connected layers we employed a new regularization method that proved to be very 
 <tr class="odd">
 <td>|</td>
 <td align="left">Either or</td>
-<td align="right">“falls|stays”</td>
+<td align="right">“x|y”</td>
+</tr>
+<tr class="even">
+<td>()</td>
+<td align="left">Grouping characters (or other regexes)</td>
+<td align="right">“(ab)\1” matches “abab”</td>
 </tr>
 </tbody>
 </table>
@@ -837,13 +841,20 @@ import re
 
 abstract = open(&quot;data/imagenet_abstract.txt&quot;, &quot;r&quot;).read()
  
-re.search(&#39;deep&#39;,abstract)
-## &lt;re.Match object; span=(23, 27), match=&#39;deep&#39;&gt;
-re.findall(&#39;deep&#39;,abstract)
-## [&#39;deep&#39;]
-re.sub(r&#39;\\&#39;,&#39;&#39;,abstract)
+re.search(&#39;layers&#39;,abstract)
+## &lt;re.Match object; span=(437, 443), match=&#39;layers&#39;&gt;
+re.findall(&#39;layers&#39;,abstract)
+## [&#39;layers&#39;, &#39;layers&#39;, &#39;layers&#39;, &#39;layers&#39;]
+re.findall(&#39;net+&#39;,&#39;net ne nett networks&#39;)
+## [&#39;net&#39;, &#39;nett&#39;, &#39;net&#39;]
+re.findall(&#39;net*&#39;,&#39;net ne nett networks&#39;)
 
-## &#39;&lt;p&gt;We trained a large, deep convolutional neural network to classify the 1.3 million high-resolution images in the LSVRC-2010 ImageNet training set into the 1000 different classes. On the test data, we achieved top-1 and top-5 error rates of 39.7% and 18.9% which is considerably better than the previous state-of-the-art results. The neural network, which has 60 million parameters and 500,000 neurons, consists of five convolutional layers, some of which are followed by max-pooling layers, and two globally connected layers with a final 1000-way softmax. To make training faster, we used non-saturating neurons and a very efficient GPU implementation of convolutional nets. To reduce overfitting in the globally connected layers we employed a new regularization method that proved to be very effective.&lt;/p&gt;&#39;</code></pre>
+## [&#39;net&#39;, &#39;ne&#39;, &#39;nett&#39;, &#39;net&#39;]
+re.sub(r&#39;\\&#39;,&#39;&#39;,abstract)
+## &#39;&lt;p&gt;We trained a large, deep convolutional neural network to classify the 1.3 million high-resolution images in the LSVRC-2010 ImageNet training set into the 1000 different classes. On the test data, we achieved top-1 and top-5 error rates of 39.7% and 18.9% which is considerably better than the previous state-of-the-art results. The neural network, which has 60 million parameters and 500,000 neurons, consists of five convolutional layers, some of which are followed by max-pooling layers, and two globally connected layers with a final 1000-way softmax. To make training faster, we used non-saturating neurons and a very efficient GPU implementation of convolutional nets. To reduce overfitting in the globally connected layers we employed a new regularization method that proved to be very effective.&lt;/p&gt;&#39;
+re.split(&#39; &#39;,abstract)[:5]
+
+## [&#39;&lt;p&gt;We&#39;, &#39;trained&#39;, &#39;a&#39;, &#39;large,&#39;, &#39;deep&#39;]</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -854,18 +865,120 @@ library(readr)
 
 abstract &lt;- as.character(read_file(&#39;data/imagenet_abstract.txt&#39;))
   
-str_locate_all(pattern = &#39;deep&#39;,abstract)
+str_locate_all(pattern = &#39;layers&#39;,abstract)
 ## [[1]]
 ##      start end
-## [1,]    24  27
+## [1,]   438 443
+## [2,]   488 493
+## [3,]   523 528
+## [4,]   728 733
+
+str_locate_all(&#39;net+&#39;,&#39;net ne nett networks&#39;)
+## [[1]]
+##      start end
+
+str_locate_all(&#39;net*&#39;,&#39;net ne nett networks&#39;)
+## [[1]]
+##      start end
 
 str_replace_all(abstract,&#39;\\\\&#39;,&#39;&#39;)
-## [1] &quot;&lt;p&gt;We trained a large, deep convolutional neural network to classify the 1.3 million high-resolution images in the LSVRC-2010 ImageNet training set into the 1000 different classes. On the test data, we achieved top-1 and top-5 error rates of 39.7% and 18.9% which is considerably better than the previous state-of-the-art results. The neural network, which has 60 million parameters and 500,000 neurons, consists of five convolutional layers, some of which are followed by max-pooling layers, and two globally connected layers with a final 1000-way softmax. To make training faster, we used non-saturating neurons and a very efficient GPU implementation of convolutional nets. To reduce overfitting in the globally connected layers we employed a new regularization method that proved to be very effective.&lt;/p&gt;&quot;</code></pre>
+## [1] &quot;&lt;p&gt;We trained a large, deep convolutional neural network to classify the 1.3 million high-resolution images in the LSVRC-2010 ImageNet training set into the 1000 different classes. On the test data, we achieved top-1 and top-5 error rates of 39.7% and 18.9% which is considerably better than the previous state-of-the-art results. The neural network, which has 60 million parameters and 500,000 neurons, consists of five convolutional layers, some of which are followed by max-pooling layers, and two globally connected layers with a final 1000-way softmax. To make training faster, we used non-saturating neurons and a very efficient GPU implementation of convolutional nets. To reduce overfitting in the globally connected layers we employed a new regularization method that proved to be very effective.&lt;/p&gt;&quot;
+
+str_split(abstract,&#39; &#39;,simplify = T)[1:5]
+## [1] &quot;&lt;p&gt;We&quot;   &quot;trained&quot; &quot;a&quot;       &quot;large,&quot;  &quot;deep&quot;</code></pre>
+</div>
+</div>
+</div>
+<div id="anchors" class="section level2">
+<h2><span class="header-section-number">2.1</span> Anchors</h2>
+<p>This needs to specify match position.</p>
+<table>
+<colgroup>
+<col width="33%" />
+<col width="66%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Example</th>
+<th align="right">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>^Python</td>
+<td align="right">Match “Python” at the start of a string or internal line</td>
+</tr>
+<tr class="even">
+<td>Python$</td>
+<td align="right">Match “Python” at the end of a string or line</td>
+</tr>
+<tr class="odd">
+<td>\APython</td>
+<td align="right">Match “Python” at the start of a string</td>
+</tr>
+<tr class="even">
+<td>Python\Z</td>
+<td align="right">Match “Python” at the end of a string</td>
+</tr>
+<tr class="odd">
+<td>\bPython\b</td>
+<td align="right">Match “Python” at a word boundary</td>
+</tr>
+<tr class="even">
+<td>\brub\B</td>
+<td align="right">\B is nonword boundary: match “rub” in “rube” and “ruby” but not alone</td>
+</tr>
+<tr class="odd">
+<td>Python(?=!)</td>
+<td align="right">Match “Python”, if followed by an exclamation point.</td>
+</tr>
+<tr class="even">
+<td>Python(?!!)</td>
+<td align="right">Match “Python”, if not followed by an exclamation point.</td>
+</tr>
+</tbody>
+</table>
+<div class="row">
+<div class="col-md-6">
+<div class="python">
+<pre class="python"><code># Python 
+import re
+
+words = [&#39;neuron&#39;,&#39;neural&#39;,&#39;network&#39;,&#39;networks&#39;,&#39;deep convolutional neural network&#39;]
+
+[w for w in words if re.findall(r&#39;\Aneu&#39;,w)]
+## [&#39;neuron&#39;, &#39;neural&#39;]
+[w for w in words if re.findall(r&#39;^neu&#39;,w)]
+## [&#39;neuron&#39;, &#39;neural&#39;]
+[w for w in words if re.findall(r&#39;works?\Z&#39;,w)]
+## [&#39;network&#39;, &#39;networks&#39;, &#39;deep convolutional neural network&#39;]
+[w for w in words if re.findall(r&#39;works?$&#39;,w)]
+
+## [&#39;network&#39;, &#39;networks&#39;, &#39;deep convolutional neural network&#39;]</code></pre>
+</div>
+</div>
+<div class="col-md-6">
+<div class="r">
+<pre class="r"><code># R
+library(stringr)
+
+
+words = c(&#39;neuron&#39;,&#39;neural&#39;,&#39;network&#39;,&#39;networks&#39;,&#39;deep convolutional neural network&#39;)
+
+str_detect(words,&#39;\\Aneu&#39;)
+## [1]  TRUE  TRUE FALSE FALSE FALSE
+str_detect(words,&#39;^neu&#39;)
+## [1]  TRUE  TRUE FALSE FALSE FALSE
+str_detect(words,&#39;neu\\Z&#39;)
+## [1] FALSE FALSE FALSE FALSE FALSE
+str_detect(words,&#39;neu$&#39;)
+## [1] FALSE FALSE FALSE FALSE FALSE</code></pre>
+</div>
 </div>
 </div>
 </div>
 <div id="character-classes" class="section level2">
-<h2><span class="header-section-number">2.1</span> Character classes</h2>
+<h2><span class="header-section-number">2.2</span> Character classes</h2>
 <table>
 <thead>
 <tr class="header">
@@ -924,7 +1037,7 @@ re.findall(&#39;top-[15]&#39;,abstract)
 ## [&#39;top-1&#39;, &#39;top-5&#39;]
 re.finditer(&#39;[0-9]&#39;,abstract)
 
-## &lt;callable_iterator object at 0x0000000027BEEBC8&gt;</code></pre>
+## &lt;callable_iterator object at 0x000000002A0DFB88&gt;</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -976,7 +1089,7 @@ str_locate_all(abstract,&#39;[0-9]&#39;)
 </div>
 </div>
 <div id="special-character-classes" class="section level2">
-<h2><span class="header-section-number">2.2</span> Special Character Classes</h2>
+<h2><span class="header-section-number">2.3</span> Special Character Classes</h2>
 <table>
 <thead>
 <tr class="header">
@@ -1022,7 +1135,9 @@ str_locate_all(abstract,&#39;[0-9]&#39;)
 import re
 
 re.sub(&#39;\w&#39;,&#39;&#39;,abstract)
-## &#39;&lt;&gt;   ,        .  -    -        .    ,   -  -    .\\%  .\\%        --- .   ,       , ,     ,       - ,         - .    ,   -          .                    .&lt;/&gt;&#39;</code></pre>
+## &#39;&lt;&gt;   ,        .  -    -        .    ,   -  -    .\\%  .\\%        --- .   ,       , ,     ,       - ,         - .    ,   -          .                    .&lt;/&gt;&#39;
+re.search(&#39;\d&#39;,abstract)
+## &lt;re.Match object; span=(73, 74), match=&#39;1&#39;&gt;</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -1031,11 +1146,17 @@ re.sub(&#39;\w&#39;,&#39;&#39;,abstract)
 library(stringr)
 
 str_replace_all(abstract,&#39;\\w&#39;,&#39;&#39;)
-## [1] &quot;&lt;&gt;   ,        .  -    -        .    ,   -  -    .\\%  .\\%        --- .   ,       , ,     ,       - ,         - .    ,   -          .                    .&lt;/&gt;&quot;</code></pre>
+## [1] &quot;&lt;&gt;   ,        .  -    -        .    ,   -  -    .\\%  .\\%        --- .   ,       , ,     ,       - ,         - .    ,   -          .                    .&lt;/&gt;&quot;
+
+str_locate_all(&#39;\\d&#39;,abstract)
+## [[1]]
+##      start end</code></pre>
 </div>
 </div>
 </div>
-<p>##Repetition Cases</p>
+</div>
+<div id="repetition-cases" class="section level2">
+<h2><span class="header-section-number">2.4</span> Repetition Cases</h2>
 <table>
 <thead>
 <tr class="header">
@@ -1097,8 +1218,13 @@ import re
 
 re.findall(&#39;\d{2,4}&#39;,abstract)
 ## [&#39;2010&#39;, &#39;1000&#39;, &#39;39&#39;, &#39;18&#39;, &#39;60&#39;, &#39;500&#39;, &#39;000&#39;, &#39;1000&#39;]
-re.findall(&#39;&lt;.*?&gt;&#39;,abstract)
-## [&#39;&lt;p&gt;&#39;, &#39;&lt;/p&gt;&#39;]</code></pre>
+re.findall(r&#39;[[].*[]]&#39;,r&#39;[[Hello] World]&#39;)
+## [&#39;[[Hello] World]&#39;]
+## 
+## C:/Users/Beta/AppData/Local/Continuum/anaconda3/python.exe:1: FutureWarning: Possible nested set at position 1
+re.findall(r&#39;[[].*?[]]&#39;,r&#39;[[Hello] World]&#39;)
+
+## [&#39;[[Hello]&#39;]</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -1110,15 +1236,18 @@ str_extract_all(abstract,&#39;\\d{2,4}&#39;)
 ## [[1]]
 ## [1] &quot;2010&quot; &quot;1000&quot; &quot;39&quot;   &quot;18&quot;   &quot;60&quot;   &quot;500&quot;  &quot;000&quot;  &quot;1000&quot;
 
-str_extract_all(&#39;&lt;.*?&gt;&#39;,abstract)
+str_extract_all(&#39;[[Hello] World]&#39;,&#39;[\\[].*[\\]]&#39;)
 ## [[1]]
-## character(0)</code></pre>
+## [1] &quot;[[Hello] World]&quot;
+str_extract_all(&#39;[[Hello] World]&#39;,&#39;[\\[].*?[\\]]&#39;)
+## [[1]]
+## [1] &quot;[[Hello]&quot;</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div id="grouping-with-parentheses" class="section level2">
-<h2><span class="header-section-number">2.3</span> Grouping with Parentheses</h2>
+<h2><span class="header-section-number">2.5</span> Grouping with Parentheses</h2>
 <table>
 <thead>
 <tr class="header">
@@ -1135,30 +1264,65 @@ str_extract_all(&#39;&lt;.*?&gt;&#39;,abstract)
 <td>(\D\d)+</td>
 <td align="right">Grouped: + repeats \D\d pair</td>
 </tr>
-<tr class="odd">
-<td>([Pp]ython(, )?)+</td>
-<td align="right">Match “Python”, “Python, python, python”, etc.</td>
-</tr>
 </tbody>
 </table>
 <div class="row">
 <div class="col-md-6">
 <div class="python">
 <pre class="python"><code># Python 
-import re
-</code></pre>
+
+re.findall(&#39;[A-Z]\d+&#39;, &quot;A8 DF Z7 376 A28 A0A4A8&quot;)
+## [&#39;A8&#39;, &#39;Z7&#39;, &#39;A28&#39;, &#39;A0&#39;, &#39;A4&#39;, &#39;A8&#39;]
+re.findall(&#39;([A-Z]\d)+&#39;, &quot;A8 DF Z7 376 A28 A0A4A8&quot;)
+## [&#39;A8&#39;, &#39;Z7&#39;, &#39;A2&#39;, &#39;A8&#39;]
+re.findall(&#39;(?:[A-Z]\d)+&#39;, &quot;A8 DF Z7 376 A28 A0A4A8&quot;)
+# ?: in this context tells Python&#39;s regex library to not consider the parentheses as defining a capture. (It&#39;s still used for grouping)
+# normal capture group will hinder ability to get whole match
+# non-capturing group to the rescue
+## [&#39;A8&#39;, &#39;Z7&#39;, &#39;A2&#39;, &#39;A0A4A8&#39;]
+list(re.finditer(&#39;([A-Z]\d)+&#39;, &quot;A8 DF Z7 376 A28 A0A4A8&quot;))
+## [&lt;re.Match object; span=(0, 2), match=&#39;A8&#39;&gt;, &lt;re.Match object; span=(6, 8), match=&#39;Z7&#39;&gt;, &lt;re.Match object; span=(13, 15), match=&#39;A2&#39;&gt;, &lt;re.Match object; span=(17, 23), match=&#39;A0A4A8&#39;&gt;]
+[i.group() for i in re.finditer(&#39;[A-Z]\d+&#39;, &quot;A8 DF Z7 376 A28 A0A4A8&quot;)]
+## [&#39;A8&#39;, &#39;Z7&#39;, &#39;A28&#39;, &#39;A0&#39;, &#39;A4&#39;, &#39;A8&#39;]
+[i.group() for i in re.finditer(&#39;([A-Z]\d)+&#39;, &quot;A8 DF Z7 376 A28 A0A4A8&quot;)]
+## [&#39;A8&#39;, &#39;Z7&#39;, &#39;A2&#39;, &#39;A0A4A8&#39;]</code></pre>
 </div>
 </div>
 <div class="col-md-6">
 <div class="r">
 <pre class="r"><code># R
-library(stringr)</code></pre>
+library(stringr)
+str_match_all(pattern = &#39;[A-Z]\\d+&#39;, &quot;A8 DF Z7 376 A28 A0A4A8&quot;)
+## [[1]]
+##      [,1] 
+## [1,] &quot;A8&quot; 
+## [2,] &quot;Z7&quot; 
+## [3,] &quot;A28&quot;
+## [4,] &quot;A0&quot; 
+## [5,] &quot;A4&quot; 
+## [6,] &quot;A8&quot;
+
+str_match_all(pattern = &#39;([A-Z]\\d)+&#39;, &quot;A8 DF Z7 376 A28 A0A4A8&quot;)
+## [[1]]
+##      [,1]     [,2]
+## [1,] &quot;A8&quot;     &quot;A8&quot;
+## [2,] &quot;Z7&quot;     &quot;Z7&quot;
+## [3,] &quot;A2&quot;     &quot;A2&quot;
+## [4,] &quot;A0A4A8&quot; &quot;A8&quot;
+
+str_match_all(pattern = &#39;(?:[A-Z]\\d)+&#39;, &quot;A8 DF Z7 376 A28 A0A4A8&quot;)
+## [[1]]
+##      [,1]    
+## [1,] &quot;A8&quot;    
+## [2,] &quot;Z7&quot;    
+## [3,] &quot;A2&quot;    
+## [4,] &quot;A0A4A8&quot;</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div id="backreferences" class="section level2">
-<h2><span class="header-section-number">2.4</span> Backreferences</h2>
+<h2><span class="header-section-number">2.6</span> Backreferences</h2>
 <p>This matches a previously matched group again</p>
 <table>
 <colgroup>
@@ -1188,86 +1352,76 @@ library(stringr)</code></pre>
 <div class="col-md-6">
 <div class="python">
 <pre class="python"><code># Python 
-import re</code></pre>
+import re
+
+re.sub(r&#39;\[(\d+)\]&#39;, r&#39;\1&#39;, &#39;[38] min and [4] sec&#39;)
+## &#39;38 min and 4 sec&#39;
+re.sub(r&#39;\[(\d+)\]&#39;, r&#39;\1 long&#39;, &#39;[38] min and [4] sec&#39;)
+## &#39;38 long min and 4 long sec&#39;
+re.sub(r&#39;\[(\d+)\]&#39;, r&#39;\10&#39;, &#39;[38] min and [4] sec&#39;)
+## Error in py_call_impl(callable, dots$args, dots$keywords): error: invalid group reference 10 at position 1
+## 
+## Detailed traceback: 
+##   File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;
+##   File &quot;C:\Users\Beta\AppData\Local\Continuum\anaconda3\lib\re.py&quot;, line 192, in sub
+##     return _compile(pattern, flags).sub(repl, string, count)
+##   File &quot;C:\Users\Beta\AppData\Local\Continuum\anaconda3\lib\re.py&quot;, line 309, in _subx
+##     template = _compile_repl(template, pattern)
+##   File &quot;C:\Users\Beta\AppData\Local\Continuum\anaconda3\lib\re.py&quot;, line 300, in _compile_repl
+##     return sre_parse.parse_template(repl, pattern)
+##   File &quot;C:\Users\Beta\AppData\Local\Continuum\anaconda3\lib\sre_parse.py&quot;, line 1018, in parse_template
+##     addgroup(int(this[1:]), len(this) - 1)
+##   File &quot;C:\Users\Beta\AppData\Local\Continuum\anaconda3\lib\sre_parse.py&quot;, line 962, in addgroup
+##     raise s.error(&quot;invalid group reference %d&quot; % index, pos)
+re.sub(r&#39;\[(\d+)\]&#39;, r&#39;\g&lt;1&gt;0&#39;, &#39;[38] min and [4] sec&#39;)
+
+## &#39;380 min and 40 sec&#39;</code></pre>
 </div>
 </div>
 <div class="col-md-6">
 <div class="r">
 <pre class="r"><code># R
-library(stringr)</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div id="anchors" class="section level2">
-<h2><span class="header-section-number">2.5</span> Anchors</h2>
-<p>This needs to specify match position.</p>
-<table>
-<colgroup>
-<col width="33%" />
-<col width="66%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Example</th>
-<th align="right">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>^Python</td>
-<td align="right">Match “Python” at the start of a string or internal line</td>
-</tr>
-<tr class="even">
-<td>Python$</td>
-<td align="right">Match “Python” at the end of a string or line</td>
-</tr>
-<tr class="odd">
-<td>\APython</td>
-<td align="right">Match “Python” at the start of a string</td>
-</tr>
-<tr class="even">
-<td>Python\Z</td>
-<td align="right">Match “Python” at the end of a string</td>
-</tr>
-<tr class="odd">
-<td>\bPython\b</td>
-<td align="right">Match “Python” at a word boundary</td>
-</tr>
-<tr class="even">
-<td>\brub\B</td>
-<td align="right">\B is nonword boundary: match “rub” in “rube” and “ruby” but not alone</td>
-</tr>
-<tr class="odd">
-<td>Python(?=!)</td>
-<td align="right">Match “Python”, if followed by an exclamation point.</td>
-</tr>
-<tr class="even">
-<td>Python(?!!)</td>
-<td align="right">Match “Python”, if not followed by an exclamation point.</td>
-</tr>
-</tbody>
-</table>
-<div class="row">
-<div class="col-md-6">
-<div class="python">
-<pre class="python"><code># Python 
-import re</code></pre>
-</div>
-</div>
-<div class="col-md-6">
-<div class="r">
-<pre class="r"><code># R
-library(stringr)</code></pre>
+library(stringr)
+
+
+str_replace_all( &#39;[38] min and [4] sec&#39;,&#39;\\[(\\d+)\\]&#39;, &#39;\\1&#39;)
+## [1] &quot;38 min and 4 sec&quot;
+str_replace_all( &#39;[38] min and [4] sec&#39;,&#39;\\[(\\d+)\\]&#39;, &#39;\\1 long&#39;)
+## [1] &quot;38 long min and 4 long sec&quot;
+str_replace_all( &#39;[38] min and [4] sec&#39;,&#39;\\[(\\d+)\\]&#39;, &#39;\\10&#39;)
+## [1] &quot;380 min and 40 sec&quot;</code></pre>
 </div>
 </div>
 </div>
 </div>
 </div>
-<div id="exercices" class="section level1">
-<h1><span class="header-section-number">3</span> Exercices</h1>
-<p>Try to translate this code in R, you can use different website or album if you want.</p>
-<p><a href="Genius_scrap.html">Example with ‘rap genius’</a></p>
+<div id="exercice" class="section level1">
+<h1><span class="header-section-number">3</span> Exercice</h1>
+<p>Here is the list of all university restaurants in strasbourg, can you make a program that will allow us to compare the menus in the open restaurants for the next three days ? On your nagivator, go to the web page, inspect with a right click, and locate the appropriate html class.</p>
+<p><a href="https://www.crous-strasbourg.fr/restauration/vos-restaurants-et-leurs-menus/" class="uri">https://www.crous-strasbourg.fr/restauration/vos-restaurants-et-leurs-menus/</a></p>
+<ul>
+<li>Here is how you can start to get the content of a web page on R, you must submit the site url and the html class in which you are going to get your information</li>
+</ul>
+<pre><code>library(rvest)
+
+page = read_html(url)
+page  %&gt;%
+   html_nodes(.html_class)</code></pre>
+<ul>
+<li>And here’s how you can start in Python</li>
+</ul>
+<pre><code>from bs4 import BeautifulSoup
+import urllib3
+
+req = urllib3.PoolManager()
+res = req.request(&#39;GET&#39;, url)
+soup = BeautifulSoup(res.data, &#39;html.parser&#39;)
+contents = soup.find_all(class_= html_class)</code></pre>
+<!--
+Here is an other very simple webscrapping example where we scrap rap-genius to get lyrics from all songs in the album '13 Organisé', for each artist we count the number of unique words after remooving stopwords.
+
+
+<a href="4_Regex.html">Example with 'rap genius'</a> -->
 </div>
 
 

@@ -1630,7 +1630,7 @@ while total &lt; 1:
     total += rnd
   
 total
-## 1.3258738584509417</code></pre>
+## 1.0823365425060039</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -1660,7 +1660,7 @@ while(total &lt; 1){
 }
   
 total
-## [1] 1.982058</code></pre>
+## [1] 1.410391</code></pre>
 </div>
 </div>
 </div>
@@ -1686,14 +1686,14 @@ for val in lst:
   if val &gt; 2:
     results.append(val)
 time.time()-t
-## 0.01294398307800293
+## 0.013938188552856445
 results
 ## [3, 4]
 t = time.time() 
 # this loop their will produce the same output than a using List comprehension.
 results = [val for val in lst if val&gt;2]
 time.time()-t
-## 0.008960723876953125
+## 0.008959770202636719
 results
 ## [3, 4]</code></pre>
 </div>
@@ -1710,7 +1710,7 @@ for val in st:
   if val &gt; 2:
     results.add(val)
 time.time()-t
-## 0.013937950134277344
+## 0.013939380645751953
 results
 ## {3, 4}
 t = time.time() 
@@ -1718,7 +1718,7 @@ t = time.time()
 # this loop their will produce the same output than a using Set comprehension.
 results = {val for val in st if val&gt;2}
 time.time()-t
-## 0.00896000862121582
+## 0.008960485458374023
 results
 ## {3, 4}</code></pre>
 </div>
@@ -1735,14 +1735,14 @@ for val in dct:
   if dct[val] &gt; 2:
     results.update({str(val): dct[val]})
 time.time()-t
-## 0.014935016632080078
+## 0.013938665390014648
 results
 ## {&#39;c&#39;: 3, &#39;d&#39;: 4}
 t = time.time() 
 # this loop their will produce the same output than a using Dict comprehension.
 results = {str(val): dct[val] for val in dct if dct[val]&gt;2}
 time.time()-t
-## 0.011903762817382812
+## 0.008960247039794922
 results
 ## {&#39;c&#39;: 3, &#39;d&#39;: 4}</code></pre>
 </div>
@@ -1783,7 +1783,7 @@ clean_sum(seq =  seq)
 ## 1560
 time.time() - t
 
-## 0.008960962295532227
+## 0.009956121444702148
 def clean_sum2(seq):
   total = sum(filter(None,seq))#[val for val in seq if val is not None])
   return total
@@ -1793,7 +1793,7 @@ clean_sum2(seq =  seq)
 ## 1560
 time.time() - t
 
-## 0.008960485458374023</code></pre>
+## 0.009954452514648438</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -1816,7 +1816,7 @@ t = Sys.time()
 clean_sum(seq = seq)
 ## [1] 1560
 Sys.time() - t
-## Time difference of 0.005973816 secs
+## Time difference of 0.005974054 secs
 
 
 
@@ -1978,29 +1978,29 @@ results = [calc_try(values) for values in list_]</code></pre>
 t= time.time()
 results = [calc3(values) for values in list_]
 time.time()-t
-## 0.12836885452270508
+## 0.1194765567779541
 t= time.time()
 results = [calc_try(values) for values in list_]
 time.time()-t
-## 0.08462667465209961</code></pre>
+## 0.08763790130615234</code></pre>
 <pre class="python"><code>list_ = create_dirty_list(0.33)
 t= time.time()
 results = [calc3(values) for values in list_]
 time.time()-t
-## 0.08263516426086426
+## 0.08562374114990234
 t= time.time()
 results = [calc_try(values) for values in list_]
 time.time()-t
-## 0.08367800712585449</code></pre>
+## 0.08458065986633301</code></pre>
 <pre class="python"><code>list_ = create_dirty_list(0.75)
 t= time.time()
 results = [calc3(values) for values in list_]
 time.time()-t
-## 0.042815208435058594
+## 0.04679369926452637
 t= time.time()
 results = [calc_try(values) for values in list_]
 time.time()-t
-## 0.08562588691711426</code></pre>
+## 0.08661842346191406</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -2082,31 +2082,31 @@ list_ &lt;- create_dirty_list(0.01)
 t &lt;- Sys.time()
 results &lt;- lapply(list_,FUN = calc3)
 Sys.time()-t
-## Time difference of 0.04679298 secs
+## Time difference of 0.04778981 secs
 t &lt;- Sys.time()
 results &lt;- lapply(list_,FUN = calc_try)
 Sys.time()-t
-## Time difference of 1.219071 secs</code></pre>
+## Time difference of 1.237273 secs</code></pre>
 <pre class="r"><code># compare it 
 list_ = create_dirty_list(0.33)
 t &lt;- Sys.time()
 results &lt;- lapply(list_,FUN = calc3)
 Sys.time()-t
-## Time difference of 0.03286505 secs
+## Time difference of 0.0328548 secs
 t &lt;- Sys.time()
 results &lt;- lapply(list_,FUN = calc_try)
 Sys.time()-t
-## Time difference of 0.7823341 secs</code></pre>
+## Time difference of 0.787885 secs</code></pre>
 <pre class="r"><code># compare it 
 list_ = create_dirty_list(0.75)
 t &lt;- Sys.time()
 results &lt;- lapply(list_,FUN = calc3)
 Sys.time()-t
-## Time difference of 0.01891685 secs
+## Time difference of 0.01991105 secs
 t &lt;- Sys.time()
 results &lt;- lapply(list_,FUN = calc_try)
 Sys.time()-t
-## Time difference of 0.3932672 secs</code></pre>
+## Time difference of 0.3862989 secs</code></pre>
 </div>
 </div>
 </div>

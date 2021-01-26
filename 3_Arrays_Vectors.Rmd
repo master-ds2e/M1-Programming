@@ -1044,9 +1044,6 @@ Try to vectorize exercices from chapter 1, you can also compare it with apply/ma
 2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder.
 
 What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?
-## Solutions
-
-<a href="exo_chap_2.html">Solutions for exercice 1, 2 and 3</a>
 
 ## Exercice 4
 A palindromic number reads the same both ways. The largest palindrome made from the product of two 2-digit numbers is 9009 = 91 × 99.
@@ -1058,3 +1055,6 @@ Find the largest palindrome made from the product of two 3-digit numbers.
 $2^{15} = 32768$ and the sum of its digits is 3 + 2 + 7 + 6 + 8 = 26.
 
 What is the sum of the digits of the number $2^{1000}$?
+
+
+<a href="exo_chap_2.html">Solutions</a>

@@ -411,12 +411,12 @@ lst = list(range(2000000))
 t = time.time()
 arr_2 = arr*2
 time.time() - t
-## 0.012943029403686523
+## 0.01294255256652832
 t = time.time()
 lst_2 = [i*2  for i in lst]
 time.time() - t
 
-## 0.22201991081237793</code></pre>
+## 0.2160477638244629</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -428,7 +428,7 @@ vec = c(1:2000000)
 t = Sys.time()
 vec_2 = vec*2
 Sys.time() - t
-## Time difference of 0.01483607 secs
+## Time difference of 0.007965088 secs
 
 t = Sys.time()
 vec_2_loop &lt;- rep(0,length(vec))
@@ -436,7 +436,7 @@ for(i in 1:length(vec)){
   vec_2_loop[i] = vec[i]*2
     }
 Sys.time() - t
-## Time difference of 0.339504 secs</code></pre>
+## Time difference of 0.3404989 secs</code></pre>
 </div>
 </div>
 </div>
@@ -604,10 +604,10 @@ seq(1, 4, length.out = 10)
 arr_rd = np.random.randn(4,5)
 
 arr_rd
-## array([[-0.68013276,  0.27851745, -0.14874652, -0.54633888,  0.35584019],
-##        [ 0.35906447,  0.23318857, -0.78347001,  0.20396691,  1.37856393],
-##        [ 0.20561818, -1.27480428, -0.55034815,  1.39924551,  1.36407977],
-##        [ 0.86163742, -0.16067223,  0.95643979,  0.50223412,  0.43852407]])</code></pre>
+## array([[ 3.34869135,  0.38108359,  0.64557627, -0.73131795, -1.00967784],
+##        [ 0.27298477, -1.23302298,  0.90849929, -1.11941923, -1.17306803],
+##        [ 0.27994356,  1.68647915,  1.16279341, -0.81402466,  0.44878039],
+##        [-2.84045662,  1.5879567 ,  0.65640643, -1.18869696, -0.55359445]])</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -618,11 +618,11 @@ arr_rd
 mat_rd &lt;- matrix(runif(4*5),4,5)
 
 mat_rd
-##           [,1]       [,2]      [,3]      [,4]      [,5]
-## [1,] 0.2086850 0.36495303 0.3836429 0.7975822 0.3610049
-## [2,] 0.2180342 0.25930068 0.2543304 0.7803267 0.5677303
-## [3,] 0.2934820 0.28086107 0.1062395 0.6491940 0.4424532
-## [4,] 0.9936651 0.02523609 0.3438825 0.8966914 0.4909176</code></pre>
+##           [,1]      [,2]       [,3]      [,4]      [,5]
+## [1,] 0.1687012 0.2920263 0.78172373 0.9217257 0.1578732
+## [2,] 0.0909843 0.4145686 0.04049673 0.3603645 0.8414627
+## [3,] 0.6781681 0.7170202 0.82415048 0.9460818 0.5493894
+## [4,] 0.6512514 0.1200391 0.49912926 0.2070088 0.5660405</code></pre>
 </div>
 </div>
 </div>
@@ -882,8 +882,8 @@ mat[-2,]
 arr = np.random.randn(10)
 
 arr
-## array([-0.26755638,  0.46409276, -0.74140154, -0.50038026,  0.37945725,
-##        -1.15227144,  1.89159826, -1.14412397,  0.07673758,  2.12304459])
+## array([-0.50646563, -1.35674038, -0.14808002,  0.72112919, -0.62861907,
+##         0.18370979, -0.54151414, -0.14489719,  0.7170266 ,  0.60420155])
 arr.sort()
 </code></pre>
 <pre class="python"><code># Python 
@@ -891,10 +891,10 @@ arr.sort()
 arr = np.random.randn(4,3)
 
 arr
-## array([[ 1.50495842,  0.37084758,  0.46505552],
-##        [-0.07089029, -0.57206817, -1.92460276],
-##        [-1.07402369,  1.01225581, -2.16521328],
-##        [-0.52260923, -0.48840626,  2.01425145]])
+## array([[-1.13843232, -0.32216232, -0.81454942],
+##        [-0.70880797,  0.85471725, -0.19674034],
+##        [-1.97566832,  0.01093103, -1.42192885],
+##        [ 0.08668884, -0.29211329, -0.54483469]])
 arr.sort(1)
 </code></pre>
 </div>
@@ -906,27 +906,27 @@ arr.sort(1)
 arr &lt;- runif(10)
 
 arr
-##  [1] 0.59861629 0.07592197 0.55276767 0.91921701 0.64536594 0.74192126
-##  [7] 0.39877439 0.02478455 0.08309156 0.56365353
+##  [1] 0.761994991 0.906855512 0.004412153 0.715929659 0.757572397 0.877745538
+##  [7] 0.431861090 0.847598214 0.281513486 0.734014533
 sort(arr)
-##  [1] 0.02478455 0.07592197 0.08309156 0.39877439 0.55276767 0.56365353
-##  [7] 0.59861629 0.64536594 0.74192126 0.91921701</code></pre>
+##  [1] 0.004412153 0.281513486 0.431861090 0.715929659 0.734014533 0.757572397
+##  [7] 0.761994991 0.847598214 0.877745538 0.906855512</code></pre>
 <pre class="r"><code># R
 
 arr &lt;- matrix(runif(4*3),4,3)
 
 arr
-##            [,1]      [,2]       [,3]
-## [1,] 0.80104741 0.9539891 0.32790005
-## [2,] 0.01813811 0.3205687 0.18928557
-## [3,] 0.09246441 0.6006184 0.95032658
-## [4,] 0.56716345 0.8385474 0.01857502
+##            [,1]       [,2]      [,3]
+## [1,] 0.47857115 0.79235895 0.2572700
+## [2,] 0.15919260 0.45944500 0.8247120
+## [3,] 0.44981770 0.72706013 0.3179439
+## [4,] 0.09776811 0.07561627 0.5059803
 apply(arr,MARGIN = 2, FUN = sort)
-##            [,1]      [,2]       [,3]
-## [1,] 0.01813811 0.3205687 0.01857502
-## [2,] 0.09246441 0.6006184 0.18928557
-## [3,] 0.56716345 0.8385474 0.32790005
-## [4,] 0.80104741 0.9539891 0.95032658</code></pre>
+##            [,1]       [,2]      [,3]
+## [1,] 0.09776811 0.07561627 0.2572700
+## [2,] 0.15919260 0.45944500 0.3179439
+## [3,] 0.44981770 0.72706013 0.5059803
+## [4,] 0.47857115 0.79235895 0.8247120</code></pre>
 </div>
 </div>
 </div>
@@ -1026,11 +1026,11 @@ t = time.time()
 results = [(i if i%2==0 else 0) for i in arr]
 time.time() - t
 
-## 0.13042855262756348
+## 0.13341403007507324
 t = time.time()
 results = np.where(arr%2!=0,0,arr)
 time.time() - t
-## 0.02091217041015625</code></pre>
+## 0.018916845321655273</code></pre>
 <pre class="python"><code># Python 
 
 arr = np.arange(20000000)
@@ -1040,11 +1040,11 @@ t = time.time()
 results = [(i if i%2==0 else 0) for i in arr]
 time.time() - t
 
-## 11.896933794021606
+## 12.558374881744385
 t = time.time()
 results = np.where(arr%2!=0,0,arr)
 time.time() - t
-## 0.8134152889251709</code></pre>
+## 0.865187406539917</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -1063,13 +1063,13 @@ for(i in 1:length(vec)){
   }
 }
 Sys.time() - t
-## Time difference of 0.06869602 secs
+## Time difference of 0.07268095 secs
 
 
 t &lt;- Sys.time()
 results &lt;- ifelse(vec%%2!=0,vec,0)
 Sys.time() - t
-## Time difference of 0.01493502 secs</code></pre>
+## Time difference of 0.01592994 secs</code></pre>
 <pre class="r"><code># R
 
 vec &lt;- seq(1,20000000)
@@ -1084,13 +1084,13 @@ for(i in 1:length(vec)){
   }
 }
 Sys.time() - t
-## Time difference of 6.108452 secs
+## Time difference of 6.463597 secs
 
 
 t &lt;- Sys.time()
 results &lt;- ifelse(vec%%2!=0,vec,0)
 Sys.time() - t
-## Time difference of 2.042997 secs
+## Time difference of 1.922327 secs
 
 
 ## other way using which
@@ -1098,7 +1098,7 @@ Sys.time() - t
 t &lt;- Sys.time()
 vec[which(vec%%2==0)] = 0
 Sys.time() - t 
-## Time difference of 1.171372 secs</code></pre>
+## Time difference of 1.232872 secs</code></pre>
 </div>
 </div>
 </div>
@@ -1502,7 +1502,7 @@ arr_1 = np.arange(1,17).reshape([4,4], order = &#39;F&#39;)
 
 # by row, by columns you need to tranpose the array
 map(np.sum,arr_1)
-## &lt;map object at 0x00000000278EDE48&gt;
+## &lt;map object at 0x000000002A105808&gt;
 list(map(np.sum,arr_1))
 ## [28, 32, 36, 40]
 np.fromiter(map(sum,arr_1.T), dtype = np.int)
@@ -1565,8 +1565,7 @@ df_1.apply(sum)
 <div id="exercice-3" class="section level2">
 <h2><span class="header-section-number">6.3</span> Exercice 3</h2>
 <p>2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder.</p>
-<p>What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20? ## Solutions</p>
-<p><a href="exo_chap_2.html">Solutions for exercice 1, 2 and 3</a></p>
+<p>What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?</p>
 </div>
 <div id="exercice-4" class="section level2">
 <h2><span class="header-section-number">6.4</span> Exercice 4</h2>
@@ -1577,6 +1576,7 @@ df_1.apply(sum)
 <h2><span class="header-section-number">6.5</span> Execrice 5</h2>
 <p><span class="math inline">\(2^{15} = 32768\)</span> and the sum of its digits is 3 + 2 + 7 + 6 + 8 = 26.</p>
 <p>What is the sum of the digits of the number <span class="math inline">\(2^{1000}\)</span>?</p>
+<p><a href="exo_chap_2.html">Solutions</a></p>
 </div>
 </div>
 

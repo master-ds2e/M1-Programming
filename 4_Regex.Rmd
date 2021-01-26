@@ -248,19 +248,11 @@ def get_infos_3():
   
   
 
-t = time.time()
 get_infos()
-print(time.time()-t)
 
-
-t = time.time()
 get_infos_2()
-print(time.time()-t)
 
-t = time.time()
 get_infos_3()
-print(time.time()-t)
-
 
 ```
 </div>
@@ -292,14 +284,9 @@ get_infos_2<- function(){
   writeLines(infos) # other way of take into account escape character
 }
 
-t = Sys.time()
 get_infos()
-Sys.time()-t
 
-t = Sys.time()
 get_infos_2()
-Sys.time()-t
-
 
 ```
 
@@ -330,16 +317,23 @@ connected layers we employed a new regularization method that proved to be very 
 
 - Except for control characters, (+ ? . * ^ $ ( ) [ ] { } | \), all characters match themselves. You can escape a control character by preceding it with a backslash.
 
-- Some functions in the ptyhon's re module :
+- Some functions in 're' (Python) and 'stingr'(R)  :
 
-Function |Description
--|-:
-findall |	Returns a list containing all matches
-search |	Returns a Match object if there is a match anywhere in the string
-split |	Returns a list where the string has been split at each match
-sub |	Replaces one or many matches with a string
+Re | Stringr |Description
+-|:-|-:
+findall |	str_match_all | Returns a list containing all matches
+finditer | |	Returns a iterator containing all matches
+search |	str_locate_all |Returns a Match object if there is a match anywhere in the string
+split | str_split | 	Returns a list where the string has been split at each match
+sub | str_replace_all |	Replaces one or many matches with a string
 
-- Metacharacters are characters with a special meaning in Regex:
+
+
+- Metacharacters are characters with a special meaning in Regex, their uses are discussed in more detail in the next few sections :
+
+parentheses can be used for grouping. Square brackets define a character class, and curly braces are used by a quantifier with specific limits.
+
+
 
 Character |	Description |	Example
 -|:-|-:
@@ -351,7 +345,8 @@ Character |	Description |	Example
 * |	Zero or more occurrences |	"aix*" 	
 + |	One or more occurrences |	"aix+" 	
 {} |	Exactly the specified number of occurrences |	"al{2}" 	
-\| |	Either or |	"falls\|stays"
+\| |	Either or |	"x\|y"
+() | Grouping characters (or other regexes) |"(ab)\1" matches "abab"
 
 <div class = "row">
 <div class = "col-md-6">
@@ -363,9 +358,15 @@ import re
 
 abstract = open("data/imagenet_abstract.txt", "r").read()
  
-re.search('deep',abstract)
+re.search('layers',abstract)
 
-re.findall('deep',abstract)
+re.findall('layers',abstract)
+
+re.findall('net+','net ne nett networks')
+
+re.findall('net*','net ne nett networks')
+
+
 
 re.sub(r'\\','',abstract)
 
@@ -386,7 +387,11 @@ library(readr)
 
 abstract <- as.character(read_file('data/imagenet_abstract.txt'))
   
-str_locate_all(pattern = 'deep',abstract)
+str_locate_all(pattern = 'layers',abstract)
+
+str_locate_all('net+','net ne nett networks')
+
+str_locate_all('net*','net ne nett networks')
 
 str_replace_all(abstract,'\\\\','')
 
@@ -396,6 +401,62 @@ str_split(abstract,' ',simplify = T)[1:5]
 </div>
 </div>
 </div>
+
+
+## Anchors
+This needs to specify match position.
+
+Example|Description
+-|-:
+^Python|Match "Python" at the start of a string or internal line
+Python$|Match "Python" at the end of a string or line
+\\APython|Match "Python" at the start of a string
+Python\\Z|Match "Python" at the end of a string
+\\bPython\\b|Match "Python" at a word boundary
+\\brub\\B|\\B is nonword boundary: match "rub" in "rube" and "ruby" but not alone
+Python(?=!)|Match "Python", if followed by an exclamation point.
+Python(?!!)|Match "Python", if not followed by an exclamation point.
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "python">
+
+```{python,echo = T,collapse = TRUE}
+# Python 
+import re
+
+words = ['neuron','neural','network','networks','deep convolutional neural network']
+
+[w for w in words if re.findall(r'\Aneu',w)]
+[w for w in words if re.findall(r'^neu',w)]
+[w for w in words if re.findall(r'works?\Z',w)]
+[w for w in words if re.findall(r'works?$',w)]
+
+
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE}
+# R
+library(stringr)
+
+
+words = c('neuron','neural','network','networks','deep convolutional neural network')
+
+str_detect(words,'\\Aneu')
+str_detect(words,'^neu')
+str_detect(words,'neu\\Z')
+str_detect(words,'neu$')
+```
+
+</div>
+</div>
+</div>
+
 
 ## Character classes
 
@@ -469,6 +530,8 @@ import re
 
 re.sub('\w','',abstract)
 
+re.search('\d',abstract)
+
 ```
 
 </div>
@@ -481,13 +544,15 @@ re.sub('\w','',abstract)
 library(stringr)
 
 str_replace_all(abstract,'\\w','')
+
+str_locate_all('\\d',abstract)
 ```
 
 </div>
 </div>
 </div>
 
-##Repetition Cases
+## Repetition Cases
 
 Example|Description
 -|-:
@@ -516,7 +581,9 @@ import re
 
 re.findall('\d{2,4}',abstract)
 
-re.findall('<.*?>',abstract)
+re.findall(r'[[].*[]]',r'[[Hello] World]')
+re.findall(r'[[].*?[]]',r'[[Hello] World]')
+
 
 ```
 
@@ -531,7 +598,8 @@ library(stringr)
 
 str_extract_all(abstract,'\\d{2,4}')
 
-str_extract_all('<.*?>',abstract)
+str_extract_all('[[Hello] World]','[\\[].*[\\]]')
+str_extract_all('[[Hello] World]','[\\[].*?[\\]]')
 
 ```
 
@@ -545,7 +613,6 @@ Example|Description
 -|-:
 \\D\\d+|No group: + repeats \\d
 (\\D\\d)+|Grouped: + repeats \\D\\d pair
-([Pp]ython(, )?)+|Match "Python", "Python, python, python", etc.
 
 <div class = "row">
 <div class = "col-md-6">
@@ -553,8 +620,21 @@ Example|Description
 
 ```{python,echo = T,collapse = TRUE}
 # Python 
-import re
 
+re.findall('[A-Z]\d+', "A8 DF Z7 376 A28 A0A4A8")
+
+re.findall('([A-Z]\d)+', "A8 DF Z7 376 A28 A0A4A8")
+
+re.findall('(?:[A-Z]\d)+', "A8 DF Z7 376 A28 A0A4A8")
+# ?: in this context tells Python's regex library to not consider the parentheses as defining a capture. (It's still used for grouping)
+# normal capture group will hinder ability to get whole match
+# non-capturing group to the rescue
+
+list(re.finditer('([A-Z]\d)+', "A8 DF Z7 376 A28 A0A4A8"))
+
+[i.group() for i in re.finditer('[A-Z]\d+', "A8 DF Z7 376 A28 A0A4A8")]
+
+[i.group() for i in re.finditer('([A-Z]\d)+', "A8 DF Z7 376 A28 A0A4A8")]
 
 ```
 
@@ -566,7 +646,11 @@ import re
 ```{r,echo=T,collapse = TRUE}
 # R
 library(stringr)
+str_match_all(pattern = '[A-Z]\\d+', "A8 DF Z7 376 A28 A0A4A8")
 
+str_match_all(pattern = '([A-Z]\\d)+', "A8 DF Z7 376 A28 A0A4A8")
+
+str_match_all(pattern = '(?:[A-Z]\\d)+', "A8 DF Z7 376 A28 A0A4A8")
 ```
 
 </div>
@@ -592,9 +676,18 @@ Python(!+|\\?)|"Python" followed by one or more ! or one ?
 <div class = "col-md-6">
 <div class = "python">
 
-```{python,echo = T,collapse = TRUE}
+```{python,echo = T,collapse = TRUE,error = T}
 # Python 
 import re
+
+re.sub(r'\[(\d+)\]', r'\1', '[38] min and [4] sec')
+
+re.sub(r'\[(\d+)\]', r'\1 long', '[38] min and [4] sec')
+
+re.sub(r'\[(\d+)\]', r'\10', '[38] min and [4] sec')
+
+re.sub(r'\[(\d+)\]', r'\g<1>0', '[38] min and [4] sec')
+
 
 ```
 
@@ -607,54 +700,47 @@ import re
 # R
 library(stringr)
 
+
+str_replace_all( '[38] min and [4] sec','\\[(\\d+)\\]', '\\1')
+str_replace_all( '[38] min and [4] sec','\\[(\\d+)\\]', '\\1 long')
+str_replace_all( '[38] min and [4] sec','\\[(\\d+)\\]', '\\10')
 ```
 
 </div>
 </div>
 </div>
 
-## Anchors
-This needs to specify match position.
+# Exercice
 
-Example|Description
--|-:
-^Python|Match "Python" at the start of a string or internal line
-Python$|Match "Python" at the end of a string or line
-\\APython|Match "Python" at the start of a string
-Python\\Z|Match "Python" at the end of a string
-\\bPython\\b|Match "Python" at a word boundary
-\\brub\\B|\\B is nonword boundary: match "rub" in "rube" and "ruby" but not alone
-Python(?=!)|Match "Python", if followed by an exclamation point.
-Python(?!!)|Match "Python", if not followed by an exclamation point.
+Here is the list of all university restaurants in strasbourg, can you make a program that will allow us to compare the menus in the open restaurants for the next three days ?
+On your nagivator, go to the web page, inspect with a right click, and locate the appropriate html class.
 
-<div class = "row">
-<div class = "col-md-6">
-<div class = "python">
+https://www.crous-strasbourg.fr/restauration/vos-restaurants-et-leurs-menus/
 
-```{python,echo = T,collapse = TRUE}
-# Python 
-import re
+- Here is how you can start to get the content of a web page on R, you must submit the site url and the html class in which you are going to get your information
 
 ```
+library(rvest)
 
-</div>
-</div>
-<div class = "col-md-6">
-<div class = "r">
-
-```{r,echo=T,collapse = TRUE}
-# R
-library(stringr)
-
+page = read_html(url)
+page  %>%
+   html_nodes(.html_class)
 ```
 
-</div>
-</div>
-</div>
+-  And here's how you can start in Python
 
-# Exercices
+```
+from bs4 import BeautifulSoup
+import urllib3
 
-Try to translate this code in R, you can use different website or album if you want. 
+req = urllib3.PoolManager()
+res = req.request('GET', url)
+soup = BeautifulSoup(res.data, 'html.parser')
+contents = soup.find_all(class_= html_class)
+```
+<!--
+Here is an other very simple webscrapping example where we scrap rap-genius to get lyrics from all songs in the album '13 Organisé', for each artist we count the number of unique words after remooving stopwords.
 
-<a href="Genius_scrap.html">Example with 'rap genius'</a>
+
+<a href="4_Regex.html">Example with 'rap genius'</a> -->
 
