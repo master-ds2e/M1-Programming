@@ -10,87 +10,10 @@ div.python pre { background-color: #d0f5a9; }
 div.r pre { background-color: #dfdddf; }
 </style>
 
-# Dealing with strings
+# Strings
 
-<div class = "row">
-<div class = "col-md-6">
-<div class = "python">
+## Manipulate strings
 
-```{python , collapse = T}
-# Python 
-import time
-import psutil
-import os
-
-time_ = time.ctime(time.time())
-time_info = 'Time: '
-mem = psutil.virtual_memory().total/1e9
-mem_info = '\nRAM (GB): '
-cpu = psutil.cpu_count()
-cpu_info = '\n# CPU: '
-wd = os.getcwd()
-wd_info = '\nCurrent working directory: '
-
-infos = time_info+time_+mem_info+str(mem)+cpu_info+str(cpu)+wd_info+wd
-
-print(infos)
-
-```
-
-In R we use cat() to take into account '\n' (new line), Python automatically understand it with print.
-
-</div>
-</div>
-<div class = "col-md-6">
-<div class = "r">
-
-```{r, collapse = TRUE}
-# R
-library(benchmarkme)
-time_ <- Sys.time()
-time_info <- 'Time: '
-mem <- get_ram()/1e9
-mem_info <- '\nRAM (GB): '
-cpu <- get_cpu()$no_of_cores
-cpu_info <- '\n# CPUs: '
-wd = getwd()
-wd_info = '\nCurrent working directory: '
-
-infos <- paste0(time_info,time_,
-           mem_info,as.character(mem),
-           cpu_info,as.character(cpu),
-           wd_info,wd)
-print(infos) 
-
-cat(infos) 
-
-```
-
-</div>
-</div>
-</div>
-
-
-Here is some information on the computer where this document was compiled. 
-
-The working directory is the path to the folder where we are working, If we read or write on a file without specifiying the exact path (only the name of the file), the program will search for this file in the current working directory.
-
-'\', the backslash character is used to specify special character, tabulation, new lines, backslash or quotes and so on. When dealing with path this may be confusing for the machine. We can specify that the string must be read as it is by using 'r' before the quote.  
-
-Here is a list of escape character that can be usefull
-
- Escape Sequence | Description 
-- | -:
- \\t 	| Insert a tab in the text at this point.
- \\b 	| Insert a backspace in the text at this point.
- \\n 	| Insert a newline in the text at this point.
- \\r 	| Insert a carriage return in the text at this point.
- \\f 	| Insert a formfeed in the text at this point.
- \\' 	| Insert a single quote character in the text at this point.
- \\" 	| Insert a double quote character in the text at this point.
- \\\ 	| Insert a backslash character in the text at this point.   
-
- 
 <div class = "row">
 <div class = "col-md-6">
 <div class = "python">
@@ -98,6 +21,7 @@ Here is a list of escape character that can be usefull
 
 ```{python, collapse = T}
 # Python 
+import os
 
 wd_t = r'C:\Users\mypath\to\myfolder'
 wd_t
@@ -114,7 +38,7 @@ We see here some classical examples
 
 wd_info = 'Current working directory:\n'+os.getcwd()
 slc_infos = wd_info[10:20]
-len(slc_info)
+len(slc_infos)
 slc_infos
 slc_infos = list(slc_infos)
 slc_infos
@@ -135,59 +59,27 @@ splt_inf
 ' '.join(splt_inf)
 
 ```
-- In Python, the % sign lets us produce formatted output. We can also use "{}".format() in order to change automatically values in raw text. Let's rewritte our function.
+
+
+
 ```{python , collapse = T}
-# Python 
+import numpy as np
 
-def get_infos():
-  time_info = 'Time: '+time.ctime(time.time())
-  mem_info = '\nRAM (GB): '+str(psutil.virtual_memory().total/1e9)
-  cpu_info = '\n# CPUs: '+str(psutil.cpu_count())
-  wd_info = '\nCurrent working directory: '+os.getcwd()
-  infos = time_info+mem_info+cpu_info+wd_info
-  print(infos)
+"".join(['a :','1','b :','2','c :','3'])
+" ".join(['a :','1','b :','2','c :','3'])
 
 
-def get_infos_2():
-  infos = '''Time: %s 
-  RAM (GB): %s
-  # CPUs: %s 
-  Current working directory: %s'''% (time.ctime(time.time()),
-  psutil.virtual_memory().total/1e9,
-  psutil.cpu_count(),
-  os.getcwd())
-  print(infos)
-  
-def get_infos_3():
-  infos = '''Time: {t} 
-  RAM (GB): {ram}
-  # CPUs: {cpu} 
-  Current working directory: {wd}'''.format(t = time.ctime(time.time()),
-  ram = psutil.virtual_memory().total/1e9,
-  cpu = psutil.cpu_count(),
-  wd = os.getcwd())
-  print(infos)
-  
-  
-
-t = time.time()
-get_infos()
-print(time.time()-t)
+[''.join([letter,number]) for letter, number in zip(['a :','b :','c :'],['1','2','3'])]
+list(map(''.join,zip(['a :','b :','c :'],['1','2','3'])))
+np.char.array([['a :','b :','c :']])+'.'+np.char.array(['1','2','3'])
 
 
-t = time.time()
-get_infos_2()
-print(time.time()-t)
-
-t = time.time()
-get_infos_3()
-print(time.time()-t)
-
+np.char.array([['a :','b :','c :']])+'O'
 
 ```
-</div>
-</div>
 
+</div>
+</div>
 <div class = "col-md-6">
 <div class = "r">
 ```{r, collapse = T}
@@ -219,7 +111,7 @@ slc_infos
 slc_infos[7] = '0'
 
 # count
-length(which(strspilt(wd_info,split = '')[[1]]=='S'))
+length(which(strsplit(wd_info,split = '')[[1]]=='S'))
 
 # modify the string
 toTitleCase(wd_info)
@@ -247,43 +139,154 @@ str_c(c('a :~','b :~','c :~'),c('0'))
 ```
 
 
+</div>
+</div>
+</div>
+
+
+## Escape character
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "python">
+
+```{python , collapse = T}
+# Python 
+import time
+import psutil
+import os
+
+time_ = time.ctime(time.time())
+time_info = 'Time: '
+wd = os.getcwd()
+wd_info = '\nCurrent working directory: '
+
+infos = time_info+time_+wd_info+wd
+
+print(infos)
+
+```
+
+In R we use cat() to take into account '\n' (new line), Python automatically understand it with print.
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r, collapse = TRUE}
+# R
+library(benchmarkme)
+time_ <- Sys.time()
+time_info <- 'Time: '
+wd = getwd()
+wd_info = '\nCurrent working directory: '
+
+infos <- paste0(time_info,time_,
+           wd_info,wd)
+print(infos) 
+
+cat(infos) 
+
+```
+
+</div>
+</div>
+</div>
+
+
+Here is some information on the computer where this document was compiled. 
+
+The working directory is the path to the folder where we are working, If we read or write on a file without specifiying the exact path (only the name of the file), the program will search for this file in the current working directory.
+
+'\', the backslash character is used to specify special character, tabulation, new lines, backslash or quotes and so on. When dealing with path this may be confusing for the machine. We can specify that the string must be read as it is by using 'r' before the quote.  
+
+Here is a list of escape character that can be usefull
+
+ Escape Sequence | Description 
+- | -:
+ \\t 	| Insert a tab in the text at this point.
+ \\b 	| Insert a backspace in the text at this point.
+ \\n 	| Insert a newline in the text at this point.
+ \\r 	| Insert a carriage return in the text at this point.
+ \\f 	| Insert a form feed in the text at this point.
+ \\' 	| Insert a single quote character in the text at this point.
+ \\" 	| Insert a double quote character in the text at this point.
+ \\\ 	| Insert a backslash character in the text at this point.   
+
+
+## Formatted strings
+
+ - In Python, the % sign lets us produce formatted output. We can also use "{}".format() in order to change automatically values in raw text. Let's rewritte our function.
+ 
+ 
+<div class = "row">
+<div class = "col-md-6">
+<div class = "python">
+
+```{python , collapse = T}
+# Python 
+
+def get_infos():
+  time_info = 'Time: '+time.ctime(time.time())
+  wd_info = '\nCurrent working directory: '+os.getcwd()
+  infos = time_info+wd_info
+  print(infos)
+
+
+def get_infos_2():
+  infos = '''Time: %s 
+  Current working directory: %s'''% (time.ctime(time.time()),
+  os.getcwd())
+  print(infos)
+  
+def get_infos_3():
+  infos = '''Time: {t} 
+  Current working directory: {wd}'''.format(t = time.ctime(time.time()),
+  wd = os.getcwd())
+  print(infos)
+  
+  
+
+get_infos()
+
+get_infos_2()
+
+get_infos_3()
+
+```
+</div>
+</div>
+
+<div class = "col-md-6">
+<div class = "r">
+
+
 - In R the use of % is also possible for formatting strings. We can directly use sprintf to print the formated string but is also possible to store it for later use. Then we can use cat to print the string containing escape character or we can use writeLines as in 'get_info_2'
 
 ```{r , collapse = T}
 
 # R
-library(doParallel)
 
 get_infos <- function(){
   time_info = paste0('Time: ',Sys.time())
-  mem_info = paste0('\nRAM (GB): ',as.character(get_ram()/1e9))
-  cpu_info = paste0('\n# CPUs: ',as.character(detectCores()))
   wd_info = paste0('\nCurrent working directory: ',getwd())
-  infos = paste0(time_info,mem_info,cpu_info,wd_info)
+  infos = paste0(time_info,wd_info)
   cat(infos)
 }
 
 
 get_infos_2<- function(){
   infos = sprintf('Time: %s 
-  RAM (GB): %s
-  # CPUs: %s 
   Current working directory: %s',
   Sys.time(),
-  get_ram()/1e9,
-  detectCores(),
   getwd())
   writeLines(infos) # other way of take into account escape character
 }
 
-t = Sys.time()
 get_infos()
-Sys.time()-t
 
-t = Sys.time()
 get_infos_2()
-Sys.time()-t
-
 
 ```
 
@@ -295,11 +298,55 @@ Sys.time()-t
 
 - Text used in this section is the abstract of 'ImageNet Classification with Deep Convolutional Neural Networks' (Alex Krizhevsky, Ilya Sutskever, and Geoffrey E. Hinton 2012) presented at 'Advances in Neural Information Processing Systems 25' (NIPS 2012)
 
-'<p>We trained a large, deep convolutional neural network to classify the 1.3 million high-resolution images in the LSVRC-2010 ImageNet training set into the 1000 different classes. On the test data, we achieved top-1 and top-5 error rates of 39.7\% and 18.9\% which is considerably better than the previous state-of-the-art results. The neural network, which has 60 million parameters and 500,000 neurons, consists of five convolutional layers, some of which are followed by max-pooling layers, and two globally connected layers with a final 1000-way softmax. To make training faster, we used non-saturating neurons and a very efficient GPU implementation of convolutional nets. To reduce overfitting in the globally connected layers we employed a new regularization method that proved to be very effective.</p>'
+
+
+```
+'<p>We trained a large, deep convolutional neural network to classify the 1.3 million 
+high-resolution images in the LSVRC-2010 ImageNet training set into the 1000 different 
+classes. On the test data, we achieved top-1 and top-5 error rates of 39.7\% and
+18.9\% which is considerably better than the previous state-of-the-art results.
+The neural network, which has 60 million parameters and 500,000 neurons,
+consists of five convolutional layers, some of which are followed by max-pooling
+layers, and two globally connected layers with a final 1000-way softmax.
+To make training faster, we used non-saturating neurons and a very efficient GPU
+implementation of convolutional nets. To reduce overfitting in the globally
+connected layers we employed a new regularization method that proved to be very effective.</p>'
+```
 
 - Regex are a way to express how a character sequence should be matched, it is a a very flexible tool. Regular expression are commonly used in text manipulation, usually such patterns are used by string-searching algorithms for "find" or "find and replace" operations on strings, or for input validation. 
 
 - Except for control characters, (+ ? . * ^ $ ( ) [ ] { } | \), all characters match themselves. You can escape a control character by preceding it with a backslash.
+
+- Some functions in 're' (Python) and 'stingr'(R)  :
+
+Re | Stringr |Description
+-|:-|-:
+findall |	str_match_all | Returns a list containing all matches
+finditer | |	Returns a iterator containing all matches
+search |	str_locate_all |Returns a Match object if there is a match anywhere in the string
+split | str_split | 	Returns a list where the string has been split at each match
+sub | str_replace_all |	Replaces one or many matches with a string
+
+
+
+- Metacharacters are characters with a special meaning in Regex, their uses are discussed in more detail in the next few sections :
+
+parentheses can be used for grouping. Square brackets define a character class, and curly braces are used by a quantifier with specific limits.
+
+
+
+Character |	Description |	Example
+-|:-|-:
+[] |	A set of characters | "[a-m]" 	
+\ |	Signals a special sequence (can also be used to escape special characters)| 	"\\d" 	
+. |	Any character (except newline character) |	"he..o" 	
+^ |	Starts with |	"^hello" 	
+\$ |	Ends with |	"world$" 	
+* |	Zero or more occurrences |	"aix*" 	
++ |	One or more occurrences |	"aix+" 	
+{} |	Exactly the specified number of occurrences |	"al{2}" 	
+\| |	Either or |	"x\|y"
+() | Grouping characters (or other regexes) |"(ab)\1" matches "abab"
 
 <div class = "row">
 <div class = "col-md-6">
@@ -311,11 +358,19 @@ import re
 
 abstract = open("data/imagenet_abstract.txt", "r").read()
  
-re.search('deep',abstract)
+re.search('layers',abstract)
 
-re.findall('deep',abstract)
+re.findall('layers',abstract)
+
+re.findall('net+','net ne nett networks')
+
+re.findall('net*','net ne nett networks')
+
+
 
 re.sub(r'\\','',abstract)
+
+re.split(' ',abstract)[:5]
 
 
 ```
@@ -332,14 +387,76 @@ library(readr)
 
 abstract <- as.character(read_file('data/imagenet_abstract.txt'))
   
-str_locate_all(pattern = 'deep',abstract)
+str_locate_all(pattern = 'layers',abstract)
+
+str_locate_all('net+','net ne nett networks')
+
+str_locate_all('net*','net ne nett networks')
 
 str_replace_all(abstract,'\\\\','')
+
+str_split(abstract,' ',simplify = T)[1:5]
 ```
 
 </div>
 </div>
 </div>
+
+
+## Anchors
+This needs to specify match position.
+
+Example|Description
+-|-:
+^Python|Match "Python" at the start of a string or internal line
+Python$|Match "Python" at the end of a string or line
+\\APython|Match "Python" at the start of a string
+Python\\Z|Match "Python" at the end of a string
+\\bPython\\b|Match "Python" at a word boundary
+\\brub\\B|\\B is nonword boundary: match "rub" in "rube" and "ruby" but not alone
+Python(?=!)|Match "Python", if followed by an exclamation point.
+Python(?!!)|Match "Python", if not followed by an exclamation point.
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "python">
+
+```{python,echo = T,collapse = TRUE}
+# Python 
+import re
+
+words = ['neuron','neural','network','networks','deep convolutional neural network']
+
+[w for w in words if re.findall(r'\Aneu',w)]
+[w for w in words if re.findall(r'^neu',w)]
+[w for w in words if re.findall(r'works?\Z',w)]
+[w for w in words if re.findall(r'works?$',w)]
+
+
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE}
+# R
+library(stringr)
+
+
+words = c('neuron','neural','network','networks','deep convolutional neural network')
+
+str_detect(words,'\\Aneu')
+str_detect(words,'^neu')
+str_detect(words,'neu\\Z')
+str_detect(words,'neu$')
+```
+
+</div>
+</div>
+</div>
+
 
 ## Character classes
 
@@ -413,6 +530,8 @@ import re
 
 re.sub('\w','',abstract)
 
+re.search('\d',abstract)
+
 ```
 
 </div>
@@ -425,13 +544,15 @@ re.sub('\w','',abstract)
 library(stringr)
 
 str_replace_all(abstract,'\\w','')
+
+str_locate_all('\\d',abstract)
 ```
 
 </div>
 </div>
 </div>
 
-##Repetition Cases
+## Repetition Cases
 
 Example|Description
 -|-:
@@ -460,7 +581,9 @@ import re
 
 re.findall('\d{2,4}',abstract)
 
-re.findall('<.*?>',abstract)
+re.findall(r'[[].*[]]',r'[[Hello] World]')
+re.findall(r'[[].*?[]]',r'[[Hello] World]')
+
 
 ```
 
@@ -475,7 +598,8 @@ library(stringr)
 
 str_extract_all(abstract,'\\d{2,4}')
 
-str_extract_all('<.*?>',abstract)
+str_extract_all('[[Hello] World]','[\\[].*[\\]]')
+str_extract_all('[[Hello] World]','[\\[].*?[\\]]')
 
 ```
 
@@ -489,7 +613,6 @@ Example|Description
 -|-:
 \\D\\d+|No group: + repeats \\d
 (\\D\\d)+|Grouped: + repeats \\D\\d pair
-([Pp]ython(, )?)+|Match "Python", "Python, python, python", etc.
 
 <div class = "row">
 <div class = "col-md-6">
@@ -497,8 +620,21 @@ Example|Description
 
 ```{python,echo = T,collapse = TRUE}
 # Python 
-import re
 
+re.findall('[A-Z]\d+', "A8 DF Z7 376 A28 A0A4A8")
+
+re.findall('([A-Z]\d)+', "A8 DF Z7 376 A28 A0A4A8")
+
+re.findall('(?:[A-Z]\d)+', "A8 DF Z7 376 A28 A0A4A8")
+# ?: in this context tells Python's regex library to not consider the parentheses as defining a capture. (It's still used for grouping)
+# normal capture group will hinder ability to get whole match
+# non-capturing group to the rescue
+
+list(re.finditer('([A-Z]\d)+', "A8 DF Z7 376 A28 A0A4A8"))
+
+[i.group() for i in re.finditer('[A-Z]\d+', "A8 DF Z7 376 A28 A0A4A8")]
+
+[i.group() for i in re.finditer('([A-Z]\d)+', "A8 DF Z7 376 A28 A0A4A8")]
 
 ```
 
@@ -510,7 +646,11 @@ import re
 ```{r,echo=T,collapse = TRUE}
 # R
 library(stringr)
+str_match_all(pattern = '[A-Z]\\d+', "A8 DF Z7 376 A28 A0A4A8")
 
+str_match_all(pattern = '([A-Z]\\d)+', "A8 DF Z7 376 A28 A0A4A8")
+
+str_match_all(pattern = '(?:[A-Z]\\d)+', "A8 DF Z7 376 A28 A0A4A8")
 ```
 
 </div>
@@ -536,9 +676,18 @@ Python(!+|\\?)|"Python" followed by one or more ! or one ?
 <div class = "col-md-6">
 <div class = "python">
 
-```{python,echo = T,collapse = TRUE}
+```{python,echo = T,collapse = TRUE,error = T}
 # Python 
 import re
+
+re.sub(r'\[(\d+)\]', r'\1', '[38] min and [4] sec')
+
+re.sub(r'\[(\d+)\]', r'\1 long', '[38] min and [4] sec')
+
+re.sub(r'\[(\d+)\]', r'\10', '[38] min and [4] sec')
+
+re.sub(r'\[(\d+)\]', r'\g<1>0', '[38] min and [4] sec')
+
 
 ```
 
@@ -551,54 +700,47 @@ import re
 # R
 library(stringr)
 
+
+str_replace_all( '[38] min and [4] sec','\\[(\\d+)\\]', '\\1')
+str_replace_all( '[38] min and [4] sec','\\[(\\d+)\\]', '\\1 long')
+str_replace_all( '[38] min and [4] sec','\\[(\\d+)\\]', '\\10')
 ```
 
 </div>
 </div>
 </div>
 
-## Anchors
-This needs to specify match position.
+# Exercice
 
-Example|Description
--|-:
-^Python|Match "Python" at the start of a string or internal line
-Python$|Match "Python" at the end of a string or line
-\\APython|Match "Python" at the start of a string
-Python\\Z|Match "Python" at the end of a string
-\\bPython\\b|Match "Python" at a word boundary
-\\brub\\B|\\B is nonword boundary: match "rub" in "rube" and "ruby" but not alone
-Python(?=!)|Match "Python", if followed by an exclamation point.
-Python(?!!)|Match "Python", if not followed by an exclamation point.
+Here is the list of all university restaurants in strasbourg, can you make a program that will allow us to compare the menus in the open restaurants for the next three days ?
+On your nagivator, go to the web page, inspect with a right click, and locate the appropriate html class.
 
-<div class = "row">
-<div class = "col-md-6">
-<div class = "python">
+https://www.crous-strasbourg.fr/restauration/vos-restaurants-et-leurs-menus/
 
-```{python,echo = T,collapse = TRUE}
-# Python 
-import re
+- Here is how you can start to get the content of a web page on R, you must submit the site url and the html class in which you are going to get your information
 
 ```
+library(rvest)
 
-</div>
-</div>
-<div class = "col-md-6">
-<div class = "r">
-
-```{r,echo=T,collapse = TRUE}
-# R
-library(stringr)
-
+page = read_html(url)
+page  %>%
+   html_nodes(.html_class)
 ```
 
-</div>
-</div>
-</div>
+-  And here's how you can start in Python
 
-# Exercices
+```
+from bs4 import BeautifulSoup
+import urllib3
 
-Try to translate this code in R, you can use different website or album if you want. 
+req = urllib3.PoolManager()
+res = req.request('GET', url)
+soup = BeautifulSoup(res.data, 'html.parser')
+contents = soup.find_all(class_= html_class)
+```
+<!--
+Here is an other very simple webscrapping example where we scrap rap-genius to get lyrics from all songs in the album '13 Organisé', for each artist we count the number of unique words after remooving stopwords.
 
-<a href="Genius_scrap.html">Example with 'rap genius'</a>
+
+<a href="4_Regex.html">Example with 'rap genius'</a> -->
 
