@@ -16,7 +16,7 @@ knitr::opts_chunk$set(echo = TRUE,error=TRUE,collapse = T)
 ``` 
 
 
-<a href="2_Basics.html"> Go back to chapter 2</a>
+<a href="2_Basics.html"> Go back to chapter 1</a>
 
 # Exercice 1
 

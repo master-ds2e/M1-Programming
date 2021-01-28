@@ -43,7 +43,7 @@ slc_infos
 slc_infos = list(slc_infos)
 slc_infos
 
-# immutable
+# mutable
 slc_infos[7] = '0'
 slc_infos
 
@@ -71,7 +71,7 @@ import numpy as np
 
 [''.join([letter,number]) for letter, number in zip(['a :','b :','c :'],['1','2','3'])]
 list(map(''.join,zip(['a :','b :','c :'],['1','2','3'])))
-np.char.array([['a :','b :','c :']])+'.'+np.char.array(['1','2','3'])
+'.'.join((np.char.array(['a :','b :','c :'])+np.char.array(['1','2','3'])).tolist())
 
 
 np.char.array([['a :','b :','c :']])+'O'
@@ -389,9 +389,9 @@ abstract <- as.character(read_file('data/imagenet_abstract.txt'))
   
 str_locate_all(pattern = 'layers',abstract)
 
-str_locate_all('net+','net ne nett networks')
+str_locate_all(pattern = 'net+','net ne nett networks')
 
-str_locate_all('net*','net ne nett networks')
+str_locate_all(pattern = 'net*','net ne nett networks')
 
 str_replace_all(abstract,'\\\\','')
 
@@ -737,7 +737,12 @@ req = urllib3.PoolManager()
 res = req.request('GET', url)
 soup = BeautifulSoup(res.data, 'html.parser')
 contents = soup.find_all(class_= html_class)
+
+
 ```
+
+<a href="resto_u_explication.html">Detailled solution</a> 
+
 <!--
 Here is an other very simple webscrapping example where we scrap rap-genius to get lyrics from all songs in the album '13 Organisé', for each artist we count the number of unique words after remooving stopwords.
 
