@@ -365,6 +365,9 @@ div.tocify {
 <li>
   <a href="4_Regex.html">Regex</a>
 </li>
+<li>
+  <a href="5_Data_Analysis_R.html">Data Analysis (R)</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -388,12 +391,18 @@ div.python pre { background-color: #d0f5a9; }
 <style>
 div.r pre { background-color: #dfdddf; }
 </style>
+<p>“It is often said that 80% of data analysis is spent on the process of cleaning and preparing the data (Dasu and Johnson 2003). Data preparation is not just a first step, but must berepeated many times over the course of analysis as new problems come to light or new data is collected.” <a href="https://www.jstatsoft.org/article/view/v059i10">(Wickham, 2014)</a>.</p>
+<p>The Tidyverse is a collection of differents packages which works together in a common philosophy, the biggest contributor to this collection is named Hadley Wickham. Hadley Wickham did so much for the R community, he published a lot of books that are highly recommended to read. Check <a href="https://en.wikipedia.org/wiki/Hadley_Wickham">Wikipedia: Haldey Wickham</a> for his bibliograpy. Here is the list of libraries that are contained in the Tidyverse:</p>
 <ul>
-<li>exercice monty hall: <a href="https://levelup.gitconnected.com/the-monty-hall-problem-solved-ec4f3753a682" class="uri">https://levelup.gitconnected.com/the-monty-hall-problem-solved-ec4f3753a682</a> monte carlo simulation : boostrap: cluster robust: nr <a href="http://www.jtrive.com/estimating-logistic-regression-coefficents-from-scratch-python-version.html" class="uri">http://www.jtrive.com/estimating-logistic-regression-coefficents-from-scratch-python-version.html</a> nr <a href="http://www.jtrive.com/estimating-logistic-regression-coefficents-from-scratch-r-version.html" class="uri">http://www.jtrive.com/estimating-logistic-regression-coefficents-from-scratch-r-version.html</a></li>
+<li><p>ggplot2: Visualization</p></li>
+<li><p>dplyr: Data manipulation</p></li>
+<li><p>tidyr: Data formatting</p></li>
+<li><p>purrr: programming</p></li>
+<li><p>readr: Data importation</p></li>
+<li><p>tibble: Data tables</p></li>
+<li><p>forcats: Qualitative variables</p></li>
+<li><p>stringr: Strings</p></li>
 </ul>
-<p><a href="http://eric.univ-lyon2.fr/~ricco/tanagra/fichiers/fr_Tanagra_R_Python_Data_Perfs.pdf" class="uri">http://eric.univ-lyon2.fr/~ricco/tanagra/fichiers/fr_Tanagra_R_Python_Data_Perfs.pdf</a> <a href="https://juba.github.io/tidyverse/06-tidyverse.html" class="uri">https://juba.github.io/tidyverse/06-tidyverse.html</a> <a href="http://python-simple.com/python-pandas/panda-intro.php" class="uri">http://python-simple.com/python-pandas/panda-intro.php</a></p>
-<p>“It is often said that 80% of data analysis is spent on the process of cleaning and preparing the data (Dasu and Johnson 2003). Data preparation is not just a first step, but must berepeated many times over the course of analysis as new problems come to light or new datais collected.” <a href="https://www.jstatsoft.org/article/view/v059i10">(Wickham, 2014)</a>. Data can be structured or unstructered, There is a lot of different ways of storing data as seen in other lessons this semester. Here We will focus on using structured data from txt or csv format for simplicity, csv are just delimited text file with comma. We need to be able to open and treat data whatever the type of data that we are dealing with, sometimes it’s easier to transform data in a way that we are use to work with. Sometimes it’s unapropriate and you can corrupt or miss information in the data base, it’s important to read documentation if you are in front of a new data formating type.</p>
-<p>The Tidyverse is a collection of differents packages which works together in a common philosophy, the biggest contributor to this collection is named Hadley Wickham. Hadley Wickham did so much for the R community, he published a lot of books that I highly recommend to read. Check <a href="https://en.wikipedia.org/wiki/Hadley_Wickham">Wikipedia: Haldey Wickham</a> for his bibliograpy. Here is the list of libraries that are contained in the Tidyverse: - ggplot2: Visualization - dplyr: Data manipulation - tidyr: Data formatting - purrr: programming - readr: Data importation - tibble: Data tables - forcats: Qualitative variables - stringr: Strings</p>
 <p>The goal of tidyverse is to make easy data analysis by simplifying the data preparation. Tidyverse comes with a new data-type, Tibbles.</p>
 <p>Tibbles can be considered a modern version of data.frame but they differs in some aspects. They do not have rowname and allows users to have colnames with special character (e.g. if colname of x is ‘Col 1’ then to access to this colnums you can use x$`Col 1` to acces to this variables.). It provide a good way also to visualize the data since it directly show data as if you were running the ‘head()’ function before. It shows you the 10 first rows.</p>
 <p>Data.table is also very common when dealing with data and is very fast. Using tibbles can be very time consuming when dealing with large tables.</p>
@@ -495,11 +504,11 @@ dataset %&gt;% function1(arg1) %&gt;% function2(arg2)</p></li>
 
 
 library(tidyverse)
-## -- Attaching packages ----------------------------------------------------------------------------------------------------------------------------------------------- tidyverse 1.3.0 --
+## -- Attaching packages --------------------------------------------------------------------------------- tidyverse 1.3.0 --
 ## v ggplot2 3.3.0     v purrr   0.3.3
 ## v tibble  3.0.0     v forcats 0.5.0
 ## v tidyr   1.0.2
-## -- Conflicts -------------------------------------------------------------------------------------------------------------------------------------------------- tidyverse_conflicts() --
+## -- Conflicts ------------------------------------------------------------------------------------ tidyverse_conflicts() --
 ## x dplyr::filter() masks stats::filter()
 ## x dplyr::lag()    masks stats::lag()
 covid_papers &lt;- read_csv(&quot;data/covid_papers.csv&quot;)
@@ -555,7 +564,7 @@ dim(slice_sample(covid_papers,prop = 0.001))
 t &lt;- Sys.time()
 doi_clean &lt;- filter(covid_papers,doi != &#39;null&#39;)
 Sys.time()-t
-## Time difference of 0.0169251 secs</code></pre>
+## Time difference of 0.01792002 secs</code></pre>
 <p><b> Using Pipes </b></p>
 <pre class="r"><code># R
 
@@ -567,14 +576,13 @@ dim(covid_papers %&gt;% slice_sample(prop = 0.001))
 t = Sys.time()
 doi_clean &lt;- covid_papers %&gt;% filter(doi != &#39;null&#39;)
 Sys.time() - t
-## Time difference of 0.01792002 secs
+## Time difference of 0.0199132 secs
 
 t = Sys.time()
 doi_clean &lt;- covid_papers[which(covid_papers$doi != &#39;null&#39;),]
 Sys.time() - t
-## Time difference of 0.02289605 secs</code></pre>
+## Time difference of 0.02190018 secs</code></pre>
 </div>
-<p><a href="https://atrebas.github.io/post/2019-03-03-datatable-dplyr/" class="uri">https://atrebas.github.io/post/2019-03-03-datatable-dplyr/</a></p>
 </div>
 <div id="select-columns" class="section level3">
 <h3><span class="header-section-number">1.1.2</span> Select columns</h3>
@@ -1688,7 +1696,7 @@ cp_tibble &lt;- cp_tibble %&gt;%
   mutate(across(where(is.character),
          toupper))
 Sys.time() - t
-## Time difference of 10.46439 secs</code></pre>
+## Time difference of 11.66129 secs</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -1713,7 +1721,7 @@ cp_datatable[, c(&#39;pubtype&#39;,&#39;mesh&#39;) := lapply(.SD, function(x){to
 t = Sys.time()
 for(j in  which(sapply(cp_datatable, class)==&#39;character&#39;)){set(cp_datatable, i=NULL, j=j, value=toupper(cp_datatable[[j]]))}
 Sys.time() - t 
-## Time difference of 10.97543 secs</code></pre>
+## Time difference of 10.41383 secs</code></pre>
 </div>
 </div>
 </div>
@@ -2852,85 +2860,116 @@ y[, SqX1 := NULL] # rm column for consistency</code></pre>
 </div>
 </div>
 </div>
-</div>
-<div id="adds-a-list-column-with-rows-from-y-matching-x-nest-join" class="section level3">
-<h3><span class="header-section-number">4.1.10</span> Adds a list column with rows from y matching x (nest-join)</h3>
-<div class="row">
-<div class="col-md-6">
-<div class="r">
-<pre class="r"><code># R using Tibbles
+<!--
 
-nest_join(x, y, by = &quot;Id&quot;)
+### Adds a list column with rows from y matching x (nest-join)
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+
+```r
+# R using Tibbles
+
+nest_join(x, y, by = "Id")
 ##    Id X1 XY        y
-## 1:  A  1 x2 &lt;tbl_df&gt;
-## 2:  B  3 x4 &lt;tbl_df&gt;
-## 3:  C  5 x6 &lt;tbl_df&gt;
-## 4:  C  7 x8 &lt;tbl_df&gt;</code></pre>
-</div>
-</div>
-<div class="col-md-6">
-<div class="r">
-<pre class="r"><code># R using data.table
+## 1:  A  1 x2 <tbl_df>
+## 2:  B  3 x4 <tbl_df>
+## 3:  C  5 x6 <tbl_df>
+## 4:  C  7 x8 <tbl_df>
+```
 
-x[, y := .(.(y[.BY, on = &quot;Id&quot;])), by = Id]
-x[, y := NULL] # rm column for consistency</code></pre>
 </div>
 </div>
-</div>
-</div>
-<div id="update-columns-while-joining-using-vectors-of-colnames" class="section level3">
-<h3><span class="header-section-number">4.1.11</span> Update columns while joining (using vectors of colnames)</h3>
-<div class="row">
-<div class="col-md-6">
-<div class="r">
-<pre class="r"><code># R using Tibbles
-</code></pre>
-</div>
-</div>
-<div class="col-md-6">
-<div class="r">
-<pre class="r"><code># R using data.table
+<div class = "col-md-6">
+<div class = "r">
 
-cols  &lt;- c(&quot;NewXY&quot;, &quot;NewX1&quot;)
-icols &lt;- paste0(&quot;i.&quot;, c(&quot;XY&quot;, &quot;X1&quot;))
+
+```r
+# R using data.table
+
+x[, y := .(.(y[.BY, on = "Id"])), by = Id]
+x[, y := NULL] # rm column for consistency
+```
+
+</div>
+</div>
+</div>
+
+    
+
+
+### Update columns while joining (using vectors of colnames)
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+
+```r
+# R using Tibbles
+
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+
+```r
+# R using data.table
+
+cols  <- c("NewXY", "NewX1")
+icols <- paste0("i.", c("XY", "X1"))
 
 y[x, (cols) := mget(icols)]
 
-y[, (cols) := NULL] # rm columns for consistency</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div id="join-passing-columns-to-match-in-the-on-argument" class="section level3">
-<h3><span class="header-section-number">4.1.12</span> Join passing columns to match in the on argument</h3>
-<div class="row">
-<div class="col-md-6">
-<div class="r">
-<pre class="r"><code># R using Tibbles
+y[, (cols) := NULL] # rm columns for consistency
+```
 
-z &lt;- data.table(ID = &quot;C&quot;, Z1 = 5:9, Z2 = paste0(&quot;z&quot;, 5:9))
+</div>
+</div>
+</div>
 
-right_join(x, z, by = c(&quot;X1&quot; = &quot;Z1&quot;))
+
+### Join passing columns to match in the on argument
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+
+```r
+# R using Tibbles
+
+z <- data.table(ID = "C", Z1 = 5:9, Z2 = paste0("z", 5:9))
+
+right_join(x, z, by = c("X1" = "Z1"))
 ##      Id X1   XY ID Z2
 ## 1:    C  5   x6  C z5
 ## 2:    C  7   x8  C z7
-## 3: &lt;NA&gt;  6 &lt;NA&gt;  C z6
-## 4: &lt;NA&gt;  8 &lt;NA&gt;  C z8
-## 5: &lt;NA&gt;  9 &lt;NA&gt;  C z9
-right_join(x, z, by = c(&quot;Id&quot; = &quot;ID&quot;, &quot;X1&quot; = &quot;Z1&quot;))
+## 3: <NA>  6 <NA>  C z6
+## 4: <NA>  8 <NA>  C z8
+## 5: <NA>  9 <NA>  C z9
+right_join(x, z, by = c("Id" = "ID", "X1" = "Z1"))
 ##    Id X1   XY Z2
 ## 1:  C  5   x6 z5
 ## 2:  C  7   x8 z7
-## 3:  C  6 &lt;NA&gt; z6
-## 4:  C  8 &lt;NA&gt; z8
-## 5:  C  9 &lt;NA&gt; z9</code></pre>
-</div>
-</div>
-<div class="col-md-6">
-<div class="r">
-<pre class="r"><code># R using data.table
+## 3:  C  6 <NA> z6
+## 4:  C  8 <NA> z8
+## 5:  C  9 <NA> z9
+```
 
-x[, X2 := paste0(&quot;x&quot;, X1)] # used to track the results
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+
+```r
+# R using data.table
+
+x[, X2 := paste0("x", X1)] # used to track the results
 z; x
 ##    ID Z1 Z2
 ## 1:  C  5 z5
@@ -2944,45 +2983,55 @@ z; x
 ## 3:  C  5 x6 x5
 ## 4:  C  7 x8 x7
 
-x[z, on = &quot;X1 == Z1&quot;]
+x[z, on = "X1 == Z1"]
 ##      Id X1   XY   X2 ID Z2
 ## 1:    C  5   x6   x5  C z5
-## 2: &lt;NA&gt;  6 &lt;NA&gt; &lt;NA&gt;  C z6
+## 2: <NA>  6 <NA> <NA>  C z6
 ## 3:    C  7   x8   x7  C z7
-## 4: &lt;NA&gt;  8 &lt;NA&gt; &lt;NA&gt;  C z8
-## 5: &lt;NA&gt;  9 &lt;NA&gt; &lt;NA&gt;  C z9
+## 4: <NA>  8 <NA> <NA>  C z8
+## 5: <NA>  9 <NA> <NA>  C z9
 x[z, on = .(X1 == Z1)] # same
 ##      Id X1   XY   X2 ID Z2
 ## 1:    C  5   x6   x5  C z5
-## 2: &lt;NA&gt;  6 &lt;NA&gt; &lt;NA&gt;  C z6
+## 2: <NA>  6 <NA> <NA>  C z6
 ## 3:    C  7   x8   x7  C z7
-## 4: &lt;NA&gt;  8 &lt;NA&gt; &lt;NA&gt;  C z8
-## 5: &lt;NA&gt;  9 &lt;NA&gt; &lt;NA&gt;  C z9
+## 4: <NA>  8 <NA> <NA>  C z8
+## 5: <NA>  9 <NA> <NA>  C z9
 x[z, on = .(Id == ID, X1 == Z1)] # using two columns
 ##    Id X1   XY   X2 Z2
 ## 1:  C  5   x6   x5 z5
-## 2:  C  6 &lt;NA&gt; &lt;NA&gt; z6
+## 2:  C  6 <NA> <NA> z6
 ## 3:  C  7   x8   x7 z7
-## 4:  C  8 &lt;NA&gt; &lt;NA&gt; z8
-## 5:  C  9 &lt;NA&gt; &lt;NA&gt; z9</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div id="non-equi-joins" class="section level3">
-<h3><span class="header-section-number">4.1.13</span> Non-equi joins</h3>
-<div class="row">
-<div class="col-md-6">
-<div class="r">
-<pre class="r"><code># R using Tibbles
-</code></pre>
-</div>
-</div>
-<div class="col-md-6">
-<div class="r">
-<pre class="r"><code># R using data.table
+## 4:  C  8 <NA> <NA> z8
+## 5:  C  9 <NA> <NA> z9
+```
 
-x[z, on = .(Id == ID, X1 &lt;= Z1)]
+</div>
+</div>
+</div>
+
+
+### Non-equi joins
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+
+```r
+# R using Tibbles
+
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+
+```r
+# R using data.table
+
+x[z, on = .(Id == ID, X1 <= Z1)]
 ##    Id X1 XY X2 Z2
 ## 1:  C  5 x6 x5 z5
 ## 2:  C  6 x6 x5 z6
@@ -2992,14 +3041,14 @@ x[z, on = .(Id == ID, X1 &lt;= Z1)]
 ## 6:  C  8 x8 x7 z8
 ## 7:  C  9 x6 x5 z9
 ## 8:  C  9 x8 x7 z9
-x[z, on = .(Id == ID, X1 &gt; Z1)]
+x[z, on = .(Id == ID, X1 > Z1)]
 ##    Id X1   XY   X2 Z2
 ## 1:  C  5   x8   x7 z5
 ## 2:  C  6   x8   x7 z6
-## 3:  C  7 &lt;NA&gt; &lt;NA&gt; z7
-## 4:  C  8 &lt;NA&gt; &lt;NA&gt; z8
-## 5:  C  9 &lt;NA&gt; &lt;NA&gt; z9
-x[z, on = .(X1 &lt; Z1), allow.cartesian = TRUE] # allows &#39;numerous&#39; matching values
+## 3:  C  7 <NA> <NA> z7
+## 4:  C  8 <NA> <NA> z8
+## 5:  C  9 <NA> <NA> z9
+x[z, on = .(X1 < Z1), allow.cartesian = TRUE] # allows 'numerous' matching values
 ##     Id X1 XY X2 ID Z2
 ##  1:  A  5 x2 x1  C z5
 ##  2:  B  5 x4 x3  C z5
@@ -3016,25 +3065,35 @@ x[z, on = .(X1 &lt; Z1), allow.cartesian = TRUE] # allows &#39;numerous&#39; mat
 ## 13:  A  9 x2 x1  C z9
 ## 14:  B  9 x4 x3  C z9
 ## 15:  C  9 x6 x5  C z9
-## 16:  C  9 x8 x7  C z9</code></pre>
+## 16:  C  9 x8 x7  C z9
+```
+
 </div>
 </div>
 </div>
+
+
+### Rolling joins/subsets (performed on the last numeric column)
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+
+```r
+# R using Tibbles
+
+```
+
 </div>
-<div id="rolling-joinssubsets-performed-on-the-last-numeric-column" class="section level3">
-<h3><span class="header-section-number">4.1.14</span> Rolling joins/subsets (performed on the last numeric column)</h3>
-<div class="row">
-<div class="col-md-6">
-<div class="r">
-<pre class="r"><code># R using Tibbles
-</code></pre>
 </div>
-</div>
-<div class="col-md-6">
-<div class="r">
-<pre class="r"><code># R using data.table
+<div class = "col-md-6">
+<div class = "r">
+
+
+```r
+# R using data.table
 # Nearest
-x[z, on = .(Id == ID, X1 == Z1), roll = &quot;nearest&quot;]
+x[z, on = .(Id == ID, X1 == Z1), roll = "nearest"]
 ##    Id X1 XY X2 Z2
 ## 1:  C  5 x6 x5 z5
 ## 2:  C  6 x6 x5 z6
@@ -3043,7 +3102,7 @@ x[z, on = .(Id == ID, X1 == Z1), roll = &quot;nearest&quot;]
 ## 5:  C  9 x8 x7 z9
 ## below, simplified examples with ad hoc subsets on a keyed data.table
 setkey(x, Id, X1)
-x[.(&quot;C&quot;, 5:9), roll = &quot;nearest&quot;]
+x[.("C", 5:9), roll = "nearest"]
 ##    Id X1 XY X2
 ## 1:  C  5 x6 x5
 ## 2:  C  6 x6 x5
@@ -3056,86 +3115,96 @@ x[.(&quot;C&quot;, 5:9), roll = &quot;nearest&quot;]
 #
 
 # Last Observation Carried Forward
-x[.(&quot;C&quot;, 5:9), roll = Inf]
+x[.("C", 5:9), roll = Inf]
 ##    Id X1 XY X2
 ## 1:  C  5 x6 x5
 ## 2:  C  6 x6 x5
 ## 3:  C  7 x8 x7
 ## 4:  C  8 x8 x7
 ## 5:  C  9 x8 x7
-x[.(&quot;C&quot;, 5:9), roll = 0.5]  # bounded
+x[.("C", 5:9), roll = 0.5]  # bounded
 ##    Id X1   XY   X2
 ## 1:  C  5   x6   x5
-## 2:  C  6 &lt;NA&gt; &lt;NA&gt;
+## 2:  C  6 <NA> <NA>
 ## 3:  C  7   x8   x7
-## 4:  C  8 &lt;NA&gt; &lt;NA&gt;
-## 5:  C  9 &lt;NA&gt; &lt;NA&gt;
-x[.(&quot;C&quot;, 5:9), roll = Inf, rollends = c(FALSE, TRUE)]  # default
+## 4:  C  8 <NA> <NA>
+## 5:  C  9 <NA> <NA>
+x[.("C", 5:9), roll = Inf, rollends = c(FALSE, TRUE)]  # default
 ##    Id X1 XY X2
 ## 1:  C  5 x6 x5
 ## 2:  C  6 x6 x5
 ## 3:  C  7 x8 x7
 ## 4:  C  8 x8 x7
 ## 5:  C  9 x8 x7
-x[.(&quot;C&quot;, 5:9), roll = Inf, rollends = c(FALSE, FALSE)] # ends not rolled
+x[.("C", 5:9), roll = Inf, rollends = c(FALSE, FALSE)] # ends not rolled
 ##    Id X1   XY   X2
 ## 1:  C  5   x6   x5
 ## 2:  C  6   x6   x5
 ## 3:  C  7   x8   x7
-## 4:  C  8 &lt;NA&gt; &lt;NA&gt;
-## 5:  C  9 &lt;NA&gt; &lt;NA&gt;
+## 4:  C  8 <NA> <NA>
+## 5:  C  9 <NA> <NA>
 
     
 
 #
 
 # Next Observation Carried Backward
-x[.(&quot;C&quot;, 5:9), roll = -Inf]
+x[.("C", 5:9), roll = -Inf]
 ##    Id X1   XY   X2
 ## 1:  C  5   x6   x5
 ## 2:  C  6   x8   x7
 ## 3:  C  7   x8   x7
-## 4:  C  8 &lt;NA&gt; &lt;NA&gt;
-## 5:  C  9 &lt;NA&gt; &lt;NA&gt;
-x[.(&quot;C&quot;, 5:9), roll = -0.5] # bounded
+## 4:  C  8 <NA> <NA>
+## 5:  C  9 <NA> <NA>
+x[.("C", 5:9), roll = -0.5] # bounded
 ##    Id X1   XY   X2
 ## 1:  C  5   x6   x5
-## 2:  C  6 &lt;NA&gt; &lt;NA&gt;
+## 2:  C  6 <NA> <NA>
 ## 3:  C  7   x8   x7
-## 4:  C  8 &lt;NA&gt; &lt;NA&gt;
-## 5:  C  9 &lt;NA&gt; &lt;NA&gt;
-x[.(&quot;C&quot;, 5:9), roll = -Inf, rollends = c(TRUE, FALSE)]
+## 4:  C  8 <NA> <NA>
+## 5:  C  9 <NA> <NA>
+x[.("C", 5:9), roll = -Inf, rollends = c(TRUE, FALSE)]
 ##    Id X1   XY   X2
 ## 1:  C  5   x6   x5
 ## 2:  C  6   x8   x7
 ## 3:  C  7   x8   x7
-## 4:  C  8 &lt;NA&gt; &lt;NA&gt;
-## 5:  C  9 &lt;NA&gt; &lt;NA&gt;
-x[.(&quot;C&quot;, 5:9), roll = -Inf, rollends = c(TRUE, TRUE)]  # roll both ends
+## 4:  C  8 <NA> <NA>
+## 5:  C  9 <NA> <NA>
+x[.("C", 5:9), roll = -Inf, rollends = c(TRUE, TRUE)]  # roll both ends
 ##    Id X1 XY X2
 ## 1:  C  5 x6 x5
 ## 2:  C  6 x8 x7
 ## 3:  C  7 x8 x7
 ## 4:  C  8 x8 x7
-## 5:  C  9 x8 x7</code></pre>
+## 5:  C  9 x8 x7
+```
+
 </div>
 </div>
 </div>
-</div>
-<div id="cross-join-cj-expand.grid" class="section level3">
-<h3><span class="header-section-number">4.1.15</span> Cross join (CJ ~ expand.grid)</h3>
-<div class="row">
-<div class="col-md-6">
-<div class="r">
-<pre class="r"><code># R using Tibbles
+
+
+### Cross join (CJ ~ expand.grid)
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+
+```r
+# R using Tibbles
 
 # base::expand.grid(c(2, 1, 1), 3:2)
-</code></pre>
+
+```
+
 </div>
 </div>
-<div class="col-md-6">
-<div class="r">
-<pre class="r"><code># R using data.table
+<div class = "col-md-6">
+<div class = "r">
+
+
+```r
+# R using data.table
 
 CJ(c(2, 1, 1), 3:2)
 ##    V1 V2
@@ -3150,10 +3219,13 @@ CJ(c(2, 1, 1), 3:2, sorted = FALSE, unique = TRUE)
 ## 1:  2  3
 ## 2:  2  2
 ## 3:  1  3
-## 4:  1  2</code></pre>
+## 4:  1  2
+```
+
 </div>
 </div>
 </div>
+-->
 </div>
 </div>
 <div id="bind" class="section level2">
@@ -3314,27 +3386,39 @@ shift(1:10, n = 1,   fill = NA, type = &quot;lead&quot;)
 </div>
 </div>
 </div>
-</div>
-<div id="generate-run-length-ids" class="section level2">
-<h2><span class="header-section-number">5.2</span> Generate run-length ids</h2>
-<div class="row">
-<div class="col-md-6">
-<div class="r">
-<pre class="r"><code># R using Tibbles
-</code></pre>
-</div>
-</div>
-<div class="col-md-6">
-<div class="r">
-<pre class="r"><code># R using data.table
+<!--
 
-rleid(rep(c(&quot;a&quot;, &quot;b&quot;, &quot;a&quot;), each = 3)) # see also ?rleidv
+## Generate run-length ids
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+
+```r
+# R using Tibbles
+
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+
+```r
+# R using data.table
+
+rleid(rep(c("a", "b", "a"), each = 3)) # see also ?rleidv
 ## [1] 1 1 1 2 2 2 3 3 3
-rleid(rep(c(&quot;a&quot;, &quot;b&quot;, &quot;a&quot;), each = 3), prefix = &quot;G&quot;)
-## [1] &quot;G1&quot; &quot;G1&quot; &quot;G1&quot; &quot;G2&quot; &quot;G2&quot; &quot;G2&quot; &quot;G3&quot; &quot;G3&quot; &quot;G3&quot;</code></pre>
+rleid(rep(c("a", "b", "a"), each = 3), prefix = "G")
+## [1] "G1" "G1" "G1" "G2" "G2" "G2" "G3" "G3" "G3"
+```
+
 </div>
 </div>
 </div>
+
+-->
 </div>
 </div>
 <div id="readwrite-data" class="section level1">
@@ -3565,8 +3649,6 @@ rbindlist(lapply(c(&quot;cp_datatable.csv&quot;, &quot;cp_datatable.csv&quot;), 
 </div>
 </div>
 </div>
-<p><a href="https://cran.r-project.org/web/packages/data.table/vignettes/datatable-sd-usage.html" class="uri">https://cran.r-project.org/web/packages/data.table/vignettes/datatable-sd-usage.html</a></p>
-<p><a href="https://medium.com/bigdatarepublic/advanced-pandas-optimize-speed-and-memory-a654b53be6c2" class="uri">https://medium.com/bigdatarepublic/advanced-pandas-optimize-speed-and-memory-a654b53be6c2</a></p>
 </div>
 </div>
 </div>

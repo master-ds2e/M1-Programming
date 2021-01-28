@@ -480,6 +480,9 @@ time.time() - t
 
 
 # Exercice 4
+
+## Python
+<div class = "python">
 ```{python}
 np.sum(np.array(list(str(2**1000)),dtype=np.int))
 
@@ -487,9 +490,12 @@ np.sum(np.array(list(str(2**1000)),dtype=np.int))
 print(sum(int(i) for i in str(2**1000)))
 
 ```
-
+</div>
 # Exercice 5
 
+## Python 
+
+<div class = "python">
 ```{python}
 # Python
 # Tamara
@@ -551,10 +557,12 @@ time.time() - t
 t = time.time()
 three_digits = np.arange(100,1000)
 products = np.repeat(three_digits, len(three_digits))*np.tile(three_digits,len(three_digits))
-palindromes = list(filter(lambda x: str(x)==str(x)[::-1],list(products)))
+palindromes = [x for x in products if str(x)==str(x)[::-1]]
 print(max(palindromes))
 time.time() - t
 
 
 ```
+
+</div>
 <a href="3_Arrays_Vectors.html"> Go back to chapter 2</a>
