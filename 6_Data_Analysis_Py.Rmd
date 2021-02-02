@@ -33,7 +33,7 @@ covid_papers = covid_papers.drop('month_pub',axis = 1)
 </div>
 
 
-### Select columns
+- Select columns
 <div class = "python">
 
 ```{python,echo = T,collapse = TRUE}
@@ -69,7 +69,7 @@ covid_papers.filter(regex=("^V"))
 
 </div>
 
-### Filtering
+- Filtering
 
 
 <div class = "python">
@@ -94,7 +94,7 @@ covid_papers.drop_duplicates(subset=['V1', 'title'])
 ```
 
 </div>
-### Sorting
+- Sorting
 
 
 
@@ -108,7 +108,7 @@ covid_papers.sort_values('year_pub',ascending=False)
 
 </div>
 
-### Summarise
+- Summarise
 
 
 
@@ -125,7 +125,7 @@ covid_papers.agg({'cited':[sum,np.std]})
 
 </div>
 
-### Modifying
+- Modifying
 
 
 
@@ -144,7 +144,7 @@ covid_papers.title.map(lambda x: str(x).lower())
 </div>
 
 
-### Grouping 
+- Grouping 
 
 
 <div class = "python">
@@ -175,7 +175,7 @@ covid_papers['grp_count'] = covid_papers.groupby('source')['source'].transform('
 ## More complex use of by
 
 
-### Select specific row by group
+- Select specific row by group
 
 
 
@@ -191,7 +191,7 @@ covid_papers.groupby('source').apply(lambda df: df.iloc[-5:])
 
 </div>
 
-### Group counter
+- Group counter
 
 
 
@@ -205,7 +205,7 @@ covid_papers.groupby(['source','year_pub']).ngroups
 
 </div>
 
-### Get row number of observation by group
+- Get row number of observation by group
 
 
 
@@ -219,7 +219,7 @@ covid_papers.groupby(['source','year_pub']).size()
 
 </div>
 
-### Grouping sets (multiple by at once)
+- Grouping sets (multiple by at once)
 
 
 
@@ -239,7 +239,7 @@ covid_papers.groupby(['source','year_pub']).agg({'cited':np.mean,'V1':'count'})
 
 ## More Complex manipulation
 
-### Using multiple Variables
+- Using multiple Variables
 
 
 
@@ -271,7 +271,7 @@ covid_papers.groupby(['source']).agg({var:func for var, func in zip(['year_pub',
 
 </div>
 
-### Modify Multiples Variables
+- Modify Multiples Variables
 
 
 
@@ -305,7 +305,7 @@ for var in ['oa','has_data']:
 </div>
 
 
-### More complex expression
+- More complex expression
 
 
 

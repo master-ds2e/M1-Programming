@@ -509,11 +509,11 @@ dataset %&gt;% function1(arg1) %&gt;% function2(arg2)</p></li>
 
 
 library(tidyverse)
-## -- Attaching packages ------------------------------------------------------- tidyverse 1.3.0 --
+## -- Attaching packages --------------------------------------------------------------------------------- tidyverse 1.3.0 --
 ## v ggplot2 3.3.0     v purrr   0.3.3
 ## v tibble  3.0.0     v forcats 0.5.0
 ## v tidyr   1.0.2
-## -- Conflicts ---------------------------------------------------------- tidyverse_conflicts() --
+## -- Conflicts ------------------------------------------------------------------------------------ tidyverse_conflicts() --
 ## x dplyr::filter() masks stats::filter()
 ## x dplyr::lag()    masks stats::lag()
 covid_papers &lt;- read_csv(&quot;data/covid_papers.csv&quot;)
@@ -569,7 +569,7 @@ dim(slice_sample(covid_papers,prop = 0.001))
 t &lt;- Sys.time()
 doi_clean &lt;- filter(covid_papers,doi != &#39;null&#39;)
 Sys.time()-t
-## Time difference of 0.01792002 secs</code></pre>
+## Time difference of 0.01792121 secs</code></pre>
 <p><b> Using Pipes </b></p>
 <pre class="r"><code># R
 
@@ -581,12 +581,12 @@ dim(covid_papers %&gt;% slice_sample(prop = 0.001))
 t = Sys.time()
 doi_clean &lt;- covid_papers %&gt;% filter(doi != &#39;null&#39;)
 Sys.time() - t
-## Time difference of 0.01891685 secs
+## Time difference of 0.01792192 secs
 
 t = Sys.time()
 doi_clean &lt;- covid_papers[which(covid_papers$doi != &#39;null&#39;),]
 Sys.time() - t
-## Time difference of 0.02389383 secs</code></pre>
+## Time difference of 0.02289891 secs</code></pre>
 </div>
 </div>
 <div id="select-columns" class="section level3" number="1.1.2">
@@ -1699,7 +1699,7 @@ cp_tibble &lt;- cp_tibble %&gt;%
   mutate(across(where(is.character),
          toupper))
 Sys.time() - t
-## Time difference of 11.36034 secs</code></pre>
+## Time difference of 12.90413 secs</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -1724,7 +1724,7 @@ cp_datatable[, c(&#39;pubtype&#39;,&#39;mesh&#39;) := lapply(.SD, function(x){to
 t = Sys.time()
 for(j in  which(sapply(cp_datatable, class)==&#39;character&#39;)){set(cp_datatable, i=NULL, j=j, value=toupper(cp_datatable[[j]]))}
 Sys.time() - t 
-## Time difference of 10.50491 secs</code></pre>
+## Time difference of 11.29778 secs</code></pre>
 </div>
 </div>
 </div>

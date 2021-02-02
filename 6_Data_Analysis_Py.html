@@ -421,9 +421,12 @@ covid_papers
 covid_papers.sample(frac = 0.001).shape
 ## (149, 19)</code></pre>
 </div>
-<div id="select-columns" class="section level3" number="1.1.1">
-<h3 number="1.1.1"><span class="header-section-number">1.1.1</span> Select columns</h3>
-<div class="python">
+<ul>
+<li>Select columns
+<div class = "python">
+
+</li>
+</ul>
 <pre class="python"><code># Python
 
 covid_papers.doi
@@ -483,9 +486,9 @@ covid_papers.filter(regex=(&quot;V.*&quot;))
 covid_papers.filter(regex=(&quot;3$&quot;))
 covid_papers.filter(regex=(&quot;^V&quot;))</code></pre>
 </div>
-</div>
-<div id="filtering" class="section level3" number="1.1.2">
-<h3 number="1.1.2"><span class="header-section-number">1.1.2</span> Filtering</h3>
+<ul>
+<li>Filtering</li>
+</ul>
 <div class="python">
 <pre class="python"><code># Python
 covid_papers.loc[3:4,]
@@ -501,9 +504,9 @@ covid_papers[covid_papers.title.str.contains(&#39;deep learning&#39;)][:5]
 covid_papers.drop_duplicates()
 covid_papers.drop_duplicates(subset=[&#39;V1&#39;, &#39;title&#39;])</code></pre>
 </div>
-</div>
-<div id="sorting" class="section level3" number="1.1.3">
-<h3 number="1.1.3"><span class="header-section-number">1.1.3</span> Sorting</h3>
+<ul>
+<li>Sorting</li>
+</ul>
 <div class="python">
 <pre class="python"><code># Python
 covid_papers.sort_values(&#39;year_pub&#39;)
@@ -537,9 +540,9 @@ covid_papers.sort_values(&#39;year_pub&#39;,ascending=False)
 ## 
 ## [148872 rows x 18 columns]</code></pre>
 </div>
-</div>
-<div id="summarise" class="section level3" number="1.1.4">
-<h3 number="1.1.4"><span class="header-section-number">1.1.4</span> Summarise</h3>
+<ul>
+<li>Summarise</li>
+</ul>
 <div class="python">
 <pre class="python"><code># Python
 
@@ -551,9 +554,9 @@ covid_papers.agg({&#39;cited&#39;:[sum,np.std]})
 ## sum  1.241806e+06
 ## std  3.883440e+01</code></pre>
 </div>
-</div>
-<div id="modifying" class="section level3" number="1.1.5">
-<h3 number="1.1.5"><span class="header-section-number">1.1.5</span> Modifying</h3>
+<ul>
+<li>Modifying</li>
+</ul>
 <div class="python">
 <pre class="python"><code># Python
 covid_papers.assign(oa = covid_papers.oa.map(lambda oa: 1 if  oa==&#39;Y&#39; else 0),
@@ -588,9 +591,9 @@ covid_papers.title.map(lambda x: str(x).lower())
 ## 148915             resource allocation and priority setting
 ## Name: title, Length: 148872, dtype: object</code></pre>
 </div>
-</div>
-<div id="grouping" class="section level3" number="1.1.6">
-<h3 number="1.1.6"><span class="header-section-number">1.1.6</span> Grouping</h3>
+<ul>
+<li>Grouping</li>
+</ul>
 <div class="python">
 <pre class="python"><code># Python
 
@@ -661,28 +664,28 @@ covid_papers.groupby(&#39;source&#39;).last()
 covid_papers[&#39;grp_count&#39;] = covid_papers.groupby(&#39;source&#39;)[&#39;source&#39;].transform(&#39;count&#39;)</code></pre>
 </div>
 </div>
-</div>
 <div id="more-complex-use-of-by" class="section level2" number="1.2">
 <h2 number="1.2"><span class="header-section-number">1.2</span> More complex use of by</h2>
-<div id="select-specific-row-by-group" class="section level3" number="1.2.1">
-<h3 number="1.2.1"><span class="header-section-number">1.2.1</span> Select specific row by group</h3>
+<ul>
+<li>Select specific row by group</li>
+</ul>
 <div class="python">
 <pre class="python"><code># Python
 
 covid_papers.groupby(&#39;source&#39;).apply(lambda df: df.iloc[:3])
 covid_papers.groupby(&#39;source&#39;).apply(lambda df: df.iloc[-5:])</code></pre>
 </div>
-</div>
-<div id="group-counter" class="section level3" number="1.2.2">
-<h3 number="1.2.2"><span class="header-section-number">1.2.2</span> Group counter</h3>
+<ul>
+<li>Group counter</li>
+</ul>
 <div class="python">
 <pre class="python"><code># Python
 
 covid_papers.groupby([&#39;source&#39;,&#39;year_pub&#39;]).ngroups</code></pre>
 </div>
-</div>
-<div id="get-row-number-of-observation-by-group" class="section level3" number="1.2.3">
-<h3 number="1.2.3"><span class="header-section-number">1.2.3</span> Get row number of observation by group</h3>
+<ul>
+<li>Get row number of observation by group</li>
+</ul>
 <div class="python">
 <pre class="python"><code># Python
 
@@ -701,9 +704,9 @@ covid_papers.groupby([&#39;source&#39;,&#39;year_pub&#39;]).size()
 ##         2020.0      13726
 ## Length: 301, dtype: int64</code></pre>
 </div>
-</div>
-<div id="grouping-sets-multiple-by-at-once" class="section level3" number="1.2.4">
-<h3 number="1.2.4"><span class="header-section-number">1.2.4</span> Grouping sets (multiple by at once)</h3>
+<ul>
+<li>Grouping sets (multiple by at once)</li>
+</ul>
 <div class="python">
 <pre class="python"><code># Python
 
@@ -726,11 +729,11 @@ covid_papers.groupby([&#39;source&#39;,&#39;year_pub&#39;]).agg({&#39;cited&#39;
 ## [301 rows x 2 columns]</code></pre>
 </div>
 </div>
-</div>
 <div id="more-complex-manipulation" class="section level2" number="1.3">
 <h2 number="1.3"><span class="header-section-number">1.3</span> More Complex manipulation</h2>
-<div id="using-multiple-variables" class="section level3" number="1.3.1">
-<h3 number="1.3.1"><span class="header-section-number">1.3.1</span> Using multiple Variables</h3>
+<ul>
+<li>Using multiple Variables</li>
+</ul>
 <div class="python">
 <pre class="python"><code># Python
 # Summarise several columns
@@ -794,9 +797,9 @@ covid_papers.groupby([&#39;source&#39;]).agg({var:func for var, func in zip([&#3
 ## PMC     2013.610694      0
 ## PPR     2019.988194      0</code></pre>
 </div>
-</div>
-<div id="modify-multiples-variables" class="section level3" number="1.3.2">
-<h3 number="1.3.2"><span class="header-section-number">1.3.2</span> Modify Multiples Variables</h3>
+<ul>
+<li>Modify Multiples Variables</li>
+</ul>
 <div class="python">
 <pre class="python"><code>
 def tobinary(x):
@@ -834,9 +837,9 @@ for var in [&#39;oa&#39;,&#39;has_data&#39;]:
         covid_papers = covid_papers.assign(var = tobinary)
 </code></pre>
 </div>
-</div>
-<div id="more-complex-expression" class="section level3" number="1.3.3">
-<h3 number="1.3.3"><span class="header-section-number">1.3.3</span> More complex expression</h3>
+<ul>
+<li>More complex expression</li>
+</ul>
 <div class="python">
 <pre class="python"><code># Python
 
@@ -860,7 +863,6 @@ oa = tobinary).groupby(&#39;year_pub&#39;).agg(share_en= (&#39;is_en&#39;,sum)).
 ## 1820.0    1.000000
 ## 
 ## [137 rows x 1 columns]</code></pre>
-</div>
 </div>
 </div>
 </div>
