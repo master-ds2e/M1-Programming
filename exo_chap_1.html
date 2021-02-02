@@ -13,6 +13,7 @@
 
 <title>Exercice Chapter 1</title>
 
+<script src="site_libs/header-attrs-2.1/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -368,6 +369,9 @@ div.tocify {
 <li>
   <a href="5_Data_Analysis_R.html">Data Analysis (R)</a>
 </li>
+<li>
+  <a href="6_Data_Analysis_Py.html">Data Analysis (Python)</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -392,12 +396,12 @@ div.python pre { background-color: #d0f5a9; }
 div.r pre { background-color: #dfdddf; }
 </style>
 <p><a href="2_Basics.html"> Go back to chapter 1</a></p>
-<div id="exercice-1" class="section level1">
-<h1><span class="header-section-number">1</span> Exercice 1</h1>
+<div id="exercice-1" class="section level1" number="1">
+<h1 number="1"><span class="header-section-number">1</span> Exercice 1</h1>
 <p>If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23.</p>
 <p>Find the sum of all the multiples of 3 or 5 below 10000.</p>
-<div id="r" class="section level2">
-<h2><span class="header-section-number">1.1</span> R</h2>
+<div id="r" class="section level2" number="1.1">
+<h2 number="1.1"><span class="header-section-number">1.1</span> R</h2>
 <div class="r">
 <pre class="r"><code># R
 
@@ -415,11 +419,11 @@ t &lt;- Sys.time()
 get_sum_multiples_below1(10000,3,5)
 ## [1] 23331668
 Sys.time() - t
-## Time difference of 0.01792097 secs</code></pre>
+## Time difference of 0.01891589 secs</code></pre>
 </div>
 </div>
-<div id="python" class="section level2">
-<h2><span class="header-section-number">1.2</span> Python</h2>
+<div id="python" class="section level2" number="1.2">
+<h2 number="1.2"><span class="header-section-number">1.2</span> Python</h2>
 <div class="python">
 <pre class="python"><code># Python 
 
@@ -438,7 +442,7 @@ get_sum_multiples_below1(10000,3,5)
 ## 23331668
 time.time() - t
 
-## 0.012944936752319336</code></pre>
+## 0.01393890380859375</code></pre>
 <pre class="python"><code># Python 
 
 def get_sum_multiples_below2(below,mutiple_1,multiple_2):
@@ -449,7 +453,7 @@ t = time.time()
 get_sum_multiples_below2(10000,3,5)
 ## 23331668
 time.time() - t
-## 0.011946916580200195</code></pre>
+## 0.01393890380859375</code></pre>
 <pre class="python"><code># Python 
 # Aristote
 
@@ -461,16 +465,16 @@ for v in vec :
 print(s)
 ## 23341668
 time.time() - t
-## 0.03086256980895996</code></pre>
+## 0.028873205184936523</code></pre>
 </div>
 </div>
 </div>
-<div id="exercice-2" class="section level1">
-<h1><span class="header-section-number">2</span> Exercice 2</h1>
+<div id="exercice-2" class="section level1" number="2">
+<h1 number="2"><span class="header-section-number">2</span> Exercice 2</h1>
 <p>By listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see that the 6th prime is 13.</p>
 <p>What is the 10 001st prime number?</p>
-<div id="r-1" class="section level2">
-<h2><span class="header-section-number">2.1</span> R</h2>
+<div id="r-1" class="section level2" number="2.1">
+<h2 number="2.1"><span class="header-section-number">2.1</span> R</h2>
 <div class="r">
 <pre class="r"><code># R
 
@@ -500,7 +504,7 @@ t &lt;- Sys.time()
 nth_prime(10001)
 ## [1] 104743
 Sys.time() - t
-## Time difference of 1.819091 secs</code></pre>
+## Time difference of 2.536818 secs</code></pre>
 <pre class="r"><code># R
 # Mohammad
 
@@ -518,11 +522,11 @@ n=1
 print(c(&#39;10001st prime number is&#39;,Chiffre[length(Chiffre)]))
 ## [1] &quot;10001st prime number is&quot; &quot;104760&quot;
 Sys.time() - t
-## Time difference of 6.144589 mins</code></pre>
+## Time difference of 5.629796 mins</code></pre>
 </div>
 </div>
-<div id="python-1" class="section level2">
-<h2><span class="header-section-number">2.2</span> Python</h2>
+<div id="python-1" class="section level2" number="2.2">
+<h2 number="2.2"><span class="header-section-number">2.2</span> Python</h2>
 <div class="python">
 <pre class="python"><code># Python 
 import numpy as np
@@ -552,7 +556,7 @@ nth_prime(10001)
 ## 104729
 time.time() - t
 
-## 0.49724888801574707</code></pre>
+## 0.4559903144836426</code></pre>
 </div>
 <div class="python">
 <pre class="python"><code># Python 
@@ -581,7 +585,7 @@ while i&lt;10001:
 
 time.time() - t
 
-## 0.3076443672180176</code></pre>
+## 0.2648329734802246</code></pre>
 <pre class="python"><code># Python 
 # Astrid
 
@@ -609,12 +613,12 @@ print(p)
 ## 104743
 time.time() - t
 
-## 0.17124462127685547</code></pre>
+## 0.15730690956115723</code></pre>
 </div>
 </div>
 </div>
-<div id="exercie-3" class="section level1">
-<h1><span class="header-section-number">3</span> Exercie 3</h1>
+<div id="exercie-3" class="section level1" number="3">
+<h1 number="3"><span class="header-section-number">3</span> Exercie 3</h1>
 <p>You are given the following information, but you may prefer to do some research for yourself.</p>
 <ul>
 <li>1 Jan 1900 was a Monday.</li>
@@ -622,8 +626,8 @@ time.time() - t
 <li>A leap year occurs on any year evenly divisible by 4, but not on a century unless it is divisible by 400.</li>
 </ul>
 <p>How many Sundays fell on the first of the month during the twentieth century (1 Jan 1901 to 31 Dec 2000)?</p>
-<div id="r-2" class="section level2">
-<h2><span class="header-section-number">3.1</span> R</h2>
+<div id="r-2" class="section level2" number="3.1">
+<h2 number="3.1"><span class="header-section-number">3.1</span> R</h2>
 <div class="r">
 <pre class="r"><code>nb_sundays_y &lt;- function(year,sunday_first){
   # check if there is a leap
@@ -675,7 +679,7 @@ sum(nb_sunday)
 ## [1] 171
 
 Sys.time() - t
-## Time difference of 0.02887392 secs</code></pre>
+## Time difference of 0.02688193 secs</code></pre>
 <pre class="r"><code># R
 # Mohammad
 
@@ -696,11 +700,11 @@ print(c(&#39;Nombre de dimanche coincide avec le prmier jour du mois&#39;,ND))
 
 
 Sys.time() - t
-## Time difference of 0.03185701 secs</code></pre>
+## Time difference of 0.03285503 secs</code></pre>
 </div>
 </div>
-<div id="python-2" class="section level2">
-<h2><span class="header-section-number">3.2</span> Python</h2>
+<div id="python-2" class="section level2" number="3.2">
+<h2 number="3.2"><span class="header-section-number">3.2</span> Python</h2>
 <div class="python">
 <pre class="python"><code># Python
 
@@ -749,7 +753,7 @@ sum(nb_sunday)
 ## 171
 time.time() - t
 
-## 0.026882410049438477</code></pre>
+## 0.025886058807373047</code></pre>
 <pre class="python"><code># Python 
 # Corentin 
 import pandas as pd
@@ -804,7 +808,7 @@ answer = sum(twentieth.apply(sundays))
 answer
 ## 171
 time.time() - t
-## 0.37224364280700684</code></pre>
+## 0.3683760166168213</code></pre>
 </div>
 <p><a href="2_Basics.html"> Go back to chapter 1</a></p>
 </div>
