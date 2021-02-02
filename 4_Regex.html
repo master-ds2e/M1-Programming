@@ -13,6 +13,7 @@
 
 <title>Regex</title>
 
+<script src="site_libs/header-attrs-2.1/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -368,6 +369,9 @@ div.tocify {
 <li>
   <a href="5_Data_Analysis_R.html">Data Analysis (R)</a>
 </li>
+<li>
+  <a href="6_Data_Analysis_Py.html">Data Analysis (Python)</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -391,10 +395,10 @@ div.python pre { background-color: #d0f5a9; }
 <style>
 div.r pre { background-color: #dfdddf; }
 </style>
-<div id="strings" class="section level1">
-<h1><span class="header-section-number">1</span> Strings</h1>
-<div id="manipulate-strings" class="section level2">
-<h2><span class="header-section-number">1.1</span> Manipulate strings</h2>
+<div id="strings" class="section level1" number="1">
+<h1 number="1"><span class="header-section-number">1</span> Strings</h1>
+<div id="manipulate-strings" class="section level2" number="1.1">
+<h2 number="1.1"><span class="header-section-number">1.1</span> Manipulate strings</h2>
 <div class="row">
 <div class="col-md-6">
 <div class="python">
@@ -537,8 +541,8 @@ str_c(c(&#39;a :~&#39;,&#39;b :~&#39;,&#39;c :~&#39;),c(&#39;0&#39;))
 </div>
 </div>
 </div>
-<div id="escape-character" class="section level2">
-<h2><span class="header-section-number">1.2</span> Escape character</h2>
+<div id="escape-character" class="section level2" number="1.2">
+<h2 number="1.2"><span class="header-section-number">1.2</span> Escape character</h2>
 <div class="row">
 <div class="col-md-6">
 <div class="python">
@@ -555,7 +559,7 @@ wd_info = &#39;\nCurrent working directory: &#39;
 infos = time_info+time_+wd_info+wd
 
 print(infos)
-## Time: Thu Jan 28 22:55:13 2021
+## Time: Tue Feb  2 12:01:43 2021
 ## Current working directory: C:\Users\Beta\Documents\GitHub\M1_TDP</code></pre>
 <p>In R we use cat() to take into account ‘’ (new line), Python automatically understand it with print.</p>
 </div>
@@ -572,10 +576,10 @@ wd_info = &#39;\nCurrent working directory: &#39;
 infos &lt;- paste0(time_info,time_,
            wd_info,wd)
 print(infos) 
-## [1] &quot;Time: 2021-01-28 22:55:13\nCurrent working directory: C:/Users/Beta/Documents/GitHub/M1_TDP&quot;
+## [1] &quot;Time: 2021-02-02 12:01:43\nCurrent working directory: C:/Users/Beta/Documents/GitHub/M1_TDP&quot;
 
 cat(infos) 
-## Time: 2021-01-28 22:55:13
+## Time: 2021-02-02 12:01:43
 ## Current working directory: C:/Users/Beta/Documents/GitHub/M1_TDP</code></pre>
 </div>
 </div>
@@ -627,8 +631,8 @@ cat(infos)
 </tbody>
 </table>
 </div>
-<div id="formatted-strings" class="section level2">
-<h2><span class="header-section-number">1.3</span> Formatted strings</h2>
+<div id="formatted-strings" class="section level2" number="1.3">
+<h2 number="1.3"><span class="header-section-number">1.3</span> Formatted strings</h2>
 <ul>
 <li>In Python, the % sign lets us produce formatted output. We can also use “{}”.format() in order to change automatically values in raw text. Let’s rewritte our function.</li>
 </ul>
@@ -659,13 +663,13 @@ def get_infos_3():
   
 
 get_infos()
-## Time: Thu Jan 28 22:55:13 2021
+## Time: Tue Feb  2 12:01:43 2021
 ## Current working directory: C:\Users\Beta\Documents\GitHub\M1_TDP
 get_infos_2()
-## Time: Thu Jan 28 22:55:13 2021 
+## Time: Tue Feb  2 12:01:43 2021 
 ##   Current working directory: C:\Users\Beta\Documents\GitHub\M1_TDP
 get_infos_3()
-## Time: Thu Jan 28 22:55:13 2021 
+## Time: Tue Feb  2 12:01:43 2021 
 ##   Current working directory: C:\Users\Beta\Documents\GitHub\M1_TDP</code></pre>
 </div>
 </div>
@@ -694,19 +698,19 @@ get_infos_2&lt;- function(){
 }
 
 get_infos()
-## Time: 2021-01-28 22:55:13
+## Time: 2021-02-02 12:01:43
 ## Current working directory: C:/Users/Beta/Documents/GitHub/M1_TDP
 
 get_infos_2()
-## Time: 2021-01-28 22:55:13 
+## Time: 2021-02-02 12:01:43 
 ##   Current working directory: C:/Users/Beta/Documents/GitHub/M1_TDP</code></pre>
 </div>
 </div>
 </div>
 </div>
 </div>
-<div id="regular-expressions" class="section level1">
-<h1><span class="header-section-number">2</span> Regular Expressions</h1>
+<div id="regular-expressions" class="section level1" number="2">
+<h1 number="2"><span class="header-section-number">2</span> Regular Expressions</h1>
 <ul>
 <li>Text used in this section is the abstract of ‘ImageNet Classification with Deep Convolutional Neural Networks’ (Alex Krizhevsky, Ilya Sutskever, and Geoffrey E. Hinton 2012) presented at ‘Advances in Neural Information Processing Systems 25’ (NIPS 2012)</li>
 </ul>
@@ -899,8 +903,8 @@ str_split(abstract,&#39; &#39;,simplify = T)[1:5]
 </div>
 </div>
 </div>
-<div id="anchors" class="section level2">
-<h2><span class="header-section-number">2.1</span> Anchors</h2>
+<div id="anchors" class="section level2" number="2.1">
+<h2 number="2.1"><span class="header-section-number">2.1</span> Anchors</h2>
 <p>This needs to specify match position.</p>
 <table>
 <colgroup>
@@ -987,8 +991,8 @@ str_detect(words,&#39;neu$&#39;)
 </div>
 </div>
 </div>
-<div id="character-classes" class="section level2">
-<h2><span class="header-section-number">2.2</span> Character classes</h2>
+<div id="character-classes" class="section level2" number="2.2">
+<h2 number="2.2"><span class="header-section-number">2.2</span> Character classes</h2>
 <table>
 <thead>
 <tr class="header">
@@ -1047,7 +1051,7 @@ re.findall(&#39;top-[15]&#39;,abstract)
 ## [&#39;top-1&#39;, &#39;top-5&#39;]
 re.finditer(&#39;[0-9]&#39;,abstract)
 
-## &lt;callable_iterator object at 0x000000002E4F6F88&gt;</code></pre>
+## &lt;callable_iterator object at 0x000000002A3A7D08&gt;</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -1098,8 +1102,8 @@ str_locate_all(abstract,&#39;[0-9]&#39;)
 </div>
 </div>
 </div>
-<div id="special-character-classes" class="section level2">
-<h2><span class="header-section-number">2.3</span> Special Character Classes</h2>
+<div id="special-character-classes" class="section level2" number="2.3">
+<h2 number="2.3"><span class="header-section-number">2.3</span> Special Character Classes</h2>
 <table>
 <thead>
 <tr class="header">
@@ -1165,8 +1169,8 @@ str_locate_all(&#39;\\d&#39;,abstract)
 </div>
 </div>
 </div>
-<div id="repetition-cases" class="section level2">
-<h2><span class="header-section-number">2.4</span> Repetition Cases</h2>
+<div id="repetition-cases" class="section level2" number="2.4">
+<h2 number="2.4"><span class="header-section-number">2.4</span> Repetition Cases</h2>
 <table>
 <thead>
 <tr class="header">
@@ -1256,8 +1260,8 @@ str_extract_all(&#39;[[Hello] World]&#39;,&#39;[\\[].*?[\\]]&#39;)
 </div>
 </div>
 </div>
-<div id="grouping-with-parentheses" class="section level2">
-<h2><span class="header-section-number">2.5</span> Grouping with Parentheses</h2>
+<div id="grouping-with-parentheses" class="section level2" number="2.5">
+<h2 number="2.5"><span class="header-section-number">2.5</span> Grouping with Parentheses</h2>
 <table>
 <thead>
 <tr class="header">
@@ -1331,8 +1335,8 @@ str_match_all(pattern = &#39;(?:[A-Z]\\d)+&#39;, &quot;A8 DF Z7 376 A28 A0A4A8&q
 </div>
 </div>
 </div>
-<div id="backreferences" class="section level2">
-<h2><span class="header-section-number">2.6</span> Backreferences</h2>
+<div id="backreferences" class="section level2" number="2.6">
+<h2 number="2.6"><span class="header-section-number">2.6</span> Backreferences</h2>
 <p>This matches a previously matched group again</p>
 <table>
 <colgroup>
@@ -1405,8 +1409,8 @@ str_replace_all( &#39;[38] min and [4] sec&#39;,&#39;\\[(\\d+)\\]&#39;, &#39;\\1
 </div>
 </div>
 </div>
-<div id="exercice" class="section level1">
-<h1><span class="header-section-number">3</span> Exercice</h1>
+<div id="exercice" class="section level1" number="3">
+<h1 number="3"><span class="header-section-number">3</span> Exercice</h1>
 <p>Here is the list of all university restaurants in strasbourg, can you make a program that will allow us to compare the menus in the open restaurants for the next three days ? On your nagivator, go to the web page, inspect with a right click, and locate the appropriate html class.</p>
 <p><a href="https://www.crous-strasbourg.fr/restauration/vos-restaurants-et-leurs-menus/" class="uri">https://www.crous-strasbourg.fr/restauration/vos-restaurants-et-leurs-menus/</a></p>
 <ul>
@@ -1430,6 +1434,7 @@ contents = soup.find_all(class_= html_class)
 
 </code></pre>
 <p><a href="resto_u_explication.html">Detailled solution</a></p>
+<p><a href="Genius_scrap.html">Other example</a></p>
 <!--
 Here is an other very simple webscrapping example where we scrap rap-genius to get lyrics from all songs in the album '13 Organisé', for each artist we count the number of unique words after remooving stopwords.
 

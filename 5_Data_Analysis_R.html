@@ -13,6 +13,7 @@
 
 <title>Data Analysis (R)</title>
 
+<script src="site_libs/header-attrs-2.1/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -368,6 +369,9 @@ div.tocify {
 <li>
   <a href="5_Data_Analysis_R.html">Data Analysis (R)</a>
 </li>
+<li>
+  <a href="6_Data_Analysis_Py.html">Data Analysis (Python)</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -406,12 +410,12 @@ div.r pre { background-color: #dfdddf; }
 <p>The goal of tidyverse is to make easy data analysis by simplifying the data preparation. Tidyverse comes with a new data-type, Tibbles.</p>
 <p>Tibbles can be considered a modern version of data.frame but they differs in some aspects. They do not have rowname and allows users to have colnames with special character (e.g. if colname of x is ‘Col 1’ then to access to this colnums you can use x$`Col 1` to acces to this variables.). It provide a good way also to visualize the data since it directly show data as if you were running the ‘head()’ function before. It shows you the 10 first rows.</p>
 <p>Data.table is also very common when dealing with data and is very fast. Using tibbles can be very time consuming when dealing with large tables.</p>
-<div id="tibbles-and-data.tables" class="section level1">
-<h1><span class="header-section-number">1</span> Tibbles and data.tables</h1>
-<div id="introduction" class="section level2">
-<h2><span class="header-section-number">1.1</span> Introduction</h2>
-<div id="pipes" class="section level3">
-<h3><span class="header-section-number">1.1.1</span> Pipes</h3>
+<div id="tibbles-and-data.tables" class="section level1" number="1">
+<h1 number="1"><span class="header-section-number">1</span> Tibbles and data.tables</h1>
+<div id="basic-operations" class="section level2" number="1.1">
+<h2 number="1.1"><span class="header-section-number">1.1</span> Basic Operations</h2>
+<div id="pipes" class="section level3" number="1.1.1">
+<h3 number="1.1.1"><span class="header-section-number">1.1.1</span> Pipes</h3>
 <p>Dplyr is very friendly, it use very understandable words to manipulate data. It uses a very specific way of writting calculation, the pipe : ‘%&gt;%’. Pipes allows us to writte sequential calculation in a quiet readable way. Here is how we need to read R code that use pipes:</p>
 <ul>
 <li><p><b> Usual Way </b><br />
@@ -500,15 +504,16 @@ dataset %&gt;% function1(arg1) %&gt;% function2(arg2)</p></li>
 <li><b> Usual Way </b></li>
 </ul>
 <div class="r">
-<pre class="r"><code># R
+<pre class="r"><code>
+# R
 
 
 library(tidyverse)
-## -- Attaching packages --------------------------------------------------------------------------------- tidyverse 1.3.0 --
+## -- Attaching packages ------------------------------------------------------- tidyverse 1.3.0 --
 ## v ggplot2 3.3.0     v purrr   0.3.3
 ## v tibble  3.0.0     v forcats 0.5.0
 ## v tidyr   1.0.2
-## -- Conflicts ------------------------------------------------------------------------------------ tidyverse_conflicts() --
+## -- Conflicts ---------------------------------------------------------- tidyverse_conflicts() --
 ## x dplyr::filter() masks stats::filter()
 ## x dplyr::lag()    masks stats::lag()
 covid_papers &lt;- read_csv(&quot;data/covid_papers.csv&quot;)
@@ -576,16 +581,16 @@ dim(covid_papers %&gt;% slice_sample(prop = 0.001))
 t = Sys.time()
 doi_clean &lt;- covid_papers %&gt;% filter(doi != &#39;null&#39;)
 Sys.time() - t
-## Time difference of 0.0199132 secs
+## Time difference of 0.01891685 secs
 
 t = Sys.time()
 doi_clean &lt;- covid_papers[which(covid_papers$doi != &#39;null&#39;),]
 Sys.time() - t
-## Time difference of 0.02190018 secs</code></pre>
+## Time difference of 0.02389383 secs</code></pre>
 </div>
 </div>
-<div id="select-columns" class="section level3">
-<h3><span class="header-section-number">1.1.2</span> Select columns</h3>
+<div id="select-columns" class="section level3" number="1.1.2">
+<h3 number="1.1.2"><span class="header-section-number">1.1.2</span> Select columns</h3>
 <div class="row">
 <div class="col-md-6">
 <div class="r">
@@ -706,9 +711,9 @@ cp_datatable[, ..cols]</code></pre>
 </div>
 </div>
 </div>
-</div>
-<div id="filtering" class="section level3">
-<h3><span class="header-section-number">1.1.3</span> Filtering</h3>
+<ul>
+<li>Filtering</li>
+</ul>
 <div class="row">
 <div class="col-md-6">
 <div class="r">
@@ -769,9 +774,9 @@ cp_datatable[data.table::between(year_pub, 2015, 2017, incbounds = FALSE)]</code
 </div>
 <p>On the other hand, data.table also provides convenience functions to filter rows based on a regular expression or to find values lying in one (or several) interval(s).</p>
 <p>Below, we will see that data.table has two optimized mechanisms to filter rows efficiently (keys and indices).</p>
-</div>
-<div id="sorting" class="section level3">
-<h3><span class="header-section-number">1.1.4</span> Sorting</h3>
+<ul>
+<li>Sorting</li>
+</ul>
 <div class="row">
 <div class="col-md-6">
 <div class="r">
@@ -820,9 +825,9 @@ head(cp_datatable[order(year_pub, -creation)][,.(year_pub,creation)])</code></pr
 </div>
 </div>
 </div>
-</div>
-<div id="summarise" class="section level3">
-<h3><span class="header-section-number">1.1.5</span> Summarise</h3>
+<ul>
+<li>Summarise</li>
+</ul>
 <div class="row">
 <div class="col-md-6">
 <div class="r">
@@ -925,22 +930,23 @@ cp_datatable[, uniqueN(language)]
 </div>
 </div>
 <p>dplyr helper functions for summarise() (or summarize()) include first(), last(), n(), nth(), and n_distinct(). The data.table package also include first(), last(), and uniqueN().</p>
-</div>
-<div id="modifying" class="section level3">
-<h3><span class="header-section-number">1.1.6</span> Modifying</h3>
+<ul>
+<li>Modifying</li>
+</ul>
 <p>In the following commands, with data.table, columns are modified by reference using the column assignment symbol := (no copy performed) and the results are returned invisibly. With dplyr, we have to assign the results.</p>
 <div class="row">
 <div class="col-md-6">
 <div class="r">
 <pre class="r"><code># R using Tibbles
 
-cp_tibble &lt;- cp_tibble %&gt;% mutate(oa = ifelse(oa == &#39;Y&#39;,1,0), log_cited = log(cited + 1))
+cp_tibble &lt;- cp_tibble %&gt;% rowwise() %&gt;% mutate(oa = ifelse(oa == &#39;Y&#39;,1,0), log_cited = log(cited + 1))
 
 
 
 # Create one column and remove the others
 transmute(cp_tibble, title_lower = tolower(title))
 ## # A tibble: 148,913 x 1
+## # Rowwise: 
 ##    title_lower                                                                  
 ##    &lt;chr&gt;                                                                        
 ##  1 the pathophysiology, diagnosis and treatment of corona virus disease 2019 (c~
@@ -990,10 +996,10 @@ cp_datatable[, (cols) := NULL] # ! not cp_datatable[, cols := NULL]</code></pre>
 </div>
 </div>
 </div>
-</div>
-<div id="grouping" class="section level3">
-<h3><span class="header-section-number">1.1.7</span> Grouping</h3>
-<p>by The dplyr::group_by() function and the corresponding by and keyby statements in data.table allow to run manipulate each group of observations and combine the results. The sole difference between by and keyby is that keyby orders the results and creates a key that will allow faster subsetting (cf. the indexing and keys section). Below, we arbitrary use one or the other. group_by() takes an existing tibble and converts it into a grouped tibble where operations will always be performed “by group”. Using ungroup() removes grouping. With data.table, by is always used on the fly. Note that it is possible to reorder the arguments in data.table: cp_datatable[i, j, by] &lt;=&gt; cp_datatable[i, by, j]. This is done below to better highlight the similarity with dplyr.</p>
+<ul>
+<li>Grouping by</li>
+</ul>
+<p>The dplyr::group_by() function and the corresponding by and keyby statements in data.table allow to run manipulate each group of observations and combine the results. The sole difference between by and keyby is that keyby orders the results and creates a key that will allow faster subsetting (cf. the indexing and keys section). Below, we arbitrary use one or the other. group_by() takes an existing tibble and converts it into a grouped tibble where operations will always be performed “by group”. Using ungroup() removes grouping. With data.table, by is always used on the fly. Note that it is possible to reorder the arguments in data.table: cp_datatable[i, j, by] &lt;=&gt; cp_datatable[i, by, j]. This is done below to better highlight the similarity with dplyr.</p>
 <div class="row">
 <div class="col-md-6">
 <div class="r">
@@ -1192,11 +1198,11 @@ dim(cp_datatable[, n := .N, by = source][])
 </div>
 </div>
 </div>
-<div id="more-complex-use-of-by" class="section level2">
-<h2><span class="header-section-number">1.2</span> More complex use of by</h2>
-<p>Context dependent expressions (cur_*()) have been introduced in dplyr 1.0.0, reflecting data.table aliases .I, .GRP, …</p>
-<div id="select-specific-row-by-group" class="section level3">
-<h3><span class="header-section-number">1.2.1</span> Select specific row by group</h3>
+<div id="more-complex-manipulation" class="section level2" number="1.2">
+<h2 number="1.2"><span class="header-section-number">1.2</span> More Complex manipulation</h2>
+<ul>
+<li>Select specific row by group</li>
+</ul>
 <div class="row">
 <div class="col-md-6">
 <div class="r">
@@ -1248,9 +1254,9 @@ cp_datatable[, .SD[which.min(cited)], by = PY]</code></pre>
 </div>
 </div>
 </div>
-</div>
-<div id="group-counter" class="section level3">
-<h3><span class="header-section-number">1.2.2</span> Group counter</h3>
+<ul>
+<li>Group counter</li>
+</ul>
 <div class="row">
 <div class="col-md-6">
 <div class="r">
@@ -1270,9 +1276,9 @@ cp_datatable[, Grp := NULL] # delete for consistency</code></pre>
 </div>
 </div>
 </div>
-</div>
-<div id="get-row-number-of-observation-by-group" class="section level3">
-<h3><span class="header-section-number">1.2.3</span> Get row number of observation by group</h3>
+<ul>
+<li>Get row number of observation by group</li>
+</ul>
 <div class="row">
 <div class="col-md-6">
 <div class="r">
@@ -1387,9 +1393,9 @@ cp_datatable[, .I[c(1, .N)], by = PY]
 </div>
 </div>
 </div>
-</div>
-<div id="handle-list-columns-by-group" class="section level3">
-<h3><span class="header-section-number">1.2.4</span> Handle list-columns by group</h3>
+<ul>
+<li>Handle list-columns by group</li>
+</ul>
 <div class="row">
 <div class="col-md-6">
 <div class="r">
@@ -1466,9 +1472,9 @@ cp_datatable[, .(.(.SD)), by = PY] # subsets of the data
 </div>
 </div>
 </div>
-</div>
-<div id="grouping-sets-multiple-by-at-once" class="section level3">
-<h3><span class="header-section-number">1.2.5</span> Grouping sets (multiple by at once)</h3>
+<ul>
+<li>Grouping sets (multiple by at once)</li>
+</ul>
 <div class="row">
 <div class="r">
 <pre class="r"><code># R using data.table
@@ -1542,12 +1548,9 @@ groupingsets(cp_datatable,
 ## 227:        0                     null 2018       0.0     2</code></pre>
 </div>
 </div>
-</div>
-</div>
-<div id="more-complex-manipulation" class="section level2">
-<h2><span class="header-section-number">1.3</span> More Complex manipulation</h2>
-<div id="using-multiple-variables" class="section level3">
-<h3><span class="header-section-number">1.3.1</span> Using multiple Variables</h3>
+<ul>
+<li>Using multiple Variables</li>
+</ul>
 <p>To manipulate multiple columns, dplyr_1.0.0 has introduced the across() function, superseding the _all, _at, and _if versions of summarise(), mutate(), and transmute(). With data.table, we use .SD, which is a data.table containing the Subset of Data for each group, excluding the column(s) used in by. So, cp_datatable[, .SD] is cp_datatable itself and in the expression cp_datatable[, .SD, by = title], .SD contains all the cp_datatable columns (except title) for each values in title (see cp_datatable[, print(.SD), by = title]). .SDcols allows to select the columns included in .SD.</p>
 <div class="row">
 <div class="col-md-6">
@@ -1661,9 +1664,9 @@ cp_datatable[, sapply(cp_datatable, FUN = fun),with = FALSE][,lapply(.SD, mean)]
 </div>
 </div>
 </div>
-</div>
-<div id="modify-multiples-variables" class="section level3">
-<h3><span class="header-section-number">1.3.2</span> Modify Multiples Variables</h3>
+<ul>
+<li>Modify Multiples Variables</li>
+</ul>
 <div class="row">
 <div class="col-md-6">
 <div class="r">
@@ -1696,7 +1699,7 @@ cp_tibble &lt;- cp_tibble %&gt;%
   mutate(across(where(is.character),
          toupper))
 Sys.time() - t
-## Time difference of 11.66129 secs</code></pre>
+## Time difference of 11.36034 secs</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -1721,71 +1724,14 @@ cp_datatable[, c(&#39;pubtype&#39;,&#39;mesh&#39;) := lapply(.SD, function(x){to
 t = Sys.time()
 for(j in  which(sapply(cp_datatable, class)==&#39;character&#39;)){set(cp_datatable, i=NULL, j=j, value=toupper(cp_datatable[[j]]))}
 Sys.time() - t 
-## Time difference of 10.41383 secs</code></pre>
+## Time difference of 10.50491 secs</code></pre>
 </div>
 </div>
 </div>
 <p>The use of cp_datatable[,j] is very flexible, allowing to pass complex expressions in a straightforward way, or combine expressions with multiple outputs.</p>
-</div>
-<div id="more-complex-expression" class="section level3">
-<h3><span class="header-section-number">1.3.3</span> More complex expression</h3>
-<div class="row">
-<div class="col-md-6">
-<div class="r">
-<pre class="r"><code># R using Tibbles
-
-head(cp_tibble %&gt;%
-  mutate(is_en = ifelse(language ==&#39;ENG&#39;,1,0),
-         oa_int = ifelse(oa ==&#39;Y&#39;,1,0)) %&gt;%
-  group_by(year_pub)  %&gt;% 
-  summarize(share_en = sum(is_en)/n(),
-            share_en_oa = sum(is_en*oa_int)/n()) %&gt;% 
-  arrange(desc(year_pub)))
-## `summarise()` ungrouping output (override with `.groups` argument)
-## # A tibble: 6 x 3
-##   year_pub share_en share_en_oa
-##   &lt;chr&gt;       &lt;dbl&gt;       &lt;dbl&gt;
-## 1 2021        0.989       0.884
-## 2 2020        0.956       0.685
-## 3 2019        0.989       0.867
-## 4 2018        0.985       0.829
-## 5 2017        0.985       0.817
-## 6 2016        0.978       0.791</code></pre>
-</div>
-</div>
-<div class="col-md-6">
-<div class="r">
-<pre class="r"><code># R using data.tablee
-
-head(cp_datatable[,c(&#39;is_en&#39;,&#39;oa_int&#39;) := .(ifelse(language ==&#39;ENG&#39;,1,0),
-                                       ifelse(oa ==&#39;Y&#39;,1,0))][
-                                         ,by = year_pub,.(share_en = sum(is_en)/.N,
-                                                          share_en_oa = sum(is_en*oa_int)/.N)])
-##    year_pub  share_en share_en_oa
-## 1:     2020 0.9555364   0.6848808
-## 2:     2019 0.9893906   0.8669750
-## 3:     2021 0.9894737   0.8842105
-## 4:     2018 0.9853569   0.8288591
-## 5:     2017 0.9851623   0.8173107
-## 6:     2016 0.9775491   0.7907702
-# Use multiple expressions (with cp_datatable[,{j}])
-head(cp_datatable[, {is_en = ifelse(language ==&#39;ENG&#39;,1,0) 
-                en_oa = is_en*oa_int
-                .(pmid,en_oa = ifelse(en_oa == 1, &#39;Y&#39;,&#39;N&#39;)) # last list returned as a data.table
-                }])
-##        pmid en_oa
-## 1: 32837036     Y
-## 2: 32196410     Y
-## 3: 32778421     Y
-## 4: 32730205     Y
-## 5: 32394467     Y
-## 6: 32257431     Y</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div id="chain-expressions" class="section level3">
-<h3><span class="header-section-number">1.3.4</span> Chain expressions</h3>
+<ul>
+<li>Chain expressions</li>
+</ul>
 <p>The dplyr workflow relies on the magrittr pipe operator (%&gt;%). The magrittr package can also be used with data.table objects, but data.table comes with its own chaining system: cp_datatable[][][].</p>
 <div class="row">
 <div class="col-md-6">
@@ -1852,11 +1798,67 @@ head(cp_datatable[, by = PY,
 </div>
 </div>
 </div>
+<ul>
+<li>More complex expression</li>
+</ul>
+<div class="row">
+<div class="col-md-6">
+<div class="r">
+<pre class="r"><code># R using Tibbles
+
+head(cp_tibble %&gt;%
+  mutate(is_en = ifelse(language ==&#39;ENG&#39;,1,0),
+         oa_int = ifelse(oa ==&#39;Y&#39;,1,0)) %&gt;%
+  group_by(year_pub)  %&gt;% 
+  summarize(share_en = sum(is_en)/n(),
+            share_en_oa = sum(is_en*oa_int)/n()) %&gt;% 
+  arrange(desc(year_pub)))
+## `summarise()` ungrouping output (override with `.groups` argument)
+## # A tibble: 6 x 3
+##   year_pub share_en share_en_oa
+##   &lt;chr&gt;       &lt;dbl&gt;       &lt;dbl&gt;
+## 1 2021        0.989       0.884
+## 2 2020        0.956       0.685
+## 3 2019        0.989       0.867
+## 4 2018        0.985       0.829
+## 5 2017        0.985       0.817
+## 6 2016        0.978       0.791</code></pre>
+</div>
+</div>
+<div class="col-md-6">
+<div class="r">
+<pre class="r"><code># R using data.tablee
+
+head(cp_datatable[,c(&#39;is_en&#39;,&#39;oa_int&#39;) := .(ifelse(language ==&#39;ENG&#39;,1,0),
+                                       ifelse(oa ==&#39;Y&#39;,1,0))][
+                                         ,by = year_pub,.(share_en = sum(is_en)/.N,
+                                                          share_en_oa = sum(is_en*oa_int)/.N)])
+##    year_pub  share_en share_en_oa
+## 1:     2020 0.9555364   0.6848808
+## 2:     2019 0.9893906   0.8669750
+## 3:     2021 0.9894737   0.8842105
+## 4:     2018 0.9853569   0.8288591
+## 5:     2017 0.9851623   0.8173107
+## 6:     2016 0.9775491   0.7907702
+# Use multiple expressions (with cp_datatable[,{j}])
+head(cp_datatable[, {is_en = ifelse(language ==&#39;ENG&#39;,1,0) 
+                en_oa = is_en*oa_int
+                .(pmid,en_oa = ifelse(en_oa == 1, &#39;Y&#39;,&#39;N&#39;)) # last list returned as a data.table
+                }])
+##        pmid en_oa
+## 1: 32837036     Y
+## 2: 32196410     Y
+## 3: 32778421     Y
+## 4: 32730205     Y
+## 5: 32394467     Y
+## 6: 32257431     Y</code></pre>
 </div>
 </div>
 </div>
-<div id="reshape-data" class="section level1">
-<h1><span class="header-section-number">2</span> Reshape data</h1>
+</div>
+</div>
+<div id="reshape-data" class="section level1" number="2">
+<h1 number="2"><span class="header-section-number">2</span> Reshape data</h1>
 <p>Imagine you have a variable with multiple categories that are store in one cell as the variables ‘pubtype’ in our dataset. You may want to create different columns for each of this variable. The opposit is also possible, one can have several columns with value that we want to transforme in two columns : one with the factor and the other with the values.</p>
 <p>First let’s clean this variable and separate the string in each cells in order to have on row for each article’s pubtype.</p>
 <div class="row">
@@ -1927,12 +1929,13 @@ mcp_datatable
 </div>
 </div>
 </div>
-<div id="cast-data-from-long-to-wide" class="section level2">
-<h2><span class="header-section-number">2.1</span> Cast data (from long to wide)</h2>
+<div id="cast-data-from-long-to-wide" class="section level2" number="2.1">
+<h2 number="2.1"><span class="header-section-number">2.1</span> Cast data (from long to wide)</h2>
 <div class="row">
 <div class="col-md-6">
 <div class="r">
-<pre class="r"><code># R using Tibbles
+<pre class="r"><code>
+# R using Tibbles
 
 # see also cast_dtm()
 ccp_tibble = tidyr::spread(data  = mcp_tibble,
@@ -1955,8 +1958,8 @@ dim(ccp_datatable)
 </div>
 </div>
 </div>
-<div id="melt-data-from-wide-to-long" class="section level2">
-<h2><span class="header-section-number">2.2</span> Melt data (from wide to long)</h2>
+<div id="melt-data-from-wide-to-long" class="section level2" number="2.2">
+<h2 number="2.2"><span class="header-section-number">2.2</span> Melt data (from wide to long)</h2>
 <div class="row">
 <div class="col-md-6">
 <div class="r">
@@ -1981,8 +1984,8 @@ mcp_datatable &lt;- melt(ccp_datatable, id.vars = &quot;pmid&quot;,
 </div>
 </div>
 </div>
-<div id="split" class="section level2">
-<h2><span class="header-section-number">2.3</span> Split</h2>
+<div id="split" class="section level2" number="2.3">
+<h2 number="2.3"><span class="header-section-number">2.3</span> Split</h2>
 <div class="row">
 <div class="col-md-6">
 <div class="r">
@@ -2000,8 +2003,8 @@ split(cp_datatable, by = &quot;oa&quot;) # S3 method</code></pre>
 </div>
 </div>
 </div>
-<div id="split-and-transpose-a-vectorcolumn" class="section level2">
-<h2><span class="header-section-number">2.4</span> Split and transpose a vector/column</h2>
+<div id="split-and-transpose-a-vectorcolumn" class="section level2" number="2.4">
+<h2 number="2.4"><span class="header-section-number">2.4</span> Split and transpose a vector/column</h2>
 <div class="row">
 <div class="col-md-6">
 <div class="r">
@@ -2036,12 +2039,18 @@ setDT(tstrsplit(vec, split = &quot;:&quot;))[]
 </div>
 </div>
 </div>
-<div id="indexing-and-keys" class="section level1">
-<h1><span class="header-section-number">3</span> Indexing and Keys</h1>
-<div id="set-keyindex" class="section level2">
-<h2><span class="header-section-number">3.1</span> Set key/index</h2>
+<div id="indexing-and-keys" class="section level1" number="3">
+<h1 number="3"><span class="header-section-number">3</span> Indexing and Keys</h1>
+<div id="set-keyindex" class="section level2" number="3.1">
+<h2 number="3.1"><span class="header-section-number">3.1</span> Set key/index</h2>
 <p>Row subsetting in dplyr relies on the filter() and slice() functions, as shown in the first section. With data.table, in addition to the above-mentioned approach, two systems are available to make row filtering and join operations more convenient and blazingly fast (~170x speed-up): keys (primary ordered index) and indices (automatic secondary indexing).</p>
-<p>The main differences between keys and indices are: - When using keys, data are physically reordered in memory. When using indices, the order is stored as an attribute. - Only one key is possible but several indices can coexist. - Keys are defined explicitly. Indices can be created manually but are also created on-the-fly (and stored when using == or %in%). - Indices are used with the on argument. It is optional when using keys, but recommended (and used below) for better readability. Note: in the following code, we set both a key and an index to demonstrate their usage, but internally, indices are not used when a key already exists for the same columns(s).</p>
+<p>The main differences between keys and indices are:</p>
+<ul>
+<li><p>When using keys, data are physically reordered in memory. When using indices, the order is stored as an attribute.</p></li>
+<li><p>Only one key is possible but several indices can coexist.</p></li>
+<li><p>Keys are defined explicitly. Indices can be created manually but are also created on-the-fly (and stored when using == or %in%).</p></li>
+<li><p>Indices are used with the on argument. It is optional when using keys, but recommended (and used below) for better readability. Note: in the following code, we set both a key and an index to demonstrate their usage, but internally, indices are not used when a key already exists for the same columns(s).</p></li>
+</ul>
 <div class="row">
 <div class="col-md-6">
 <div class="r">
@@ -2059,12 +2068,14 @@ setindex(cp_datatable, year_pub)</code></pre>
 </div>
 </div>
 </div>
-<div id="select-rows" class="section level3">
-<h3><span class="header-section-number">3.1.1</span> Select rows</h3>
+<ul>
+<li>Select rows</li>
+</ul>
 <div class="row">
 <div class="col-md-6">
 <div class="r">
-<pre class="r"><code># R using Tibbles
+<pre class="r"><code>
+# R using Tibbles
 
 dim(cp_tibble %&gt;% filter(year_pub == &quot;2010&quot;))
 ## [1] 2190   21
@@ -2083,9 +2094,9 @@ dim(cp_datatable[c(&quot;2010&quot;, &quot;2020&quot;), on = .(year_pub)]) # sam
 </div>
 </div>
 </div>
-</div>
-<div id="nomatch" class="section level3">
-<h3><span class="header-section-number">3.1.2</span> Nomatch</h3>
+<ul>
+<li>Nomatch</li>
+</ul>
 <div class="row">
 <div class="col-md-6">
 <div class="r">
@@ -2106,9 +2117,9 @@ cp_datatable[c(&quot;2010&quot;, &quot;2025&quot;), on = &quot;year_pub&quot;, n
 </div>
 </div>
 </div>
-</div>
-<div id="apply-function-on-matched-rows" class="section level3">
-<h3><span class="header-section-number">3.1.3</span> Apply function on matched rows</h3>
+<ul>
+<li>Apply function on matched rows</li>
+</ul>
 <div class="row">
 <div class="col-md-6">
 <div class="r">
@@ -2127,9 +2138,9 @@ cp_tibble %&gt;%
 </div>
 </div>
 </div>
-</div>
-<div id="modify-matched-rows-values" class="section level3">
-<h3><span class="header-section-number">3.1.4</span> Modify matched rows values</h3>
+<ul>
+<li>Modify matched rows values</li>
+</ul>
 <div class="row">
 <div class="col-md-6">
 <div class="r">
@@ -2148,9 +2159,9 @@ cp_datatable[&quot;2010&quot;, cited_ := 0, on = &quot;year_pub&quot;]</code></p
 </div>
 </div>
 </div>
-</div>
-<div id="use-keys-in-by" class="section level3">
-<h3><span class="header-section-number">3.1.5</span> Use keys in by</h3>
+<ul>
+<li>Use keys in by</li>
+</ul>
 <div class="row">
 <div class="col-md-6">
 <div class="r">
@@ -2192,9 +2203,9 @@ head(cp_datatable[oa != &quot;Y&quot;,
 </div>
 </div>
 </div>
-</div>
-<div id="set-multiple-keysindices" class="section level3">
-<h3><span class="header-section-number">3.1.6</span> Set multiple keys/indices</h3>
+<ul>
+<li>Set multiple keys/indices</li>
+</ul>
 <div class="row">
 <div class="col-md-6">
 <div class="r">
@@ -2212,9 +2223,9 @@ setindex(cp_datatable, PY, cited) # setindexv(cp_datatable, c(&quot;PY&quot;, &q
 </div>
 </div>
 </div>
-</div>
-<div id="subset-using-multiple-keysindices" class="section level3">
-<h3><span class="header-section-number">3.1.7</span> Subset using multiple keys/indices</h3>
+<ul>
+<li>Subset using multiple keys/indices</li>
+</ul>
 <div class="row">
 <div class="col-md-6">
 <div class="r">
@@ -2240,9 +2251,9 @@ dim(cp_datatable[.(c(&quot;2010&quot;,&quot;2020&quot;), 0), on = .(year_pub, ci
 </div>
 </div>
 </div>
-</div>
-<div id="remove-keysindices" class="section level3">
-<h3><span class="header-section-number">3.1.8</span> Remove keys/indices</h3>
+<ul>
+<li>Remove keys/indices</li>
+</ul>
 <div class="r">
 <pre class="r"><code># R using data.table
 
@@ -2250,12 +2261,12 @@ setkey(cp_datatable, NULL)
 setindex(cp_datatable, NULL)</code></pre>
 </div>
 </div>
-</div>
-<div id="set-modifications" class="section level2">
-<h2><span class="header-section-number">3.2</span> set*() modifications</h2>
+<div id="set-modifications" class="section level2" number="3.2">
+<h2 number="3.2"><span class="header-section-number">3.2</span> set*() modifications</h2>
 <p>In data.table, set*() functions modify objects by reference, making these operations fast and memory-efficient. In case this is not a desired behaviour, users can use copy(). The corresponding expressions in dplyr will be less memory-efficient.</p>
-<div id="replace-values" class="section level3">
-<h3><span class="header-section-number">3.2.1</span> Replace values</h3>
+<ul>
+<li>Replace values</li>
+</ul>
 <div class="row">
 <div class="col-md-6">
 <div class="r">
@@ -2290,9 +2301,9 @@ head(cp_datatable[,2])
 </div>
 </div>
 </div>
-</div>
-<div id="reorder-rows" class="section level3">
-<h3><span class="header-section-number">3.2.2</span> Reorder rows</h3>
+<ul>
+<li>Reorder rows</li>
+</ul>
 <div class="row">
 <div class="col-md-6">
 <div class="r">
@@ -2310,9 +2321,9 @@ setorderv(cp_datatable, c(&quot;PY&quot;, &quot;cited&quot;), c(1, -1))</code></
 </div>
 </div>
 </div>
-</div>
-<div id="modify-colnames" class="section level3">
-<h3><span class="header-section-number">3.2.3</span> Modify colnames</h3>
+<ul>
+<li>Modify colnames</li>
+</ul>
 <div class="row">
 <div class="col-md-6">
 <div class="r">
@@ -2329,9 +2340,9 @@ setnames(cp_datatable, old = &quot;doi&quot;, new = &quot;DOI&quot;)</code></pre
 </div>
 </div>
 </div>
-</div>
-<div id="reorder-columns" class="section level3">
-<h3><span class="header-section-number">3.2.4</span> Reorder columns</h3>
+<ul>
+<li>Reorder columns</li>
+</ul>
 <div class="row">
 <div class="col-md-6">
 <div class="r">
@@ -2357,17 +2368,18 @@ setcolorder(cp_datatable, c(&quot;PY&quot;, &quot;cited&quot;, &quot;DOI&quot;))
 </div>
 </div>
 </div>
-</div>
-<div id="set-operations" class="section level3">
-<h3><span class="header-section-number">3.2.5</span> Set operations</h3>
+<ul>
+<li>Set operations</li>
+</ul>
 <div class="row">
 <div class="r">
 <pre class="r"><code>x &lt;- data.table(c(1, 2, 2, 3, 3))
 y &lt;- data.table(c(2, 2, 3, 4, 4))</code></pre>
 </div>
 </div>
-<div id="intersection" class="section level4">
-<h4><span class="header-section-number">3.2.5.1</span> Intersection</h4>
+<ul>
+<li>Intersection</li>
+</ul>
 <div class="row">
 <div class="col-md-6">
 <div class="r">
@@ -2395,9 +2407,9 @@ fintersect(x, y, all = TRUE)
 </div>
 </div>
 </div>
-</div>
-<div id="difference" class="section level4">
-<h4><span class="header-section-number">3.2.5.2</span> Difference</h4>
+<ul>
+<li>Difference</li>
+</ul>
 <div class="row">
 <div class="col-md-6">
 <div class="r">
@@ -2422,9 +2434,9 @@ fsetdiff(x, y, all = TRUE)
 </div>
 </div>
 </div>
-</div>
-<div id="union" class="section level4">
-<h4><span class="header-section-number">3.2.5.3</span> Union</h4>
+<ul>
+<li>Union</li>
+</ul>
 <div class="row">
 <div class="col-md-6">
 <div class="r">
@@ -2475,9 +2487,9 @@ funion(x, y, all = TRUE)
 </div>
 </div>
 </div>
-</div>
-<div id="equality" class="section level4">
-<h4><span class="header-section-number">3.2.5.4</span> Equality</h4>
+<ul>
+<li>Equality</li>
+</ul>
 <div class="row">
 <div class="col-md-6">
 <div class="r">
@@ -2502,12 +2514,10 @@ all.equal(x, x) # S3 method
 </div>
 </div>
 </div>
-</div>
-</div>
-<div id="joinbind-data-sets" class="section level1">
-<h1><span class="header-section-number">4</span> Join/Bind data sets</h1>
-<div id="join" class="section level2">
-<h2><span class="header-section-number">4.1</span> Join</h2>
+<div id="joinbind-data-sets" class="section level1" number="4">
+<h1 number="4"><span class="header-section-number">4</span> Join/Bind data sets</h1>
+<div id="join" class="section level2" number="4.1">
+<h2 number="4.1"><span class="header-section-number">4.1</span> Join</h2>
 <p>Joining data in data.table works like the fast subsetting approach described above. It can be performed using keys, using the ad hoc on argument, or using the merge.data.table method. For the sake of completeness, the three methods are presented below. As previously mentioned, the on and by (in merge) arguments are optional with keyed data.tables, but recommended to make the code more explicit. In the examples below, the x, y, and z data.tables are also used with dplyr.</p>
 <div class="row">
 <div class="col-md-6">
@@ -2532,8 +2542,9 @@ y &lt;- data.table(Id  = c(&quot;A&quot;, &quot;B&quot;, &quot;B&quot;, &quot;D&
 </div>
 </div>
 </div>
-<div id="join-matching-rows-from-y-to-x" class="section level3">
-<h3><span class="header-section-number">4.1.1</span> Join matching rows from y to x</h3>
+<ul>
+<li>Join matching rows from y to x</li>
+</ul>
 <div class="row">
 <div class="col-md-6">
 <div class="r">
@@ -2577,9 +2588,9 @@ y[x] # requires keys
 </div>
 </div>
 </div>
-</div>
-<div id="join-matching-rows-from-x-to-y" class="section level3">
-<h3><span class="header-section-number">4.1.2</span> Join matching rows from x to y</h3>
+<ul>
+<li>Join matching rows from x to y</li>
+</ul>
 <div class="row">
 <div class="col-md-6">
 <div class="r">
@@ -2618,9 +2629,9 @@ x[y] # requires keys
 </div>
 </div>
 </div>
-</div>
-<div id="join-matching-rows-from-both-x-and-y" class="section level3">
-<h3><span class="header-section-number">4.1.3</span> Join matching rows from both x and y</h3>
+<ul>
+<li>Join matching rows from both x and y</li>
+</ul>
 <div class="row">
 <div class="col-md-6">
 <div class="r">
@@ -2655,9 +2666,9 @@ x[y, nomatch = 0] # requires keys
 </div>
 </div>
 </div>
-</div>
-<div id="join-keeping-all-the-rows" class="section level3">
-<h3><span class="header-section-number">4.1.4</span> Join keeping all the rows</h3>
+<ul>
+<li>Join keeping all the rows</li>
+</ul>
 <div class="row">
 <div class="col-md-6">
 <div class="r">
@@ -2688,9 +2699,9 @@ merge(x, y, all = TRUE, by = &quot;Id&quot;)
 </div>
 </div>
 </div>
-</div>
-<div id="return-rows-from-x-matching-y" class="section level3">
-<h3><span class="header-section-number">4.1.5</span> Return rows from x matching y</h3>
+<ul>
+<li>Return rows from x matching y</li>
+</ul>
 <div class="row">
 <div class="col-md-6">
 <div class="r">
@@ -2717,9 +2728,9 @@ unique(x[y$Id, nomatch = 0]) # requires keys
 </div>
 </div>
 </div>
-</div>
-<div id="return-rows-from-x-not-matching-y" class="section level3">
-<h3><span class="header-section-number">4.1.6</span> Return rows from x not matching y</h3>
+<ul>
+<li>Return rows from x not matching y</li>
+</ul>
 <div class="row">
 <div class="col-md-6">
 <div class="r">
@@ -2747,491 +2758,11 @@ x[!y] # requires keys
 </div>
 </div>
 </div>
-<div id="more-joins" class="section level3">
-<h3><span class="header-section-number">4.1.7</span> More joins</h3>
-<p>data.table excels at joining data, and offers additional functions and features. Select columns while joining</p>
-<div class="row">
-<div class="col-md-6">
-<div class="r">
-<pre class="r"><code># R using Tibbles
-
-right_join(select(x, Id, X1),
-           select(y, Id, XY),
-           by = &quot;Id&quot;)
-##    Id X1 XY
-## 1:  A  1 y1
-## 2:  B  3 y3
-## 3:  B  3 y5
-## 4:  D NA y7
-right_join(select(x, Id, XY),
-           select(y, Id, XY),
-           by = &quot;Id&quot;)
-##    Id XY.x XY.y
-## 1:  A   x2   y1
-## 2:  B   x4   y3
-## 3:  B   x4   y5
-## 4:  D &lt;NA&gt;   y7</code></pre>
-</div>
-</div>
-<div class="col-md-6">
-<div class="r">
-<pre class="r"><code># R using data.table
-
-x[y, .(Id, X1, i.XY)]   # i. prefix refers to cols in y
-##    Id X1 i.XY
-## 1:  A  1   y1
-## 2:  B  3   y3
-## 3:  B  3   y5
-## 4:  D NA   y7
-x[y, .(Id, x.XY, i.XY)] # x. prefix refers to cols in x
-##    Id x.XY i.XY
-## 1:  A   x2   y1
-## 2:  B   x4   y3
-## 3:  B   x4   y5
-## 4:  D &lt;NA&gt;   y7</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div id="aggregate-columns-while-joining" class="section level3">
-<h3><span class="header-section-number">4.1.8</span> Aggregate columns while joining</h3>
-<div class="row">
-<div class="col-md-6">
-<div class="r">
-<pre class="r"><code># R using Tibbles
-
-y %&gt;%
- group_by(Id) %&gt;%
- summarise(SumY1 = sum(Y1)) %&gt;%
- right_join(x) %&gt;%
- mutate(X1Y1 = SumY1 * X1) %&gt;%
- select(Id, X1Y1)
-## `summarise()` ungrouping output (override with `.groups` argument)
-## Joining, by = &quot;Id&quot;
-## # A tibble: 4 x 2
-##   Id     X1Y1
-##   &lt;chr&gt; &lt;int&gt;
-## 1 A         1
-## 2 B        24
-## 3 C        NA
-## 4 C        NA</code></pre>
-</div>
-</div>
-<div class="col-md-6">
-<div class="r">
-<pre class="r"><code># R using data.table
-
-y[x, .(X1Y1 = sum(Y1) * X1), by = .EACHI]
-##    Id X1Y1
-## 1:  A    1
-## 2:  B   24
-## 3:  C   NA
-## 4:  C   NA</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div id="update-columns-while-joining" class="section level3">
-<h3><span class="header-section-number">4.1.9</span> Update columns while joining</h3>
-<div class="row">
-<div class="col-md-6">
-<div class="r">
-<pre class="r"><code># R using Tibbles
-
-x %&gt;%
- select(Id, X1) %&gt;%
- mutate(SqX1 = X1^2) %&gt;%
- right_join(y, by = &quot;Id&quot;) %&gt;%
- select(names(y), SqX1)
-##    Id Y1 XY SqX1
-## 1:  A  1 y1    1
-## 2:  B  3 y3    9
-## 3:  B  5 y5    9
-## 4:  D  7 y7   NA</code></pre>
-</div>
-</div>
-<div class="col-md-6">
-<div class="r">
-<pre class="r"><code># R using data.table
-
-y[x, SqX1 := i.X1^2]
-y[, SqX1 := x[.BY, X1^2, on = &quot;Id&quot;], by = Id] # more memory-efficient
-y[, SqX1 := NULL] # rm column for consistency</code></pre>
-</div>
-</div>
-</div>
-<!--
-
-### Adds a list column with rows from y matching x (nest-join)
-<div class = "row">
-<div class = "col-md-6">
-<div class = "r">
-
-
-```r
-# R using Tibbles
-
-nest_join(x, y, by = "Id")
-##    Id X1 XY        y
-## 1:  A  1 x2 <tbl_df>
-## 2:  B  3 x4 <tbl_df>
-## 3:  C  5 x6 <tbl_df>
-## 4:  C  7 x8 <tbl_df>
-```
-
-</div>
-</div>
-<div class = "col-md-6">
-<div class = "r">
-
-
-```r
-# R using data.table
-
-x[, y := .(.(y[.BY, on = "Id"])), by = Id]
-x[, y := NULL] # rm column for consistency
-```
-
-</div>
-</div>
-</div>
-
-    
-
-
-### Update columns while joining (using vectors of colnames)
-
-<div class = "row">
-<div class = "col-md-6">
-<div class = "r">
-
-
-```r
-# R using Tibbles
-
-```
-
-</div>
-</div>
-<div class = "col-md-6">
-<div class = "r">
-
-
-```r
-# R using data.table
-
-cols  <- c("NewXY", "NewX1")
-icols <- paste0("i.", c("XY", "X1"))
-
-y[x, (cols) := mget(icols)]
-
-y[, (cols) := NULL] # rm columns for consistency
-```
-
-</div>
-</div>
-</div>
-
-
-### Join passing columns to match in the on argument
-<div class = "row">
-<div class = "col-md-6">
-<div class = "r">
-
-
-```r
-# R using Tibbles
-
-z <- data.table(ID = "C", Z1 = 5:9, Z2 = paste0("z", 5:9))
-
-right_join(x, z, by = c("X1" = "Z1"))
-##      Id X1   XY ID Z2
-## 1:    C  5   x6  C z5
-## 2:    C  7   x8  C z7
-## 3: <NA>  6 <NA>  C z6
-## 4: <NA>  8 <NA>  C z8
-## 5: <NA>  9 <NA>  C z9
-right_join(x, z, by = c("Id" = "ID", "X1" = "Z1"))
-##    Id X1   XY Z2
-## 1:  C  5   x6 z5
-## 2:  C  7   x8 z7
-## 3:  C  6 <NA> z6
-## 4:  C  8 <NA> z8
-## 5:  C  9 <NA> z9
-```
-
-</div>
-</div>
-<div class = "col-md-6">
-<div class = "r">
-
-
-```r
-# R using data.table
-
-x[, X2 := paste0("x", X1)] # used to track the results
-z; x
-##    ID Z1 Z2
-## 1:  C  5 z5
-## 2:  C  6 z6
-## 3:  C  7 z7
-## 4:  C  8 z8
-## 5:  C  9 z9
-##    Id X1 XY X2
-## 1:  A  1 x2 x1
-## 2:  B  3 x4 x3
-## 3:  C  5 x6 x5
-## 4:  C  7 x8 x7
-
-x[z, on = "X1 == Z1"]
-##      Id X1   XY   X2 ID Z2
-## 1:    C  5   x6   x5  C z5
-## 2: <NA>  6 <NA> <NA>  C z6
-## 3:    C  7   x8   x7  C z7
-## 4: <NA>  8 <NA> <NA>  C z8
-## 5: <NA>  9 <NA> <NA>  C z9
-x[z, on = .(X1 == Z1)] # same
-##      Id X1   XY   X2 ID Z2
-## 1:    C  5   x6   x5  C z5
-## 2: <NA>  6 <NA> <NA>  C z6
-## 3:    C  7   x8   x7  C z7
-## 4: <NA>  8 <NA> <NA>  C z8
-## 5: <NA>  9 <NA> <NA>  C z9
-x[z, on = .(Id == ID, X1 == Z1)] # using two columns
-##    Id X1   XY   X2 Z2
-## 1:  C  5   x6   x5 z5
-## 2:  C  6 <NA> <NA> z6
-## 3:  C  7   x8   x7 z7
-## 4:  C  8 <NA> <NA> z8
-## 5:  C  9 <NA> <NA> z9
-```
-
-</div>
-</div>
-</div>
-
-
-### Non-equi joins
-<div class = "row">
-<div class = "col-md-6">
-<div class = "r">
-
-
-```r
-# R using Tibbles
-
-```
-
-</div>
-</div>
-<div class = "col-md-6">
-<div class = "r">
-
-
-```r
-# R using data.table
-
-x[z, on = .(Id == ID, X1 <= Z1)]
-##    Id X1 XY X2 Z2
-## 1:  C  5 x6 x5 z5
-## 2:  C  6 x6 x5 z6
-## 3:  C  7 x6 x5 z7
-## 4:  C  7 x8 x7 z7
-## 5:  C  8 x6 x5 z8
-## 6:  C  8 x8 x7 z8
-## 7:  C  9 x6 x5 z9
-## 8:  C  9 x8 x7 z9
-x[z, on = .(Id == ID, X1 > Z1)]
-##    Id X1   XY   X2 Z2
-## 1:  C  5   x8   x7 z5
-## 2:  C  6   x8   x7 z6
-## 3:  C  7 <NA> <NA> z7
-## 4:  C  8 <NA> <NA> z8
-## 5:  C  9 <NA> <NA> z9
-x[z, on = .(X1 < Z1), allow.cartesian = TRUE] # allows 'numerous' matching values
-##     Id X1 XY X2 ID Z2
-##  1:  A  5 x2 x1  C z5
-##  2:  B  5 x4 x3  C z5
-##  3:  A  6 x2 x1  C z6
-##  4:  B  6 x4 x3  C z6
-##  5:  C  6 x6 x5  C z6
-##  6:  A  7 x2 x1  C z7
-##  7:  B  7 x4 x3  C z7
-##  8:  C  7 x6 x5  C z7
-##  9:  A  8 x2 x1  C z8
-## 10:  B  8 x4 x3  C z8
-## 11:  C  8 x6 x5  C z8
-## 12:  C  8 x8 x7  C z8
-## 13:  A  9 x2 x1  C z9
-## 14:  B  9 x4 x3  C z9
-## 15:  C  9 x6 x5  C z9
-## 16:  C  9 x8 x7  C z9
-```
-
-</div>
-</div>
-</div>
-
-
-### Rolling joins/subsets (performed on the last numeric column)
-<div class = "row">
-<div class = "col-md-6">
-<div class = "r">
-
-
-```r
-# R using Tibbles
-
-```
-
-</div>
-</div>
-<div class = "col-md-6">
-<div class = "r">
-
-
-```r
-# R using data.table
-# Nearest
-x[z, on = .(Id == ID, X1 == Z1), roll = "nearest"]
-##    Id X1 XY X2 Z2
-## 1:  C  5 x6 x5 z5
-## 2:  C  6 x6 x5 z6
-## 3:  C  7 x8 x7 z7
-## 4:  C  8 x8 x7 z8
-## 5:  C  9 x8 x7 z9
-## below, simplified examples with ad hoc subsets on a keyed data.table
-setkey(x, Id, X1)
-x[.("C", 5:9), roll = "nearest"]
-##    Id X1 XY X2
-## 1:  C  5 x6 x5
-## 2:  C  6 x6 x5
-## 3:  C  7 x8 x7
-## 4:  C  8 x8 x7
-## 5:  C  9 x8 x7
-
-    
-
-#
-
-# Last Observation Carried Forward
-x[.("C", 5:9), roll = Inf]
-##    Id X1 XY X2
-## 1:  C  5 x6 x5
-## 2:  C  6 x6 x5
-## 3:  C  7 x8 x7
-## 4:  C  8 x8 x7
-## 5:  C  9 x8 x7
-x[.("C", 5:9), roll = 0.5]  # bounded
-##    Id X1   XY   X2
-## 1:  C  5   x6   x5
-## 2:  C  6 <NA> <NA>
-## 3:  C  7   x8   x7
-## 4:  C  8 <NA> <NA>
-## 5:  C  9 <NA> <NA>
-x[.("C", 5:9), roll = Inf, rollends = c(FALSE, TRUE)]  # default
-##    Id X1 XY X2
-## 1:  C  5 x6 x5
-## 2:  C  6 x6 x5
-## 3:  C  7 x8 x7
-## 4:  C  8 x8 x7
-## 5:  C  9 x8 x7
-x[.("C", 5:9), roll = Inf, rollends = c(FALSE, FALSE)] # ends not rolled
-##    Id X1   XY   X2
-## 1:  C  5   x6   x5
-## 2:  C  6   x6   x5
-## 3:  C  7   x8   x7
-## 4:  C  8 <NA> <NA>
-## 5:  C  9 <NA> <NA>
-
-    
-
-#
-
-# Next Observation Carried Backward
-x[.("C", 5:9), roll = -Inf]
-##    Id X1   XY   X2
-## 1:  C  5   x6   x5
-## 2:  C  6   x8   x7
-## 3:  C  7   x8   x7
-## 4:  C  8 <NA> <NA>
-## 5:  C  9 <NA> <NA>
-x[.("C", 5:9), roll = -0.5] # bounded
-##    Id X1   XY   X2
-## 1:  C  5   x6   x5
-## 2:  C  6 <NA> <NA>
-## 3:  C  7   x8   x7
-## 4:  C  8 <NA> <NA>
-## 5:  C  9 <NA> <NA>
-x[.("C", 5:9), roll = -Inf, rollends = c(TRUE, FALSE)]
-##    Id X1   XY   X2
-## 1:  C  5   x6   x5
-## 2:  C  6   x8   x7
-## 3:  C  7   x8   x7
-## 4:  C  8 <NA> <NA>
-## 5:  C  9 <NA> <NA>
-x[.("C", 5:9), roll = -Inf, rollends = c(TRUE, TRUE)]  # roll both ends
-##    Id X1 XY X2
-## 1:  C  5 x6 x5
-## 2:  C  6 x8 x7
-## 3:  C  7 x8 x7
-## 4:  C  8 x8 x7
-## 5:  C  9 x8 x7
-```
-
-</div>
-</div>
-</div>
-
-
-### Cross join (CJ ~ expand.grid)
-<div class = "row">
-<div class = "col-md-6">
-<div class = "r">
-
-
-```r
-# R using Tibbles
-
-# base::expand.grid(c(2, 1, 1), 3:2)
-
-```
-
-</div>
-</div>
-<div class = "col-md-6">
-<div class = "r">
-
-
-```r
-# R using data.table
-
-CJ(c(2, 1, 1), 3:2)
-##    V1 V2
-## 1:  1  2
-## 2:  1  2
-## 3:  1  3
-## 4:  1  3
-## 5:  2  2
-## 6:  2  3
-CJ(c(2, 1, 1), 3:2, sorted = FALSE, unique = TRUE)
-##    V1 V2
-## 1:  2  3
-## 2:  2  2
-## 3:  1  3
-## 4:  1  2
-```
-
-</div>
-</div>
-</div>
--->
-</div>
-</div>
-<div id="bind" class="section level2">
-<h2><span class="header-section-number">4.2</span> Bind</h2>
-<div id="bind-rows" class="section level3">
-<h3><span class="header-section-number">4.2.1</span> Bind rows</h3>
+<div id="bind" class="section level2" number="4.2">
+<h2 number="4.2"><span class="header-section-number">4.2</span> Bind</h2>
+<ul>
+<li>Bind rows</li>
+</ul>
 <div class="row">
 <div class="col-md-6">
 <div class="r">
@@ -3282,9 +2813,9 @@ rbind(x, z, fill = TRUE)
 </div>
 </div>
 </div>
-</div>
-<div id="bind-rows-using-a-list" class="section level3">
-<h3><span class="header-section-number">4.2.2</span> Bind rows using a list</h3>
+<ul>
+<li>Bind rows using a list</li>
+</ul>
 <div class="row">
 <div class="col-md-6">
 <div class="r">
@@ -3315,9 +2846,9 @@ rbindlist(list(x, y), idcol = TRUE)
 </div>
 </div>
 </div>
-</div>
-<div id="bind-columns" class="section level3">
-<h3><span class="header-section-number">4.2.3</span> Bind columns</h3>
+<ul>
+<li>Bind columns</li>
+</ul>
 <div class="row">
 <div class="col-md-6">
 <div class="r">
@@ -3347,11 +2878,10 @@ base::cbind(x, y)
 </div>
 </div>
 </div>
-</div>
-<div id="other" class="section level1">
-<h1><span class="header-section-number">5</span> Other</h1>
-<div id="leadlag" class="section level2">
-<h2><span class="header-section-number">5.1</span> Lead/Lag</h2>
+<div id="other" class="section level1" number="5">
+<h1 number="5"><span class="header-section-number">5</span> Other</h1>
+<div id="leadlag" class="section level2" number="5.1">
+<h2 number="5.1"><span class="header-section-number">5.1</span> Lead/Lag</h2>
 <div class="row">
 <div class="col-md-6">
 <div class="r">
@@ -3386,45 +2916,12 @@ shift(1:10, n = 1,   fill = NA, type = &quot;lead&quot;)
 </div>
 </div>
 </div>
-<!--
-
-## Generate run-length ids
-<div class = "row">
-<div class = "col-md-6">
-<div class = "r">
-
-
-```r
-# R using Tibbles
-
-```
-
 </div>
 </div>
-<div class = "col-md-6">
-<div class = "r">
-
-
-```r
-# R using data.table
-
-rleid(rep(c("a", "b", "a"), each = 3)) # see also ?rleidv
-## [1] 1 1 1 2 2 2 3 3 3
-rleid(rep(c("a", "b", "a"), each = 3), prefix = "G")
-## [1] "G1" "G1" "G1" "G2" "G2" "G2" "G3" "G3" "G3"
-```
-
-</div>
-</div>
-</div>
-
--->
-</div>
-</div>
-<div id="readwrite-data" class="section level1">
-<h1><span class="header-section-number">6</span> Read/Write data</h1>
-<div id="standart-format" class="section level2">
-<h2><span class="header-section-number">6.1</span> standart format</h2>
+<div id="readwrite-data" class="section level1" number="6">
+<h1 number="6"><span class="header-section-number">6</span> Read/Write data</h1>
+<div id="standart-format" class="section level2" number="6.1">
+<h2 number="6.1"><span class="header-section-number">6.1</span> standart format</h2>
 <div class="r">
 <pre class="r"><code># R
 library(tidyverse)
@@ -3519,14 +3016,15 @@ load(&#39;covid_papers.RData&#39;)
 </code></pre>
 </div>
 </div>
-<div id="miscellaneous" class="section level2">
-<h2><span class="header-section-number">6.2</span> Miscellaneous</h2>
-<div id="read-write-data" class="section level3">
-<h3><span class="header-section-number">6.2.1</span> Read / Write data</h3>
+<div id="miscellaneous" class="section level2" number="6.2">
+<h2 number="6.2"><span class="header-section-number">6.2</span> Miscellaneous</h2>
+<ul>
+<li>Read / Write data</li>
+</ul>
 <p>fread() and fwrite() are among the most powerful functions of data.table. They are not only incredibly fast (see benchmarks), they are also extremely robust. The few commands below only scratch the surface and there are a lot of awesome features. For example, fread() accepts http and https URLs directly as well as operating system commands such as sed and awk output. Make sure to check the docs. Here again, fread() and fwrite() are very versatile and allow to handle different file formats while dplyr delegates file reading and writing to the readr package with several specific functions (csv, tsv, delim, …).</p>
-</div>
-<div id="write-data-to-a-csv-file" class="section level3">
-<h3><span class="header-section-number">6.2.2</span> Write data to a csv file</h3>
+<ul>
+<li>Write data to a csv file</li>
+</ul>
 <div class="row">
 <div class="col-md-6">
 <div class="r">
@@ -3543,9 +3041,9 @@ fwrite(cp_datatable, &quot;cp_datatable.csv&quot;)</code></pre>
 </div>
 </div>
 </div>
-</div>
-<div id="write-data-to-a-tab-delimited-file" class="section level3">
-<h3><span class="header-section-number">6.2.3</span> Write data to a tab-delimited file</h3>
+<ul>
+<li>Write data to a tab-delimited file</li>
+</ul>
 <div class="row">
 <div class="col-md-6">
 <div class="r">
@@ -3564,9 +3062,9 @@ fwrite(cp_datatable, &quot;cp_datatable.txt&quot;, sep = &quot;\t&quot;)
 </div>
 </div>
 </div>
-</div>
-<div id="write-list-column-data-to-a-csv-file" class="section level3">
-<h3><span class="header-section-number">6.2.4</span> Write list-column data to a csv file</h3>
+<ul>
+<li>Write list-column data to a csv file</li>
+</ul>
 <div class="row">
 <div class="col-md-6">
 <div class="r">
@@ -3583,9 +3081,9 @@ fwrite(setDT(list(0, list(1:5))), &quot;cp_datatable2.csv&quot;)
 </div>
 </div>
 </div>
-</div>
-<div id="read-a-csv-tab-delimited-file" class="section level3">
-<h3><span class="header-section-number">6.2.5</span> Read a csv / tab-delimited file</h3>
+<ul>
+<li>Read a csv / tab-delimited file</li>
+</ul>
 <div class="row">
 <div class="col-md-6">
 <div class="r">
@@ -3608,9 +3106,9 @@ fread(&quot;cp_datatable.txt&quot;, sep = &quot;\t&quot;)
 </div>
 </div>
 </div>
-</div>
-<div id="read-a-csv-file-selecting-droping-columns" class="section level3">
-<h3><span class="header-section-number">6.2.6</span> Read a csv file selecting / droping columns</h3>
+<ul>
+<li>Read a csv file selecting / droping columns</li>
+</ul>
 <div class="row">
 <div class="col-md-6">
 <div class="r">
@@ -3628,9 +3126,9 @@ fread(&quot;cp_datatable.csv&quot;, drop = &quot;title&quot;)
 </div>
 </div>
 </div>
-</div>
-<div id="read-and-rbind-several-files" class="section level3">
-<h3><span class="header-section-number">6.2.7</span> Read and rbind several files</h3>
+<ul>
+<li>Read and rbind several files</li>
+</ul>
 <div class="row">
 <div class="col-md-6">
 <div class="r">
@@ -3651,6 +3149,23 @@ rbindlist(lapply(c(&quot;cp_datatable.csv&quot;, &quot;cp_datatable.csv&quot;), 
 </div>
 </div>
 </div>
+<div id="exercice" class="section level1" number="7">
+<h1 number="7"><span class="header-section-number">7</span> Exercice</h1>
+<p>Using first <code>dplyr</code> and the <code>tidyverse</code>, Use <code>table_1.csv</code>, <code>table_2.csv</code> and <code>loc_cities.csv</code>, we will need information from the three datasets.</p>
+<ul>
+<li><p>Import datasets</p></li>
+<li><p>Remove articles with no pmid and no DOI, and all articles before 1975</p></li>
+<li><p>Merge the two datasets, pmid is unique for each paper</p></li>
+<li><p>Create a new variable with the number of authors for each paper</p></li>
+<li><p>plot distribution for the log(number of authors +1)</p></li>
+<li><p>How many papers contains ‘deep learning’ or ‘machine learning’ and ‘neural network’ (also with a ‘s’ for neural networks) in their title ? Create a binary variable to save this information. What is the mean of authors for ML papers and non#ML papers ?</p></li>
+<li><p>Transform has_data and oa into binary variable also, what is the share of ML paper that are oa</p></li>
+<li><p>Clean up pubtype, for simplicity just get the first type</p></li>
+<li><p>What is the pub type with the highest mean/sd of citation for each type of publication ? (use cited and the cleaned pub_type)</p></li>
+<li><p>Which are the most representative country by year ? You may want to separate rows for each authors to get all countries involved in the paper, in an authors have multiple affiliations, take the first one. Store it in an other tibble, keep only pmid and authors, get the country for each author from the loc_cities.csv.</p></li>
+<li><p>Select the top 25 of countries involved in coronavirus research since 2001, plot the evolution on a bar chart with plot_ly</p></li>
+</ul>
+<p>Can you redo the exercice using the data.table library?</p>
 </div>
 
 

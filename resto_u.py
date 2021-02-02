@@ -114,7 +114,7 @@ for name in links:
             # update the dictionary with the name of the restaurant and the menu
             all_ru_menu[date][meal].update({name:menu})
     # ZzZzz
-    time.sleep(5)
+    time.sleep(2)
 
 print('Download finished')
 
