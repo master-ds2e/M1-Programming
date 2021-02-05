@@ -108,98 +108,104 @@ countries_to_plot = names(sort(apply(wide_countries %>% select(-c('year_pub','<N
 # Graph
 library(plotly)
 
-fig = plot_ly(wide_countries, x = ~year_pub, type = 'bar')
-for(i in countries_to_plot[1:3]){
-fig <- fig %>% add_trace(y = ~as.matrix(wide_countries[i]), name = as.character(i))}
-fig <- fig %>% layout(yaxis = list(title = 'Count'), barmode = 'stack')
+fig = plot_ly(wide_countries, type = 'bar')
+for(i in countries_to_plot){
+fig <- fig %>% add_trace(x = ~year_pub,y = as.matrix(wide_countries[i]),name = as.character(i))}
+fig <- fig %>% layout(yaxis = list(title = 'Count',type = "log"), barmode = 'stack')
+
 
 ########
-
 library(data.table)
 library(stringr)
 library(tictoc)
 # Import the two datasets 
 setwd('C:/Users/Beta/Documents/GitHub/M1_TDP')
 
-table_1 = fread(file = 'data/table_1.csv')
-table_2 = fread(file = 'data/table_2.csv')
-cities = fread(file = 'data/cities_loc.csv')
+dt_table_1 = fread(file = 'data/table_1.csv')
+dt_table_2 = fread(file = 'data/table_2.csv')
+dt_cities = fread(file = 'data/cities_loc.csv')
 
-setDT(table_1)
-setDT(table_2)
+setDT(dt_table_1)
+setDT(dt_table_2)
 
 # Remove articles with no pmid and no DOI, and all articles before 1975
-table_1 = table_1[pmid != 'null' & doi != 'null' & !duplicated(pmid)]
-table_2 = table_2[pmid != 'null' & year_pub > 1975 & !duplicated(pmid)]
+dt_table_1 = dt_table_1[pmid != 'null' & doi != 'null' & !duplicated(pmid)]
+dt_table_2 = dt_table_2[pmid != 'null' & year_pub > 1975 & !duplicated(pmid)]
 
 # Merge the two datasets, pmid is unique for each paper
 
-final_table = table_1[table_2, on = 'pmid']
-setDT(final_table)
+dt_final_table = dt_table_1[dt_table_2, on = 'pmid']
+setDT(dt_final_table)
 
 # Create a new variable with the number of authors for each paper
 
-final_table[,nb_aut := dim(str_match_all(authors,'<AUTHOR>')[[1]])[1],by = 'pmid']
+dt_final_table[,nb_aut := dim(str_match_all(authors,'<AUTHOR>')[[1]])[1],by = 'pmid']
 
 # plot distribution for the log(number of authors +1)
 
-plot(density(log(final_table$nb_aut+1)))
+plot(density(log(dt_final_table$nb_aut+1)))
 
 # How many papers contains 'deep learning' or 'machine learning' and 'neural network' (also with a 's' for neural networks) in their title ? Create a binary variable to save this information. What is the mean of authors for ML papers and non#ML papers ?
 
-final_table[,'title' := .(tolower(title)),by = 'pmid'
+dt_final_table[,'title' := .(tolower(title)),by = 'pmid'
             ][,c('ML','has_data','oa') := .(ifelse(str_detect(title,'deep learning|machine learning|neural networks?'),1,0),
                                             ifelse(has_data == 'Y',1,0),
                                             ifelse(oa == 'Y',1,0)),by = 'pmid']
 
-final_table = na.omit(final_table)
+dt_final_table = na.omit(dt_final_table)
 
 
 # Transform has_data and oa into binary variable also, what is the share of ML paper that are oa
 
-final_table[,.(sum(as.numeric(oa))/.N,mean(cited)), by = ML]
+dt_final_table[,.(sum(as.numeric(oa))/.N,mean(cited)), by = ML]
 
 # Clean up pub_type, for simplicity just get the first type
 
-final_table[,pub_type := str_match_all(pubtype,'\\[""(.*?)""')[[1]][1],by = 'pmid']
-final_table[,pub_type := str_replace_all(pub_type,'\\[|""',''), by = 'pmid']
+dt_final_table[,pub_type := str_match_all(pubtype,'\\[""(.*?)""')[[1]][1],by = 'pmid']
+dt_final_table[,pub_type := str_replace_all(pub_type,'\\[|""',''), by = 'pmid']
 
 # What is the pub type with the highest mean/sd of citation for each type of publication ? (use cited and the cleaned pub_type)
 
 
-final_table[, .(mean(cited),sd(cited)),by='pub_type'][order(V1)]
+dt_final_table[, .(mean(cited),sd(cited)),by='pub_type'][order(V1)]
 
 # Which are the most representative country by year ? You may want to separate rows for each authors to get all countries involved in the paper, in an authors have multiple affiliations, take the first one
 # Store it in an other tibble, keep only pmid and authors 
-countries = tolower(unique(cities$country))
+dt_countries = tolower(unique(cities$country))
 
-countries_tibble = final_table[,.(authors_ = unlist(tstrsplit(authors, "<AUTHOR>"))),by = 'pmid'
+dt_countries_tibble = dt_final_table[,.(authors_ = unlist(tstrsplit(authors, "<AUTHOR>"))),by = 'pmid'
                                ][authors_ != ''& !str_detect(authors_,'<AFFILIATION>None')
                                  ][,.(authors = strsplit(authors_,'<AFFILIATION>')[[1]][2]), by = c('pmid','authors_')
-                                   ][,!'authors_']
+                                   ][,!'authors_'][!is.na(authors)]
 
-countries_tibble = countries_tibble[!is.na(authors)][!duplicated(authors),,by='pmid']
+setkey(dt_countries_tibble,pmid,authors)
+dt_countries_tibble = na.omit(dt_countries_tibble[!duplicated(dt_countries_tibble)][authors != '<NA>'])
 
 
-countries_tibble = countries_tibble[,.(authors=str_replace_all(authors,' USA','United States'),pmid=pmid)
+
+dt_countries_tibble = dt_countries_tibble[,.(authors=str_replace_all(authors,' USA','United States'),pmid=pmid)
                                     ][,.(authors=str_replace_all(authors,' UK','United Kingdom'),pmid=pmid)
                                       ][,.(authors=str_replace_all(authors,' Korea','South Korea'),pmid=pmid)
                                         ][,.(authors = tolower(authors),pmid=pmid)]
 
-countries_tibble[,is_matched := .(ifelse(any(str_detect(authors,countries)),1,0)),by=c('pmid','authors')]
-countries_tibble = countries_tibble[is_matched == 1]
-countries_tibble[,country := .(countries[str_detect(authors,countries)][1]),by = c('pmid','authors')]
+dt_countries_tibble[,is_matched := .(ifelse(any(str_detect(authors,countries)),1,0)),by=c('pmid','authors')]
+
+setkey(dt_countries_tibble,pmid,authors)
+dt_countries_tibble = dt_countries_tibble[is_matched == 1]
+dt_countries_tibble[,country := .(countries[str_detect(authors,countries)][1]),by = c('pmid','authors')]
 
 
 
-countries_tibble = countries_tibble[final_table[,c('pmid','year_pub')],on = 'pmid']
-countries_tibble = countries_tibble[!duplicated(countries_tibble[,c('pmid','country','year_pub')]) & !is.na(is_matched),]
+dt_countries_tibble = dt_countries_tibble[dt_final_table[,c('pmid','year_pub')],on = 'pmid'][!is.na(is_matched)][,c('pmid','country','year_pub')]
+setkey(dt_countries_tibble,pmid,country,year_pub)
+dt_countries_tibble = dt_countries_tibble[!duplicated(dt_countries_tibble)]
 #101244
 
-countries_pub = countries_tibble[,.(length(unique(pmid))),by=c('country','year_pub')]
+dt_countries_tibble = dt_countries_tibble[,.(length(unique(pmid))),by=c('country','year_pub')]
 
 # Get the top 25 of countries involved in coronavirus research since 2001, plot the evolution on a bar chart with plot_ly
 
 wide_countries = countries_pub %>% tidyr::spread(key = 'country',value = 'n',fill  = 0) %>% filter(year_pub>2000)
 
 countries_to_plot = names(sort(apply(wide_countries %>% select(-c('year_pub','<NA>')), FUN = sum, MARGIN = 2),decreasing = T)[1:25])
+
