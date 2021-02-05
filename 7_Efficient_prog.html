@@ -416,9 +416,9 @@ def read_file_to_lower():
 txt_clean = read_file_to_lower()
 
 process.memory_info().rss - r1 # in bytes
-## 8192
+## 147456
 time.time() - t
-## 0.02887248992919922
+## 0.04377579689025879
 type(txt_clean)
 ## &lt;class &#39;list&#39;&gt;</code></pre>
 </div>
@@ -444,10 +444,10 @@ memory_friendly_txt_clean = read_to_lower()
 txt_clean = [line_clean for line_clean in memory_friendly_txt_clean]
 
 process.memory_info().rss - r1 # in bytes
-## 4096
+## 16384
 time.time() - t
 
-## 0.03687310218811035
+## 0.03484797477722168
 type(memory_friendly_txt_clean)
 
 ## &lt;class &#39;generator&#39;&gt;</code></pre>
