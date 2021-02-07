@@ -5,16 +5,16 @@
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "2857309985",
+    "hash" : "3169207846",
     "id" : "C60333C8",
-    "lastKnownWriteTime" : 1612704011,
-    "last_content_update" : 1612704011511,
+    "lastKnownWriteTime" : 1612718396,
+    "last_content_update" : 1612718396337,
     "path" : "~/GitHub/M1_TDP/exo_chap_4_dt.Rmd",
     "project_path" : "exo_chap_4_dt.Rmd",
     "properties" : {
-        "cursorPosition" : "320,39",
+        "cursorPosition" : "310,17",
         "last_setup_crc32" : "7F33732Ba4f90f4f",
-        "scrollLine" : "306"
+        "scrollLine" : "299"
     },
     "read_only" : false,
     "read_only_alternatives" : [

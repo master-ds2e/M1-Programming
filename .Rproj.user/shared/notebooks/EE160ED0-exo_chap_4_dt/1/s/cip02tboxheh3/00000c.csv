@@ -1,0 +1,8 @@
+"0","# R data.table"
+"0","tic()"
+"0","dt_final_table[,nb_aut := dim(str_match_all(authors, '<AUTHOR>')[[1]])[1],"
+"0","               by = 'pmid']"
+"0","toc()"
+"1","3.45 sec elapsed
+"
+"0","dt_final_table[,c('authors', 'nb_aut')]"

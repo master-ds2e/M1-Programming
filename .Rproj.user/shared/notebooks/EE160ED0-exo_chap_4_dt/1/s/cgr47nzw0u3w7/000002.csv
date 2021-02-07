@@ -1,3 +1,0 @@
-"0","# R data.table"
-"0","tic()"
-"0","dt_final_table[, .(mean_ = mean(cited),sd_ = sd(cited)),by='pub_type'][order(mean_,decreasing = T)]"

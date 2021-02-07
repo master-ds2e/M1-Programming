@@ -160,8 +160,8 @@ dt_final_table[,.(mean_nb_aut = mean(nb_aut)), by = 'ML']
 toc()
 
 tic()
-dt_final_table[,.(sum(as.numeric(oa))/.N,
-                  mean(cited)), by = 'ML']
+dt_final_table[,.(share_oa = sum(as.numeric(oa))/.N,
+                  mean_cited = mean(cited)), by = 'ML']
 toc()
 ```
 
@@ -288,7 +288,7 @@ countries_pub_dt = countries_year[,
                                   .(n = length(unique(pmid))),
                                   by=c('country','year_pub')]
 
-countries_pub_dt[order(n,decreasing = T)]
+head(countries_pub_dt[order(n,decreasing = T)])
 toc()
 ```
 
@@ -308,31 +308,34 @@ Two usefull links:
 
 <div class = "r">
 
-```{r}
+```{r, warning= F}
 # R 
 library(plotly)
 
-wide_countries = dcast(countries_pub,
-                       year_pub~country,
-                       value.var = 'n',
-                       fun.aggregate = sum)
-
-countries_to_plot = names(sort(apply(wide_countries[, -'year_pub'],
-                                     FUN = sum,
-                                     MARGIN = 2),
-                               decreasing = T)[1:25])
 
 
-fig = plot_ly(wide_countries, type = 'bar')
+plot_top_n  = function(n_top,year){
+  
+  countries_to_plot = as.matrix(
+    countries_pub_dt[year_pub>=year,
+                     .(sum_paper = sum(n)),
+                     by = .(country)
+                     ][order(sum_paper, decreasing = T)
+                       ][1:n_top,'country']
+    )
 
-for(i in rev(countries_to_plot)){
-  fig <- fig %>% add_trace(x = ~year_pub,
-                           y = as.matrix(wide_countries[,i]),
-                           name = as.character(i))
+
+  fig = plot_ly(countries_pub_dt[year_pub>=year & country %in% countries_to_plot], 
+                x = ~year_pub,
+                y = ~n,
+                color = ~country) %>% 
+    layout(yaxis = list(title = 'Count',type = 'log'),
+           barmode = 'stack')
+
+  fig
 }
 
-fig <- fig %>% layout(yaxis = list(title = 'Count', type = "log"), barmode = 'stack')
-fig
+plot_top_n(10,2001)
 ```
 
 </div>

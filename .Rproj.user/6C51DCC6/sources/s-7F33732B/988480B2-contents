@@ -1,0 +1,2398 @@
+---
+title: "Data Analysis (R)"
+---
+
+<style>
+div.python pre { background-color: #d0f5a9; }
+</style>
+
+<style>
+div.r pre { background-color: #dfdddf; }
+</style>
+
+
+"It is often said that 80% of data analysis is spent on the process of cleaning and preparing the data (Dasu and Johnson 2003).  Data preparation is not just a first step,  but must berepeated many times over the course of analysis as new problems come to light or new data is collected." [(Wickham, 2014)](https://www.jstatsoft.org/article/view/v059i10).
+
+The Tidyverse is a collection of differents packages which works together in a common philosophy, the biggest contributor to this collection is named Hadley Wickham. Hadley Wickham did so much for the R community, he published a lot of books  that are highly recommended to read. Check [Wikipedia: Haldey Wickham](https://en.wikipedia.org/wiki/Hadley_Wickham) for his bibliograpy. Here is the list of libraries that are contained in the Tidyverse:
+
+- ggplot2: Visualization
+
+- dplyr: Data manipulation
+
+- tidyr: Data formatting
+
+- purrr: programming
+
+- readr: Data importation
+
+- tibble: Data tables
+
+- forcats: Qualitative variables
+
+- stringr: Strings
+
+The goal of tidyverse is to make easy data analysis by simplifying the data preparation. Tidyverse comes with a new data-type, Tibbles. 
+
+Tibbles can be considered a modern version of data.frame but they differs in some aspects. They do not have rowname and allows users to have colnames with special character (e.g. if colname of x is 'Col 1' then to access to this colnums you can use x$\`Col 1\` to acces to this variables.). It provide a good way also to visualize the data since it directly show data as if you were running the 'head()' function before. It shows you the 10 first rows.
+
+Data.table is also very common when dealing with data and is very fast. Using tibbles can be very time consuming when dealing with large tables.
+
+# Tibbles and data.tables
+## Basic Operations
+
+### Pipes
+
+Dplyr is very friendly, it use very understandable words to manipulate data. It uses a very specific way of writting calculation, the pipe : '%>%'. Pipes allows us to writte sequential calculation in a quiet readable way. Here is how we need to read R code that use pipes: 
+
+- <b> Usual Way </b>  
+funtion2(function1(dataset,arg1),arg2)
+
+- <b> Using Pipes </b>  
+dataset %>% function1(arg1) %>% function2(arg2)
+
+Note that we can write directly '%>%' by using 'ctrl + shift + m'
+
+Here is list of function that are commonly used and actions they provide.
+
+Functions | Description
+- | -:
+slice | restrict dataset to specific row (see also slice_head, slice_tail, slice_min, slice_max)
+slice_sample | restrict dataset to random row
+filter | restrict dataset to row that pass a condition
+select | restrict dataset to specifiyed columns
+rename | change columns names
+arrange | sort dataset with respect to one columns
+mutate | modify or create a columns that apply a function
+group_by | group data before running calculation
+ungroup | ungroup data
+summarise | summarise data with respect to the level of agregation (groups)
+count | count numbers of row in a group 
+lead/lag | shift the observations of a variable one notch backwards (for lead) or forwards (for lag)
+distinct | given a varaiable restrict the dataset to unique value of this variable
+bind_rows/bind_cols | add columns or rows  to the dataset
+left_join | merge datatables with respect to variable(s) (see also full_join, inner_join, anti_join)
+starts_with
+
+- <b> Usual Way </b>
+
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE}
+
+# R
+
+
+library(tidyverse)
+covid_papers <- read_csv("data/covid_papers.csv")
+
+covid_papers
+
+#which(is.na(covid_papers),arr.ind = T)
+covid_papers = na.omit(covid_papers)
+
+dim(slice(covid_papers,2))
+dim(slice_sample(covid_papers,prop = 0.001))
+
+t <- Sys.time()
+doi_clean <- filter(covid_papers,doi != 'null')
+Sys.time()-t
+
+```
+
+
+<b> Using Pipes </b>  
+
+```{r,echo=T,collapse = TRUE}
+# R
+
+dim(covid_papers %>% slice(2))
+dim(covid_papers %>% slice_sample(prop = 0.001))
+
+t = Sys.time()
+doi_clean <- covid_papers %>% filter(doi != 'null')
+Sys.time() - t
+
+t = Sys.time()
+doi_clean <- covid_papers[which(covid_papers$doi != 'null'),]
+Sys.time() - t
+
+
+```
+
+</div>
+
+
+### Select columns
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE}
+# R using Tibbles
+cp_tibble <-  as_tibble(covid_papers)
+
+dim(cp_tibble[[4]]) # returns a vector
+dim(cp_tibble[4])# returns a tibble
+
+dim(select(cp_tibble, doi)) # returns a tibble
+dim(pull(cp_tibble, doi, name = title))   # returns a (named) vector
+dim(cp_tibble[, "doi"])        # returns a tibble
+dim(cp_tibble[["doi"]])        # returns a vector
+
+dim(select(cp_tibble, doi, creation, title))
+dim(select(cp_tibble, doi:title)) # select columns between doi and title
+
+dim(select(cp_tibble, -doi, -creation))
+
+cols <- c("doi", "creation")
+dim(select(cp_tibble, !!cols)) # unquoting
+dim(select(cp_tibble, -!!cols))
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE}
+# R using data.tablee
+library(data.table)
+cp_datatable = as.data.table(covid_papers)
+
+dim(cp_datatable[[4]]) # returns a vector
+dim(cp_datatable[, 4])  # returns a data.table
+
+dim(cp_datatable[, list(doi)]) # returns a data.table
+dim(cp_datatable[, .(doi)])    # returns a data.table
+# . is an alias for list
+
+dim(cp_datatable[, "doi"])     # returns a data.table
+dim(cp_datatable[, doi])       # returns a vector
+dim(cp_datatable[["doi"]])     # returns a vector
+
+dim(cp_datatable[, .(doi, creation, title)])
+dim(cp_datatable[, list(doi, creation, title)])
+dim(cp_datatable[, doi:title]) # select columns between doi and title
+
+dim(cp_datatable[, !c("doi", "creation")])
+
+cols <- c("doi", "creation")
+dim(cp_datatable[, ..cols]) # .. prefix means 'one-level up'
+dim(cp_datatable[, !..cols]) # or cp_datatable[, -..cols]
+```
+
+</div>
+</div>
+</div>
+
+ - using regular expression
+ 
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE,results='hide'}
+# R using Tibbles
+colnames(cp_tibble)[1:3] <- paste0('V',c(1:3))
+
+select(cp_tibble, num_range("V", 1:2))
+select(cp_tibble, title, everything()) # reorder columns
+select(cp_tibble, contains("V"))
+select(cp_tibble, ends_with("3"))
+select(cp_tibble, matches(".2"))
+select(cp_tibble, one_of(c("V1", "X")))
+select(cp_tibble, -starts_with("doi"))
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE,results='hide'}
+# R using data.tablee
+colnames(cp_datatable)[1:3] <- paste0('V',c(1:3))
+
+cols <- paste0("V", 1:2)
+cols <- union("title", names(cp_datatable))
+cols <- grep("V",   names(cp_datatable))
+cols <- grep("3$",  names(cp_datatable))
+cols <- grep(".2",  names(cp_datatable))
+cols <- grep("^V1|X$",  names(cp_datatable))
+cols <- grep("^(?!doi)", names(cp_datatable), perl = TRUE)
+cp_datatable[, ..cols]
+```
+
+</div>
+</div>
+</div>
+
+- Filtering
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE,results='hide'}
+# R using Tibbles
+
+
+cp_tibble[3:4,]
+slice(cp_tibble, 3:4) # same
+
+cp_tibble[-(3:7),]
+slice(cp_tibble, -(3:7)) # same
+
+dim(filter(cp_tibble, year_pub > 2018))
+filter(cp_tibble, title %in% c("Deep convolutional approaches for the analysis of Covid-19 using chest X-Ray images from portable devices",
+                               "Evaluating the effect of city lock-down on controlling COVID-19 propagation through deep learning and network science models."))
+
+filter(cp_tibble, year_pub == 2019, title == "Deep convolutional approaches for the analysis of Covid-19 using chest X-Ray images from portable devices")
+
+dim(distinct(cp_tibble)) # distinct_all(cp_tibble)
+dim(distinct(cp_tibble, across(c(V1, title)))) # returns selected cols
+
+dim(tidyr::drop_na(cp_tibble, names(cp_tibble)[1:4]))
+
+
+dim(filter(cp_tibble, grepl("deep learning", title)))
+dim(filter(cp_tibble, dplyr::between(year_pub, 2015, 2017)))
+dim(filter(cp_tibble, year_pub > 2015 & year_pub < 2017))
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE,results='hide'}
+# R using data.table
+
+cp_datatable[3:4,]
+cp_datatable[3:4] # same
+
+cp_datatable[!3:7,]
+cp_datatable[-(3:7)] # same
+
+cp_datatable[year_pub > 2018]
+cp_datatable[title %chin% c("Deep convolutional approaches for the analysis of Covid-19 using chest X-Ray images from portable devices",
+                               "Evaluating the effect of city lock-down on controlling COVID-19 propagation through deep learning and network science models.")] # fast %in% for character
+
+cp_datatable[year_pub == 2019 & title == "Deep convolutional approaches for the analysis of Covid-19 using chest X-Ray images from portable devices"]
+
+unique(cp_datatable)
+unique(cp_datatable, by = c("V1", "title")) # returns all cols
+
+na.omit(cp_datatable, cols = 1:4)  # fast S3 method with cols argument
+
+cp_datatable[title %like% "deep learning"]
+cp_datatable[year_pub %between% c(2015, 2017)]
+cp_datatable[data.table::between(year_pub, 2015, 2017, incbounds = FALSE)]
+
+```
+
+</div>
+</div>
+</div>
+
+On the other hand, data.table also provides convenience functions to filter rows based on a regular expression or to find values lying in one (or several) interval(s).
+
+Below, we will see that data.table has two optimized mechanisms to filter rows efficiently (keys and indices).
+
+- Sorting
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE}
+# R using Tibbles
+head(cp_tibble %>% arrange(creation) %>% select(creation))
+head(cp_tibble %>% arrange(desc(creation)) %>% select(creation)) 
+
+head(cp_tibble %>% arrange(year_pub, desc(creation)) %>% select(year_pub,creation))
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE,eval=F}
+# R using data.tablee
+
+head(cp_datatable[order(creation)][,creation])
+head(cp_datatable[order(-creation)][,creation])
+
+head(cp_datatable[order(year_pub, -creation)][,.(year_pub,creation)])
+```
+
+</div>
+</div>
+</div>
+
+
+- Summarise
+
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE}
+# R using Tibbles
+n_distinct(cp_tibble)
+
+cp_tibble %>% summarise(sum(cited)) # returns a tibble
+cp_tibble %>% summarise(sum_citation = sum(cited)) # returns a tibble
+
+summarise(cp_tibble, sum(cited), sd(cited))
+
+cp_tibble %>%
+  summarise(sum_citation = sum(cited),
+            sd_citation = sd(creation))
+
+cp_tibble %>%
+  slice(1:4) %>%
+  summarise(sum(cited))
+
+cp_tibble %>% summarise(dplyr::first(year_pub))
+cp_tibble %>% summarise(dplyr::last(year_pub))
+cp_tibble %>% summarise(nth(year_pub, 5))
+cp_tibble %>% summarise(n_distinct(language))
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE}
+# R using data.tablee
+
+uniqueN(cp_datatable)
+
+cp_datatable[, sum(cited)]    # returns a vector
+cp_datatable[, .(sum(cited))] # returns a data.table
+cp_datatable[, .(sum_citation = sum(cited))] # returns a data.table
+
+cp_datatable[, .(sum(cited), sd(cited))]
+
+cp_datatable[, .(sum_citation = sum(cited),
+                 sd_citation  = sd(cited))]
+
+cp_datatable[1:4, sum(cited)]
+
+cp_datatable[, data.table::first(year_pub)]
+cp_datatable[, data.table::last(year_pub)]
+cp_datatable[5, year_pub]
+cp_datatable[, uniqueN(language)]
+```
+
+</div>
+</div>
+</div>
+
+dplyr helper functions for summarise() (or summarize()) include first(), last(), n(), nth(), and n_distinct(). The data.table package also include first(), last(), and uniqueN().
+
+
+- Modifying
+
+In the following commands, with data.table, columns are modified by reference using the column assignment symbol := (no copy performed) and the results are returned invisibly. With dplyr, we have to assign the results.
+
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE}
+# R using Tibbles
+
+cp_tibble <- cp_tibble %>% rowwise() %>% mutate(oa = ifelse(oa == 'Y',1,0), log_cited = log(cited + 1))
+
+
+
+# Create one column and remove the others
+transmute(cp_tibble, title_lower = tolower(title))
+
+cp_tibble <- cp_tibble %>% select(-V1, -V2)
+
+cols <- c('V3','doi')
+cp_tibble <- select(cp_tibble, -one_of(cols))
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE}
+# R using data.tablee
+cp_datatable[, c('oa','log_cited') := .(ifelse(oa == 'Y',1,0),log(cited+1))]
+
+
+
+# Create one column and remove the others
+cp_datatable[, .(title_lower = tolower(title))]
+
+cp_datatable[, c('V1', 'V2') := NULL]
+
+cols <- c('V3','doi')
+cp_datatable[, (cols) := NULL] # ! not cp_datatable[, cols := NULL]
+```
+
+</div>
+</div>
+</div>
+
+
+
+- Grouping by
+
+The dplyr::group_by() function and the corresponding by and keyby statements in data.table allow to run manipulate each group of observations and combine the results. The sole difference between by and keyby is that keyby orders the results and creates a key that will allow faster subsetting (cf. the indexing and keys section). Below, we arbitrary use one or the other.
+group_by() takes an existing tibble and converts it into a grouped tibble where operations will always be performed “by group”. Using ungroup() removes grouping. With data.table, by is always used on the fly.
+Note that it is possible to reorder the arguments in data.table: cp_datatable[i, j, by] <=> cp_datatable[i, by, j]. This is done below to better highlight the similarity with dplyr.
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE}
+# R using Tibbles
+cp_tibble <-  as_tibble(covid_papers) %>% filter(pmid!='null')
+
+cp_tibble %>%
+  group_by(year_pub) %>%
+  summarise(nb_language = length(unique(language)))
+
+# By several groups
+cp_tibble %>%
+  group_by(year_pub, source) %>%
+  summarise(mean_cited = mean(cited))
+
+# Assigning column name in by
+cp_tibble %>%
+  group_by(PY = as.numeric(year_pub)) %>%
+  summarise(sum_cited = sum(cited))
+
+# Using a condition
+cp_tibble %>%
+  group_by(source == "MED") %>%
+  summarise(mean(cited))
+
+# Count number of observations for each group
+cp_tibble %>%
+  group_by(source) %>%
+  tally()
+
+cp_tibble %>%
+  group_by(source) %>%
+  summarise(n())
+
+cp_tibble %>%
+  group_by(source) %>%
+  group_size() # returns a vector
+
+# Add a column with number of observations for each group
+add_count(cp_tibble, year_pub) %>% select(year_pub,n)
+
+dim(cp_tibble %>%
+  group_by(year_pub) %>%
+  add_tally())
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE}
+# R using data.table
+
+cp_datatable <-  as.data.table(covid_papers)[pmid!='null',]
+
+cp_datatable[, .(nb_language = length(unique(language))), by = "year_pub"]
+
+# By several groups
+cp_datatable[, keyby = .(year_pub, source),
+     .(mean_cited = mean(cited))]
+
+# Assigning column name in by
+cp_datatable[, keyby = .(PY = as.numeric(year_pub)),
+     .(sum_cited = sum(cited))]
+
+# Using a condition in by
+cp_datatable[, keyby = source == "MED",
+     mean(cited)]
+
+# Count number of observations for each group
+cp_datatable[, .N, by = source]
+count(cp_tibble, source)
+
+# Add a column with number of observations for each group
+dim(cp_datatable[, n := .N, by = source][])
+
+```
+
+</div>
+</div>
+</div>
+
+
+## More Complex manipulation
+
+
+- Select specific row by group
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE,results = 'hide'}
+# R using Tibbles
+
+cp_tibble <- cp_tibble %>% mutate(PY = as.numeric(year_pub),log_cited =log(cited+1))
+
+cp_tibble %>%
+  group_by(PY) %>%
+  slice(1)
+cp_tibble %>%
+  group_by(PY) %>%
+  slice(1, n())
+cp_tibble %>%
+  group_by(PY) %>%
+  group_map(~ tail(.x, 2))
+
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE,results = 'hide'}
+# R using data.table
+
+cp_datatable[,c('PY','log_cited') := .(as.numeric(year_pub),log(cited+1))]
+
+
+cp_datatable[, .SD[1], by = PY]
+cp_datatable[, .SD[c(1, .N)], by = PY]
+cp_datatable[, tail(.SD, 2), by = PY]
+```
+
+</div>
+</div>
+</div>
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE,results = 'hide'}
+# R using Tibbles
+
+cp_tibble %>%
+  group_by(PY) %>%
+  arrange(cited) %>%
+  slice(1)
+  
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE,results = 'hide'}
+# R using data.table
+
+cp_datatable[, .SD[which.min(cited)], by = PY]
+```
+
+</div>
+</div>
+</div>
+
+- Group counter
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE,results = 'hide'}
+# R using Tibbles
+
+cp_tibble %>%
+  group_by(PY, language) %>%
+  mutate(Grp = cur_group_id())
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE,results = 'hide'}
+# R using data.table
+
+cp_datatable[, Grp := .GRP, by = .(PY,  language)][]
+cp_datatable[, Grp := NULL] # delete for consistency
+```
+
+</div>
+</div>
+</div>
+
+- Get row number of observation by group
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE}
+# R using Tibbles
+cp_tibble %>%
+  group_by(PY) %>%
+  mutate(cur_group_rows())
+#cp_tibble %>%
+#  group_by(PY) %>%
+#  group_data() %>%
+#  tidyr::unnest(.rows)
+cp_tibble %>%
+  group_by(PY) %>%
+  summarize(cur_group_rows()[1])
+cp_tibble %>%
+  group_by(PY) %>%
+  summarize(cur_group_rows()[c(1, n())])
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE}
+# R using data.table
+
+cp_datatable[, .I, by = PY] # returns a data.table
+cp_datatable[, .I[1], by = PY]
+cp_datatable[, .I[c(1, .N)], by = PY]
+```
+
+</div>
+</div>
+</div>
+
+
+- Handle list-columns by group
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE}
+# R using Tibbles
+
+cp_tibble %>%
+  group_by(PY) %>%
+  summarise(list(cited))
+
+cp_tibble %>%
+  group_by(PY) %>%
+  group_nest()
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE}
+# R using data.table
+
+cp_datatable[, .(.(cited)),  by = PY]  # return V1 as a list
+cp_datatable[, .(.(.SD)), by = PY] # subsets of the data
+```
+
+</div>
+</div>
+</div>
+
+- Grouping sets (multiple by at once)
+
+
+<div class = "row">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE}
+# R using data.table
+
+rollup(cp_datatable,
+       .(cited_med = median(cited)),
+       by = c("pubmodel", "PY"))
+
+rollup(cp_datatable,
+       .(cited_med = median(cited), .N),
+       by = c("pubmodel", "PY"),
+       id = TRUE)
+
+cube(cp_datatable,
+     .(cited_med = median(cited), .N),
+     by = c("pubmodel", "PY"),
+     id = TRUE)
+
+groupingsets(cp_datatable,
+             .(cited_med = median(cited), .N),
+             by   = c("pubmodel", "PY"),
+             sets = list("pubmodel", c("pubmodel", "PY")),
+             id   = TRUE)
+```
+
+</div>
+</div>
+
+
+
+
+
+
+- Using multiple Variables
+
+To manipulate multiple columns, dplyr_1.0.0 has introduced the across() function, superseding the _all, _at, and _if versions of summarise(), mutate(), and transmute().
+With data.table, we use .SD, which is a data.table containing the Subset of Data for each group, excluding the column(s) used in by. So, cp_datatable[, .SD] is cp_datatable itself and in the expression cp_datatable[, .SD, by = title], .SD contains all the cp_datatable columns (except title) for each values in title (see cp_datatable[, print(.SD), by = title]). .SDcols allows to select the columns included in .SD.
+
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE}
+# R using Tibbles
+
+# Summarise several columns
+cp_tibble %>% summarise(across(c(PY, cited), mean))
+
+
+# Summarise several columns by group
+cp_tibble %>%
+  group_by(source) %>%
+  summarise(across(c(PY, cited), mean))
+
+## using patterns (regex)
+cp_tibble %>%
+  group_by(source) %>%
+  summarise(across(ends_with('cited'), mean))
+
+# Summarise with more than one function by group
+cp_tibble %>%
+  group_by(source) %>%
+  summarise(across(c(PY, cited),
+                   list(median = median, mean = mean)))
+
+# Summarise using a condition
+cp_tibble %>%
+  summarise(across(where(is.numeric),
+                   mean))
+
+cp_tibble  %>%
+  group_by(source) %>%
+  summarise(across(where(~ is.numeric(.x) && median(.x)>0), 
+                        median))
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE}
+# R using data.tablee
+
+
+# Summarise several columns
+cp_datatable[, lapply(.SD, mean),
+     .SDcols = c('PY', 'cited')]
+
+# Summarise several columns by group
+cp_datatable[, by = source,
+     lapply(.SD, mean),
+     .SDcols = c('PY', 'cited')]
+## using patterns (regex)
+
+cp_datatable[, by = source,
+     lapply(.SD, mean),
+     .SDcols = patterns("cited")]
+
+
+# Summarise with more than one function by group
+cp_datatable[, by = source,
+     c(lapply(.SD, median),
+       lapply(.SD, mean)),
+     .SDcols = c('PY', 'cited')]
+
+
+# Summarise using a condition
+cp_datatable[, sapply(cp_datatable, is.numeric),with = FALSE][,lapply(.SD, mean)]
+
+fun <- function(x) {is.numeric(x) && median(x)>0}
+
+cp_datatable[, sapply(cp_datatable, FUN = fun),with = FALSE][,lapply(.SD, mean)]
+```
+
+</div>
+</div>
+</div>
+
+- Modify Multiples Variables
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE}
+
+tobinary = function(x){ifelse(x=='Y',1,0)}
+
+# Modify several columns (dropping the others)
+head(cp_tibble %>% transmute(across(c(has_data, oa),
+                 tobinary)))
+
+
+# Modify several columns (keeping the others)
+cp_tibble <- cp_tibble %>%
+  mutate(across(all_of(c('pubtype','mesh')),
+                 ~ tolower(str_replace_all(.x,'-',''))))
+
+# Modify columns using a condition
+
+t = Sys.time()
+cp_tibble <- cp_tibble %>%
+  mutate(across(where(is.character),
+         toupper))
+Sys.time() - t
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE}
+# Modify several columns (dropping the others)
+head(cp_datatable[, lapply(.SD, tobinary),
+     .SDcols = c('has_data', 'oa')])
+
+
+# Modify several columns (keeping the others)
+cp_datatable[, c('pubtype','mesh') := lapply(.SD, function(x){tolower(str_replace_all(x,'-',''))}),#cols <- setdiff(names(cp_datatable), "title")
+     .SDcols = c('pubtype','mesh') ]
+
+# Modify columns using a condition 
+t = Sys.time()
+for(j in  which(sapply(cp_datatable, class)=='character')){set(cp_datatable, i=NULL, j=j, value=toupper(cp_datatable[[j]]))}
+Sys.time() - t 
+```
+
+</div>
+</div>
+</div>
+
+The use of cp_datatable[,j] is very flexible, allowing to pass complex expressions in a straightforward way, or combine expressions with multiple outputs.
+
+
+- Chain expressions
+
+The dplyr workflow relies on the magrittr pipe operator (%>%). The magrittr package can also be used with data.table objects, but data.table comes with its own chaining system: cp_datatable[][][].
+  
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE}
+# R using Tibbles
+# Expression chaining using %>%
+
+
+head(cp_tibble %>%
+  group_by(PY) %>%
+  summarise(cited_med = median(cited)) %>%
+  arrange(desc(cited_med)))
+
+head(cp_tibble %>%
+  group_by(PY) %>%
+  summarise(cited_med = median(cited)) %>%
+  filter(cited_med > 10))
+```
+
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE}
+# R using data.tablee
+# Expression chaining using cp_datatable[][] (recommended)
+
+head(cp_datatable[, by = PY, 
+     .(cited_med = median(cited))][order(-cited_med)])
+
+head(cp_datatable[, by = PY, 
+      .(cited_med = median(cited))][cited_med > 10])
+
+
+
+```
+</div>
+</div>
+</div>
+- More complex expression
+
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE}
+# R using Tibbles
+
+head(cp_tibble %>%
+  mutate(is_en = ifelse(language =='ENG',1,0),
+         oa_int = ifelse(oa =='Y',1,0)) %>%
+  group_by(year_pub)  %>% 
+  summarize(share_en = sum(is_en)/n(),
+            share_en_oa = sum(is_en*oa_int)/n()) %>% 
+  arrange(desc(year_pub)))
+
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE}
+# R using data.tablee
+
+head(cp_datatable[,c('is_en','oa_int') := .(ifelse(language =='ENG',1,0),
+                                       ifelse(oa =='Y',1,0))][
+                                         ,by = year_pub,.(share_en = sum(is_en)/.N,
+                                                          share_en_oa = sum(is_en*oa_int)/.N)])
+# Use multiple expressions (with cp_datatable[,{j}])
+head(cp_datatable[, {is_en = ifelse(language =='ENG',1,0) 
+                en_oa = is_en*oa_int
+                .(pmid,en_oa = ifelse(en_oa == 1, 'Y','N')) # last list returned as a data.table
+                }])
+```
+
+</div>
+</div>
+</div>
+
+
+
+
+
+# Reshape data
+
+Imagine you have a variable with multiple categories that are store in one cell as the variables 'pubtype'  in our dataset. You may want to create different columns for each of this variable. The opposit is also possible, one can have several columns with value that we want to transforme in two columns : one with the factor and the other with the values. 
+
+First let's clean this variable and separate the string in each cells in order to have on row for each article's pubtype.
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE}
+# R using Tibbles
+cp_tibble[1,'pubtype']
+
+clean_pubtype <- function(str){
+  gsub('[{]|[}]|PUBTYPE|: |[[]|[]]','',str)
+}
+
+clean_pubtype(cp_tibble[1,'pubtype'])
+
+mcp_tibble <- cp_tibble %>% 
+  rowwise() %>%
+  mutate(pubtype = clean_pubtype(pubtype)) %>% 
+  separate_rows(pubtype,sep = '", "') %>% 
+  mutate(pubtype = gsub('["]','',pubtype))
+
+mcp_tibble <- mcp_tibble %>%
+  select(pmid, pubtype) %>%
+  group_by(pmid) %>% 
+  count(pubtype)
+
+mcp_tibble
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE}
+# R using data.table
+mcp_datatable <- cp_datatable[,pubtype :=  clean_pubtype(pubtype)][,lapply(.SD, function(x) unlist(tstrsplit(x, '", "'))), .SDcols = "pubtype", by = pmid][,pubtype :=  gsub('["]','',pubtype)]
+
+mcp_datatable <- mcp_datatable[, .(count = .N), by = .(pmid,pubtype)]
+mcp_datatable
+```
+
+</div>
+</div>
+</div>
+
+## Cast data (from long to wide)
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE}
+
+# R using Tibbles
+
+# see also cast_dtm()
+ccp_tibble = tidyr::spread(data  = mcp_tibble,
+              key   = 'pubtype',
+              value = 'n',
+              fill  = 0)
+
+dim(ccp_tibble)
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE}
+# R using data.table
+
+ccp_datatable <- dcast(mcp_datatable, pmid ~ pubtype, value.var = "count" ,fun.aggregate = sum) # aggregate by count
+dim(ccp_datatable)
+```
+
+</div>
+</div>
+</div>
+
+## Melt data (from wide to long)
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE}
+# R using Tibbles
+
+mcp_tibble <- ccp_tibble %>% gather(key = Variable,
+                                    value = Value,
+                                    -pmid)
+# same
+mcp_tibble <- ccp_tibble %>% pivot_longer(cols = -pmid, names_to = "variable", values_to = "Value")
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE}
+# R using data.table
+
+mcp_datatable <- melt(ccp_datatable, id.vars = "pmid",
+                      variable.name = "Variable",
+                      value.name    = "Value")
+	
+```
+
+</div>
+</div>
+</div>
+
+
+
+## Split
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE,results='hide'}
+# R using Tibbles
+
+group_split(cp_tibble, oa)
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE,results='hide'}
+# R using data.table
+
+split(cp_datatable, by = "oa") # S3 method
+```
+
+</div>
+</div>
+</div>
+
+
+
+## Split and transpose a vector/column
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE}
+# R using Tibbles
+
+vec <- c("A:a", "B:b", "C:c")
+# vector not handled
+tidyr::separate(tibble(vec), vec, c("V1", "V2"))
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE}
+# R using data.table
+
+vec <- c("A:a", "B:b", "C:c")
+tstrsplit(vec, split = ":", keep = 2L) # works on vector
+setDT(tstrsplit(vec, split = ":"))[]
+```
+
+</div>
+</div>
+</div>
+
+	
+
+
+# Indexing and Keys
+## Set key/index
+
+Row subsetting in dplyr relies on the filter() and slice() functions, as shown in the first section. With data.table, in addition to the above-mentioned approach, two systems are available to make row filtering and join operations more convenient and blazingly fast (~170x speed-up): keys (primary ordered index) and indices (automatic secondary indexing).
+
+The main differences between keys and indices are:
+
+- When using keys, data are physically reordered in memory. When using indices, the order is stored as an attribute.
+
+- Only one key is possible but several indices can coexist.
+
+- Keys are defined explicitly. Indices can be created manually but are also created on-the-fly (and stored when using == or %in%).
+
+- Indices are used with the on argument. It is optional when using keys, but recommended (and used below) for better readability.
+Note: in the following code, we set both a key and an index to demonstrate their usage, but internally, indices are not used when a key already exists for the same columns(s).
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE}
+# R using Tibbles
+
+cp_tibble <- arrange(cp_tibble, year_pub) 
+
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE}
+# R using data.table
+
+setkey(cp_datatable, year_pub)
+setindex(cp_datatable, year_pub)
+
+```
+
+</div>
+</div>
+</div>
+
+
+- Select rows
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE}
+
+# R using Tibbles
+
+dim(cp_tibble %>% filter(year_pub == "2010"))
+dim(cp_tibble %>% filter(year_pub %in% c("2010", "2020")))
+
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE}
+# R using data.table
+
+dim(cp_datatable["2010", on = "year_pub"])
+dim(cp_datatable[c("2010", "2020"), on = .(year_pub)]) # same as on = "year_pub"
+```
+
+</div>
+</div>
+</div>
+
+
+
+- Nomatch
+
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE,eval= F}
+# R using Tibbles
+
+cp_tibble %>% filter(year_pub %in% c("2010", "2025"))
+
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE,eval= F}
+# R using data.table
+
+# (default) returns a row with "D" even if not found
+cp_datatable[c("2010", "2025"), on = "year_pub", nomatch = NA]
+## no rows for unmatched values
+cp_datatable[c("2010", "2025"), on = "year_pub", nomatch = 0]
+```
+
+</div>
+</div>
+</div>
+
+
+- Apply function on matched rows
+
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE,eval= F}
+# R using Tibbles
+
+cp_tibble %>%
+  filter(year_pub %in% c("2010", "2020")) %>%
+  summarize(median = median(cited))
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE,eval= F}
+# R using data.table
+
+cp_datatable[c("2010", "2020"), median(cited), on = "year_pub"]
+```
+
+</div>
+</div>
+</div>
+
+  
+  
+- Modify matched rows values
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE}
+# R using Tibbles
+
+cp_tibble <- cp_tibble %>%
+  mutate(cited_ = base::replace(cited, year_pub == "2010", 0L)) %>%
+  arrange(PY)
+
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE}
+# R using data.table
+
+cp_datatable["2010", cited_ := 0, on = "year_pub"]
+```
+
+</div>
+</div>
+</div>
+
+- Use keys in by 
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE}
+# R using Tibbles
+head(cp_tibble %>%
+  filter(oa != 'Y') %>%
+  group_by(PY) %>%
+  summarise(median(cited)))
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE}
+# R using data.table
+
+cp_datatable[!"Y", mean(cited), on = .(oa), by = .EACHI]
+
+head(cp_datatable[oa != "Y",
+   by = PY,
+   mean(cited)])
+```
+
+</div>
+</div>
+</div>
+
+- Set multiple keys/indices 
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE}
+# R using Tibbles
+
+cp_tibble <-cp_tibble %>%  arrange(PY, cited)
+
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE}
+# R using data.table
+
+setkey(cp_datatable, PY, cited) # or setkeyv(cp_datatable, c("PY", "cited"))
+setindex(cp_datatable, PY, cited) # setindexv(cp_datatable, c("PY", "cited"))
+
+```
+
+</div>
+</div>
+</div>
+
+
+- Subset using multiple keys/indices 
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE}
+# R using Tibbles
+
+dim(filter(cp_tibble, cited == 0, year_pub == "2010"))
+dim(filter(cp_tibble, cited == 0, year_pub %in% c("2010","2020")))
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE}
+# R using data.table
+
+dim(cp_datatable[.("2010", 0), on = .(year_pub, cited)])
+dim(cp_datatable[.(c("2010","2020"), 0), on = .(year_pub, cited)])
+# using which = TRUE only returns the matching rows indices
+dim(cp_datatable[.(c("2010","2020"), 0), on = .(year_pub, cited), which = TRUE])
+```
+
+</div>
+</div>
+</div>
+
+
+- Remove keys/indices 
+
+<div class = "r">
+
+```{r set,echo=T,collapse = TRUE}
+# R using data.table
+
+setkey(cp_datatable, NULL)
+setindex(cp_datatable, NULL)
+```
+
+</div>
+ 
+ 
+
+##  set*() modifications
+
+In data.table, set*() functions modify objects by reference, making these operations fast and memory-efficient. In case this is not a desired behaviour, users can use copy(). The corresponding expressions in dplyr will be less memory-efficient.
+
+- Replace values
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE}
+# R using Tibbles
+
+cp_tibble[1, 2] <- NA
+head(cp_tibble[,2])
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE}
+# R using data.table
+
+set(cp_datatable, i = 1L, j = 2L, value = NA)
+head(cp_datatable[,2])
+```
+
+</div>
+</div>
+</div>
+
+- Reorder rows
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE}
+# R using Tibbles
+
+cp_tibble <- cp_tibble %>% arrange(PY, desc(cited))
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE}
+# R using data.table
+
+setorder(cp_datatable, PY, -cited)
+setorderv(cp_datatable, c("PY", "cited"), c(1, -1))
+```
+
+</div>
+</div>
+</div>
+
+- Modify colnames
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE}
+# R using Tibbles
+
+cp_tibble <- rename(cp_tibble, DOI = doi)
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE}
+# R using data.table
+
+setnames(cp_datatable, old = "doi", new = "DOI")
+```
+
+</div>
+</div>
+</div>
+
+- Reorder columns
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE}
+# R using Tibbles
+
+head(cp_tibble %>% select(PY, cited, DOI))
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE}
+# R using data.table
+
+setcolorder(cp_datatable, c("PY", "cited", "DOI"))
+```
+
+</div>
+</div>
+</div>
+
+- Set operations
+
+<div class = "row">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE}
+x <- data.table(c(1, 2, 2, 3, 3))
+y <- data.table(c(2, 2, 3, 4, 4))
+```
+
+</div>
+</div>
+
+- Intersection
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE}
+# R using Tibbles
+
+dplyr::intersect(x, y)
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE}
+# R using data.table
+
+fintersect(x, y)
+fintersect(x, y, all = TRUE)
+```
+
+</div>
+</div>
+</div>
+
+
+- Difference
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE}
+# R using Tibbles
+
+dplyr::setdiff(x, y)
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE}
+# R using data.table
+
+fsetdiff(x, y)
+fsetdiff(x, y, all = TRUE)
+
+```
+
+</div>
+</div>
+</div>
+
+	
+
+- Union
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE}
+# R using Tibbles
+
+dplyr::union(x, y)
+union_all(x, y)
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE}
+# R using data.table
+
+funion(x, y)
+funion(x, y, all = TRUE)
+```
+
+</div>
+</div>
+</div>
+
+
+	
+
+
+- Equality
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE}
+# R using Tibbles
+
+setequal(x, x[order(-V1),])
+all_equal(x, x)
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE}
+# R using data.table
+
+fsetequal(x, x[order(-V1),])
+all.equal(x, x) # S3 method
+```
+
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+# Join/Bind data sets
+##  Join
+
+Joining data in data.table works like the fast subsetting approach described above. It can be performed using keys, using the ad hoc on argument, or using the merge.data.table method. For the sake of completeness, the three methods are presented below. As previously mentioned, the on and by (in merge) arguments are optional with keyed data.tables, but recommended to make the code more explicit.
+In the examples below, the x, y, and z data.tables are also used with dplyr.
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE}
+# R using Tibbles
+
+x <- data.table(Id  = c("A", "B", "C", "C"),
+                X1  = c(1L, 3L, 5L, 7L),
+                XY  = c("x2", "x4", "x6", "x8"),
+                key = "Id")
+
+y <- data.table(Id  = c("A", "B", "B", "D"),
+                Y1  = c(1L, 3L, 5L, 7L),
+                XY  = c("y1", "y3", "y5", "y7"),
+                key = "Id")
+
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE}
+# R using data.table
+
+```
+
+</div>
+</div>
+</div>
+
+- Join matching rows from y to x
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE}
+# R using Tibbles
+
+
+left_join(x, y, by = "Id")
+
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE}
+# R using data.table
+
+y[x, on = "Id"]
+merge(x, y, all.x = TRUE, by = "Id")
+y[x] # requires keys
+
+```
+
+</div>
+</div>
+</div>
+
+	
+- Join matching rows from x to y
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE}
+# R using Tibbles
+
+right_join(x, y, by = "Id")
+
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE}
+# R using data.table
+
+x[y, on = "Id"]
+merge(x, y, all.y = TRUE, by = "Id")
+x[y] # requires keys
+```
+
+</div>
+</div>
+</div>
+
+	
+- Join matching rows from both x and y
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE}
+# R using Tibbles
+
+inner_join(x, y, by = "Id")
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE}
+# R using data.table
+
+x[y, on = "Id", nomatch = 0]
+merge(x, y)
+x[y, nomatch = 0] # requires keys
+```
+
+</div>
+</div>
+</div>
+
+	
+
+
+- Join keeping all the rows
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE}
+# R using Tibbles
+
+full_join(x, y, by = "Id")
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE}
+# R using data.table
+
+merge(x, y, all = TRUE, by = "Id")
+```
+
+</div>
+</div>
+</div>
+
+	
+
+
+- Return rows from x matching y
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE}
+# R using Tibbles
+
+semi_join(x, y, by = "Id")
+
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE}
+# R using data.table
+
+unique(x[y$Id, on = "Id", nomatch = 0])
+unique(x[y$Id, nomatch = 0]) # requires keys
+
+```
+
+</div>
+</div>
+</div>
+	
+- Return rows from x not matching y
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE}
+# R using Tibbles
+
+anti_join(x, y, by = "Id")
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE}
+# R using data.table
+
+x[!y, on = "Id"]
+x[!y] # requires keys
+```
+
+</div>
+</div>
+</div>
+
+	
+
+
+
+
+## Bind
+
+- Bind rows
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE}
+# R using Tibbles
+
+x <- data.table(1:3)
+y <- data.table(4:6)
+z <- data.table(7:9, 0L)
+
+bind_rows(x, y)
+bind_rows(x, z) # always fills
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE}
+# R using data.table
+
+rbind(x, y)
+rbind(x, z, fill = TRUE)
+
+```
+
+</div>
+</div>
+</div>
+
+	
+
+
+- Bind rows using a list
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE}
+# R using Tibbles
+
+bind_rows(list(x, y), .id = "id")
+
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE}
+# R using data.table
+
+rbindlist(list(x, y), idcol = TRUE)
+
+	
+```
+
+</div>
+</div>
+</div>
+
+
+- Bind columns
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE}
+# R using Tibbles
+
+bind_cols(x, y)
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE}
+# R using data.table
+
+base::cbind(x, y)
+```
+
+</div>
+</div>
+</div>
+
+	
+
+# Other
+
+## Lead/Lag
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE}
+# R using Tibbles
+
+lag(1:10, n = 1, default = NA)
+purrr::map(1:2, ~lag(1:10, n = .x))
+lead(1:10, n = 1, default = NA)
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE}
+# R using data.table
+
+shift(1:10, n = 1,   fill = NA, type = "lag")
+shift(1:10, n = 1:2, fill = NA, type = "lag") # multiple
+shift(1:10, n = 1,   fill = NA, type = "lead")
+```
+
+</div>
+</div>
+</div>
+	
+
+
+	
+
+#  Read/Write data 
+## standart format
+
+<div class = "r">
+
+
+```{r,echo=T,collapse = TRUE}
+# R
+library(tidyverse)
+
+covid_papers <- read_csv("data/covid_papers.csv")
+
+covid_papers
+
+```
+</div>
+
+Depending on the way string are encoded we may want to precise the type of encoding. (Some well know encoding character format: UTF-8; Unicode; ASCII ..)
+
+
+we can sepcify this encoding in the read function.
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE,eval=F}
+# R
+covid_papers <- read_csv("data/covid_papers.csv",locale = locale(encoding = "UTF-8"))
+```
+</div>
+ 
+Other types of data can be import using other libraries I just show you some examples here without enterring into details that may be helpfull sometimes.
+
+- Excel data
+
+<div class = "r">
+```{r,echo=T,collapse = TRUE,eval=F}
+# R
+library(readxl)
+
+covid_papers <- read_excel("data/covid_papers.xls", sheet = "Feuille1", range = "A1:Z25")
+```
+</div>
+
+-  SAS, SPSS et Stata data
+
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE,eval=F}
+# R
+library(haven)
+
+#SAS data
+covid_papers <- read_sas("data/covid_papers.sas")
+covid_papers <- read_xpt("data/covid_papers.xpt")
+
+#SPSS data
+covid_papers <- read_sav("data/covid_papers.sav")
+covid_papers <- read_por("data/covid_papers.por")
+
+
+
+```
+</div>
+
+In order to save data in a specific format we just have to change the 'read' part of the function name by 'write'. Here is an example for csv
+
+
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE,eval=F}
+# R
+
+write_csv(new_data_set,"data/new_data.csv")
+
+
+```
+</div>
+
+Also R provide a way to store objects in the same file. For this we use RData format, it's very usefull if a project is written totaly in R because you can save the structure of your objects very easily, you can save all type of objects and load it later.
+ 
+
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE,eval=F}
+# R
+
+save(covid_papers,file= 'covid_papers.RData')
+load('covid_papers.RData')
+
+
+```
+</div>
+
+## Miscellaneous
+
+- Read / Write data
+
+fread() and fwrite() are among the most powerful functions of data.table. They are not only incredibly fast (see benchmarks), they are also extremely robust. The few commands below only scratch the surface and there are a lot of awesome features. For example, fread() accepts http and https URLs directly as well as operating system commands such as sed and awk output. Make sure to check the docs.
+Here again, fread() and fwrite() are very versatile and allow to handle different file formats while dplyr delegates file reading and writing to the readr package with several specific functions (csv, tsv, delim, …).
+
+- Write data to a csv file
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE,eval=F}
+# R using Tibbles
+
+readr::write_csv(cp_tibble, "cp_tibble.csv")
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE,eval=F}
+# R using data.table
+
+fwrite(cp_datatable, "cp_datatable.csv")
+```
+
+</div>
+</div>
+</div>
+
+
+- Write data to a tab-delimited file
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE,eval=F}
+# R using Tibbles
+
+readr::write_delim(cp_tibble, "cp_tibble.txt", delim = "\t")
+
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE,eval=F}
+# R using data.table
+
+fwrite(cp_datatable, "cp_datatable.txt", sep = "\t")
+
+```
+
+</div>
+</div>
+</div>
+
+	
+
+- Write list-column data to a csv file
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE,eval=F}
+# R using Tibbles
+
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE,eval=F}
+# R using data.table
+
+fwrite(setDT(list(0, list(1:5))), "cp_datatable2.csv")
+
+```
+
+</div>
+</div>
+</div>
+
+
+- Read a csv / tab-delimited file
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE,eval=F}
+# R using Tibbles
+
+readr::read_csv("cp_tibble.csv")
+
+readr::read_delim("cp_tibble.txt", delim = "\t")
+
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE,eval=F}
+# R using data.table
+
+fread("cp_datatable.csv")
+# fread("cp_datatable.csv", verbose = TRUE) # full details
+fread("cp_datatable.txt", sep = "\t")
+
+```
+
+</div>
+</div>
+</div>
+
+	
+- Read a csv file selecting / droping columns
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE,eval=F}
+# R using Tibbles
+
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE,eval=F}
+# R using data.table
+
+fread("cp_datatable.csv", select = c("pmid", "year_pub"))
+fread("cp_datatable.csv", drop = "title")
+
+```
+
+</div>
+</div>
+</div>
+
+
+	
+- Read and rbind several files
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo = T,collapse = TRUE,eval=F}
+# R using Tibbles
+
+c("cp_tibble.csv", "cp_tibble.csv") %>%
+  purrr::map_dfr(readr::read_csv)
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,echo=T,collapse = TRUE,eval=F}
+# R using data.table
+
+rbindlist(lapply(c("cp_datatable.csv", "cp_datatable.csv"), fread))
+# c("cp_datatable.csv", "cp_datatable.csv") %>% lapply(fread) %>% rbindlist
+```
+
+</div>
+</div>
+</div>
+
+
+# Exercice 
+
+Using first ```dplyr``` and the ```tidyverse```, Use ```table_1.csv```, ```table_2.csv``` and ```loc_cities.csv```, we will need information from the three datasets. 
+
+- Import datasets
+
+- Remove articles with no pmid and no DOI, and all articles before 1975
+
+- Merge the two datasets, pmid is unique for each paper
+
+- Create a new variable with the number of authors for each paper
+
+- plot distribution for the log(number of authors +1)
+
+- How many papers contains 'deep learning' or 'machine learning' and 'neural network' (also with a 's' for neural networks) in their title ? Create a binary variable to save this information. What is the mean of authors for ML papers and non#ML papers ?
+
+- Transform has_data and oa into binary variable also, what is the share of ML paper that are oa
+
+- Clean up pubtype, for simplicity just get the first type
+
+- What is the pub type with the highest mean/sd of citation for each type of publication ? (use cited and the cleaned pub_type)
+
+- Which are the most representative country by year ? You may want to separate rows for each authors to get all countries involved in the paper, in an authors have multiple affiliations, take the first one. Store it in an other tibble, keep only pmid and authors, get the country for each author from the loc_cities.csv.
+
+- Select the top 25 of countries involved in coronavirus research since 2001, plot the evolution on a bar chart with plot_ly
+
+
+Can you redo the exercice using the data.table library?
+
+
+
+<a href="exo_chap_4_tibble.html">solution with dplyr</a>
+
+<a href="exo_chap_4_dt.html">solution with data.table</a> 
+

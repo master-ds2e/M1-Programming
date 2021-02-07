@@ -1,0 +1,10 @@
+"0",""
+"0","tic()"
+"0","countries_dt[,clean_aff := .(unlist(tstrsplit(authors,'<AFFILIATION>',keep = 2)))]"
+"0","countries_dt = countries_dt[,-'authors']"
+"0","setkey(countries_dt,pmid,clean_aff)"
+"0","countries_dt = unique(countries_dt)"
+"0","toc()"
+"1","26.85 sec elapsed
+"
+"0","countries_dt"

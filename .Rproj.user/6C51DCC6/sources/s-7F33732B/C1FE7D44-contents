@@ -322,7 +322,7 @@ Two usefull links:
 
 <div class = "r">
 
-```{r}
+```{r, warning= F}
 # R 
 library(plotly)
 library(kableExtra)

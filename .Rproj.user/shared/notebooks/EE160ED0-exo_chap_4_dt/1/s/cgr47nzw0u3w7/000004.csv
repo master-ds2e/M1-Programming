@@ -1,5 +1,0 @@
-"0","toc()"
-"1","0.13 sec elapsed
-"
-"0","tic()"
-"0","dt_final_table[, .(mean_ = mean(cited),sd_ = sd(cited)),by='pub_type'][order(sd_,decreasing = T)]"

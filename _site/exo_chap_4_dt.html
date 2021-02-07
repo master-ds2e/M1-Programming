@@ -25,6 +25,13 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<script src="site_libs/plotly-binding-4.9.2.1/plotly.js"></script>
+<script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="site_libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
+<link href="site_libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="site_libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -411,7 +418,7 @@ dt_table_1 = fread(file = &#39;data/table_1.csv&#39;)
 dt_table_2 = fread(file = &#39;data/table_2.csv&#39;)
 dt_cities = fread(file = &#39;data/cities_loc.csv&#39;)
 toc()
-## 1.77 sec elapsed
+## 1.71 sec elapsed
 
 setDT(dt_table_1)
 setDT(dt_table_2)
@@ -429,7 +436,7 @@ tic()
 dt_table_1 = dt_table_1[pmid != &#39;null&#39; &amp; doi != &#39;null&#39;]
 dt_table_2 = dt_table_2[pmid != &#39;null&#39; &amp; year_pub &gt; 1975]
 toc()
-## 0.1 sec elapsed</code></pre>
+## 0.08 sec elapsed</code></pre>
 </div>
 </div>
 <div id="merge" class="section level1">
@@ -441,7 +448,7 @@ toc()
 tic()
 dt_final_table = dt_table_1[dt_table_2, on = &#39;pmid&#39;]
 toc()
-## 0.04 sec elapsed
+## 0.05 sec elapsed
 
 dt_final_table = na.omit(dt_final_table)
 setDT(dt_final_table)
@@ -541,7 +548,7 @@ tic()
 dt_final_table[,nb_aut := dim(str_match_all(authors, &#39;&lt;AUTHOR&gt;&#39;)[[1]])[1],
                by = &#39;pmid&#39;]
 toc()
-## 3.46 sec elapsed
+## 3.3 sec elapsed
 
 dt_final_table[,c(&#39;authors&#39;, &#39;nb_aut&#39;)]
 ##                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               authors
@@ -577,8 +584,8 @@ dt_final_table = dt_final_table[nb_aut&gt;0]</code></pre>
 <div class="r">
 <pre class="r"><code># R 
 
-plot(density(log(final_table$nb_aut+1)))
-## Error in density(log(final_table$nb_aut + 1)): objet &#39;final_table&#39; introuvable</code></pre>
+plot(density(log(dt_final_table$nb_aut+1)))</code></pre>
+<p><img src="exo_chap_4_dt_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 </div>
 </div>
 <div id="search-for-dlmlnn-in-title" class="section level1">
@@ -589,11 +596,14 @@ plot(density(log(final_table$nb_aut+1)))
 
 tic()
 dt_final_table[, &#39;title&#39; := .(tolower(title)),
-               by = &#39;pmid&#39;][,c(&#39;ML&#39;,&#39;has_data&#39;,&#39;oa&#39;) := .(ifelse(str_detect(title,&#39;deep learning|machine learning|neural networks?&#39;),1,0),
-                                                          ifelse(has_data == &#39;Y&#39;,1,0),
-                                                          ifelse(oa == &#39;Y&#39;,1,0)),by = &#39;pmid&#39;]
+               by = &#39;pmid&#39;
+               ][,
+                 c(&#39;ML&#39;,&#39;has_data&#39;,&#39;oa&#39;) := .(ifelse(str_detect(title,&#39;deep learning|machine learning|neural networks?&#39;),1,0),
+                                              ifelse(has_data == &#39;Y&#39;,1,0),
+                                              ifelse(oa == &#39;Y&#39;,1,0)),
+                 by = &#39;pmid&#39;]
 toc()
-## 4.36 sec elapsed
+## 5.2 sec elapsed
 
 
 sum(dt_final_table$ML)
@@ -609,16 +619,16 @@ dt_final_table[,.(mean_nb_aut = mean(nb_aut)), by = &#39;ML&#39;]
 ## 1:  0    5.772328
 ## 2:  1    6.058559
 toc()
-## 0.05 sec elapsed
+## 0.03 sec elapsed
 
 tic()
-dt_final_table[,.(sum(as.numeric(oa))/.N,
-                  mean(cited)), by = &#39;ML&#39;]
-##    ML        V1        V2
-## 1:  0 0.7266799 11.277353
-## 2:  1 0.8018018  1.054054
+dt_final_table[,.(share_oa = sum(as.numeric(oa))/.N,
+                  mean_cited = mean(cited)), by = &#39;ML&#39;]
+##    ML  share_oa mean_cited
+## 1:  0 0.7266799  11.277353
+## 2:  1 0.8018018   1.054054
 toc()
-## 0.04 sec elapsed</code></pre>
+## 0.06 sec elapsed</code></pre>
 </div>
 </div>
 <div id="clean-up-pub_type" class="section level1">
@@ -629,7 +639,7 @@ toc()
 tic()
 dt_final_table[,pub_type := str_match_all(pubtype, &#39;\\[&quot;&quot;(.*?)&quot;&quot;&#39;)[[1]][2],by = &#39;pmid&#39;]
 toc()
-## 2.16 sec elapsed</code></pre>
+## 2.57 sec elapsed</code></pre>
 </div>
 </div>
 <div id="highest-meansd-of-citation" class="section level1">
@@ -638,7 +648,9 @@ toc()
 <div class="r">
 <pre class="r"><code># R data.table
 tic()
-dt_final_table[, .(mean_ = mean(cited),sd_ = sd(cited)),by=&#39;pub_type&#39;][order(mean_,decreasing = T)]
+dt_final_table[,
+               .(mean_ = mean(cited),sd_ = sd(cited)),by=&#39;pub_type&#39;
+               ][order(mean_,decreasing = T)]
 ##                                                     pub_type       mean_
 ##  1:                         Consensus Development Conference 94.12820513
 ##  2: Research Support, American Recovery and Reinvestment Act 64.41666667
@@ -813,7 +825,9 @@ toc()
 ## 0.04 sec elapsed
 
 tic()
-dt_final_table[, .(mean_ = mean(cited),sd_ = sd(cited)),by=&#39;pub_type&#39;][order(sd_,decreasing = T)]
+dt_final_table[,
+               .(mean_ = mean(cited),sd_ = sd(cited)),by=&#39;pub_type&#39;
+               ][order(sd_,decreasing = T)]
 ##                                                     pub_type       mean_
 ##  1:                         Consensus Development Conference 94.12820513
 ##  2:                     Research Support, N.I.H., Intramural 48.48130841
@@ -993,11 +1007,14 @@ toc()
 <p>Which are the most representative countres by year ? Store this information in an other tibble by keep only pmid and authors, get the country for each author from the loc_cities.csv. You may want to separate rows for each authors to get all countries involved in the paper,if an authors have multiple affiliations, take the first one.</p>
 <div class="r">
 <pre class="r"><code># R data.table
+
+countries = tolower(unique(dt_cities$country))
+
 tic()
 countries_dt = dt_final_table[,c(&#39;pmid&#39;,&#39;authors&#39;)]
 countries_dt = countries_dt[,.(authors = unlist(tstrsplit(authors, &quot;&lt;AUTHOR&gt;&quot;))),by= &#39;pmid&#39;]
 toc()
-## 7.41 sec elapsed
+## 8.36 sec elapsed
 countries_dt
 ##             pmid
 ##      1: 10022847
@@ -1028,7 +1045,7 @@ tic()
 setkey(countries_dt,pmid,authors)
 countries_dt = countries_dt[authors != &#39;&#39;&amp; !str_detect(authors,&#39;&lt;AFFILIATION&gt;None&#39;)]
 toc()
-## 23.52 sec elapsed
+## 20.8 sec elapsed
 countries_dt
 ##             pmid
 ##      1: 10023135
@@ -1061,7 +1078,7 @@ countries_dt = countries_dt[,-&#39;authors&#39;]
 setkey(countries_dt,pmid,clean_aff)
 countries_dt = unique(countries_dt)
 toc()
-## 27.81 sec elapsed
+## 24.95 sec elapsed
 
 countries_dt
 ##             pmid
@@ -1092,12 +1109,13 @@ countries_dt
 <div class="r">
 <pre class="r"><code># R data.table
 tic()
-countries_dt = countries_dt[,.(clean_aff=str_replace_all(clean_aff,&#39; USA&#39;,&#39;United States&#39;),pmid=pmid)]
-countries_dt = countries_dt[,.(clean_aff=str_replace_all(clean_aff,&#39; UK&#39;,&#39;United Kingdom&#39;),pmid=pmid)]
-countries_dt = countries_dt[,.(clean_aff=str_replace_all(clean_aff,&#39; Korea&#39;,&#39;South Korea&#39;),pmid=pmid)]
+countries_dt = countries_dt[, .(clean_aff=str_replace_all(clean_aff,&#39; USA&#39;,&#39;United States&#39;),pmid=pmid)
+                            ][, .(clean_aff=str_replace_all(clean_aff,&#39; UK&#39;,&#39;United Kingdom&#39;),pmid=pmid)
+                              ][, .(clean_aff=str_replace_all(clean_aff,&#39; Korea&#39;,&#39;South Korea&#39;),pmid=pmid)]
+
 countries_dt = countries_dt[,.(clean_aff = tolower(clean_aff),pmid=pmid)]
 toc()
-## 12.41 sec elapsed
+## 15.58 sec elapsed
 countries_dt
 ##                                                                                                                                                                                             clean_aff
 ##      1: division of neuropathology, department of pathology and laboratory medicine, university of pennsylvania school of medicine, philadelphia, pa 19104-6085,united states.lavi@mail.med.upenn.edu
@@ -1129,48 +1147,55 @@ key(countries_dt)
 setkey(countries_dt,pmid,clean_aff)
 tic()
 countries_dt[,country := .(ifelse(any(str_detect(clean_aff,countries)),
-                                     countries[str_detect(clean_aff,countries)][1],
-                                     &quot;&quot;)),by=c(&#39;pmid&#39;,&#39;clean_aff&#39;)]
-## Error in type(pattern): objet &#39;countries&#39; introuvable
+                                  countries[str_detect(clean_aff,countries)][1],
+                                  &quot;&quot;)),
+             by=c(&#39;pmid&#39;,&#39;clean_aff&#39;)]
+
 countries_dt = countries_dt[,-&#39;clean_aff&#39;]
 toc()
-## 0.02 sec elapsed
+## 665.74 sec elapsed
 countries_dt
-##             pmid
-##      1: 10023135
-##      2: 10023767
-##      3: 10024427
-##      4: 10028170
-##      5: 10029323
-##     ---         
-## 291653:  9952375
-## 291654:  9971782
-## 291655:  9971783
-## 291656:  9988465
+##             pmid        country
+##      1: 10023135  united states
+##      2: 10023767  united states
+##      3: 10024427  united states
+##      4: 10028170        belgium
+##      5: 10029323    switzerland
+##     ---                        
+## 291653:  9952375 united kingdom
+## 291654:  9971782         norway
+## 291655:  9971783    netherlands
+## 291656:  9988465 united kingdom
 ## 291657:  9989453
 
 tic()
 countries_dt = countries_dt[country != &#39;&#39;]
-## Error: objet &#39;country&#39; introuvable
 setkey(countries_dt,pmid,country)
-## Error in setkeyv(x, cols, verbose = verbose, physical = physical): some columns are not in the data.table: country
 countries_dt = unique(countries_dt)
 toc()
-## 3.14 sec elapsed
+## 4.93 sec elapsed
 
 tic()
 countries_year = countries_dt[dt_final_table[,c(&#39;pmid&#39;,&#39;year_pub&#39;)], on =&#39;pmid&#39;]
 countries_year = na.omit(countries_year)
 toc()
-## 0.03 sec elapsed
+## 0.05 sec elapsed
 
 tic()
-countries_pub_dt = countries_year[,.(n = length(unique(pmid))),by=c(&#39;country&#39;,&#39;year_pub&#39;)]
-## Error in eval(bysub, x, parent.frame()): objet &#39;country&#39; introuvable
-countries_pub_dt[order(n,decreasing = T)]
-## Error in eval(expr, envir, enclos): objet &#39;countries_pub_dt&#39; introuvable
+countries_pub_dt = countries_year[,
+                                  .(n = length(unique(pmid))),
+                                  by=c(&#39;country&#39;,&#39;year_pub&#39;)]
+
+head(countries_pub_dt[order(n,decreasing = T)])
+##           country year_pub     n
+## 1:  united states     2020 11668
+## 2:          china     2020  7888
+## 3: united kingdom     2020  6262
+## 4:          italy     2020  5910
+## 5:          india     2020  3297
+## 6:         france     2020  2650
 toc()
-## 0 sec elapsed</code></pre>
+## 0.05 sec elapsed</code></pre>
 </div>
 </div>
 <div id="country-bar-plot-with-plotly" class="section level1">
@@ -1196,33 +1221,35 @@ library(plotly)
 ## 
 ##     layout
 
-wide_countries = dcast(countries_pub,
-                       year_pub~country,
-                       value.var = &#39;n&#39;,
-                       fun.aggregate = sum)
-## Error in is.data.table(data): objet &#39;countries_pub&#39; introuvable
-
-countries_to_plot = names(sort(apply(wide_countries[, -&#39;year_pub&#39;],
-                                     FUN = sum,
-                                     MARGIN = 2),
-                               decreasing = T)[1:25])
-## Error in apply(wide_countries[, -&quot;year_pub&quot;], FUN = sum, MARGIN = 2): objet &#39;wide_countries&#39; introuvable
 
 
-fig = plot_ly(wide_countries, type = &#39;bar&#39;)
-## Error in is.data.frame(data): objet &#39;wide_countries&#39; introuvable
+plot_top_n  = function(n_top,year){
+  
+  countries_to_plot = as.matrix(
+    countries_pub_dt[year_pub&gt;=year,
+                     .(sum_paper = sum(n)),
+                     by = .(country)
+                     ][order(sum_paper, decreasing = T)
+                       ][1:n_top,&#39;country&#39;]
+    )
 
-for(i in rev(countries_to_plot)){
-  fig &lt;- fig %&gt;% add_trace(x = ~year_pub,
-                           y = as.matrix(wide_countries[,i]),
-                           name = as.character(i))
+
+  fig = plot_ly(countries_pub_dt[year_pub&gt;=year &amp; country %in% countries_to_plot], 
+                x = ~year_pub,
+                y = ~n,
+                color = ~country) %&gt;% 
+    layout(yaxis = list(title = &#39;Count&#39;,type = &#39;log&#39;),
+           barmode = &#39;stack&#39;)
+
+  fig
 }
-## Error in rev(countries_to_plot): objet &#39;countries_to_plot&#39; introuvable
 
-fig &lt;- fig %&gt;% layout(yaxis = list(title = &#39;Count&#39;, type = &quot;log&quot;), barmode = &#39;stack&#39;)
-## Error in eval(lhs, parent, parent): objet &#39;fig&#39; introuvable
-fig
-## Error in eval(expr, envir, enclos): objet &#39;fig&#39; introuvable</code></pre>
+plot_top_n(10,2001)
+## No trace type specified:
+##   Based on info supplied, a &#39;bar&#39; trace seems appropriate.
+##   Read more about this trace type -&gt; https://plot.ly/r/reference/#bar</code></pre>
+<div id="htmlwidget-ddc16477a9a4bf20b9a7" style="width:672px;height:480px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ddc16477a9a4bf20b9a7">{"x":{"visdat":{"118066a47e8":["function () ","plotlyVisDat"]},"cur_data":"118066a47e8","attrs":{"118066a47e8":{"x":{},"y":{},"color":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20]}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"yaxis":{"domain":[0,1],"automargin":true,"title":"Count","type":"log"},"barmode":"stack","xaxis":{"domain":[0,1],"automargin":true,"title":"year_pub","type":"category","categoryorder":"array","categoryarray":["2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021"]},"hovermode":"closest","showlegend":true},"source":"A","config":{"showSendToCloud":false},"data":[{"x":["2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021"],"y":[2,5,10,22,26,33,39,44,51,27,46,42,72,98,122,122,115,131,138,2107,3],"type":"bar","name":"australia","marker":{"color":"rgba(102,194,165,1)","line":{"color":"rgba(102,194,165,1)"}},"textfont":{"color":"rgba(102,194,165,1)"},"error_y":{"color":"rgba(102,194,165,1)"},"error_x":{"color":"rgba(102,194,165,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021"],"y":[16,13,45,70,61,72,62,71,70,65,63,74,89,117,132,140,122,137,174,2363,4],"type":"bar","name":"canada","marker":{"color":"rgba(228,156,113,1)","line":{"color":"rgba(228,156,113,1)"}},"textfont":{"color":"rgba(228,156,113,1)"},"error_y":{"color":"rgba(228,156,113,1)"},"error_x":{"color":"rgba(228,156,113,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021"],"y":[101,191,190,170,157,146,171,225,167,176,319,389,513,525,566,590,739,7888,25],"type":"bar","name":"china","marker":{"color":"rgba(201,152,157,1)","line":{"color":"rgba(201,152,157,1)"}},"textfont":{"color":"rgba(201,152,157,1)"},"error_y":{"color":"rgba(201,152,157,1)"},"error_x":{"color":"rgba(201,152,157,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021"],"y":[11,13,17,32,39,36,46,40,56,43,53,44,87,129,134,144,136,158,156,2650,4],"type":"bar","name":"france","marker":{"color":"rgba(175,154,200,1)","line":{"color":"rgba(175,154,200,1)"}},"textfont":{"color":"rgba(175,154,200,1)"},"error_y":{"color":"rgba(175,154,200,1)"},"error_x":{"color":"rgba(175,154,200,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021"],"y":[19,22,31,35,36,70,53,59,55,46,59,48,80,129,151,154,166,172,182,2154,1],"type":"bar","name":"germany","marker":{"color":"rgba(226,148,184,1)","line":{"color":"rgba(226,148,184,1)"}},"textfont":{"color":"rgba(226,148,184,1)"},"error_y":{"color":"rgba(226,148,184,1)"},"error_x":{"color":"rgba(226,148,184,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2015","2013","2014","2016","2017","2018","2019","2020","2021"],"y":[4,1,5,9,8,10,9,24,18,33,31,30,68,54,86,92,92,95,130,3297,8],"type":"bar","name":"india","marker":{"color":"rgba(176,208,99,1)","line":{"color":"rgba(176,208,99,1)"}},"textfont":{"color":"rgba(176,208,99,1)"},"error_y":{"color":"rgba(176,208,99,1)"},"error_x":{"color":"rgba(176,208,99,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021"],"y":[10,8,18,24,35,30,32,37,33,31,41,43,48,71,95,113,109,114,132,5910,5],"type":"bar","name":"italy","marker":{"color":"rgba(227,217,62,1)","line":{"color":"rgba(227,217,62,1)"}},"textfont":{"color":"rgba(227,217,62,1)"},"error_y":{"color":"rgba(227,217,62,1)"},"error_x":{"color":"rgba(227,217,62,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2019","2018","2020","2021"],"y":[8,11,17,14,18,18,19,38,31,25,34,44,44,63,80,88,77,110,98,2039,5],"type":"bar","name":"spain","marker":{"color":"rgba(245,207,100,1)","line":{"color":"rgba(245,207,100,1)"}},"textfont":{"color":"rgba(245,207,100,1)"},"error_y":{"color":"rgba(245,207,100,1)"},"error_x":{"color":"rgba(245,207,100,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2014","2013","2015","2016","2017","2018","2019","2020","2021"],"y":[22,22,59,71,73,86,78,89,104,88,94,92,184,127,263,213,240,215,294,6262,10],"type":"bar","name":"united kingdom","marker":{"color":"rgba(219,192,155,1)","line":{"color":"rgba(219,192,155,1)"}},"textfont":{"color":"rgba(219,192,155,1)"},"error_y":{"color":"rgba(219,192,155,1)"},"error_x":{"color":"rgba(219,192,155,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2012","2011","2013","2014","2015","2016","2017","2018","2020","2019","2021"],"y":[162,134,240,391,407,482,436,529,554,594,592,587,658,702,811,799,800,801,11668,859,21],"type":"bar","name":"united states","marker":{"color":"rgba(179,179,179,1)","line":{"color":"rgba(179,179,179,1)"}},"textfont":{"color":"rgba(179,179,179,1)"},"error_y":{"color":"rgba(179,179,179,1)"},"error_x":{"color":"rgba(179,179,179,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 
