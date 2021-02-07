@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Best Practices</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">M1 Programming</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="2_Basics.html">Basics</a>
+</li>
+<li>
+  <a href="3_Arrays_Vectors.html">Arrays/Vectors</a>
+</li>
+<li>
+  <a href="4_Regex.html">Regex</a>
+</li>
+<li>
+  <a href="5_Data_Analysis_R.html">Data Analysis (R)</a>
+</li>
+<li>
+  <a href="6_Data_Analysis_Py.html">Data Analysis (Python)</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Best Practices</h1>
+
+</div>
+
+
+<style>
+div.python pre { background-color: #fdfcff; }
+</style>
+<style>
+div.r pre { background-color: #fffffc; }
+</style>
+<div id="pep8" class="section level1">
+<h1><span class="header-section-number">1</span> PEP8</h1>
+<p>The link below exposes a style guide for python, I strongly recommend that you read these guidelines before sending your project. It will be helpful to improve the readability of the code.</p>
+<p><a href="https://www.python.org/dev/peps/pep-0008/#introduction" class="uri">https://www.python.org/dev/peps/pep-0008/#introduction</a></p>
+<p>Here are a few short quotes from the guide :</p>
+<ul>
+<li><p>One of Guido’s key insights is that code is read much more often than it is written. As PEP 20 says, “Readability counts”.</p></li>
+<li><p>A style guide is about consistency. Consistency with this style guide is important. Consistency within a project is more important. Consistency within one module or function is the most important.</p></li>
+<li><p>Limit all lines to a maximum of 79 characters.</p></li>
+<li><p>Spaces are the preferred indentation method.</p></li>
+<li><p>Indentation : Use 4 spaces per indentation level, no tabs. Continuation lines should align wrapped elements either vertically using Python’s implicit line joining inside parentheses, brackets and braces, or using a hanging indent</p></li>
+</ul>
+<pre><code># Correct:
+
+# Aligned with opening delimiter.
+foo = long_function_name(var_one, var_two,
+                         var_three, var_four)
+</code></pre>
+<pre><code># Wrong:
+
+# Arguments on first line forbidden when not using vertical alignment.
+foo = long_function_name(var_one, var_two,
+    var_three, var_four)
+</code></pre>
+<ul>
+<li>When the conditional part of an if-statement is long enough to require that it be written across multiple lines:</li>
+</ul>
+<pre><code># Acceptable
+
+# No extra indentation.
+if (this_is_one_thing and
+    that_is_another_thing):
+    do_something()
+
+
+# Add some extra indentation on the conditional continuation line.
+if (this_is_one_thing
+        and that_is_another_thing):
+    do_something()
+</code></pre>
+<ul>
+<li>Should a Line Break Before or After a Binary Operator?</li>
+</ul>
+<pre><code># Wrong:
+# operators sit far away from their operands
+income = (gross_wages +
+          taxable_interest +
+          (dividends - qualified_dividends) -
+          ira_deduction -
+          student_loan_interest)</code></pre>
+<pre><code># Correct:
+# easy to match operators with operands
+income = (gross_wages
+          + taxable_interest
+          + (dividends - qualified_dividends)
+          - ira_deduction
+          - student_loan_interest)
+</code></pre>
+<ul>
+<li>imports :</li>
+</ul>
+<pre><code># Correct:
+import os
+import sys
+
+# Correct:
+from subprocess import Popen, PIPE
+
+# Wrong:
+import sys, os</code></pre>
+<ul>
+<li>Whitespace in Expressions and Statements :</li>
+</ul>
+<pre><code># Correct:
+spam(ham[1], {eggs: 2})
+
+# Wrong:
+spam( ham[ 1 ], { eggs: 2 } )
+</code></pre>
+<pre><code># Correct:
+if x == 4: print x, y; x, y = y, x
+
+# Wrong:
+if x == 4 : print x , y ; x , y = y , x</code></pre>
+<ul>
+<li>More than one space around an assignment (or other) operator to align it with another:</li>
+</ul>
+<pre><code># Correct:
+x = 1
+y = 2
+long_variable = 3
+
+# Wrong:
+x             = 1
+y             = 2
+long_variable = 3</code></pre>
+<ul>
+<li>Operators</li>
+</ul>
+<pre><code># Correct:
+i = i + 1
+submitted += 1
+x = x*2 - 1
+hypot2 = x*x + y*y
+c = (a+b) * (a-b)</code></pre>
+<pre><code># Wrong:
+i=i+1
+submitted +=1
+x = x * 2 - 1
+hypot2 = x * x + y * y
+c = (a + b) * (a - b)</code></pre>
+<ul>
+<li>Don’t use spaces around the = sign when used to indicate a keyword argument, or when used to indicate a default value for an unannotated function parameter:</li>
+</ul>
+<pre><code># Correct:
+def complex(real, imag=0.0):
+    return magic(r=real, i=imag)</code></pre>
+<pre><code># Wrong:
+def complex(real, imag = 0.0):
+    return magic(r = real, i = imag)</code></pre>
+<ul>
+<li>Compound statements (multiple statements on the same line) are generally discouraged:</li>
+</ul>
+<pre><code># Correct:
+if foo == &#39;blah&#39;:
+    do_blah_thing()
+do_one()
+do_two()
+do_three()</code></pre>
+<pre><code># Wrong:
+if foo == &#39;blah&#39;: do_blah_thing()
+do_one(); do_two(); do_three()</code></pre>
+<ul>
+<li>When trailing commas are redundant..the pattern is to put each value (etc.) on a line by itself, always adding a trailing comma, and add the close parenthesis/bracket/brace on the next line.</li>
+</ul>
+<pre><code># Correct:
+FILES = [
+    &#39;setup.cfg&#39;,
+    &#39;tox.ini&#39;,
+    ]
+initialize(FILES,
+           error=True,
+           )</code></pre>
+<pre><code># Wrong:
+FILES = [&#39;setup.cfg&#39;, &#39;tox.ini&#39;,]
+initialize(FILES, error=True,)</code></pre>
+<ul>
+<li>Conventions for writing good documentation strings (a.k.a. “docstrings”) are immortalized in PEP 257. </li>
+</ul>
+<pre><code>&quot;&quot;&quot;Return a foobang
+
+Optional plotz says to frobnicate the bizbaz first.
+&quot;&quot;&quot;</code></pre>
+<pre><code>&quot;&quot;&quot;Return an ex-parrot.&quot;&quot;&quot;
+</code></pre>
+<ul>
+<li><p>Never use the characters ‘l’ (lowercase letter el), ‘O’ (uppercase letter oh), or ‘I’ (uppercase letter eye) as single character variable names.</p></li>
+<li><p>Function names should be lowercase, with words separated by underscores as necessary to improve readability.</p></li>
+</ul>
+<p>-Variable names follow the same convention as function names.</p>
+<ul>
+<li>Constants are usually defined on a module level and written in all capital letters with underscores separating words. Examples include MAX_OVERFLOW and TOTAL.</li>
+</ul>
+<pre><code>PATH = &#39;/my/path&#39;</code></pre>
+<p>-Use is not operator rather than not … is. While both expressions are functionally identical, the former is more readable and preferred:</p>
+<pre><code># Correct:
+if foo is not None:
+
+
+# Wrong:
+if not foo is None:</code></pre>
+<ul>
+<li>Always use a def statement instead of an assignment statement that binds a lambda expression directly to an identifier:</li>
+</ul>
+<pre><code># Correct:
+def f(x): return 2*x
+
+
+# Wrong:
+f = lambda x: 2*x</code></pre>
+<ul>
+<li>Additionally, for all try/except clauses, limit the try clause to the absolute minimum amount of code necessary. Again, this avoids masking bugs:</li>
+</ul>
+<pre><code># Correct:
+try:
+    value = collection[key]
+except KeyError:
+    return key_not_found(key)
+else:
+    return handle_value(value)</code></pre>
+<pre><code># Wrong:
+try:
+    # Too broad!
+    return handle_value(collection[key])
+except KeyError:
+    # Will also catch KeyError raised by handle_value()
+    return key_not_found(key)</code></pre>
+<ul>
+<li>For sequences, (strings, lists, tuples), use the fact that empty sequences are false:</li>
+</ul>
+<pre><code># Correct:
+if not seq:
+if seq:
+
+# Wrong:
+if len(seq):
+if not len(seq):</code></pre>
+<ul>
+<li>Don’t compare boolean values to True or False using ==:</li>
+</ul>
+<pre><code># Correct:
+if greeting:
+
+
+# Wrong:
+if greeting == True:</code></pre>
+</div>
+<div id="rmarkdown" class="section level1">
+<h1><span class="header-section-number">2</span> Rmarkdown</h1>
+</div>
+<div id="github" class="section level1">
+<h1><span class="header-section-number">3</span> GitHub</h1>
+<p>Github is a company that creates products that use the open source tool git. From wikipédia: “Git is a distributed version-control system for tracking changes in any set of files, originally designed for coordinating work among programmers cooperating on source code during software development.”. It was created by Linus Torvalds, the creator of the Linux kernel.</p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

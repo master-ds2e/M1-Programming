@@ -1,0 +1,2226 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Basics</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">M1 Programming</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="2_Basics.html">Basics</a>
+</li>
+<li>
+  <a href="3_Arrays_Vectors.html">Arrays/Vectors</a>
+</li>
+<li>
+  <a href="4_Regex.html">Regex</a>
+</li>
+<li>
+  <a href="5_Data_Analysis_R.html">Data Analysis (R)</a>
+</li>
+<li>
+  <a href="6_Data_Analysis_Py.html">Data Analysis (Python)</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Basics</h1>
+
+</div>
+
+
+<style>
+div.python pre { background-color: #d0f5a9; }
+</style>
+<style>
+div.r pre { background-color: #dfdddf; }
+</style>
+<p>
+ 
+</p>
+<p>This capter introduces the basics of R and Python. The goal of this chapter is to discover the different types of object that we can deal with for each language, as well as understanding the logic of control flows and function writing. The chapter ends with 3 Exercices from Euler Project. By forming a group of 2, solve at least one exercice in the language of your choice and try to compare different approaches.</p>
+<p>
+ 
+</p>
+<div id="rpython" class="section level1">
+<h1><span class="header-section-number">1</span> R/Python</h1>
+<p>Both data science languages are great for business analysis. They can both be used for similar purpose when viewed from a purely machine learning perspective. Both have packages or libraries dedicated to wrangling, preprocessing, and applying machine learning to data. Both are great choices for reproducibile research. Where things become really interesting is their differences, as well as combining languages.</p>
+<div id="r-strengths" class="section level2">
+<h2><span class="header-section-number">1.1</span> R Strengths</h2>
+<p>The S language was a precursor to R developed by John Chambers (statistician) at Bell Labs in 1976 as a programming language designed to implement statistics. The R statistical programming language was developed at the University of Auckland, New Zealand, to increase S capacities. S and R developers were not software engineers or computer scientists, they were researchers that developed tools in order carry out research and communicate results more efficiently.</p>
+<p>R is a language with roots in statistics, data analysis, data exploration, and data visualization. It has utilities for reporting and communicate including RMarkdown and Shiny.</p>
+<p>R is expanding rapidly with the emergence of the tidyverse (tidyverse.org), a set of tools with a common programming-interface that use functional verbs (functions like mutate() and summarize()) to perform intuitive operations connected by the pipe (%&gt;%). The tidyverse is very advantageous because it makes data mining very efficient. Iterating through your exploratory analysis is as simple as writing a paragraph describing what you intend to do to the data.</p>
+</div>
+<div id="python-strengths" class="section level2">
+<h2><span class="header-section-number">1.2</span> Python Strengths</h2>
+<p>The Python language is a general-purpose programming language created by Guido van Rossum (Computer Scientist) in 1991. The language was developed to be readable and to cover many programming paradigms. One of Python’s greatest strengths is its flexibility which allows to handle web frameworks, data base connectivity, networking, web scraping, text and image processing, many of those features are very useful to various tasks in machine learning.</p>
+<p>In essence, the foundations of Python are in computer science and mathematics. With over 100,000 open source libraries, Python has the largest ecosystem of any programming language, making it a unique choice for those who want high flexibility.</p>
+<p>Python has great data science libraries including Scikit Learn, the most popular machine learning library which is easy to pick up, includes support for pipelines to simplify the machine learning workflow, and has almost all of the algorithms one needs in one place. Another very common library is TensorFlow, developed by software engineers at Google to perform deep learning, commonly used for image recognition and natural language processing tasks (NLTK is also very useful for NLP). Facebook also have his own deep learning framework named PyTorch which is a concurrent of Tenserflow and Keras (which is desinged for efficiently building neural networks).</p>
+<ul>
+<li><p>R is selected for exploration due to the tidyverse and datatable readability and efficiency.</p></li>
+<li><p>Python is preferred for machine learning because of Scikit Learn, TenserFlow and Keras, PyTorch machine learning pipeline capability.</p></li>
+<li><p>R is favored for communication because of the advanced reporting utilities including RMarkdown and Shiny (interactive web apps) and ggplot2 for visualization.</p></li>
+</ul>
+</div>
+</div>
+<div id="operations" class="section level1">
+<h1><span class="header-section-number">2</span> Operations</h1>
+<div id="arithmetic-operations" class="section level2">
+<h2><span class="header-section-number">2.1</span> Arithmetic Operations</h2>
+<p>Python and R work as classical calculator, using “+”, “-”, "*" and “/” we can do arithmetic operations in both languages.</p>
+<div class="row">
+<div class="col-md-6">
+<div class="python">
+<pre class="python"><code># Python 
+
+1+2
+## 3
+1-2
+## -1
+1/2
+## 0.5
+1*2
+## 2</code></pre>
+</div>
+</div>
+<div class="col-md-6">
+<div class="r">
+<pre class="r"><code># R
+
+1+2
+## [1] 3
+1-2
+## [1] -1
+1/2
+## [1] 0.5
+1*2
+## [1] 2</code></pre>
+</div>
+</div>
+</div>
+<p>
+ 
+</p>
+<p>We can also apply exponantiation, Modulo and floor division easily in both language. Note that in R we can write the exponantiation “^”. It is used for exclusive-or (XOR) in Python.</p>
+<div class="row">
+<div class="col-md-6">
+<div class="python">
+<pre class="python"><code># Python 
+
+2**8 # exponantiation
+## 256
+2^8 == 2**8 # False
+## False
+8%3 # modulo
+## 2
+8//3 # floor division
+## 2</code></pre>
+</div>
+</div>
+<div class="col-md-6">
+<div class="r">
+<pre class="r"><code># R
+
+2**8 # exponantiation
+## [1] 256
+2^8 == 2**8 # TRUE
+## [1] TRUE
+8%%3 # modulo
+## [1] 2
+8%/%3 # floor division
+## [1] 2</code></pre>
+</div>
+</div>
+</div>
+<table>
+<thead>
+<tr class="header">
+<th>Operator (R)</th>
+<th align="center">Operator (Python)</th>
+<th align="right">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>+</td>
+<td align="center">+</td>
+<td align="right">Addition</td>
+</tr>
+<tr class="even">
+<td>–</td>
+<td align="center">–</td>
+<td align="right">Subtraction</td>
+</tr>
+<tr class="odd">
+<td>*</td>
+<td align="center">*</td>
+<td align="right">Multiplication</td>
+</tr>
+<tr class="even">
+<td>/</td>
+<td align="center">/</td>
+<td align="right">Division</td>
+</tr>
+<tr class="odd">
+<td>^ / **</td>
+<td align="center">**</td>
+<td align="right">Exponent</td>
+</tr>
+<tr class="even">
+<td>%%</td>
+<td align="center">%</td>
+<td align="right">Modulo</td>
+</tr>
+<tr class="odd">
+<td>%/%</td>
+<td align="center">//</td>
+<td align="right">floor Division</td>
+</tr>
+</tbody>
+</table>
+<p>
+ 
+</p>
+</div>
+<div id="comparison-operators" class="section level2">
+<h2><span class="header-section-number">2.2</span> Comparison Operators</h2>
+<p>In order to compare some values, we can use comparison operators to investigate if a given value is equal to, not equal to, greater than, etc.</p>
+<p>Theses operators are the same in both language.</p>
+<div class="row">
+<div class="col-md-6">
+<div class="python">
+<pre class="python"><code># Python 
+
+2==8
+## False
+2!=8
+## True
+2&lt;8
+## True
+2&gt;8
+## False
+2&lt;=8
+## True</code></pre>
+</div>
+</div>
+<div class="col-md-6">
+<div class="r">
+<pre class="r"><code># R
+
+2==8
+## [1] FALSE
+2!=8
+## [1] TRUE
+2&lt;8
+## [1] TRUE
+2&gt;8
+## [1] FALSE
+2&lt;=8
+## [1] TRUE</code></pre>
+</div>
+</div>
+</div>
+<table>
+<thead>
+<tr class="header">
+<th>Operator (R/Python)</th>
+<th align="right">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt;</td>
+<td align="right">Less than</td>
+</tr>
+<tr class="even">
+<td>&gt;</td>
+<td align="right">Greater than</td>
+</tr>
+<tr class="odd">
+<td>&lt;=</td>
+<td align="right">Less than or equal to</td>
+</tr>
+<tr class="even">
+<td>&gt;=</td>
+<td align="right">Greater than or equal to</td>
+</tr>
+<tr class="odd">
+<td>==</td>
+<td align="right">Equal to</td>
+</tr>
+<tr class="even">
+<td>!=</td>
+<td align="right">Not equal to</td>
+</tr>
+</tbody>
+</table>
+<p>
+ 
+</p>
+</div>
+<div id="logical-operators" class="section level2">
+<h2><span class="header-section-number">2.3</span> Logical operators</h2>
+<div class="row">
+<div class="col-md-6">
+<div class="python">
+<pre class="python"><code># Python 
+x = [True,True]
+y = [True,False]
+
+not x[0]
+## False
+x and y
+## [True, False]
+x or y
+## [True, True]</code></pre>
+</div>
+</div>
+<div class="col-md-6">
+<div class="r">
+<pre class="r"><code># R
+
+x = c(TRUE,TRUE)
+y = c(TRUE,FALSE)
+
+!x[1]
+## [1] FALSE
+x &amp; y
+## [1]  TRUE FALSE
+x &amp;&amp; y
+## [1] TRUE
+x | y
+## [1] TRUE TRUE
+x || y
+## [1] TRUE</code></pre>
+</div>
+</div>
+</div>
+<table>
+<thead>
+<tr class="header">
+<th>Operator (R)</th>
+<th align="center">Operator (Python)</th>
+<th align="right">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>!</td>
+<td align="center">not</td>
+<td align="right">Logical NOT</td>
+</tr>
+<tr class="even">
+<td>&amp;</td>
+<td align="center">and</td>
+<td align="right">Element-wise logical AND</td>
+</tr>
+<tr class="odd">
+<td>&amp;&amp;</td>
+<td align="center"></td>
+<td align="right">Logical AND</td>
+</tr>
+<tr class="even">
+<td>|</td>
+<td align="center">or</td>
+<td align="right">Element-wise logical OR</td>
+</tr>
+<tr class="odd">
+<td>||</td>
+<td align="center"></td>
+<td align="right">Logical OR</td>
+</tr>
+</tbody>
+</table>
+<p>
+ 
+</p>
+</div>
+<div id="membership-operators" class="section level2">
+<h2><span class="header-section-number">2.4</span> Membership operators</h2>
+<p>‘In’ and ‘not in’ are membership operators in Python. They are used to test whether a value or variable is found in a sequence. In R ‘%in%’ allows you to use the python in, but you have to be aware that they may not react the same way, the reason is that list of character can be directly decomposed in a character list in python, which is not the case in R. See how we can check that ‘Hello’ is in ‘Hello world’ using just in with python. In R we look if the string exactly match one element.</p>
+<div class="row">
+<div class="col-md-6">
+<div class="python">
+<pre class="python"><code># Python 
+x = &#39;Hello world&#39;
+y = {1:&#39;a&#39;,2:&#39;b&#39;}
+
+print(&#39;world&#39; in x)
+## True
+print(1 in y)
+## True
+print(&#39;a&#39; in y)
+## False</code></pre>
+</div>
+</div>
+<div class="col-md-6">
+<div class="r">
+<pre class="r"><code># R
+
+x = &#39;Hello World&#39;
+
+print(&#39;Hello&#39; %in% x)
+## [1] FALSE
+stringr::str_detect(x,&#39;Hello&#39;)
+## [1] TRUE</code></pre>
+</div>
+</div>
+</div>
+<p>
+ 
+</p>
+<div class="row">
+<div class="col-md-6">
+<div class="python">
+<pre class="python"><code># Python 
+x = [&#39;Hello&#39;,&#39;World&#39;]
+
+print(&#39;Hello&#39; in x)
+## True</code></pre>
+</div>
+</div>
+<div class="col-md-6">
+<div class="r">
+<pre class="r"><code># R
+
+x = c(&#39;Hello&#39;,&#39;World&#39;)
+
+print(&#39;Hello&#39; %in% x)
+## [1] TRUE
+stringr::str_detect(&#39;Hello&#39;,x)
+## [1]  TRUE FALSE</code></pre>
+</div>
+</div>
+</div>
+<p>
+ 
+</p>
+</div>
+</div>
+<div id="objects-variables" class="section level1">
+<h1><span class="header-section-number">3</span> Objects &amp; Variables</h1>
+<p>In Python and R, we do not need to declare a variable before assigning a value to this variable. we can think of a variable as a name to refers to an object. There is a difference between Python and R on the way the computer is storing objects and variables.</p>
+<p>
+ 
+</p>
+<div id="some-differences-between-r-and-python" class="section level2">
+<h2><span class="header-section-number">3.1</span> Some differences between R and Python</h2>
+<p>While Python is much appreciated for being a versatile language with an easy-to-understand syntax, R’s functionalities are developed by statisticians, thus giving it field-specific advantages.</p>
+<p>In R, a variable and an object are the same things, they refer to the same entities. If we assign to a new variable a variable that already exist, it will refers to two different objects.</p>
+<p>Things in Python are more conventional, but since most of you learned R before Python it is important to notice that variables refers to an objet but they are still two entities. It means that two variables can refer to a single object. If two variables are pointing the same object, the modification made with one variable will be also available when using the other variable.</p>
+<p>We mostly should never use for loops in R - they’re very slow because they execute a function call with every iteration. One should vectorize and use the apply family of functions instead (Weird, I know..). Vectorization is king in R if we want fast code. Assuming we vectorize both our R and Python codes (and other factors), we should probably get the same order of magnitude in speed. For data larger than memory (we can specify the limit), R starts to become a bad choice.</p>
+<div class="row">
+<div class="col-md-6">
+<div class="python">
+<pre class="python"><code># Python 
+import numpy as np
+only_nb = [1,2,3,4]
+np.std(only_nb)
+## 1.118033988749895
+np.std(only_nb,ddof=1)
+## 1.2909944487358056
+with_none = [1,2,3,None]
+np.std(with_none)
+## Error in py_call_impl(callable, dots$args, dots$keywords): TypeError: unsupported operand type(s) for +: &#39;int&#39; and &#39;NoneType&#39;
+## 
+## Detailed traceback: 
+##   File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;
+##   File &quot;C:\Users\Beta\AppData\Local\Continuum\anaconda3\lib\site-packages\numpy\core\fromnumeric.py&quot;, line 3242, in std
+##     **kwargs)
+##   File &quot;C:\Users\Beta\AppData\Local\Continuum\anaconda3\lib\site-packages\numpy\core\_methods.py&quot;, line 140, in _std
+##     keepdims=keepdims)
+##   File &quot;C:\Users\Beta\AppData\Local\Continuum\anaconda3\lib\site-packages\numpy\core\_methods.py&quot;, line 107, in _var
+##     arrmean = umr_sum(arr, axis, dtype, keepdims=True)
+with_char = [1,2,&#39;3&#39;,4]
+np.std(with_char)
+## Error in py_call_impl(callable, dots$args, dots$keywords): TypeError: cannot perform reduce with flexible type
+## 
+## Detailed traceback: 
+##   File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;
+##   File &quot;C:\Users\Beta\AppData\Local\Continuum\anaconda3\lib\site-packages\numpy\core\fromnumeric.py&quot;, line 3242, in std
+##     **kwargs)
+##   File &quot;C:\Users\Beta\AppData\Local\Continuum\anaconda3\lib\site-packages\numpy\core\_methods.py&quot;, line 140, in _std
+##     keepdims=keepdims)
+##   File &quot;C:\Users\Beta\AppData\Local\Continuum\anaconda3\lib\site-packages\numpy\core\_methods.py&quot;, line 107, in _var
+##     arrmean = umr_sum(arr, axis, dtype, keepdims=True)</code></pre>
+</div>
+</div>
+<div class="col-md-6">
+<div class="r">
+<pre class="r"><code># R
+only_nb &lt;- c(1,2,3,4)
+sd(only_nb)
+## [1] 1.290994
+with_na &lt;- c(1,2,3,NA)
+sd(with_na)
+## [1] NA
+with_char &lt;- c(1,2,&#39;3&#39;,4)
+sd(with_char)
+## [1] 1.290994
+
+with_char &lt;- c(1,2,&#39;a&#39;,4)
+sd(with_char)
+## Warning in var(if (is.vector(x) || is.factor(x)) x else as.double(x), na.rm =
+## na.rm): NAs introduits lors de la conversion automatique
+## [1] NA</code></pre>
+</div>
+</div>
+<p>
+ 
+</p>
+<ul>
+<li><p>See how R does not show any error and directly remove NA to compute the standard deviation and also converts string to numeric if possible. If converting the string to numeric is not feasible, R finally return a NA. This is not an error message but a warning message.<br />
+We need to write our code carefully since R can do calculation for a while and just return NA without stopping the process which is not the case in Python.</p></li>
+<li><p>see here that R calulates the standard deviation with N - 1 as the denominator, and numpy with N. To get the same result we need to use ‘ddof=1’ as argument in std.</p></li>
+</ul>
+</div>
+<p>
+ 
+</p>
+</div>
+<div id="textual-and-numerical-variables" class="section level2">
+<h2><span class="header-section-number">3.2</span> Textual and numerical variables</h2>
+<p>In R textual data are called ‘character’, in Python it is a string, abbreviate as ‘str’. " or ’ are used when we set a textual variable in both language, but we can also set a variable to textual variable if needed.</p>
+<p>Numerical variables a decomposed in three types. In Python we have integer, float and complex. In R float is called ‘double’, reffering to double precision floating point. Without entering into details, it means that the number have a precision up to 15 decimals. Float can refers to a precision of 7 decimals, however in Python the data-type ‘float’ has a precision of 15 numbers. They are ways to get more precisions using Numpy for example.</p>
+<p>Finaly we can check easily the data-type of the variable that we are dealing by asking the language with the command ‘type’ in Python, or ‘typeof’ in R.</p>
+<div class="row">
+<div class="col-md-6">
+<div class="python">
+<pre class="python"><code># Python 
+
+import sys 
+sys.float_info.dig # number of decimals
+## 15
+a = 1
+type(a)
+## &lt;class &#39;int&#39;&gt;
+b = 1.1
+type(b)
+## &lt;class &#39;float&#39;&gt;
+c = 1.1+2j
+type(c)
+## &lt;class &#39;complex&#39;&gt;
+d = &#39;d&#39;
+type(d)
+
+# change the type
+## &lt;class &#39;str&#39;&gt;
+e = 2
+f = str(e)
+f
+## &#39;2&#39;
+float(f)
+## 2.0</code></pre>
+</div>
+</div>
+<div class="col-md-6">
+<div class="r">
+<pre class="r"><code># R
+
+a = 1
+typeof(a)
+## [1] &quot;double&quot;
+a_int = 1L
+typeof(a_int)
+## [1] &quot;integer&quot;
+
+b = 1.1
+typeof(b)
+## [1] &quot;double&quot;
+
+c = 1.1+2i
+typeof(c)
+## [1] &quot;complex&quot;
+
+d = &#39;d&#39;
+typeof(d)
+## [1] &quot;character&quot;
+
+# change the type
+e = 2
+f = as.character(e)
+f
+## [1] &quot;2&quot;
+as.numeric(f)
+## [1] 2</code></pre>
+</div>
+</div>
+</div>
+<p>
+ 
+</p>
+</div>
+<div id="other-data-type-r" class="section level2">
+<h2><span class="header-section-number">3.3</span> Other Data-Type (R)</h2>
+<p>There is a lot of datatypes in both language that we will discover along this course, for now, we will focus only on basic data-type that are directly available without using anyother package or library,in R common data-type are Vector, Matrix, List, Dataframe.</p>
+<p>
+ 
+</p>
+<div id="vectors-and-matrices" class="section level3">
+<h3><span class="header-section-number">3.3.1</span> Vectors and Matrices</h3>
+<div class="r">
+<div class="row">
+<div class="col-md-6">
+<pre class="r"><code># R
+
+vec = c(1, 2, 3)
+length(which(vec==2)) # count elements of the list which are exactly equal to 2
+## [1] 1
+
+vec = sort(vec,
+           decreasing = TRUE)
+vec
+## [1] 3 2 1
+# access the element of a list
+vec[1]
+## [1] 3
+vec[which(vec==3)]
+## [1] 3
+vec[2:length(vec)]
+## [1] 2 1
+vec[length(vec):2]
+## [1] 1 2
+vec[-1] # throwaway value
+## [1] 2 1</code></pre>
+</div>
+<div class="col-md-6">
+<pre class="r"><code># R
+
+mat = matrix(c(1, 2, 3, 4, 5, 6),3,2)
+dim(mat)
+## [1] 3 2
+mat
+##      [,1] [,2]
+## [1,]    1    4
+## [2,]    2    5
+## [3,]    3    6
+
+length(which(mat==2)) # count elements of the list which are exactly equal to 2
+## [1] 1
+
+vec = sort(mat,
+           decreasing = TRUE)
+vec
+## [1] 6 5 4 3 2 1
+# access the element of a list
+mat[1] # first element
+## [1] 1
+which(mat==3,
+      arr.ind = TRUE) # get row and columns for each value that match
+##      row col
+## [1,]   3   1
+
+mat[2:length(mat)] # gives us a vector
+## [1] 2 3 4 5 6
+mat[2:dim(mat)[1],]
+##      [,1] [,2]
+## [1,]    2    5
+## [2,]    3    6
+mat[length(mat):1]
+## [1] 6 5 4 3 2 1
+
+mat[1,-1] # throwaway values
+## [1] 4</code></pre>
+</div>
+</div>
+<pre class="r"><code># modify
+
+b = rep(0,3)
+vec = c(vec,b)
+vec
+## [1] 6 5 4 3 2 1 0 0 0
+mat_2 = rbind(vec,vec)
+mat_2 
+##     [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9]
+## vec    6    5    4    3    2    1    0    0    0
+## vec    6    5    4    3    2    1    0    0    0
+mat_2 = cbind(mat_2,mat_2)
+mat_2
+##     [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13] [,14]
+## vec    6    5    4    3    2    1    0    0    0     6     5     4     3     2
+## vec    6    5    4    3    2    1    0    0    0     6     5     4     3     2
+##     [,15] [,16] [,17] [,18]
+## vec     1     0     0     0
+## vec     1     0     0     0
+
+t_mat = t(mat) # transposition
+t_mat[2,3] = as.character(t_mat[2,3]) # all values turn to character
+
+
+i_mat = diag(1, 3)
+i_mat
+##      [,1] [,2] [,3]
+## [1,]    1    0    0
+## [2,]    0    1    0
+## [3,]    0    0    1</code></pre>
+</div>
+<p>
+ 
+</p>
+</div>
+<div id="data-frame" class="section level3">
+<h3><span class="header-section-number">3.3.2</span> Data frame</h3>
+<p>A Data frame in R is a matrix which can store different types of data, characters, numerics or factors. Contrary to the matrix, it does not have a fixed dimension which means that we can create a column very easily using the operator ‘$’.</p>
+<div class="r">
+<pre class="r"><code># R
+
+df = data.frame(chr = letters[1:5], # letters is a vector of letter provided directly in R
+                num = seq(1,5,1),
+                fac = factor(c(rep(&#39;a&#39;,3),rep(&#39;b&#39;,2)))) 
+class(df$chr) # automaticaly converted to factor, which can be very inneficient !
+## [1] &quot;factor&quot;
+df$chr = as.character(df$chr)
+class(df$chr)
+## [1] &quot;character&quot;
+colnames(df)
+## [1] &quot;chr&quot; &quot;num&quot; &quot;fac&quot;
+df
+##   chr num fac
+## 1   a   1   a
+## 2   b   2   a
+## 3   c   3   a
+## 4   d   4   b
+## 5   e   5   b
+# access the element of a variable in a df
+df$chr[3]
+## [1] &quot;c&quot;
+which(df==3,
+      arr.ind = TRUE) 
+##      row col
+## [1,]   3   2
+
+df[1:2] # gives us a df with the first two columns !
+##   chr num
+## 1   a   1
+## 2   b   2
+## 3   c   3
+## 4   d   4
+## 5   e   5
+df[3:dim(df)[1],]
+##   chr num fac
+## 3   c   3   a
+## 4   d   4   b
+## 5   e   5   b
+
+df[1,-1] # throwaway values
+##   num fac
+## 1   1   a</code></pre>
+<pre class="r"><code># modify
+
+b = rep(0,3)
+df = rbind(df,b) # introduce a new row in the data frame, note that we get a NA in the factor colmun because &#39;0&#39; is not a level
+## Warning in `[&lt;-.factor`(`*tmp*`, ri, value = 0): invalid factor level, NA
+## generated
+df$new_col = rep(2,6) # we can introduce new colmuns by specifiying the name and set a value
+
+
+df
+##   chr num  fac new_col
+## 1   a   1    a       2
+## 2   b   2    a       2
+## 3   c   3    a       2
+## 4   d   4    b       2
+## 5   e   5    b       2
+## 6   0   0 &lt;NA&gt;       2
+t_df = t(df) # transposition convert the df into a matrix
+class(t_df)
+## [1] &quot;matrix&quot;</code></pre>
+</div>
+<p>
+ 
+</p>
+</div>
+<div id="arrays" class="section level3">
+<h3><span class="header-section-number">3.3.3</span> Arrays</h3>
+<p>Arrays is a generalisation of the matrix, meaning that we can have a matrix with more than two dimensions. We can modify them as we modify a matrix.</p>
+<div class="r">
+<pre class="r"><code># R
+
+arr = array(seq(1,12,1), dim = c(2,2,3)) # create a matrix with 3 dimension
+arr
+## , , 1
+## 
+##      [,1] [,2]
+## [1,]    1    3
+## [2,]    2    4
+## 
+## , , 2
+## 
+##      [,1] [,2]
+## [1,]    5    7
+## [2,]    6    8
+## 
+## , , 3
+## 
+##      [,1] [,2]
+## [1,]    9   11
+## [2,]   10   12
+# access the element of a dictionary
+arr[1,,]
+##      [,1] [,2] [,3]
+## [1,]    1    5    9
+## [2,]    3    7   11
+arr[,1,]
+##      [,1] [,2] [,3]
+## [1,]    1    5    9
+## [2,]    2    6   10
+arr[,,1]
+##      [,1] [,2]
+## [1,]    1    3
+## [2,]    2    4</code></pre>
+</div>
+<p>
+ 
+</p>
+</div>
+<div id="lists" class="section level3">
+<h3><span class="header-section-number">3.3.4</span> Lists</h3>
+<p>A list permits us to assemble an assortment of disconnected objects behind one object, it is also possible to store objects which can be of different types.</p>
+<div class="r">
+<pre class="r"><code># R
+
+lst = list(df = df,
+           mat = mat,
+           arr = arr) # create a matrix with 3 dimension
+
+lst
+## $df
+##   chr num  fac new_col
+## 1   a   1    a       2
+## 2   b   2    a       2
+## 3   c   3    a       2
+## 4   d   4    b       2
+## 5   e   5    b       2
+## 6   0   0 &lt;NA&gt;       2
+## 
+## $mat
+##      [,1] [,2]
+## [1,]    1    4
+## [2,]    2    5
+## [3,]    3    6
+## 
+## $arr
+## , , 1
+## 
+##      [,1] [,2]
+## [1,]    1    3
+## [2,]    2    4
+## 
+## , , 2
+## 
+##      [,1] [,2]
+## [1,]    5    7
+## [2,]    6    8
+## 
+## , , 3
+## 
+##      [,1] [,2]
+## [1,]    9   11
+## [2,]   10   12
+lst[[1]] # first element of the list, here it is the df
+##   chr num  fac new_col
+## 1   a   1    a       2
+## 2   b   2    a       2
+## 3   c   3    a       2
+## 4   d   4    b       2
+## 5   e   5    b       2
+## 6   0   0 &lt;NA&gt;       2
+lst[[1]][1,] # first row of first element of the list
+##   chr num fac new_col
+## 1   a   1   a       2</code></pre>
+</div>
+<p>
+ 
+</p>
+</div>
+</div>
+<div id="other-data-type-python" class="section level2">
+<h2><span class="header-section-number">3.4</span> Other Data-Type (Python)</h2>
+<p>In Python the most common are List, tuple, sets, Dictionnary. Note that for the moment, for modifiying a variable we always use ‘=’. Keep in mind that using the ‘.’ can modify the object behind the variable in Python.</p>
+<p>
+ 
+</p>
+<div id="lists-1" class="section level3">
+<h3><span class="header-section-number">3.4.1</span> Lists</h3>
+<p>Keep in mind that Lists are mutable, as discussed in the Section “Difference between R and Python”</p>
+<div class="python">
+<pre class="python"><code># Python
+
+a = [1, 2, 3]
+a.count(2) # count elements of the list which are exactly equal to 2
+## 1
+a.sort(reverse = True)
+a
+# access the element of a list
+## [3, 2, 1]
+a[0]
+## 3
+a.index(3)
+## 0
+a[1:]
+## [2, 1]
+a[:1]
+## [3]
+a[0:-1]
+## [3, 2]
+a[:]
+## [3, 2, 1]</code></pre>
+<pre class="python"><code># modify
+
+b = [0, 0, 0]
+list(zip(a,b)) # zip will pairs the ellements, it works also with more than 2 element ex: zip(a,b,c)
+## [(3, 0), (2, 0), (1, 0)]
+a.append(b)
+a
+## [3, 2, 1, [0, 0, 0]]
+a[4:5] = [&#39;a&#39;,&#39;b&#39;]
+a
+## [3, 2, 1, [0, 0, 0], &#39;a&#39;, &#39;b&#39;]
+a.extend([4, 5, 6])
+a
+## [3, 2, 1, [0, 0, 0], &#39;a&#39;, &#39;b&#39;, 4, 5, 6]
+a += [7,8] # works as extend
+a
+## [3, 2, 1, [0, 0, 0], &#39;a&#39;, &#39;b&#39;, 4, 5, 6, 7, 8]
+a.insert(2,[1,2])
+a
+## [3, 2, [1, 2], 1, [0, 0, 0], &#39;a&#39;, &#39;b&#39;, 4, 5, 6, 7, 8]
+a.remove(b)
+a
+## [3, 2, [1, 2], 1, &#39;a&#39;, &#39;b&#39;, 4, 5, 6, 7, 8]
+a = a*2 # replicate the list n times
+len(a) # number of elements in the list
+## 22</code></pre>
+<pre class="python"><code># mutable
+
+a = [1,2,3]
+b = a
+b[0] = 12
+a
+## [12, 2, 3]</code></pre>
+</div>
+<p>
+ 
+</p>
+</div>
+<div id="tuples" class="section level3">
+<h3><span class="header-section-number">3.4.2</span> tuples</h3>
+<p>The main difference between Lists and tuples is the fact that tuples is an immutable type of data, making it faster to use.</p>
+<div class="python">
+<pre class="python"><code># Python
+
+a = (1, 2, 3)
+a.count(2) # count elements of the tuple which are exactly equal to 2
+## 1
+a
+# access the element of a tuple
+## (1, 2, 3)
+a[0]
+## 1
+a.index(3)
+## 2
+a[1:]
+## (2, 3)
+a[:1]
+## (1,)
+a[0:-1]
+## (1, 2)
+a[:]
+## (1, 2, 3)</code></pre>
+<pre class="python"><code>
+# modify
+a += (4,5) 
+a
+## (1, 2, 3, 4, 5)
+a = a*2 # replicate the tuple n times
+len(a) # number of elements in the tuple
+## 10</code></pre>
+<pre class="python"><code># immutable
+
+a = (1,2,3)
+b = a
+b += (4,5)
+a
+## (1, 2, 3)</code></pre>
+</div>
+<p>
+ 
+</p>
+</div>
+<div id="dictionaries" class="section level3">
+<h3><span class="header-section-number">3.4.3</span> Dictionaries</h3>
+<p>Dictionary refers to a way of storing data that is not sorted. It works with key and value associate with this key.</p>
+<div class="python">
+<pre class="python"><code># Python
+
+a = {&#39;a&#39;:1, &#39;b&#39;:2, &#39;c&#39;:3}
+# access the element of a dictionary
+a.keys()
+## dict_keys([&#39;a&#39;, &#39;b&#39;, &#39;c&#39;])
+a[&#39;a&#39;]
+## 1
+a.values()
+## dict_values([1, 2, 3])
+a.items()
+## dict_items([(&#39;a&#39;, 1), (&#39;b&#39;, 2), (&#39;c&#39;, 3)])
+a.get(&#39;a&#39;)
+## 1
+a.get(&#39;d&#39;,4) # set to 4 if the key &#39;d&#39; is not detected
+## 4
+a.pop(&#39;a&#39;) # pop will use the corresponding value to the key a and remove the pair (key, value).
+## 1
+a
+## {&#39;b&#39;: 2, &#39;c&#39;: 3}
+a.popitem(&#39;b&#39;)
+## Error in py_call_impl(callable, dots$args, dots$keywords): TypeError: popitem() takes no arguments (1 given)
+## 
+## Detailed traceback: 
+##   File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;
+a
+## {&#39;b&#39;: 2, &#39;c&#39;: 3}</code></pre>
+<pre class="python"><code># modify
+a[&#39;a&#39;] =1 
+a.setdefault(&#39;d&#39;,0) # create new item with a default value
+## 0
+b = {&#39;d&#39;:4,&#39;e&#39;:5}
+a.update(b) # update values from other dict
+a
+## {&#39;b&#39;: 2, &#39;c&#39;: 3, &#39;a&#39;: 1, &#39;d&#39;: 4, &#39;e&#39;: 5}
+a.clear() # remove all items</code></pre>
+<pre class="python"><code># mutable
+
+a = {&#39;a&#39;:1, &#39;b&#39;:2, &#39;c&#39;:3}
+b = a
+b[&#39;b&#39;] = [12,14]
+a
+## {&#39;a&#39;: 1, &#39;b&#39;: [12, 14], &#39;c&#39;: 3}</code></pre>
+</div>
+<p>
+ 
+</p>
+</div>
+<div id="sets" class="section level3">
+<h3><span class="header-section-number">3.4.4</span> Sets</h3>
+<p>Sets are unordered collection of unique elements. If we give to a set multiple time the same element, it will automatically delete dupplicated values.</p>
+<div class="python">
+<pre class="python"><code># Python
+
+a = {1, 2, 3}
+a
+# access the element of a set
+## {1, 2, 3}
+a[0] # since it unordered, we can not access to a given element of a set
+
+## Error in py_call_impl(callable, dots$args, dots$keywords): TypeError: &#39;set&#39; object is not subscriptable
+## 
+## Detailed traceback: 
+##   File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;</code></pre>
+<pre class="python"><code># modify
+b = {3,4,5}
+a.update(b)  # update values from other set
+a
+## {1, 2, 3, 4, 5}</code></pre>
+<pre class="python"><code># mutable
+
+a = {1, 2, 3}
+b = a
+b.update([12,14])
+a
+## {1, 2, 3, 12, 14}</code></pre>
+</div>
+<p>
+ 
+</p>
+</div>
+<div id="arrays-1" class="section level3">
+<h3><span class="header-section-number">3.4.5</span> Arrays</h3>
+<p>In order to manipulate arrays in Python we need to use package numpy, this package is very usefull and will be covered in other chapters.</p>
+<p>First see that we can make an array using R by starting from a vector. R represents all arrays in column-major order, which is not the case in python.</p>
+<div class="row">
+<div class="col-md-6">
+<div class="python">
+<pre class="python"><code># Python
+
+import numpy
+arr = numpy.array([[1,4],[2,5],[3,6]])
+arr
+## array([[1, 4],
+##        [2, 5],
+##        [3, 6]])
+type(arr)
+## &lt;class &#39;numpy.ndarray&#39;&gt;
+vec = [1,2,3,4,5,6]
+
+arr = numpy.reshape(vec,(3,2))
+arr
+## array([[1, 2],
+##        [3, 4],
+##        [5, 6]])
+arr = numpy.reshape(vec,(3,2), order = &#39;F&#39;)
+arr
+## array([[1, 4],
+##        [2, 5],
+##        [3, 6]])</code></pre>
+</div>
+</div>
+<div class="col-md-6">
+<div class="r">
+<pre class="r"><code># R
+arr = as.array(rbind(c(1,4),c(2,5),c(3,6)))
+arr
+##      [,1] [,2]
+## [1,]    1    4
+## [2,]    2    5
+## [3,]    3    6
+
+vec = c(1,2,3,4,5,6)
+
+arr = array(vec,dim = c(3,2))
+arr
+##      [,1] [,2]
+## [1,]    1    4
+## [2,]    2    5
+## [3,]    3    6</code></pre>
+</div>
+</div>
+</div>
+<p>As you can see, R and Python does not store vector in the same way: R is storing them by column while python does it by row. Using “order = ‘F’” alows us to store vector into matrix by column.</p>
+<div class="python">
+<pre class="python"><code># Python
+
+# access the element of an array
+
+arr[0] # access directly to the raw 1
+
+## array([1, 4])</code></pre>
+<pre class="python"><code># modify
+vec = [7,8]
+arr = numpy.insert(arr, len(arr),vec,axis = 0)  # update values from other set
+arr
+## array([[1, 4],
+##        [2, 5],
+##        [3, 6],
+##        [7, 8]])</code></pre>
+<pre class="python"><code># mutable
+
+arr2 = arr
+arr2[0] = [12,14]
+arr
+## array([[12, 14],
+##        [ 2,  5],
+##        [ 3,  6],
+##        [ 7,  8]])</code></pre>
+</div>
+<p>
+ 
+</p>
+</div>
+<div id="data-frame-1" class="section level3">
+<h3><span class="header-section-number">3.4.6</span> Data Frame</h3>
+<p>Pandas Data Frames are also very common data-type in Python. The package Pandas is also view deeper in following chapters.</p>
+<div class="python">
+<pre class="python"><code># Python
+
+import pandas
+
+df = pandas.DataFrame(arr)
+df
+##     0   1
+## 0  12  14
+## 1   2   5
+## 2   3   6
+## 3   7   8
+type(df)
+## &lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+vec = [1,2,3,4,5,6]
+
+df = pandas.DataFrame({&#39;vec&#39;:vec,&#39;vec1&#39;:range(2,8)})
+df
+##    vec  vec1
+## 0    1     2
+## 1    2     3
+## 2    3     4
+## 3    4     5
+## 4    5     6
+## 5    6     7</code></pre>
+</div>
+<div class="python">
+<pre class="python"><code># Python
+
+# access the element of a Pandas Data Frame
+
+df[&#39;vec&#39;] 
+## 0    1
+## 1    2
+## 2    3
+## 3    4
+## 4    5
+## 5    6
+## Name: vec, dtype: int64</code></pre>
+<pre class="python"><code># modify
+vec2 = range(3,9)
+df[&#39;vec2&#39;] = vec2 # add values from other vector
+a
+## {1, 2, 3, 12, 14}</code></pre>
+<pre class="python"><code># mutable
+
+df2 = df
+df[&#39;vec&#39;][0] = 30
+## C:/Users/Beta/AppData/Local/Continuum/anaconda3/python.exe:1: SettingWithCopyWarning: 
+## A value is trying to be set on a copy of a slice from a DataFrame
+## 
+## See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+df2
+##    vec  vec1  vec2
+## 0   30     2     3
+## 1    2     3     4
+## 2    3     4     5
+## 3    4     5     6
+## 4    5     6     7
+## 5    6     7     8</code></pre>
+</div>
+<p>
+ 
+</p>
+</div>
+</div>
+</div>
+<div id="control-flow" class="section level1">
+<h1><span class="header-section-number">4</span> Control flow</h1>
+<p>There are two main control flow tools: choices, and loops. ‘Choices’ are very useful for establishing rules or conditions. ‘Choices’ can be used to modify a value according to a certain condition, generally it allows to launch certain actions in specific cases. The ‘loops’ when it allows to execute sequentially actions, it can be to interactively modify an object, more generally it allows to launch a procedure several times. For example, we can create N similar objects but we can also modify the N lines of an object.</p>
+<div id="choices" class="section level2">
+<h2><span class="header-section-number">4.1</span> Choices</h2>
+<div class="row">
+<div class="col-md-6">
+<div class="python">
+<pre class="python"><code># Python 
+
+# if, elif, else
+
+n = 12
+
+if n%2 == 0 :  
+  print(&#39;n is an even number&#39;)
+  
+
+## n is an even number
+if n != int(n): 
+  print(&#39;n is not a integer&#39;)
+elif  n%2 == 0 :
+  print(&#39;n is an even number&#39;)
+else:
+  print(&#39;n is not an even number&#39;)
+  
+  
+
+  
+## n is an even number</code></pre>
+</div>
+</div>
+<div class="col-md-6">
+<div class="r">
+<pre class="r"><code># R
+
+# if, elif, else
+
+n = 12L
+
+if(n%%2 == 0){  
+  print(&#39;n is an even number&#39;)
+}
+## [1] &quot;n is an even number&quot;
+  
+
+
+
+if(!is.integer(n)){ 
+  print(&#39;n is not a integer&#39;)
+  } else if(n%%2 == 0){
+    print(&#39;n is an even number&#39;)
+    } else {
+      print(&#39;n is not an even number&#39;)
+      }
+## [1] &quot;n is an even number&quot;</code></pre>
+</div>
+</div>
+</div>
+<p>
+ 
+</p>
+</div>
+<div id="loops" class="section level2">
+<h2><span class="header-section-number">4.2</span> Loops</h2>
+<p>Using ‘Loops’, we iterate over a predefined number of iterations. Sometimes we do not know how many steps we need to perform a given task. Imagine that we want to optimize a function, we don’t know how many steps we need until reaching an optimum, but we can set a condition for which we will consider that the algorithm converged. For this kind of exercice we can use ‘while’ loops, it will iterate until a given condition is satisfied.</p>
+<div class="row">
+<div class="col-md-6">
+<div class="python">
+<pre class="python"><code># Python 
+
+seq = [1,2,None,4,None,6]
+total = 0
+
+for val in seq:
+  if val is not None:
+    total += val
+    
+total
+## 13</code></pre>
+<pre class="python"><code># Python 
+import random
+
+total = 0
+while total &lt; 1:
+  rnd = random.gauss(mu = 0, sigma = 1)
+  if rnd &lt; 0:
+    pass
+  else:
+    total += rnd
+  
+total
+## 1.2376165067604095</code></pre>
+</div>
+</div>
+<div class="col-md-6">
+<div class="r">
+<pre class="r"><code># R
+seq = c(1,2,NA,4,NA,6)
+total = 0
+
+for(val in seq){
+  if(!is.na(val)){
+    total = total + val
+  }
+}
+    
+total
+## [1] 13</code></pre>
+<pre class="r"><code># R
+
+total = 0
+
+while(total &lt; 1){
+  rnd = rnorm(n=1, mean = 0, sd = 1)
+  if(rnd &lt; 0){
+    # in R we can specify nothing instead of specifiying &#39;pass&#39;
+    } else {
+    total = total + rnd }
+}
+  
+total
+## [1] 1.545442</code></pre>
+</div>
+</div>
+</div>
+<p>
+ 
+</p>
+</div>
+<div id="list-set-and-dict-comprehensions-python" class="section level2">
+<h2><span class="header-section-number">4.3</span> List, Set and Dict comprehensions (Python)</h2>
+<p>List comprehension is very common and appreciate in the python language features, think of it as a loop for which we will directly store output in a list, set, or dict. we can use it as a filter for exemple.</p>
+<div class="python">
+<div class="row">
+<div class="col-md-6">
+<pre class="python"><code># Python 
+# List
+import time
+
+lst = [1,2,3,4]
+
+t = time.time() 
+results = []
+for val in lst:
+  if val &gt; 2:
+    results.append(val)
+time.time()-t
+## 0.0159299373626709
+results
+## [3, 4]
+t = time.time() 
+# this loop their will produce the same output than a using List comprehension.
+results = [val for val in lst if val&gt;2]
+time.time()-t
+## 0.01095128059387207
+results
+## [3, 4]</code></pre>
+</div>
+<div class="col-md-6">
+<pre class="python"><code># Python 
+# Set
+import time
+
+st = {1,2,3,4}
+
+t = time.time() 
+results = set([])
+for val in st:
+  if val &gt; 2:
+    results.add(val)
+time.time()-t
+## 0.03185868263244629
+results
+## {3, 4}
+t = time.time() 
+
+# this loop their will produce the same output than a using Set comprehension.
+results = {val for val in st if val&gt;2}
+time.time()-t
+## 0.008960723876953125
+results
+## {3, 4}</code></pre>
+</div>
+<div class="col-md-6">
+<pre class="python"><code># Python 
+# Dict
+import time
+
+dct = {&#39;a&#39;:1,&#39;b&#39;:2,&#39;c&#39;:3,&#39;d&#39;:4}
+
+t = time.time() 
+results = dict([])
+for val in dct:
+  if dct[val] &gt; 2:
+    results.update({str(val): dct[val]})
+time.time()-t
+## 0.013939142227172852
+results
+## {&#39;c&#39;: 3, &#39;d&#39;: 4}
+t = time.time() 
+# this loop their will produce the same output than a using Dict comprehension.
+results = {str(val): dct[val] for val in dct if dct[val]&gt;2}
+time.time()-t
+## 0.008958578109741211
+results
+## {&#39;c&#39;: 3, &#39;d&#39;: 4}</code></pre>
+</div>
+</div>
+</div>
+<p>
+ 
+</p>
+</div>
+</div>
+<div id="functions" class="section level1">
+<h1><span class="header-section-number">5</span> Functions</h1>
+<p>Functions are very important in both languages, being able to code ourselves things are sometimes more efficient than looking for a package and understand it.<br />
+Being able to write our own functions gives us more flexibility and a better understanding of what we are actually doing. It is important to not reinvent the wheel, but it is important to be able to construct it ourself. Read documentation carefully while using packages, sometimes packages are misleading and we can spend a lot of time understanding how they work. Look at the packages source code when we are not sure of what the function does behind.<br />
+The full power of programming comes is the fact that we can be autonomous by reading, modifying and writing codes and pre-existing codes.</p>
+<p>
+ 
+</p>
+<div id="general-functions" class="section level2">
+<h2><span class="header-section-number">5.1</span> General Functions</h2>
+<div class="row">
+<div class="col-md-6">
+<div class="python">
+<pre class="python"><code># Python 
+
+seq = [1,2,None,4,None,6]*120
+
+def clean_sum(seq):
+  total = 0
+
+  for val in seq:
+    if val is not None:
+      total += val
+  return total
+  
+t = time.time()
+clean_sum(seq =  seq)
+## 1560
+time.time() - t
+
+## 0.009956121444702148
+def clean_sum2(seq):
+  total = sum(filter(None,seq))#[val for val in seq if val is not None])
+  return total
+  
+t = time.time()
+clean_sum2(seq =  seq)
+## 1560
+time.time() - t
+
+## 0.008961915969848633</code></pre>
+</div>
+</div>
+<div class="col-md-6">
+<div class="r">
+<pre class="r"><code># R
+seq = rep(c(1,2,NA,4,NA,6),120)
+
+
+clean_sum &lt;- function(seq){
+  total = 0
+  for(val in seq){
+    if(!is.na(val)){
+      total = total + val
+    }
+  }
+  return(total)
+}
+
+t = Sys.time()
+clean_sum(seq = seq)
+## [1] 1560
+Sys.time() - t
+## Time difference of 0.005971909 secs
+
+
+
+clean_sum2 &lt;- function(seq){
+  total &lt;- sum(na.rm(seq))
+  return(total)
+}
+
+t &lt;- Sys.time()
+clean_sum(seq = seq)
+## [1] 1560
+Sys.time() - t
+## Time difference of 0.001991034 secs</code></pre>
+</div>
+</div>
+</div>
+<p>Functions in Python are objects, they can have attributes and methods like objects. The functions can have data variables and even functions written inside of them.<br />
+Suppose we want to apply several transformation to data, we can create multiple functions to do the different tasks that we want to perform. We can stock functions in list a apply them sequentially very easily.<br />
+Note that we can separate the output into several variables by specifiying the different values before the assignation. We cannot do that in R directly bt the zeallot package can tackle this problem.</p>
+<div class="row">
+<div class="col-md-6">
+<div class="python">
+<pre class="python"><code># Python 
+
+def add_two(nb):
+   nb = [i+2 for i in nb]
+   return nb
+  
+def square_nb(nb):
+   nb = [i**2 for i in nb]
+   return nb
+
+def global_function(nb):
+   for function in func_list:
+      nb = function(nb)
+   return nb
+
+func_list = [add_two,square_nb]
+
+x1, x2 = global_function([2,3])
+x1
+## 16
+x2
+## 25</code></pre>
+</div>
+</div>
+<div class="col-md-6">
+<div class="r">
+<pre class="r"><code># R
+library(zeallot)
+
+add_two &lt;- function(nb){
+  nb = nb + 2
+  return(nb)
+}
+  
+square_nb &lt;- function(nb){
+  nb = nb**2
+  return(nb)
+}
+
+global_function &lt;- function(nb){
+  for(func in func_list){
+    nb = func(nb)
+      }
+  return(nb)
+}
+
+func_list = c(add_two,square_nb)
+
+c(x1, x2) %&lt;-% global_function(c(2,3))
+x1
+## [1] 16
+x2
+## [1] 25</code></pre>
+</div>
+</div>
+</div>
+<p>
+ 
+</p>
+</div>
+<div id="error-and-exception-handling" class="section level2">
+<h2><span class="header-section-number">5.2</span> Error and Exception Handling</h2>
+<p>Most of the time, writing a function is very task-specific, but since data are often dirty and incomplete, our given task may not work. It is important to understand why a given function can produce an error. Being sure that this and this case can leads to errors is not so easy, but it’s important not to be too flexible to keep. In those examples, we are going to see how setting the flexibility of the function can leads to different results that are more or less efficient.</p>
+<p>Look before we leap vs Easier to ask for forgiveness than permission.</p>
+<p>If we expect that 99 % of the time result will actually contain something iterable, we would use the try/except approach. It will be faster if exceptions really are exceptional. If result is None more than 50 % of the time, then using ‘if’ is probably better. So, whereas an ‘if’ statement always costs us, it’s nearly free to set up a try/except block. But when an Exception actually occurs, the cost is much higher.</p>
+<div class="row">
+<div class="col-md-6">
+<div class="python">
+<pre class="python"><code># Python 
+import numpy as np
+
+# Let&#39;s create a function that create a dirty list
+def create_dirty_list(None_prop):
+  list_ = list()
+  for i in range(10000):
+    if i&lt;None_prop*10000:
+      list_.append([None])
+    else:
+      values = random.sample(range(1, 1000), random.sample(range(1, 50),1)[0])
+      # introduce some character 
+      if i%10==0 :
+        values = [str(i) for i in values]
+      list_.append(values)
+  return list_
+
+# randomly take two values to compute the ratio 
+def calc1(values):
+  output = values[random.sample(range(1, len(values)+1),1)[0]-1]/values[random.sample(range(1, len(values)+1),1)[0]-1]
+  return output
+
+list_ = create_dirty_list(0.5)
+# Store it in a list
+results = [calc1(values) for  values in list_]
+## Error in py_call_impl(callable, dots$args, dots$keywords): TypeError: unsupported operand type(s) for /: &#39;NoneType&#39; and &#39;NoneType&#39;
+## 
+## Detailed traceback: 
+##   File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;
+##   File &quot;&lt;string&gt;&quot;, line 1, in &lt;listcomp&gt;
+##   File &quot;&lt;string&gt;&quot;, line 2, in calc1</code></pre>
+<pre class="python"><code># Let&#39;s change the function
+
+def calc2(values):
+  if not any(value is None for value in values): 
+    output = values[random.sample(range(1, len(values)+1),1)[0]-1]/values[random.sample(range(1, len(values)+1),1)[0]-1]
+    return output
+
+results = [calc2(values) for values in list_]
+## Error in py_call_impl(callable, dots$args, dots$keywords): TypeError: unsupported operand type(s) for /: &#39;str&#39; and &#39;str&#39;
+## 
+## Detailed traceback: 
+##   File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;
+##   File &quot;&lt;string&gt;&quot;, line 1, in &lt;listcomp&gt;
+##   File &quot;&lt;string&gt;&quot;, line 3, in calc2</code></pre>
+<pre class="python"><code># Let&#39;s change the function
+
+def calc3(values):
+  if not any(value is None for value in values): 
+    if all(isinstance(value,int) for value in values):
+      output = values[random.sample(range(1, len(values)+1),1)[0]-1]/values[random.sample(range(1, len(values)+1),1)[0]-1]
+      return output 
+
+results = [calc3(values) for values in list_]</code></pre>
+<pre class="python"><code># using try
+
+def calc_try(values):
+  try:
+    output = values[random.sample(range(1, len(values)+1),1)[0]-1]/values[random.sample(range(1, len(values)+1),1)[0]-1]
+  except:
+    output = None
+  return output
+    
+results = [calc_try(values) for values in list_]</code></pre>
+<ul>
+<li>Compare execution time</li>
+</ul>
+<pre class="python"><code>list_ = create_dirty_list(0.01)
+t= time.time()
+results = [calc3(values) for values in list_]
+time.time()-t
+## 0.12743639945983887
+t= time.time()
+results = [calc_try(values) for values in list_]
+time.time()-t
+## 0.0886085033416748</code></pre>
+<pre class="python"><code>list_ = create_dirty_list(0.33)
+t= time.time()
+results = [calc3(values) for values in list_]
+time.time()-t
+## 0.08960509300231934
+t= time.time()
+results = [calc_try(values) for values in list_]
+time.time()-t
+## 0.08761429786682129</code></pre>
+<pre class="python"><code>list_ = create_dirty_list(0.75)
+t= time.time()
+results = [calc3(values) for values in list_]
+time.time()-t
+## 0.06026315689086914
+t= time.time()
+results = [calc_try(values) for values in list_]
+time.time()-t
+## 0.10354280471801758</code></pre>
+</div>
+</div>
+<div class="col-md-6">
+<div class="r">
+<pre class="r"><code># R
+# Let&#39;s create a function that create a list 
+create_dirty_list &lt;- function(None_prop){
+  list_ &lt;- list()
+  for(i in seq(1,10000,1)){
+    if(i&lt;None_prop*10000){
+      list_[[i]] &lt;- c(NA)
+      } else {
+      values &lt;- sample(seq(1,10000,1),round(runif(1,1,50)))
+      # introduce some character 
+      if(i%%10==0){
+        values &lt;- as.character(values)
+      list_[[i]] &lt;- values
+      }
+      }
+  }
+  return(list_)
+  }
+
+# randomly take two values to compute the ratio 
+calc1 &lt;- function(values){
+  output &lt;- values[round(runif(1,1,length(values)))]/values[round(runif(1,1,length(values)))]
+  return(output)
+}
+
+list_ &lt;- create_dirty_list(0.5)
+# Store it in a list
+results &lt;- lapply(list_,FUN = calc1)
+## Error in values[round(runif(1, 1, length(values)))]/values[round(runif(1, : argument non numérique pour un opérateur binaire</code></pre>
+<pre class="r"><code># Let&#39;s change the function
+
+calc2 &lt;- function(values){
+  if(!any(is.na(values))){
+    output &lt;- values[round(runif(1,1,length(values)))]/values[round(runif(1,1,length(values)))]
+    return(output)
+  }
+}
+
+
+results &lt;- lapply(list_,FUN = calc2)
+## Error in values[round(runif(1, 1, length(values)))]/values[round(runif(1, : argument non numérique pour un opérateur binaire</code></pre>
+<pre class="r"><code># Let&#39;s change the function
+
+calc3 &lt;- function(values){
+  if(!any(is.na(values))){
+    if(is.numeric(values)){
+      output &lt;- values[round(runif(1,1,length(values)))]/values[round(runif(1,1,length(values)))]
+      return(output)
+    }
+  }
+}
+
+
+
+results &lt;- lapply(list_,FUN = calc3)</code></pre>
+<pre class="r"><code># using try
+
+calc_try &lt;- function(values){
+  output &lt;- tryCatch(
+    {
+      values[round(runif(1,1,length(values)))]/values[round(runif(1,1,length(values)))]
+    }
+    ,error=function(e){
+      return(NA)
+    })
+  return(output)
+}
+    
+results &lt;- lapply(list_,FUN = calc_try)</code></pre>
+<ul>
+<li>Compare execution time</li>
+</ul>
+<pre class="r"><code> 
+list_ &lt;- create_dirty_list(0.01)
+t &lt;- Sys.time()
+results &lt;- lapply(list_,FUN = calc3)
+Sys.time()-t
+## Time difference of 0.04181504 secs
+t &lt;- Sys.time()
+results &lt;- lapply(list_,FUN = calc_try)
+Sys.time()-t
+## Time difference of 1.144368 secs</code></pre>
+<pre class="r"><code># compare it 
+list_ = create_dirty_list(0.33)
+t &lt;- Sys.time()
+results &lt;- lapply(list_,FUN = calc3)
+Sys.time()-t
+## Time difference of 0.03882813 secs
+t &lt;- Sys.time()
+results &lt;- lapply(list_,FUN = calc_try)
+Sys.time()-t
+## Time difference of 0.8135078 secs</code></pre>
+<pre class="r"><code># compare it 
+list_ = create_dirty_list(0.75)
+t &lt;- Sys.time()
+results &lt;- lapply(list_,FUN = calc3)
+Sys.time()-t
+## Time difference of 0.01891589 secs
+t &lt;- Sys.time()
+results &lt;- lapply(list_,FUN = calc_try)
+Sys.time()-t
+## Time difference of 0.398232 secs</code></pre>
+</div>
+</div>
+</div>
+<p>
+ 
+</p>
+</div>
+</div>
+<div id="exercices" class="section level1">
+<h1><span class="header-section-number">6</span> Exercices</h1>
+<div id="exercice-1" class="section level2">
+<h2><span class="header-section-number">6.1</span> Exercice 1</h2>
+<p>If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23.</p>
+<p>Find the sum of all the multiples of 3 or 5 below 10000.</p>
+</div>
+<div id="exercice-2" class="section level2">
+<h2><span class="header-section-number">6.2</span> Exercice 2</h2>
+<p>By listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see that the 6th prime is 13.</p>
+<p>What is the 10 001st prime number?</p>
+</div>
+<div id="exercice-3" class="section level2">
+<h2><span class="header-section-number">6.3</span> Exercice 3</h2>
+<p>You are given the following information, but you may prefer to do some research for yourself.</p>
+<ul>
+<li>1 Jan 1900 was a Monday.</li>
+<li>Thirty days has September, April, June and November. All the rest have thirty-one, Saving February alone, Which has twenty-eight, rain or shine. And on leap years, twenty-nine.</li>
+<li>A leap year occurs on any year evenly divisible by 4, but not on a century unless it is divisible by 400.</li>
+</ul>
+<p>How many Sundays fell on the first of the month during the twentieth century (1 Jan 1901 to 31 Dec 2000)?</p>
+<p>
+ 
+</p>
+<p><a href="exo_chap_1.html">Possible solutions in R and Python without vectorisation</a></p>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

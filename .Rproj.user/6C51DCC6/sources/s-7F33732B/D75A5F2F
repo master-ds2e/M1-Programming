@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1612738751904.000,
+    "dirty" : true,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "D75A5F2F",
+    "lastKnownWriteTime" : 1612739525,
+    "last_content_update" : 1612739629044,
+    "path" : "~/GitHub/M1_TDP/examples/test.Rmd",
+    "project_path" : "examples/test.Rmd",
+    "properties" : {
+        "cursorPosition" : "41,17",
+        "last_setup_crc32" : "7F33732B49cdfa3b",
+        "scrollLine" : "14"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}
