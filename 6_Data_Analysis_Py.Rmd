@@ -591,7 +591,7 @@ df3
 
 # Other
 
-## Lead/Lag
+- Lead/Lag
 
 <div class = "python">
 
@@ -609,7 +609,9 @@ df3.shift(periods = 1, axis= 1)
 
 
 #  Read/Write data 
-## standart format
+## Read
+
+- read csv file with pandas
 
 <div class = "python">
 
@@ -625,7 +627,9 @@ covid_papers
 </div>
 
 
-- Write data to a csv file
+## Write
+
+- write data to a csv file
 
 <div class = "python">
 
