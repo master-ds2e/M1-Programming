@@ -1,0 +1,645 @@
+---
+title: "Data Analysis (Py)"
+---
+
+<style>
+div.python pre { background-color: #d0f5a9; }
+</style>
+
+<style>
+div.r pre { background-color: #dfdddf; }
+</style>
+
+# Tibbles and data.tables
+## Introduction
+
+<div class = "python">
+
+```{python,echo = T,collapse = TRUE}
+# Python
+import pandas as pd
+import re
+covid_papers = pd.read_csv("data/covid_papers.csv")
+covid_papers
+covid_papers.sample(frac = 0.001).shape
+
+```
+
+
+```{python,echo = F}
+# Python
+covid_papers = covid_papers.drop('month_pub',axis = 1)
+
+```
+
+</div>
+
+
+- Select columns
+
+<div class = "python">
+
+```{python,echo = T,collapse = TRUE}
+# Python
+
+covid_papers.doi
+covid_papers[['doi','title']]
+covid_papers.drop(['doi','creation'],axis = 1)
+
+```
+
+</div>
+
+ - using regular expression
+ 
+
+
+<div class = "python">
+
+```{python,echo = T,collapse = TRUE,results='hide'}
+# Python
+import numpy as np
+covid_papers = covid_papers.rename({ name:replace for name, replace in zip(list(covid_papers.columns[:4]),'V'+np.char.array(['1','2','3']))},axis = 1)
+# filter columns using regex
+covid_papers.filter(regex=("V[12]"))
+covid_papers.filter(regex=("V.*"))
+
+covid_papers.filter(regex=("3$"))
+
+covid_papers.filter(regex=("^V"))
+```
+
+
+</div>
+
+- Filtering
+
+
+<div class = "python">
+
+```{python,echo = T,collapse = TRUE,results='hide'}
+# Python
+covid_papers.loc[3:4,]
+covid_papers.drop(range(3,8))
+
+covid_papers[covid_papers.year_pub > 2018]
+covid_papers[covid_papers.title.isin(["Deep convolutional approaches for the analysis of Covid-19 using chest X-Ray images from portable devices",
+                               "Evaluating the effect of city lock-down on controlling COVID-19 propagation through deep learning and network science models."])]
+
+covid_papers[covid_papers.year_pub == 2018 & covid_papers.title.isin(["Deep convolutional approaches for the analysis of Covid-19 using chest X-Ray images from portable devices",
+                               "Evaluating the effect of city lock-down on controlling COVID-19 propagation through deep learning and network science models."])]
+                               
+covid_papers = covid_papers.dropna(subset = ['title'])
+covid_papers[covid_papers.title.str.contains('deep learning')][:5]
+
+covid_papers.drop_duplicates()
+covid_papers.drop_duplicates(subset=['V1', 'title'])
+```
+
+</div>
+
+- Sorting
+
+
+
+<div class = "python">
+
+```{python,echo = T,collapse = TRUE}
+# Python
+covid_papers.sort_values('year_pub')
+covid_papers.sort_values('year_pub',ascending=False)
+```
+
+</div>
+
+- Summarise
+
+
+
+
+<div class = "python">
+
+```{python,echo = T,collapse = TRUE}
+# Python
+
+covid_papers.agg({'cited':sum})
+
+covid_papers.agg({'cited':[sum,np.std]})
+```
+
+</div>
+
+- Modifying
+
+
+
+<div class = "python">
+
+```{python,echo = T,collapse = TRUE}
+# Python
+covid_papers.assign(oa = covid_papers.oa.map(lambda oa: 1 if  oa=='Y' else 0),
+ log_cited = np.log(covid_papers.cited+1))
+
+np.where( covid_papers.oa=='Y',1,0) 
+
+covid_papers.title.map(lambda x: str(x).lower())
+```
+
+</div>
+
+
+- Grouping 
+
+
+<div class = "python">
+
+```{python,echo = T,collapse = TRUE}
+# Python
+
+covid_papers.groupby('year_pub').language.nunique()
+# By several groups
+
+covid_papers.groupby('year_pub').agg({'cited':sum})
+
+
+# first obs for each group 
+
+covid_papers.groupby('source').first()
+
+covid_papers.groupby('source').last()
+
+# Add a column with number of observations for each group
+
+covid_papers['grp_count'] = covid_papers.groupby('source')['source'].transform('count')
+```
+
+</div>
+
+
+## More complex use of by
+
+
+- Select specific row by group
+
+
+
+<div class = "python">
+
+```{python morecomplex,echo = T,collapse = TRUE,results = 'hide'}
+# Python
+
+covid_papers.groupby('source').apply(lambda df: df.iloc[:3])
+
+covid_papers.groupby('source').apply(lambda df: df.iloc[-5:])
+```
+
+</div>
+
+- Group counter
+
+
+
+<div class = "python">
+
+```{python,echo = T,collapse = TRUE,results = 'hide'}
+# Python
+
+covid_papers.groupby(['source','year_pub']).ngroups
+```
+
+</div>
+
+- Get row number of observation by group
+
+
+
+<div class = "python">
+
+```{python,echo = T,collapse = TRUE}
+# Python
+
+covid_papers.groupby(['source','year_pub']).size()
+```
+
+</div>
+
+- Grouping sets (multiple by at once)
+
+
+
+<div class = "python">
+
+```{python,echo=T,collapse = TRUE}
+# Python
+
+
+covid_papers.groupby(['source','year_pub']).agg({'cited':np.mean,'V1':'count'})
+
+```
+
+</div>
+
+
+
+## More Complex manipulation
+
+- Using multiple Variables
+
+
+
+
+<div class = "python">
+
+```{python,echo = T,collapse = TRUE}
+# Python
+# Summarise several columns
+
+covid_papers.agg({var:func for var, func in zip(['cited','year_pub'],[np.mean]*2)})
+
+# Summarise several columns by group
+covid_papers.groupby(['source','year_pub']).agg({var:func for var, func in zip(['cited','year_pub'],[np.mean]*2)})
+
+## using patterns (regex)
+
+cols = list(filter(lambda x: x.startswith("V"),covid_papers.columns.tolist()))
+
+
+covid_papers.groupby(['source','year_pub']).agg({var:func for var, func in zip(cols,['count']*len(cols))})
+
+# Summarise with more than one function by group
+
+covid_papers.groupby(['source']).agg({var:func for var, func in zip(['year_pub','cited'],[np.mean,np.median]*len(cols))})
+
+
+```
+
+</div>
+
+- Modify Multiples Variables
+
+
+
+<div class = "python">
+
+```{python,echo = T,collapse = TRUE}
+
+def tobinary(x):
+    if str(x) == 'Y':
+        return 1
+    else :
+        return 0
+        
+# Modify several columns (dropping the others)
+
+covid_papers.agg({var:func for var, func in zip(['oa','has_data'],[tobinary]*2)})
+
+# Modify several columns (keeping the others)
+for var in ['oa','has_data']:
+    covid_papers = covid_papers.assign(var = tobinary)
+
+# Modify columns using a condition
+
+for var in ['oa','has_data']:
+    if covid_papers[var].dtypes == 'O':
+        covid_papers = covid_papers.assign(var = tobinary)
+
+
+```
+
+</div>
+
+
+- More complex expression
+
+
+
+
+<div class = "python">
+
+```{python last,echo = T,collapse = TRUE}
+# Python
+
+grp_size = covid_papers.groupby('year_pub').size().to_frame()
+grp_size.columns = ['share_en']
+
+covid_papers.assign(is_en = np.where(covid_papers.language == 'eng',1,0),
+oa = tobinary).groupby('year_pub').agg(share_en= ('is_en',sum)).div(grp_size).sort_values('share_en')
+
+```
+
+</div>
+
+
+# Reshape data
+
+Imagine you have a variable with multiple categories that are store in one cell as the variables 'pubtype'  in our dataset. You may want to create different columns for each of this variable. The opposit is also possible, one can have several columns with value that we want to transforme in two columns : one with the factor and the other with the values. 
+
+First let's clean this variable and separate the string in each cells in order to have one row for each article's pubtype.
+
+<div class = "python">
+
+
+```{python reshape,echo = T,collapse = TRUE}
+# Python
+covid_papers.pubtype.loc[1]
+
+def clean_pubtype(str_):
+  return re.sub('[{]|[}]|pubType|: |[[]|[]]','',str_)
+
+
+clean_pubtype(covid_papers.pubtype.loc[1])
+
+covid_papers['pubtype'] = covid_papers.pubtype.map(lambda pt: clean_pubtype(str(pt)))
+pubtype_cp = covid_papers.assign(pubtype = covid_papers.pubtype.str.split('", "')).explode('pubtype')
+pubtype_cp['pubtype'] = pubtype_cp.pubtype.map(lambda pubtype: re.sub('"','',(pubtype)))
+pubtype_cp
+
+pubtype_cp =  pubtype_cp[['V2','pubtype']].groupby(['V2','pubtype']).size().to_frame('n').reset_index()
+pubtype_cp_i = pubtype_cp[['V2','pubtype']].groupby(['V2','pubtype']).size().to_frame('n')
+```
+
+</div>
+
+
+## Cast data (from long to wide)
+<div class = "python">
+
+```{python cast,echo = T,collapse = TRUE}
+# Python
+pubtype_cp_i.unstack().fillna(0)
+casted_pubtype_cp = pubtype_cp.pivot(index="V2", columns="pubtype", values="n").fillna(0)
+
+casted_pubtype_cp.shape
+```
+
+</div>
+
+## Melt data (from wide to long)
+
+<div class = "python">
+
+```{python,echo = T,collapse = TRUE}
+# Python
+
+casted_pubtype_cp.stack()
+
+
+casted_pubtype_cp.stack().to_frame('n').reset_index()
+```
+
+</div>
+
+
+## Split
+
+<div class = "python">
+
+```{python,echo = T,collapse = TRUE,results='hide'}
+# Python
+
+list(covid_papers.groupby('oa'))
+
+```
+
+</div>
+
+
+## Split and transpose a vector/column
+
+<div class = "python">
+
+```{python split,echo = T,collapse = TRUE}
+# Python
+covid_papers[['doi1','doi2']] = covid_papers.doi.str.split("/",expand=True).loc[:,:1]
+covid_papers[['doi','doi1','doi2']]
+
+covid_papers.doi.str.split('/').explode()
+```
+
+</div>
+
+
+
+# Index and Keys
+    
+- df.loc are for labels/ names
+- df.iloc are for position numbers
+
+<div class = "python">
+
+```{python,echo = T,collapse = TRUE}
+# Python
+covid_papers = covid_papers.set_index('V2')
+
+covid_papers.loc[32837036,'doi']
+
+covid_papers.iloc[2,5]
+
+
+```
+
+</div>
+
+
+
+
+# Join/Bind data sets
+##  Join
+
+
+<div class = "python">
+
+```{python join,echo = T,collapse = TRUE}
+# Python
+
+df1 = pd.DataFrame({'Id': ['A','B','C','C'],
+                    'X1': [1,3,5,7],
+                    'X2': ['x2','x4','x6','x8']}).set_index('Id')
+
+df2 = pd.DataFrame({'Id': ['A','B','B','D'],
+                    'Y1': [1,3,5,7],
+                    'Y2': ['y1','y3','y5','y7']}).set_index('Id')
+
+```
+
+</div>
+
+
+- Join matching rows from y to x
+
+<div class = "python">
+
+```{python,echo = T,collapse = TRUE}
+# Python
+
+df1.join(df2)
+
+pd.merge(df1, df2, how= 'left', on = 'Id')
+
+```
+
+</div>
+
+
+	
+- Join matching rows from x to y
+
+<div class = "python">
+
+```{python,echo = T,collapse = TRUE}
+# Python
+
+df2.join(df1)
+
+
+pd.merge(df1, df2, how= 'right', on = 'Id')
+
+```
+
+</div>
+- Join matching rows from both x and y
+
+<div class = "python">
+
+```{python,echo = T,collapse = TRUE}
+# Python
+
+pd.merge(df1, df2, how= 'inner', on = 'Id')
+
+```
+
+</div>
+
+
+- Join keeping all the rows
+
+<div class = "python">
+
+```{python,echo = T,collapse = TRUE}
+# Python
+
+pd.merge(df1, df2, how= 'outer', on = 'Id')
+```
+
+</div>
+
+
+
+- Return rows from x matching y
+
+<div class = "python">
+
+```{python,echo = T,collapse = TRUE}
+# Python
+
+df1[df1.index == df2.index]
+
+```
+
+</div>
+
+
+- Return rows from x not matching y
+
+<div class = "python">
+
+```{python,echo = T,collapse = TRUE}
+# Python
+df1[df1.index != df2.index]
+```
+
+</div>
+
+
+## Bind
+
+- Bind rows
+
+<div class = "python">
+
+```{python,echo = T,collapse = TRUE}
+# Python
+
+df1 = pd.DataFrame({'Id': ['A','B','C'],
+                    'X1': [1,3,5],
+                    'X2': ['x2','x4','x6']}).set_index('Id')
+
+df2 = pd.DataFrame({'Id': ['A','B','C'],
+                    'Y1': [1,3,5],
+                    'Y2': ['y1','y3','y5']}).set_index('Id')
+
+pd.concat([df1,df2])
+```
+
+</div>
+
+
+- Bind columns
+
+<div class = "python">
+
+```{python,echo = T,collapse = TRUE}
+# Python
+
+df3 = pd.concat([df1,df2],axis =1)
+df3
+
+```
+
+</div>
+
+
+# Other
+
+## Lead/Lag
+
+<div class = "python">
+
+```{python,echo = T,collapse = TRUE}
+# Python
+
+
+df3.shift(periods = 1)
+
+df3.shift(periods = 1, axis= 1)
+
+```
+
+</div>
+
+
+#  Read/Write data 
+## standart format
+
+<div class = "python">
+
+
+```{python,echo=T,collapse = TRUE}
+# Python
+
+covid_papers = pd.read_csv("data/covid_papers.csv")
+
+covid_papers
+
+```
+</div>
+
+
+- Write data to a csv file
+
+<div class = "python">
+
+```{python,echo = T,collapse = TRUE,eval=F}
+# Python
+
+covid_papers.to_csv("data/covid_papers.csv")
+```
+
+</div>
+
+
+# Exercice 
+
+Translate last chapter's exercice in Python using pandas.
+
+<a href="">solution with pandas (python)</a>

@@ -1,0 +1,1518 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Regex</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">M1 Programming</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="2_Basics.html">Basics</a>
+</li>
+<li>
+  <a href="3_Arrays_Vectors.html">Arrays/Vectors</a>
+</li>
+<li>
+  <a href="4_Regex.html">Regex</a>
+</li>
+<li>
+  <a href="5_Data_Analysis_R.html">Data Analysis (R)</a>
+</li>
+<li>
+  <a href="6_Data_Analysis_Py.html">Data Analysis (Python)</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Regex</h1>
+
+</div>
+
+
+<style>
+div.python pre { background-color: #d0f5a9; }
+</style>
+<style>
+div.r pre { background-color: #dfdddf; }
+</style>
+<div id="strings" class="section level1">
+<h1><span class="header-section-number">1</span> Strings</h1>
+<div id="manipulate-strings" class="section level2">
+<h2><span class="header-section-number">1.1</span> Manipulate strings</h2>
+<div class="row">
+<div class="col-md-6">
+<div class="python">
+<pre class="python"><code># Python 
+import os
+
+wd_t = r&#39;C:\Users\mypath\to\myfolder&#39;
+wd_t
+## &#39;C:\\Users\\mypath\\to\\myfolder&#39;
+print(wd_t)
+## C:\Users\mypath\to\myfolder</code></pre>
+<ul>
+<li><p>The point of the r’…’ notation is for writing raw strings and use different rules for interpreting backslash escape sequences. If we’re just getting the value from another variable, there’s no need for an r.</p></li>
+<li><p>A string in Python is workng as an array, we can easily select pieces of the string with the position of the letters. In R a string is a block that we need to decompose ourself if we want to select a specific letter. The nb of character present in a string will be then the length of the object. We can modify string in several ways which are listed here : <a href="https://www.w3schools.com/python/python_ref_string.asp" class="uri">https://www.w3schools.com/python/python_ref_string.asp</a><br />
+We see here some classical examples</p></li>
+</ul>
+<pre class="python"><code># Python 
+
+wd_info = &#39;Current working directory:\n&#39;+os.getcwd()
+slc_infos = wd_info[10:20]
+len(slc_infos)
+## 10
+slc_infos
+## &#39;rking dire&#39;
+slc_infos = list(slc_infos)
+slc_infos
+
+# mutable
+## [&#39;r&#39;, &#39;k&#39;, &#39;i&#39;, &#39;n&#39;, &#39;g&#39;, &#39; &#39;, &#39;d&#39;, &#39;i&#39;, &#39;r&#39;, &#39;e&#39;]
+slc_infos[7] = &#39;0&#39;
+slc_infos
+
+# count
+## [&#39;r&#39;, &#39;k&#39;, &#39;i&#39;, &#39;n&#39;, &#39;g&#39;, &#39; &#39;, &#39;d&#39;, &#39;0&#39;, &#39;r&#39;, &#39;e&#39;]
+wd_info.count(&#39;s&#39;)
+
+# modify the string
+## 3
+wd_info.title()
+## &#39;Current Working Directory:\nC:\\Users\\Beta\\Documents\\Github\\M1_Tdp&#39;
+wd_info.upper()
+## &#39;CURRENT WORKING DIRECTORY:\nC:\\USERS\\BETA\\DOCUMENTS\\GITHUB\\M1_TDP&#39;
+wd_info.lower()
+## &#39;current working directory:\nc:\\users\\beta\\documents\\github\\m1_tdp&#39;
+splt_inf = wd_info.split(&#39;: &#39;)
+splt_inf
+## [&#39;Current working directory:\nC:\\Users\\Beta\\Documents\\GitHub\\M1_TDP&#39;]
+&#39; &#39;.join(splt_inf)
+## &#39;Current working directory:\nC:\\Users\\Beta\\Documents\\GitHub\\M1_TDP&#39;</code></pre>
+<pre class="python"><code>import numpy as np
+
+&quot;&quot;.join([&#39;a :&#39;,&#39;1&#39;,&#39;b :&#39;,&#39;2&#39;,&#39;c :&#39;,&#39;3&#39;])
+## &#39;a :1b :2c :3&#39;
+&quot; &quot;.join([&#39;a :&#39;,&#39;1&#39;,&#39;b :&#39;,&#39;2&#39;,&#39;c :&#39;,&#39;3&#39;])
+
+## &#39;a : 1 b : 2 c : 3&#39;
+[&#39;&#39;.join([letter,number]) for letter, number in zip([&#39;a :&#39;,&#39;b :&#39;,&#39;c :&#39;],[&#39;1&#39;,&#39;2&#39;,&#39;3&#39;])]
+## [&#39;a :1&#39;, &#39;b :2&#39;, &#39;c :3&#39;]
+list(map(&#39;&#39;.join,zip([&#39;a :&#39;,&#39;b :&#39;,&#39;c :&#39;],[&#39;1&#39;,&#39;2&#39;,&#39;3&#39;])))
+## [&#39;a :1&#39;, &#39;b :2&#39;, &#39;c :3&#39;]
+&#39;.&#39;.join((np.char.array([&#39;a :&#39;,&#39;b :&#39;,&#39;c :&#39;])+np.char.array([&#39;1&#39;,&#39;2&#39;,&#39;3&#39;])).tolist())
+
+## &#39;a :1.b :2.c :3&#39;
+np.char.array([[&#39;a :&#39;,&#39;b :&#39;,&#39;c :&#39;]])+&#39;O&#39;
+## chararray([[&#39;a :O&#39;, &#39;b :O&#39;, &#39;c :O&#39;]], dtype=&#39;&lt;U4&#39;)</code></pre>
+</div>
+</div>
+<div class="col-md-6">
+<div class="r">
+<pre class="r"><code># R 
+
+wd_t = &#39;C:\\Users\\mypath\\to\\myfolder&#39;
+print(wd_t)
+## [1] &quot;C:\\Users\\mypath\\to\\myfolder&quot;
+cat(wd_t)
+## C:\Users\mypath\to\myfolder</code></pre>
+<ul>
+<li>In R they are no way of told R to read literal backslash, we need to double it while writting it. Also we need to split the string before accessing to element of this string.<br />
+The function ‘strsplit’ is made to work with vector also, it automatically create a list for which each element of this list is the decomposed string.<br />
+That’s why we see ‘[[1]]’ after each strsplit function calls. We want to access only the first element because there is only one string in the object submitted to the function.</li>
+</ul>
+<pre class="r"><code># R 
+library(stringr)
+library(tools)
+
+wd_info  &lt;- paste0(&#39;Current working directory: &#39;,getwd())
+slc_infos &lt;- wd_info[10:20]
+slc_infos
+##  [1] NA NA NA NA NA NA NA NA NA NA NA
+slc_infos &lt;- paste(strsplit(wd_info,split = &#39;&#39;)[[1]][10:20],collapse = &quot;&quot;)
+
+nchar(slc_infos)
+## [1] 11
+slc_infos
+## [1] &quot;orking dire&quot;
+slc_infos &lt;- strsplit(slc_infos,split = &#39;&#39;)[[1]]
+slc_infos
+##  [1] &quot;o&quot; &quot;r&quot; &quot;k&quot; &quot;i&quot; &quot;n&quot; &quot;g&quot; &quot; &quot; &quot;d&quot; &quot;i&quot; &quot;r&quot; &quot;e&quot;
+
+# mutable
+slc_infos[7] = &#39;0&#39;
+
+# count
+length(which(strsplit(wd_info,split = &#39;&#39;)[[1]]==&#39;S&#39;))
+## [1] 0
+
+# modify the string
+toTitleCase(wd_info)
+## [1] &quot;Current Working Directory: C:/Users/Beta/Documents/GitHub/M1_TDP&quot;
+toupper(wd_info)
+## [1] &quot;CURRENT WORKING DIRECTORY: C:/USERS/BETA/DOCUMENTS/GITHUB/M1_TDP&quot;
+tolower(wd_info)
+## [1] &quot;current working directory: c:/users/beta/documents/github/m1_tdp&quot;</code></pre>
+<pre class="r"><code>paste0(&#39;a :&#39;,&#39;1&#39;,&#39;b :&#39;,&#39;2&#39;,&#39;c :&#39;,&#39;3&#39;)
+## [1] &quot;a :1b :2c :3&quot;
+paste(&#39;a :&#39;,&#39;1&#39;,&#39;b :&#39;,&#39;2&#39;,&#39;c :&#39;,&#39;3&#39;)
+## [1] &quot;a : 1 b : 2 c : 3&quot;
+
+paste0(c(&#39;a :&#39;,&#39;1&#39;,&#39;b :&#39;,&#39;2&#39;,&#39;c :&#39;,&#39;3&#39;)) # do nothing with a vector
+## [1] &quot;a :&quot; &quot;1&quot;   &quot;b :&quot; &quot;2&quot;   &quot;c :&quot; &quot;3&quot;
+paste(c(&#39;a :&#39;,&#39;1&#39;,&#39;b :&#39;,&#39;2&#39;,&#39;c :&#39;,&#39;3&#39;),collapse = &quot; &quot;) # safer to use this
+## [1] &quot;a : 1 b : 2 c : 3&quot;
+str_c(c(&#39;a :&#39;,&#39;1&#39;,&#39;b :&#39;,&#39;2&#39;,&#39;c :&#39;,&#39;3&#39;),collapse = &quot; &quot;)
+## [1] &quot;a : 1 b : 2 c : 3&quot;
+
+paste0(c(&#39;a :&#39;,&#39;b :&#39;,&#39;c :&#39;),c(&#39;1&#39;,&#39;2&#39;,&#39;3&#39;))
+## [1] &quot;a :1&quot; &quot;b :2&quot; &quot;c :3&quot;
+paste(c(&#39;a :&#39;,&#39;b :&#39;,&#39;c :&#39;),c(&#39;1&#39;,&#39;2&#39;,&#39;3&#39;))
+## [1] &quot;a : 1&quot; &quot;b : 2&quot; &quot;c : 3&quot;
+paste(c(&#39;a :&#39;,&#39;b :&#39;,&#39;c :&#39;),c(&#39;1&#39;,&#39;2&#39;,&#39;3&#39;),collapse = &quot;.&quot;)
+## [1] &quot;a : 1.b : 2.c : 3&quot;
+
+paste0(c(&#39;a :&#39;,&#39;b :&#39;,&#39;c :&#39;),c(&#39;0&#39;))
+## [1] &quot;a :0&quot; &quot;b :0&quot; &quot;c :0&quot;
+paste(c(&#39;a :&#39;,&#39;b :&#39;,&#39;c :&#39;),c(&#39;0&#39;),collapse = &quot;~&quot;)
+## [1] &quot;a : 0~b : 0~c : 0&quot;
+str_c(c(&#39;a :~&#39;,&#39;b :~&#39;,&#39;c :~&#39;),c(&#39;0&#39;))
+## [1] &quot;a :~0&quot; &quot;b :~0&quot; &quot;c :~0&quot;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div id="escape-character" class="section level2">
+<h2><span class="header-section-number">1.2</span> Escape character</h2>
+<div class="row">
+<div class="col-md-6">
+<div class="python">
+<pre class="python"><code># Python 
+import time
+import psutil
+import os
+
+time_ = time.ctime(time.time())
+time_info = &#39;Time: &#39;
+wd = os.getcwd()
+wd_info = &#39;\nCurrent working directory: &#39;
+
+infos = time_info+time_+wd_info+wd
+
+print(infos)
+## Time: Sun Feb  7 11:15:15 2021
+## Current working directory: C:\Users\Beta\Documents\GitHub\M1_TDP</code></pre>
+<p>In R we use cat() to take into account ‘’ (new line), Python automatically understand it with print.</p>
+</div>
+</div>
+<div class="col-md-6">
+<div class="r">
+<pre class="r"><code># R
+library(benchmarkme)
+time_ &lt;- Sys.time()
+time_info &lt;- &#39;Time: &#39;
+wd = getwd()
+wd_info = &#39;\nCurrent working directory: &#39;
+
+infos &lt;- paste0(time_info,time_,
+           wd_info,wd)
+print(infos) 
+## [1] &quot;Time: 2021-02-07 11:15:15\nCurrent working directory: C:/Users/Beta/Documents/GitHub/M1_TDP&quot;
+
+cat(infos) 
+## Time: 2021-02-07 11:15:15
+## Current working directory: C:/Users/Beta/Documents/GitHub/M1_TDP</code></pre>
+</div>
+</div>
+</div>
+<p>Here is some information on the computer where this document was compiled.</p>
+<p>The working directory is the path to the folder where we are working, If we read or write on a file without specifiying the exact path (only the name of the file), the program will search for this file in the current working directory.</p>
+<p>‘', the backslash character is used to specify special character, tabulation, new lines, backslash or quotes and so on. When dealing with path this may be confusing for the machine. We can specify that the string must be read as it is by using ’r’ before the quote.</p>
+<p>Here is a list of escape character that can be usefull</p>
+<table>
+<thead>
+<tr class="header">
+<th>Escape Sequence</th>
+<th align="right">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>\t</td>
+<td align="right">Insert a tab in the text at this point.</td>
+</tr>
+<tr class="even">
+<td>\b</td>
+<td align="right">Insert a backspace in the text at this point.</td>
+</tr>
+<tr class="odd">
+<td>\n</td>
+<td align="right">Insert a newline in the text at this point.</td>
+</tr>
+<tr class="even">
+<td>\r</td>
+<td align="right">Insert a carriage return in the text at this point.</td>
+</tr>
+<tr class="odd">
+<td>\f</td>
+<td align="right">Insert a form feed in the text at this point.</td>
+</tr>
+<tr class="even">
+<td>\’</td>
+<td align="right">Insert a single quote character in the text at this point.</td>
+</tr>
+<tr class="odd">
+<td>\"</td>
+<td align="right">Insert a double quote character in the text at this point.</td>
+</tr>
+<tr class="even">
+<td>\\</td>
+<td align="right">Insert a backslash character in the text at this point.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="formatted-strings" class="section level2">
+<h2><span class="header-section-number">1.3</span> Formatted strings</h2>
+<ul>
+<li>In Python, the % sign lets us produce formatted output. We can also use “{}”.format() in order to change automatically values in raw text. Let’s rewritte our function.</li>
+</ul>
+<div class="row">
+<div class="col-md-6">
+<div class="python">
+<pre class="python"><code># Python 
+
+def get_infos():
+  time_info = &#39;Time: &#39;+time.ctime(time.time())
+  wd_info = &#39;\nCurrent working directory: &#39;+os.getcwd()
+  infos = time_info+wd_info
+  print(infos)
+
+
+def get_infos_2():
+  infos = &#39;&#39;&#39;Time: %s 
+  Current working directory: %s&#39;&#39;&#39;% (time.ctime(time.time()),
+  os.getcwd())
+  print(infos)
+  
+def get_infos_3():
+  infos = &#39;&#39;&#39;Time: {t} 
+  Current working directory: {wd}&#39;&#39;&#39;.format(t = time.ctime(time.time()),
+  wd = os.getcwd())
+  print(infos)
+  
+  
+
+get_infos()
+## Time: Sun Feb  7 11:15:15 2021
+## Current working directory: C:\Users\Beta\Documents\GitHub\M1_TDP
+get_infos_2()
+## Time: Sun Feb  7 11:15:15 2021 
+##   Current working directory: C:\Users\Beta\Documents\GitHub\M1_TDP
+get_infos_3()
+## Time: Sun Feb  7 11:15:15 2021 
+##   Current working directory: C:\Users\Beta\Documents\GitHub\M1_TDP</code></pre>
+</div>
+</div>
+<div class="col-md-6">
+<div class="r">
+<ul>
+<li>In R the use of % is also possible for formatting strings. We can directly use sprintf to print the formated string but is also possible to store it for later use. Then we can use cat to print the string containing escape character or we can use writeLines as in ‘get_info_2’</li>
+</ul>
+<pre class="r"><code>
+# R
+
+get_infos &lt;- function(){
+  time_info = paste0(&#39;Time: &#39;,Sys.time())
+  wd_info = paste0(&#39;\nCurrent working directory: &#39;,getwd())
+  infos = paste0(time_info,wd_info)
+  cat(infos)
+}
+
+
+get_infos_2&lt;- function(){
+  infos = sprintf(&#39;Time: %s 
+  Current working directory: %s&#39;,
+  Sys.time(),
+  getwd())
+  writeLines(infos) # other way of take into account escape character
+}
+
+get_infos()
+## Time: 2021-02-07 11:15:15
+## Current working directory: C:/Users/Beta/Documents/GitHub/M1_TDP
+
+get_infos_2()
+## Time: 2021-02-07 11:15:15 
+##   Current working directory: C:/Users/Beta/Documents/GitHub/M1_TDP</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="regular-expressions" class="section level1">
+<h1><span class="header-section-number">2</span> Regular Expressions</h1>
+<ul>
+<li>Text used in this section is the abstract of ‘ImageNet Classification with Deep Convolutional Neural Networks’ (Alex Krizhevsky, Ilya Sutskever, and Geoffrey E. Hinton 2012) presented at ‘Advances in Neural Information Processing Systems 25’ (NIPS 2012)</li>
+</ul>
+<pre><code>&#39;&lt;p&gt;We trained a large, deep convolutional neural network to classify the 1.3 million 
+high-resolution images in the LSVRC-2010 ImageNet training set into the 1000 different 
+classes. On the test data, we achieved top-1 and top-5 error rates of 39.7\% and
+18.9\% which is considerably better than the previous state-of-the-art results.
+The neural network, which has 60 million parameters and 500,000 neurons,
+consists of five convolutional layers, some of which are followed by max-pooling
+layers, and two globally connected layers with a final 1000-way softmax.
+To make training faster, we used non-saturating neurons and a very efficient GPU
+implementation of convolutional nets. To reduce overfitting in the globally
+connected layers we employed a new regularization method that proved to be very effective.&lt;/p&gt;&#39;</code></pre>
+<ul>
+<li><p>Regex are a way to express how a character sequence should be matched, it is a a very flexible tool. Regular expression are commonly used in text manipulation, usually such patterns are used by string-searching algorithms for “find” or “find and replace” operations on strings, or for input validation.</p></li>
+<li><p>Except for control characters, (+ ? . * ^ $ ( ) [ ] { } | ), all characters match themselves. You can escape a control character by preceding it with a backslash.</p></li>
+<li><p>Some functions in ‘re’ (Python) and ‘stingr’(R) :</p></li>
+</ul>
+<table>
+<colgroup>
+<col width="20%" />
+<col width="40%" />
+<col width="40%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Re</th>
+<th align="left">Stringr</th>
+<th align="right">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>findall</td>
+<td align="left">str_match_all</td>
+<td align="right">Returns a list containing all matches</td>
+</tr>
+<tr class="even">
+<td>finditer</td>
+<td align="left"></td>
+<td align="right">Returns a iterator containing all matches</td>
+</tr>
+<tr class="odd">
+<td>search</td>
+<td align="left">str_locate_all</td>
+<td align="right">Returns a Match object if there is a match anywhere in the string</td>
+</tr>
+<tr class="even">
+<td>split</td>
+<td align="left">str_split</td>
+<td align="right">Returns a list where the string has been split at each match</td>
+</tr>
+<tr class="odd">
+<td>sub</td>
+<td align="left">str_replace_all</td>
+<td align="right">Replaces one or many matches with a string</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Metacharacters are characters with a special meaning in Regex, their uses are discussed in more detail in the next few sections :</li>
+</ul>
+<p>parentheses can be used for grouping. Square brackets define a character class, and curly braces are used by a quantifier with specific limits.</p>
+<table>
+<colgroup>
+<col width="20%" />
+<col width="40%" />
+<col width="40%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Character</th>
+<th align="left">Description</th>
+<th align="right">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>[]</td>
+<td align="left">A set of characters</td>
+<td align="right">“[a-m]”</td>
+</tr>
+<tr class="even">
+<td>\</td>
+<td align="left">Signals a special sequence (can also be used to escape special characters)</td>
+<td align="right">“\d”</td>
+</tr>
+<tr class="odd">
+<td>.</td>
+<td align="left">Any character (except newline character)</td>
+<td align="right">“he..o”</td>
+</tr>
+<tr class="even">
+<td>^</td>
+<td align="left">Starts with</td>
+<td align="right">“^hello”</td>
+</tr>
+<tr class="odd">
+<td>$</td>
+<td align="left">Ends with</td>
+<td align="right">“world$”</td>
+</tr>
+<tr class="even">
+<td>*</td>
+<td align="left">Zero or more occurrences</td>
+<td align="right">"aix*"</td>
+</tr>
+<tr class="odd">
+<td>+</td>
+<td align="left">One or more occurrences</td>
+<td align="right">“aix+”</td>
+</tr>
+<tr class="even">
+<td>{}</td>
+<td align="left">Exactly the specified number of occurrences</td>
+<td align="right">“al{2}”</td>
+</tr>
+<tr class="odd">
+<td>|</td>
+<td align="left">Either or</td>
+<td align="right">“x|y”</td>
+</tr>
+<tr class="even">
+<td>()</td>
+<td align="left">Grouping characters (or other regexes)</td>
+<td align="right">“(ab)\1” matches “abab”</td>
+</tr>
+</tbody>
+</table>
+<div class="row">
+<div class="col-md-6">
+<div class="python">
+<pre class="python"><code># Python 
+import re
+
+abstract = open(&quot;data/imagenet_abstract.txt&quot;, &quot;r&quot;).read()
+ 
+re.search(&#39;layers&#39;,abstract)
+## &lt;re.Match object; span=(437, 443), match=&#39;layers&#39;&gt;
+re.findall(&#39;layers&#39;,abstract)
+## [&#39;layers&#39;, &#39;layers&#39;, &#39;layers&#39;, &#39;layers&#39;]
+re.findall(&#39;net+&#39;,&#39;net ne nett networks&#39;)
+## [&#39;net&#39;, &#39;nett&#39;, &#39;net&#39;]
+re.findall(&#39;net*&#39;,&#39;net ne nett networks&#39;)
+
+## [&#39;net&#39;, &#39;ne&#39;, &#39;nett&#39;, &#39;net&#39;]
+re.sub(r&#39;\\&#39;,&#39;&#39;,abstract)
+## &#39;&lt;p&gt;We trained a large, deep convolutional neural network to classify the 1.3 million high-resolution images in the LSVRC-2010 ImageNet training set into the 1000 different classes. On the test data, we achieved top-1 and top-5 error rates of 39.7% and 18.9% which is considerably better than the previous state-of-the-art results. The neural network, which has 60 million parameters and 500,000 neurons, consists of five convolutional layers, some of which are followed by max-pooling layers, and two globally connected layers with a final 1000-way softmax. To make training faster, we used non-saturating neurons and a very efficient GPU implementation of convolutional nets. To reduce overfitting in the globally connected layers we employed a new regularization method that proved to be very effective.&lt;/p&gt;&#39;
+re.split(&#39; &#39;,abstract)[:5]
+
+## [&#39;&lt;p&gt;We&#39;, &#39;trained&#39;, &#39;a&#39;, &#39;large,&#39;, &#39;deep&#39;]</code></pre>
+</div>
+</div>
+<div class="col-md-6">
+<div class="r">
+<pre class="r"><code># R
+library(stringr)
+library(readr)
+
+abstract &lt;- as.character(read_file(&#39;data/imagenet_abstract.txt&#39;))
+  
+str_locate_all(pattern = &#39;layers&#39;,abstract)
+## [[1]]
+##      start end
+## [1,]   438 443
+## [2,]   488 493
+## [3,]   523 528
+## [4,]   728 733
+
+str_locate_all(pattern = &#39;net+&#39;,&#39;net ne nett networks&#39;)
+## [[1]]
+##      start end
+## [1,]     1   3
+## [2,]     8  11
+## [3,]    13  15
+
+str_locate_all(pattern = &#39;net*&#39;,&#39;net ne nett networks&#39;)
+## [[1]]
+##      start end
+## [1,]     1   3
+## [2,]     5   6
+## [3,]     8  11
+## [4,]    13  15
+
+str_replace_all(abstract,&#39;\\\\&#39;,&#39;&#39;)
+## [1] &quot;&lt;p&gt;We trained a large, deep convolutional neural network to classify the 1.3 million high-resolution images in the LSVRC-2010 ImageNet training set into the 1000 different classes. On the test data, we achieved top-1 and top-5 error rates of 39.7% and 18.9% which is considerably better than the previous state-of-the-art results. The neural network, which has 60 million parameters and 500,000 neurons, consists of five convolutional layers, some of which are followed by max-pooling layers, and two globally connected layers with a final 1000-way softmax. To make training faster, we used non-saturating neurons and a very efficient GPU implementation of convolutional nets. To reduce overfitting in the globally connected layers we employed a new regularization method that proved to be very effective.&lt;/p&gt;&quot;
+
+str_split(abstract,&#39; &#39;,simplify = T)[1:5]
+## [1] &quot;&lt;p&gt;We&quot;   &quot;trained&quot; &quot;a&quot;       &quot;large,&quot;  &quot;deep&quot;</code></pre>
+</div>
+</div>
+</div>
+<div id="anchors" class="section level2">
+<h2><span class="header-section-number">2.1</span> Anchors</h2>
+<p>This needs to specify match position.</p>
+<table>
+<colgroup>
+<col width="33%" />
+<col width="66%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Example</th>
+<th align="right">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>^Python</td>
+<td align="right">Match “Python” at the start of a string or internal line</td>
+</tr>
+<tr class="even">
+<td>Python$</td>
+<td align="right">Match “Python” at the end of a string or line</td>
+</tr>
+<tr class="odd">
+<td>\APython</td>
+<td align="right">Match “Python” at the start of a string</td>
+</tr>
+<tr class="even">
+<td>Python\Z</td>
+<td align="right">Match “Python” at the end of a string</td>
+</tr>
+<tr class="odd">
+<td>\bPython\b</td>
+<td align="right">Match “Python” at a word boundary</td>
+</tr>
+<tr class="even">
+<td>\brub\B</td>
+<td align="right">\B is nonword boundary: match “rub” in “rube” and “ruby” but not alone</td>
+</tr>
+<tr class="odd">
+<td>Python(?=!)</td>
+<td align="right">Match “Python”, if followed by an exclamation point.</td>
+</tr>
+<tr class="even">
+<td>Python(?!!)</td>
+<td align="right">Match “Python”, if not followed by an exclamation point.</td>
+</tr>
+</tbody>
+</table>
+<div class="row">
+<div class="col-md-6">
+<div class="python">
+<pre class="python"><code># Python 
+import re
+
+words = [&#39;neuron&#39;,&#39;neural&#39;,&#39;network&#39;,&#39;networks&#39;,&#39;deep convolutional neural network&#39;]
+
+[w for w in words if re.findall(r&#39;\Aneu&#39;,w)]
+## [&#39;neuron&#39;, &#39;neural&#39;]
+[w for w in words if re.findall(r&#39;^neu&#39;,w)]
+## [&#39;neuron&#39;, &#39;neural&#39;]
+[w for w in words if re.findall(r&#39;works?\Z&#39;,w)]
+## [&#39;network&#39;, &#39;networks&#39;, &#39;deep convolutional neural network&#39;]
+[w for w in words if re.findall(r&#39;works?$&#39;,w)]
+
+## [&#39;network&#39;, &#39;networks&#39;, &#39;deep convolutional neural network&#39;]</code></pre>
+</div>
+</div>
+<div class="col-md-6">
+<div class="r">
+<pre class="r"><code># R
+library(stringr)
+
+
+words = c(&#39;neuron&#39;,&#39;neural&#39;,&#39;network&#39;,&#39;networks&#39;,&#39;deep convolutional neural network&#39;)
+
+str_detect(words,&#39;\\Aneu&#39;)
+## [1]  TRUE  TRUE FALSE FALSE FALSE
+str_detect(words,&#39;^neu&#39;)
+## [1]  TRUE  TRUE FALSE FALSE FALSE
+str_detect(words,&#39;neu\\Z&#39;)
+## [1] FALSE FALSE FALSE FALSE FALSE
+str_detect(words,&#39;neu$&#39;)
+## [1] FALSE FALSE FALSE FALSE FALSE</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div id="character-classes" class="section level2">
+<h2><span class="header-section-number">2.2</span> Character classes</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Example</th>
+<th align="right">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>[Pp]ython</td>
+<td align="right">Match “Python” or “python”</td>
+</tr>
+<tr class="even">
+<td>rub[ye]</td>
+<td align="right">Match “ruby” or “rube”</td>
+</tr>
+<tr class="odd">
+<td>[aeiou]</td>
+<td align="right">Match any one lowercase vowel</td>
+</tr>
+<tr class="even">
+<td>[0-9]</td>
+<td align="right">Match any digit; same as [0123456789]</td>
+</tr>
+<tr class="odd">
+<td>[a-z]</td>
+<td align="right">Match any lowercase ASCII letter</td>
+</tr>
+<tr class="even">
+<td>[A-Z]</td>
+<td align="right">Match any uppercase ASCII letter</td>
+</tr>
+<tr class="odd">
+<td>[a-zA-Z0-9]</td>
+<td align="right">Match any of the above</td>
+</tr>
+<tr class="even">
+<td>[^aeiou]</td>
+<td align="right">Match anything other than a lowercase vowel</td>
+</tr>
+<tr class="odd">
+<td>[^0-9]</td>
+<td align="right">Match anything other than a digit</td>
+</tr>
+</tbody>
+</table>
+<div class="row">
+<div class="col-md-6">
+<div class="python">
+<pre class="python"><code># Python 
+import re
+
+re.findall(&#39;top-[15]&#39;,abstract)
+
+# you can also create an iterator
+## [&#39;top-1&#39;, &#39;top-5&#39;]
+re.finditer(&#39;[0-9]&#39;,abstract)
+
+## &lt;callable_iterator object at 0x0000000027EFC408&gt;</code></pre>
+</div>
+</div>
+<div class="col-md-6">
+<div class="r">
+<pre class="r"><code># R
+library(stringr)
+
+str_match_all(abstract,&#39;top-[15]&#39;)
+## [[1]]
+##      [,1]   
+## [1,] &quot;top-1&quot;
+## [2,] &quot;top-5&quot;
+
+str_locate_all(abstract,&#39;[0-9]&#39;)
+## [[1]]
+##       start end
+##  [1,]    74  74
+##  [2,]    76  76
+##  [3,]   122 122
+##  [4,]   123 123
+##  [5,]   124 124
+##  [6,]   125 125
+##  [7,]   158 158
+##  [8,]   159 159
+##  [9,]   160 160
+## [10,]   161 161
+## [11,]   216 216
+## [12,]   226 226
+## [13,]   243 243
+## [14,]   244 244
+## [15,]   246 246
+## [16,]   254 254
+## [17,]   255 255
+## [18,]   257 257
+## [19,]   364 364
+## [20,]   365 365
+## [21,]   390 390
+## [22,]   391 391
+## [23,]   392 392
+## [24,]   394 394
+## [25,]   395 395
+## [26,]   396 396
+## [27,]   543 543
+## [28,]   544 544
+## [29,]   545 545
+## [30,]   546 546</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div id="special-character-classes" class="section level2">
+<h2><span class="header-section-number">2.3</span> Special Character Classes</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Example</th>
+<th align="right">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>.</td>
+<td align="right">Match any character except newline</td>
+</tr>
+<tr class="even">
+<td>\d</td>
+<td align="right">Match a digit: [0-9]</td>
+</tr>
+<tr class="odd">
+<td>\D</td>
+<td align="right">Match a nondigit: [^0-9]</td>
+</tr>
+<tr class="even">
+<td>\s</td>
+<td align="right">Match a whitespace character: [ \t\r\n\f]</td>
+</tr>
+<tr class="odd">
+<td>\S</td>
+<td align="right">Match nonwhitespace: [^ \t\r\n\f]</td>
+</tr>
+<tr class="even">
+<td>\w</td>
+<td align="right">Match a single word character: [A-Za-z0-9_]</td>
+</tr>
+<tr class="odd">
+<td>\W</td>
+<td align="right">Match a nonword character: [^A-Za-z0-9_]</td>
+</tr>
+</tbody>
+</table>
+<div class="row">
+<div class="col-md-6">
+<div class="python">
+<pre class="python"><code># Python 
+import re
+
+re.sub(&#39;\w&#39;,&#39;&#39;,abstract)
+## &#39;&lt;&gt;   ,        .  -    -        .    ,   -  -    .\\%  .\\%        --- .   ,       , ,     ,       - ,         - .    ,   -          .                    .&lt;/&gt;&#39;
+re.search(&#39;\d&#39;,abstract)
+## &lt;re.Match object; span=(73, 74), match=&#39;1&#39;&gt;</code></pre>
+</div>
+</div>
+<div class="col-md-6">
+<div class="r">
+<pre class="r"><code># R
+library(stringr)
+
+str_replace_all(abstract,&#39;\\w&#39;,&#39;&#39;)
+## [1] &quot;&lt;&gt;   ,        .  -    -        .    ,   -  -    .\\%  .\\%        --- .   ,       , ,     ,       - ,         - .    ,   -          .                    .&lt;/&gt;&quot;
+
+str_locate_all(&#39;\\d&#39;,abstract)
+## [[1]]
+##      start end</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div id="repetition-cases" class="section level2">
+<h2><span class="header-section-number">2.4</span> Repetition Cases</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Example</th>
+<th align="right">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ruby?</td>
+<td align="right">Match “rub” or “ruby”: the y is optional</td>
+</tr>
+<tr class="even">
+<td>ruby*</td>
+<td align="right">Match “rub” plus 0 or more ys</td>
+</tr>
+<tr class="odd">
+<td>ruby+</td>
+<td align="right">Match “rub” plus 1 or more ys</td>
+</tr>
+<tr class="even">
+<td>\d{3}</td>
+<td align="right">Match exactly 3 digits</td>
+</tr>
+<tr class="odd">
+<td>\d{3,}</td>
+<td align="right">Match 3 or more digits</td>
+</tr>
+<tr class="even">
+<td>\d{3,5}</td>
+<td align="right">Match 3, 4, or 5 digits</td>
+</tr>
+</tbody>
+</table>
+<p>Nongreedy repetition This matches the smallest number of repetitions</p>
+<table>
+<thead>
+<tr class="header">
+<th>Example</th>
+<th align="right">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt;.*&gt;</td>
+<td align="right">Greedy repetition: matches “<python>perl&gt;”</td>
+</tr>
+<tr class="even">
+<td>&lt;.*?&gt;</td>
+<td align="right">Nongreedy: matches “<python>” in “<python>perl&gt;”</td>
+</tr>
+</tbody>
+</table>
+<div class="row">
+<div class="col-md-6">
+<div class="python">
+<pre class="python"><code># Python 
+import re
+
+re.findall(&#39;\d{2,4}&#39;,abstract)
+## [&#39;2010&#39;, &#39;1000&#39;, &#39;39&#39;, &#39;18&#39;, &#39;60&#39;, &#39;500&#39;, &#39;000&#39;, &#39;1000&#39;]
+re.findall(r&#39;[[].*[]]&#39;,r&#39;[[Hello] World]&#39;)
+## [&#39;[[Hello] World]&#39;]
+## 
+## C:/Users/Beta/AppData/Local/Continuum/anaconda3/python.exe:1: FutureWarning: Possible nested set at position 1
+re.findall(r&#39;[[].*?[]]&#39;,r&#39;[[Hello] World]&#39;)
+
+## [&#39;[[Hello]&#39;]</code></pre>
+</div>
+</div>
+<div class="col-md-6">
+<div class="r">
+<pre class="r"><code># R
+library(stringr)
+
+str_extract_all(abstract,&#39;\\d{2,4}&#39;)
+## [[1]]
+## [1] &quot;2010&quot; &quot;1000&quot; &quot;39&quot;   &quot;18&quot;   &quot;60&quot;   &quot;500&quot;  &quot;000&quot;  &quot;1000&quot;
+
+str_extract_all(&#39;[[Hello] World]&#39;,&#39;[\\[].*[\\]]&#39;)
+## [[1]]
+## [1] &quot;[[Hello] World]&quot;
+str_extract_all(&#39;[[Hello] World]&#39;,&#39;[\\[].*?[\\]]&#39;)
+## [[1]]
+## [1] &quot;[[Hello]&quot;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div id="grouping-with-parentheses" class="section level2">
+<h2><span class="header-section-number">2.5</span> Grouping with Parentheses</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Example</th>
+<th align="right">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>\D\d+</td>
+<td align="right">No group: + repeats \d</td>
+</tr>
+<tr class="even">
+<td>(\D\d)+</td>
+<td align="right">Grouped: + repeats \D\d pair</td>
+</tr>
+</tbody>
+</table>
+<div class="row">
+<div class="col-md-6">
+<div class="python">
+<pre class="python"><code># Python 
+
+re.findall(&#39;[A-Z]\d+&#39;, &quot;A8 DF Z7 376 A28 A0A4A8&quot;)
+## [&#39;A8&#39;, &#39;Z7&#39;, &#39;A28&#39;, &#39;A0&#39;, &#39;A4&#39;, &#39;A8&#39;]
+re.findall(&#39;([A-Z]\d)+&#39;, &quot;A8 DF Z7 376 A28 A0A4A8&quot;)
+## [&#39;A8&#39;, &#39;Z7&#39;, &#39;A2&#39;, &#39;A8&#39;]
+re.findall(&#39;(?:[A-Z]\d)+&#39;, &quot;A8 DF Z7 376 A28 A0A4A8&quot;)
+# ?: in this context tells Python&#39;s regex library to not consider the parentheses as defining a capture. (It&#39;s still used for grouping)
+# normal capture group will hinder ability to get whole match
+# non-capturing group to the rescue
+## [&#39;A8&#39;, &#39;Z7&#39;, &#39;A2&#39;, &#39;A0A4A8&#39;]
+list(re.finditer(&#39;([A-Z]\d)+&#39;, &quot;A8 DF Z7 376 A28 A0A4A8&quot;))
+## [&lt;re.Match object; span=(0, 2), match=&#39;A8&#39;&gt;, &lt;re.Match object; span=(6, 8), match=&#39;Z7&#39;&gt;, &lt;re.Match object; span=(13, 15), match=&#39;A2&#39;&gt;, &lt;re.Match object; span=(17, 23), match=&#39;A0A4A8&#39;&gt;]
+[i.group() for i in re.finditer(&#39;[A-Z]\d+&#39;, &quot;A8 DF Z7 376 A28 A0A4A8&quot;)]
+## [&#39;A8&#39;, &#39;Z7&#39;, &#39;A28&#39;, &#39;A0&#39;, &#39;A4&#39;, &#39;A8&#39;]
+[i.group() for i in re.finditer(&#39;([A-Z]\d)+&#39;, &quot;A8 DF Z7 376 A28 A0A4A8&quot;)]
+## [&#39;A8&#39;, &#39;Z7&#39;, &#39;A2&#39;, &#39;A0A4A8&#39;]</code></pre>
+</div>
+</div>
+<div class="col-md-6">
+<div class="r">
+<pre class="r"><code># R
+library(stringr)
+str_match_all(pattern = &#39;[A-Z]\\d+&#39;, &quot;A8 DF Z7 376 A28 A0A4A8&quot;)
+## [[1]]
+##      [,1] 
+## [1,] &quot;A8&quot; 
+## [2,] &quot;Z7&quot; 
+## [3,] &quot;A28&quot;
+## [4,] &quot;A0&quot; 
+## [5,] &quot;A4&quot; 
+## [6,] &quot;A8&quot;
+
+str_match_all(pattern = &#39;([A-Z]\\d)+&#39;, &quot;A8 DF Z7 376 A28 A0A4A8&quot;)
+## [[1]]
+##      [,1]     [,2]
+## [1,] &quot;A8&quot;     &quot;A8&quot;
+## [2,] &quot;Z7&quot;     &quot;Z7&quot;
+## [3,] &quot;A2&quot;     &quot;A2&quot;
+## [4,] &quot;A0A4A8&quot; &quot;A8&quot;
+
+str_match_all(pattern = &#39;(?:[A-Z]\\d)+&#39;, &quot;A8 DF Z7 376 A28 A0A4A8&quot;)
+## [[1]]
+##      [,1]    
+## [1,] &quot;A8&quot;    
+## [2,] &quot;Z7&quot;    
+## [3,] &quot;A2&quot;    
+## [4,] &quot;A0A4A8&quot;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div id="backreferences" class="section level2">
+<h2><span class="header-section-number">2.6</span> Backreferences</h2>
+<p>This matches a previously matched group again</p>
+<table>
+<colgroup>
+<col width="33%" />
+<col width="66%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Example</th>
+<th align="right">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>([Pp])ython&amp;\1ails</td>
+<td align="right">Match python&amp;pails or Python&amp;Pails</td>
+</tr>
+<tr class="even">
+<td>([’"])[^\\1]*\1</td>
+<td align="right">Single or double-quoted string. \1 matches whatever the 1st group matched. \2 matches whatever the 2nd group matched, etc.</td>
+</tr>
+</tbody>
+</table>
+<p>Alternatives Sr.No. Example &amp; Description</p>
+<p>python|perl|Match “python” or “perl” rub(y|le))|Match “ruby” or “ruble” Python(!+|\?)|“Python” followed by one or more ! or one ?</p>
+<div class="row">
+<div class="col-md-6">
+<div class="python">
+<pre class="python"><code># Python 
+import re
+
+re.sub(r&#39;\[(\d+)\]&#39;, r&#39;\1&#39;, &#39;[38] min and [4] sec&#39;)
+## &#39;38 min and 4 sec&#39;
+re.sub(r&#39;\[(\d+)\]&#39;, r&#39;\1 long&#39;, &#39;[38] min and [4] sec&#39;)
+## &#39;38 long min and 4 long sec&#39;
+re.sub(r&#39;\[(\d+)\]&#39;, r&#39;\10&#39;, &#39;[38] min and [4] sec&#39;)
+## Error in py_call_impl(callable, dots$args, dots$keywords): error: invalid group reference 10 at position 1
+## 
+## Detailed traceback: 
+##   File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;
+##   File &quot;C:\Users\Beta\AppData\Local\Continuum\anaconda3\lib\re.py&quot;, line 192, in sub
+##     return _compile(pattern, flags).sub(repl, string, count)
+##   File &quot;C:\Users\Beta\AppData\Local\Continuum\anaconda3\lib\re.py&quot;, line 309, in _subx
+##     template = _compile_repl(template, pattern)
+##   File &quot;C:\Users\Beta\AppData\Local\Continuum\anaconda3\lib\re.py&quot;, line 300, in _compile_repl
+##     return sre_parse.parse_template(repl, pattern)
+##   File &quot;C:\Users\Beta\AppData\Local\Continuum\anaconda3\lib\sre_parse.py&quot;, line 1018, in parse_template
+##     addgroup(int(this[1:]), len(this) - 1)
+##   File &quot;C:\Users\Beta\AppData\Local\Continuum\anaconda3\lib\sre_parse.py&quot;, line 962, in addgroup
+##     raise s.error(&quot;invalid group reference %d&quot; % index, pos)
+re.sub(r&#39;\[(\d+)\]&#39;, r&#39;\g&lt;1&gt;0&#39;, &#39;[38] min and [4] sec&#39;)
+
+## &#39;380 min and 40 sec&#39;</code></pre>
+</div>
+</div>
+<div class="col-md-6">
+<div class="r">
+<pre class="r"><code># R
+library(stringr)
+
+
+str_replace_all( &#39;[38] min and [4] sec&#39;,&#39;\\[(\\d+)\\]&#39;, &#39;\\1&#39;)
+## [1] &quot;38 min and 4 sec&quot;
+str_replace_all( &#39;[38] min and [4] sec&#39;,&#39;\\[(\\d+)\\]&#39;, &#39;\\1 long&#39;)
+## [1] &quot;38 long min and 4 long sec&quot;
+str_replace_all( &#39;[38] min and [4] sec&#39;,&#39;\\[(\\d+)\\]&#39;, &#39;\\10&#39;)
+## [1] &quot;380 min and 40 sec&quot;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="exercice" class="section level1">
+<h1><span class="header-section-number">3</span> Exercice</h1>
+<p>Here is the list of all university restaurants in strasbourg, can you make a program that will allow us to compare the menus in the open restaurants for the next three days ? On your nagivator, go to the web page, inspect with a right click, and locate the appropriate html class.</p>
+<p><a href="https://www.crous-strasbourg.fr/restauration/vos-restaurants-et-leurs-menus/" class="uri">https://www.crous-strasbourg.fr/restauration/vos-restaurants-et-leurs-menus/</a></p>
+<ul>
+<li>Here is how you can start to get the content of a web page on R, you must submit the site url and the html class in which you are going to get your information</li>
+</ul>
+<pre><code>library(rvest)
+
+page = read_html(url)
+page  %&gt;%
+   html_nodes(.html_class)</code></pre>
+<ul>
+<li>And here’s how you can start in Python</li>
+</ul>
+<pre><code>from bs4 import BeautifulSoup
+import urllib3
+
+req = urllib3.PoolManager()
+res = req.request(&#39;GET&#39;, url)
+soup = BeautifulSoup(res.data, &#39;html.parser&#39;)
+contents = soup.find_all(class_= html_class)
+
+</code></pre>
+<p><a href="resto_u_explication.html">Detailled solution</a></p>
+<p><a href="Genius_scrap.html">Other example</a></p>
+<!--
+Here is an other very simple webscrapping example where we scrap rap-genius to get lyrics from all songs in the album '13 Organisé', for each artist we count the number of unique words after remooving stopwords.
+
+
+<a href="4_Regex.html">Example with 'rap genius'</a> -->
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

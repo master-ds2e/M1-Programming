@@ -1,0 +1,6 @@
+"0","# R "
+"0",""
+"0","plot(density(log(final_table$nb_aut+1)))"
+"2","Error in density(log(final_table$nb_aut + 1)) : 
+  objet 'final_table' introuvable
+"

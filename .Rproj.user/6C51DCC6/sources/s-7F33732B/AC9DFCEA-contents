@@ -1,0 +1,149 @@
+---
+title: "Programming technics (6 ECTS)"
+author:  "Pierre Pelletier [p.pelletier@unistra.fr]"
+output:
+  html_document
+---
+
+<p>&nbsp;</p>
+
+# Description
+
+- This course is part of the second semester of M1 DS2E/SE. It aims at providing students with fundamental programming concepts including data structures, libraries, re-usable functions, efficient codes.\ Python and R programming languages will be used, both having become very popular for data science in academia and the private sector. The course will also focus on how to report results of data analysis using Markdown and hosts of source codes (GitHub).
+
+
+<p>&nbsp;</p>
+
+- Each session will be divided into two parts, first we will go through the course using this site as a support. In the second part of the course students will be asked to solve exercises and present their approaches to others. The aim is to familiarize students with presenting and explaining their codes, but it is even more important that it serves students to benchmark their different approaches in order to better understand how to improve their code.
+
+<p>&nbsp;</p>
+
+This lecture is structured as follows (each section is covered with R and Python):
+
+- Chapter 'Basics' will go through the simplest operations we can perform. It covers the different types of objects present in the two languages, the use of control flows, and the creation of functions.
+<p>&nbsp;</p>
+- Chapter 'Arrays/Vectors' introduces the use of vectors and matrices to perform operations. It highlights the benefits of vectorization and briefly discusses how to deal with sparse matrix.
+<p>&nbsp;</p>
+- Chapter 'Regex' gives an overview of regular expression and string manipulation. It summarizes the first two chapters by applying the regular expressions in a very basic webscrapping exercise.
+<p>&nbsp;</p>
+- Chapter 'Data Analysis', in R we will use of Tibbles and data.table to store data, while in Python we will focus on pandas. Basic operations on dataframe like slicing, filtering, grouping, merging are covered in the chapter as well as reading and writing data.
+<p>&nbsp;</p>
+- Chapter 'Best Practices' is about coding in a conventional way to improve the readability of the code by others. It will also explain how to communicate and make your code accessible via github, but also how to produce reports or feed a blog with RMarkdown.
+<p>&nbsp;</p>
+- Chapter 'Efficient Programming' is an introduction to parallel computing in which its benefits and limitations will be discussed. 
+
+<p>&nbsp;</p>
+
+# Exams 
+
+
+There are three different grades in this course :
+
+- A written exam at the end of the semester (date comming up soon).
+<p>&nbsp;</p>
+- A project to be handed in by groups of 2-3. This project is totally unbounded but here is a guideline: 
+    - The project has to do data processing. After defining the type of question you want to address, select the type of data you will use (cross sectional data, emails, time series, articles, websites, maps, simulated databases, <a href="https://www.kaggle.com/datasets">kaggle</a>, <a href="https://archive.ics.uci.edu/ml/index.php">UCI</a> ...).
+    - The goal of this project is to create a tool to answer your question. This tool can be almost anything, there must be something you always dreamed to automate.
+    - The tool developed must be documented and usable through the Github platform. The slides of the presentation must be in markdown.
+<p>&nbsp;</p>
+- The project must be presented orally, students will discuss the issues raised in the project. They will present the weak and strong points of their codes and the different approaches used to address them during the creation of their tools.
+
+<p>&nbsp;</p>
+
+
+# Installs
+
+Here are some link that you can use to download and install stuff that we will need.
+
+
+- windows:
+    - https://uvastatlab.github.io/phdplus/installR.html
+    - https://www.anaconda.com/products/individual/get-started
+    - https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-from-an-environment-yml-file
+    
+- Linux:     
+    - https://linuxconfig.org/rstudio-on-ubuntu-18-04-bionic-beaver-linux
+    - https://www.digitalocean.com/community/tutorials/how-to-install-the-anaconda-python-distribution-on-ubuntu-18-04
+    - https://www.robertroos.net/blog/github-desktop-ubuntu/
+    - https://linuxize.com/post/how-to-install-pip-on-ubuntu-18.04/
+    - http://www.psych.mcgill.ca/labs/mogillab/anaconda2/lib/python2.7/site-packages/spyder/doc/installation.html
+    - https://stackoverflow.com/questions/41986507/unable-to-set-default-python-version-to-python3-in-ubuntu
+    - https://docs.anaconda.com/anaconda/install/linux/
+
+
+
+# Materials used in this course
+
+Hadley Wickham. R for Data Science: Import, Tidy, Transform, Visualize, and Model Data
+
+Zed A. Shaw. Learn Python the Hard Way: A Very Simple Introduction to the Terrifyingly Beautiful World of Computers and Code
+
+Luciano Ramalho. Fluent Python
+
+Robin Lovelace. Efficient R Programming by Colin Gillespie
+
+Wes McKinney. Python for Data Analysis
+
+https://www.anotherbookondatascience.com/
+
+https://www.business-science.io/business/2018/10/08/python-and-r.html
+
+https://www.practicaldatascience.org/html/vars_v_objects.html
+
+https://learnanalyticshere.wordpress.com/2015/05/14/clash-of-the-titans-r-vs-python/
+
+https://www.statmethods.net/input/datatypes.html
+
+https://thomas-cokelaer.info/tutorials/python/lists.html
+
+https://www.python.org/dev/peps/pep-0008/#introduction
+
+https://www.datacamp.com/community/tutorials/r-tutorial-apply-family#as
+
+https://towardsdatascience.com/the-ultimate-beginners-guide-to-numpy-f5a2f99aef54
+
+https://towardsdatascience.com/getting-started-with-git-and-github-6fcd0f2d4ac6
+
+https://docs.oracle.com/javase/tutorial/java/data/characters.html
+
+https://www.tutorialspoint.com/python/python_reg_expressions.html
+
+https://www.w3schools.com/python/python_ref_string.asp
+
+https://thomas-cokelaer.info/tutorials/python/strings.html
+
+http://eric.univ-lyon2.fr/~ricco/tanagra/fichiers/fr_Tanagra_R_Python_Data_Perfs.pdf
+
+https://juba.github.io/tidyverse/06-tidyverse.html
+
+https://atrebas.github.io/post/2019-03-03-datatable-dplyr/
+
+http://python-simple.com/python-pandas/panda-intro.php
+
+https://cran.r-project.org/web/packages/data.table/vignettes/datatable-sd-usage.html
+
+https://medium.com/bigdatarepublic/advanced-pandas-optimize-speed-and-memory-a654b53be6c2
+
+To be completed..
+
+<!---
+update
+
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
+sudo echo "deb http://cran.wustl.edu/bin/linux/ubuntu/xenial/" | sudo tee -a /etc/apt/sources.list
+sudo apt update
+sudo apt upgrade r-base r-base-dev
+sudo apt update
+sudo apt upgrade
+
+
+- exercice 
+monty hall: https://levelup.gitconnected.com/the-monty-hall-problem-solved-ec4f3753a682
+monte carlo simulation :
+boostrap:
+cluster robust:
+nr http://www.jtrive.com/estimating-logistic-regression-coefficents-from-scratch-python-version.html
+nr http://www.jtrive.com/estimating-logistic-regression-coefficents-from-scratch-r-version.html
+
+-->
+

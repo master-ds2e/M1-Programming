@@ -1,0 +1,15 @@
+"1","                  V2                  pubtype    n
+0             2142.0                      AIM  0.0
+1             2142.0  Adaptive Clinical Trial  0.0
+2             2142.0                  Address  0.0
+3             2142.0                Addresses  0.0
+4             2142.0            Autobiography  0.0
+...              ...                      ...  ...
+13442437  32931162.0                   report  0.0
+13442438  32931162.0         research-article  0.0
+13442439  32931162.0               retraction  0.0
+13442440  32931162.0           review-article  0.0
+13442441  32931162.0        systematic-review  0.0
+
+[13442442 rows x 3 columns]
+"

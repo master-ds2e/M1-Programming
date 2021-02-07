@@ -1,0 +1,4 @@
+"0","countries_dt
+"
+"0",""
+"0","countries = tolower(unique(dt_cities$country))"
