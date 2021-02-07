@@ -1297,7 +1297,9 @@ cp_datatable[c("2010", "2025"), on = "year_pub", nomatch = 0]
 ```{r,echo = T,collapse = TRUE,eval= F}
 # R using Tibbles
 
-cp_datatable[c("2010", "2020"), median(cited), on = "year_pub"]
+cp_tibble %>%
+  filter(year_pub %in% c("2010", "2020")) %>%
+  summarize(median = median(cited))
 ```
 
 </div>
@@ -1308,9 +1310,7 @@ cp_datatable[c("2010", "2020"), median(cited), on = "year_pub"]
 ```{r,echo=T,collapse = TRUE,eval= F}
 # R using data.table
 
-cp_tibble %>%
-  filter(year_pub %in% c("2010", "2020")) %>%
-  summarize(median = median(cited))
+cp_datatable[c("2010", "2020"), median(cited), on = "year_pub"]
 ```
 
 </div>
@@ -2394,7 +2394,5 @@ Can you redo the exercice using the data.table library?
 
 <a href="exo_chap_4_tibble.html">solution with dplyr</a>
 
-<a href="">solution with data.table</a> 
-
-<a href="">solution with pandas (python)</a> 
+<a href="exo_chap_4_dt.html">solution with data.table</a> 
 

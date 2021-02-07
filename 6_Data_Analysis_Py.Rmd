@@ -18,11 +18,13 @@ div.r pre { background-color: #dfdddf; }
 ```{python,echo = T,collapse = TRUE}
 # Python
 import pandas as pd
+import re
 covid_papers = pd.read_csv("data/covid_papers.csv")
 covid_papers
 covid_papers.sample(frac = 0.001).shape
 
 ```
+
 
 ```{python,echo = F}
 # Python
@@ -34,6 +36,7 @@ covid_papers = covid_papers.drop('month_pub',axis = 1)
 
 
 - Select columns
+
 <div class = "python">
 
 ```{python,echo = T,collapse = TRUE}
@@ -94,6 +97,7 @@ covid_papers.drop_duplicates(subset=['V1', 'title'])
 ```
 
 </div>
+
 - Sorting
 
 
@@ -324,3 +328,305 @@ oa = tobinary).groupby('year_pub').agg(share_en= ('is_en',sum)).div(grp_size).so
 ```
 
 </div>
+
+
+# Reshape data
+
+Imagine you have a variable with multiple categories that are store in one cell as the variables 'pubtype'  in our dataset. You may want to create different columns for each of this variable. The opposit is also possible, one can have several columns with value that we want to transforme in two columns : one with the factor and the other with the values. 
+
+First let's clean this variable and separate the string in each cells in order to have one row for each article's pubtype.
+
+<div class = "python">
+
+
+```{python,echo = T,collapse = TRUE}
+# Python
+covid_papers.pubtype.loc[1]
+
+def clean_pubtype(str):
+  return re.sub('[{]|[}]|pubType|: |[[]|[]]','',str)
+
+
+clean_pubtype(covid_papers.pubtype.loc[1])
+
+covid_papers['pubtype'] = covid_papers.pubtype.map(lambda pubtype: clean_pubtype(pubtype))
+pubtype_cp = covid_papers.assign(pubtype = covid_papers.pubtype.str.split('", "')).explode('pubtype')
+pubtype_cp['pubtype'] = pubtype_cp.pubtype.map(lambda pubtype: re.sub('"','',(pubtype)))
+
+pubtype_cp =  pubtype_cp[['pmid','pubtype']].groupby(['pmid','pubtype']).size().to_frame('n').reset_index()
+pubtype_cp_i = pubtype_cp[['pmid','pubtype']].groupby(['pmid','pubtype']).size().to_frame('n')
+```
+
+</div>
+
+
+## Cast data (from long to wide)
+<div class = "python">
+
+```{python,echo = T,collapse = TRUE}
+# Python
+pubtype_cp_i.unstack().fillna(0)
+casted_pubtype_cp = pubtype_cp.pivot(index="pmid", columns="pubtype", values="n").fillna(0)
+
+casted_pubtype_cp.shape
+```
+
+</div>
+
+## Melt data (from wide to long)
+
+<div class = "python">
+
+```{python,echo = T,collapse = TRUE}
+# Python
+
+casted_pubtype_cp.stack()
+
+
+casted_pubtype_cp.stack().to_frame('n').reset_index()
+```
+
+</div>
+
+
+## Split
+
+<div class = "python">
+
+```{python,echo = T,collapse = TRUE,results='hide'}
+# Python
+
+list(covid_papers.groupby('oa'))
+
+```
+
+</div>
+
+
+## Split and transpose a vector/column
+
+<div class = "python">
+
+```{python,echo = T,collapse = TRUE}
+# Python
+covid_papers[['doi1','doi2']] = covid_papers.doi.str.split("/",expand=True).loc[:,:1]
+covid_papers[['doi','doi1','doi2']]
+
+covid_papers.doi.str.split('/').explode()
+```
+
+</div>
+
+
+
+# Index and Keys
+    
+- df.loc are for labels/ names
+- df.iloc are for position numbers
+
+<div class = "python">
+
+```{python,echo = T,collapse = TRUE}
+# Python
+covid_papers = covid_papers.set_index('pmid')
+
+covid_papers.loc[32837036,'doi']
+
+covid_papers.iloc[2,2]
+
+
+```
+
+</div>
+
+# Join/Bind data sets
+##  Join
+
+
+<div class = "python">
+
+```{python join,echo = T,collapse = TRUE}
+# Python
+
+x <- data.table(Id  = c("A", "B", "C", "C"),
+                X1  = c(1L, 3L, 5L, 7L),
+                XY  = c("x2", "x4", "x6", "x8"),
+                key = "Id")
+
+y <- data.table(Id  = c("A", "B", "B", "D"),
+                Y1  = c(1L, 3L, 5L, 7L),
+                XY  = c("y1", "y3", "y5", "y7"),
+                key = "Id")
+
+```
+
+</div>
+
+
+- Join matching rows from y to x
+
+<div class = "python">
+
+```{python,echo = T,collapse = TRUE}
+# Python
+
+
+left_join(x, y, by = "Id")
+
+```
+
+</div>
+
+
+	
+- Join matching rows from x to y
+
+<div class = "python">
+
+```{python,echo = T,collapse = TRUE}
+# Python
+
+right_join(x, y, by = "Id")
+
+```
+
+</div>
+- Join matching rows from both x and y
+
+<div class = "python">
+
+```{python,echo = T,collapse = TRUE}
+# Python
+
+inner_join(x, y, by = "Id")
+```
+
+</div>
+
+
+- Join keeping all the rows
+
+<div class = "python">
+
+```{python,echo = T,collapse = TRUE}
+# Python
+
+full_join(x, y, by = "Id")
+```
+
+</div>
+
+
+
+- Return rows from x matching y
+
+<div class = "python">
+
+```{python,echo = T,collapse = TRUE}
+# Python
+
+semi_join(x, y, by = "Id")
+
+```
+
+</div>
+
+
+- Return rows from x not matching y
+
+<div class = "python">
+
+```{python,echo = T,collapse = TRUE}
+# Python
+
+anti_join(x, y, by = "Id")
+```
+
+</div>
+
+
+## Bind
+
+- Bind rows
+
+<div class = "python">
+
+```{python,echo = T,collapse = TRUE}
+# Python
+
+x <- data.table(1:3)
+y <- data.table(4:6)
+z <- data.table(7:9, 0L)
+
+bind_rows(x, y)
+bind_rows(x, z) # always fills
+```
+
+</div>
+
+
+- Bind columns
+
+<div class = "python">
+
+```{python,echo = T,collapse = TRUE}
+# Python
+
+bind_cols(x, y)
+```
+
+</div>
+
+
+# Other
+
+## Lead/Lag
+
+<div class = "python">
+
+```{python,echo = T,collapse = TRUE}
+# Python
+
+lag(1:10, n = 1, default = NA)
+purrr::map(1:2, ~lag(1:10, n = .x))
+lead(1:10, n = 1, default = NA)
+```
+
+</div>
+
+
+#  Read/Write data 
+## standart format
+
+<div class = "python">
+
+
+```{python,echo=T,collapse = TRUE}
+# R
+library(tidyverse)
+
+covid_papers <- read_csv("data/covid_papers.csv")
+
+covid_papers
+
+```
+</div>
+
+
+- Write data to a csv file
+
+<div class = "python">
+
+```{python,echo = T,collapse = TRUE,eval=F}
+# Python
+
+readr::write_csv(cp_tibble, "cp_tibble.csv")
+```
+
+</div>
+
+# Exercice 
+
+Translate the results of the last chapter's exercice using pandas.
+
+<a href="">solution with pandas (python)</a>
