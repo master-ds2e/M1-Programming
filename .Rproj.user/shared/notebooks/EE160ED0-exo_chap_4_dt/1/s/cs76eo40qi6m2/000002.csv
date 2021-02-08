@@ -1,0 +1,8 @@
+"0","# R data.table"
+"0",""
+"0","tic()"
+"0","dt_table_1 = dt_table_1[pmid != 'null' & doi != 'null']"
+"0","dt_table_2 = dt_table_2[pmid != 'null' & year_pub > 1975]"
+"0","toc()"
+"1","0.2 sec elapsed
+"

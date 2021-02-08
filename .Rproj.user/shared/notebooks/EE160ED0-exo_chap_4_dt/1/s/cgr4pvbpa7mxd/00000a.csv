@@ -1,0 +1,16 @@
+"0",""
+"0","key(countries_dt)"
+"1","NULL
+"
+"0","setkey(countries_dt,pmid,clean_aff)"
+"0","tic()"
+"0","countries_dt[,country := .(ifelse(any(str_detect(clean_aff,countries)),"
+"0","                                  countries[str_detect(clean_aff,countries)][1],"
+"0","                                  """")),"
+"0","             by=c('pmid','clean_aff')]"
+"0",""
+"0","countries_dt = countries_dt[,-'clean_aff']"
+"0","toc()"
+"1","721.49 sec elapsed
+"
+"0","countries_dt"

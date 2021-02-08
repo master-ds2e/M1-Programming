@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1612738714664.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2721404145",
+    "id" : "96B4FCA4",
+    "lastKnownWriteTime" : 1612629963,
+    "last_content_update" : 1612629963,
+    "path" : "~/GitHub/M1_TDP/examples/recap_m1_TDP.Rmd",
+    "project_path" : "examples/recap_m1_TDP.Rmd",
+    "properties" : {
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

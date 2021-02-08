@@ -13,7 +13,6 @@
 
 <title>Data Analysis (Py)</title>
 
-<script src="site_libs/header-attrs-2.1/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -395,13 +394,14 @@ div.python pre { background-color: #d0f5a9; }
 <style>
 div.r pre { background-color: #dfdddf; }
 </style>
-<div id="tibbles-and-data.tables" class="section level1" number="1">
-<h1 number="1"><span class="header-section-number">1</span> Tibbles and data.tables</h1>
-<div id="introduction" class="section level2" number="1.1">
-<h2 number="1.1"><span class="header-section-number">1.1</span> Introduction</h2>
+<div id="tibbles-and-data.tables" class="section level1">
+<h1><span class="header-section-number">1</span> Tibbles and data.tables</h1>
+<div id="introduction" class="section level2">
+<h2><span class="header-section-number">1.1</span> Introduction</h2>
 <div class="python">
 <pre class="python"><code># Python
 import pandas as pd
+import re
 covid_papers = pd.read_csv(&quot;data/covid_papers.csv&quot;)
 covid_papers
 ##                              _id        pmid       pmcid  ... cited has_data oa
@@ -422,11 +422,9 @@ covid_papers.sample(frac = 0.001).shape
 ## (149, 19)</code></pre>
 </div>
 <ul>
-<li>Select columns
-<div class = "python">
-
-</li>
+<li>Select columns</li>
 </ul>
+<div class="python">
 <pre class="python"><code># Python
 
 covid_papers.doi
@@ -664,8 +662,8 @@ covid_papers.groupby(&#39;source&#39;).last()
 covid_papers[&#39;grp_count&#39;] = covid_papers.groupby(&#39;source&#39;)[&#39;source&#39;].transform(&#39;count&#39;)</code></pre>
 </div>
 </div>
-<div id="more-complex-use-of-by" class="section level2" number="1.2">
-<h2 number="1.2"><span class="header-section-number">1.2</span> More complex use of by</h2>
+<div id="more-complex-use-of-by" class="section level2">
+<h2><span class="header-section-number">1.2</span> More complex use of by</h2>
 <ul>
 <li>Select specific row by group</li>
 </ul>
@@ -729,8 +727,8 @@ covid_papers.groupby([&#39;source&#39;,&#39;year_pub&#39;]).agg({&#39;cited&#39;
 ## [301 rows x 2 columns]</code></pre>
 </div>
 </div>
-<div id="more-complex-manipulation" class="section level2" number="1.3">
-<h2 number="1.3"><span class="header-section-number">1.3</span> More Complex manipulation</h2>
+<div id="more-complex-manipulation" class="section level2">
+<h2><span class="header-section-number">1.3</span> More Complex manipulation</h2>
 <ul>
 <li>Using multiple Variables</li>
 </ul>
@@ -865,6 +863,392 @@ oa = tobinary).groupby(&#39;year_pub&#39;).agg(share_en= (&#39;is_en&#39;,sum)).
 ## [137 rows x 1 columns]</code></pre>
 </div>
 </div>
+</div>
+<div id="reshape-data" class="section level1">
+<h1><span class="header-section-number">2</span> Reshape data</h1>
+<p>Imagine you have a variable with multiple categories that are store in one cell as the variables ‘pubtype’ in our dataset. You may want to create different columns for each of this variable. The opposit is also possible, one can have several columns with value that we want to transforme in two columns : one with the factor and the other with the values.</p>
+<p>First let’s clean this variable and separate the string in each cells in order to have one row for each article’s pubtype.</p>
+<div class="python">
+<pre class="python"><code># Python
+covid_papers.pubtype.loc[1]
+## &#39;{&quot;pubType&quot;: [&quot;review-article&quot;, &quot;Journal Article&quot;]}&#39;
+def clean_pubtype(str_):
+  return re.sub(&#39;[{]|[}]|pubType|: |[[]|[]]&#39;,&#39;&#39;,str_)
+
+
+clean_pubtype(covid_papers.pubtype.loc[1])
+## &#39;&quot;&quot;&quot;review-article&quot;, &quot;Journal Article&quot;&#39;
+## 
+## C:/Users/Beta/AppData/Local/Continuum/anaconda3/python.exe:2: FutureWarning: Possible nested set at position 20
+covid_papers[&#39;pubtype&#39;] = covid_papers.pubtype.map(lambda pt: clean_pubtype(str(pt)))
+pubtype_cp = covid_papers.assign(pubtype = covid_papers.pubtype.str.split(&#39;&quot;, &quot;&#39;)).explode(&#39;pubtype&#39;)
+pubtype_cp[&#39;pubtype&#39;] = pubtype_cp.pubtype.map(lambda pubtype: re.sub(&#39;&quot;&#39;,&#39;&#39;,(pubtype)))
+pubtype_cp
+##                               V1          V2          V3  ... oa grp_count var
+## 0       5f69d6fa65a250f0edc4ee5c  32837036.0  PMC7424135  ...  Y    113919   0
+## 0       5f69d6fa65a250f0edc4ee5c  32837036.0  PMC7424135  ...  Y    113919   0
+## 0       5f69d6fa65a250f0edc4ee5c  32837036.0  PMC7424135  ...  Y    113919   0
+## 1       5f69d6fa65a250f0edc4ee5d  32196410.0  PMC7170333  ...  Y    113919   0
+## 1       5f69d6fa65a250f0edc4ee5d  32196410.0  PMC7170333  ...  Y    113919   0
+## ...                          ...         ...         ...  ... ..       ...  ..
+## 148913  5f69f29165a250f0edc7340d  32091757.0  PMC7124085  ...  Y    113919   0
+## 148914  5f69f29165a250f0edc7340e  28590697.0  PMC7193726  ...  Y    113919   0
+## 148914  5f69f29165a250f0edc7340e  28590697.0  PMC7193726  ...  Y    113919   0
+## 148915  5f69f29165a250f0edc7340f  28590695.0  PMC7193709  ...  Y    113919   0
+## 148915  5f69f29165a250f0edc7340f  28590695.0  PMC7193709  ...  Y    113919   0
+## 
+## [308408 rows x 20 columns]
+pubtype_cp =  pubtype_cp[[&#39;V2&#39;,&#39;pubtype&#39;]].groupby([&#39;V2&#39;,&#39;pubtype&#39;]).size().to_frame(&#39;n&#39;).reset_index()
+pubtype_cp_i = pubtype_cp[[&#39;V2&#39;,&#39;pubtype&#39;]].groupby([&#39;V2&#39;,&#39;pubtype&#39;]).size().to_frame(&#39;n&#39;)</code></pre>
+</div>
+<div id="cast-data-from-long-to-wide" class="section level2">
+<h2><span class="header-section-number">2.1</span> Cast data (from long to wide)</h2>
+<div class="python">
+<pre class="python"><code># Python
+pubtype_cp_i.unstack().fillna(0)
+##               n                          ...                                 
+## pubtype     AIM Adaptive Clinical Trial  ... review-article systematic-review
+## V2                                       ...                                 
+## 2142.0      0.0                     0.0  ...            0.0               0.0
+## 2145.0      0.0                     0.0  ...            0.0               0.0
+## 12235.0     0.0                     0.0  ...            0.0               0.0
+## 30881.0     0.0                     0.0  ...            0.0               0.0
+## 36849.0     0.0                     0.0  ...            0.0               0.0
+## ...         ...                     ...  ...            ...               ...
+## 32931118.0  0.0                     0.0  ...            0.0               0.0
+## 32931136.0  0.0                     0.0  ...            0.0               0.0
+## 32931146.0  0.0                     0.0  ...            0.0               0.0
+## 32931161.0  0.0                     0.0  ...            0.0               0.0
+## 32931162.0  0.0                     0.0  ...            0.0               0.0
+## 
+## [113919 rows x 118 columns]
+casted_pubtype_cp = pubtype_cp.pivot(index=&quot;V2&quot;, columns=&quot;pubtype&quot;, values=&quot;n&quot;).fillna(0)
+
+casted_pubtype_cp.shape
+## (113919, 118)</code></pre>
+</div>
+</div>
+<div id="melt-data-from-wide-to-long" class="section level2">
+<h2><span class="header-section-number">2.2</span> Melt data (from wide to long)</h2>
+<div class="python">
+<pre class="python"><code># Python
+
+casted_pubtype_cp.stack()
+
+## V2          pubtype                
+## 2142.0      AIM                        0.0
+##             Adaptive Clinical Trial    0.0
+##             Address                    0.0
+##             Addresses                  0.0
+##             Autobiography              0.0
+##                                       ... 
+## 32931162.0  report                     0.0
+##             research-article           0.0
+##             retraction                 0.0
+##             review-article             0.0
+##             systematic-review          0.0
+## Length: 13442442, dtype: float64
+casted_pubtype_cp.stack().to_frame(&#39;n&#39;).reset_index()
+##                   V2                  pubtype    n
+## 0             2142.0                      AIM  0.0
+## 1             2142.0  Adaptive Clinical Trial  0.0
+## 2             2142.0                  Address  0.0
+## 3             2142.0                Addresses  0.0
+## 4             2142.0            Autobiography  0.0
+## ...              ...                      ...  ...
+## 13442437  32931162.0                   report  0.0
+## 13442438  32931162.0         research-article  0.0
+## 13442439  32931162.0               retraction  0.0
+## 13442440  32931162.0           review-article  0.0
+## 13442441  32931162.0        systematic-review  0.0
+## 
+## [13442442 rows x 3 columns]</code></pre>
+</div>
+</div>
+<div id="split" class="section level2">
+<h2><span class="header-section-number">2.3</span> Split</h2>
+<div class="python">
+<pre class="python"><code># Python
+
+list(covid_papers.groupby(&#39;oa&#39;))</code></pre>
+</div>
+</div>
+<div id="split-and-transpose-a-vectorcolumn" class="section level2">
+<h2><span class="header-section-number">2.4</span> Split and transpose a vector/column</h2>
+<div class="python">
+<pre class="python"><code># Python
+covid_papers[[&#39;doi1&#39;,&#39;doi2&#39;]] = covid_papers.doi.str.split(&quot;/&quot;,expand=True).loc[:,:1]
+covid_papers[[&#39;doi&#39;,&#39;doi1&#39;,&#39;doi2&#39;]]
+##                                      doi      doi1                     doi2
+## 0             10.1007/s12291-020-00919-0   10.1007       s12291-020-00919-0
+## 1          10.1080/22221751.2020.1746199   10.1080    22221751.2020.1746199
+## 2             10.1016/j.jiph.2020.07.011   10.1016       j.jiph.2020.07.011
+## 3             10.1016/j.ijsu.2020.07.032   10.1016       j.ijsu.2020.07.032
+## 4       10.20944/preprints202008.0312.v1  10.20944  preprints202008.0312.v1
+## ...                                  ...       ...                      ...
+## 148911                               NaN       NaN                      NaN
+## 148912                               NaN       NaN                      NaN
+## 148913                               NaN       NaN                      NaN
+## 148914                               NaN       NaN                      NaN
+## 148915                               NaN       NaN                      NaN
+## 
+## [148872 rows x 3 columns]
+covid_papers.doi.str.split(&#39;/&#39;).explode()
+## 0                       10.1007
+## 0            s12291-020-00919-0
+## 1                       10.1080
+## 1         22221751.2020.1746199
+## 2                       10.1016
+##                   ...          
+## 148911                      NaN
+## 148912                      NaN
+## 148913                      NaN
+## 148914                      NaN
+## 148915                      NaN
+## Name: doi, Length: 279799, dtype: object</code></pre>
+</div>
+</div>
+</div>
+<div id="index-and-keys" class="section level1">
+<h1><span class="header-section-number">3</span> Index and Keys</h1>
+<ul>
+<li>df.loc are for labels/ names</li>
+<li>df.iloc are for position numbers</li>
+</ul>
+<div class="python">
+<pre class="python"><code># Python
+covid_papers = covid_papers.set_index(&#39;V2&#39;)
+
+covid_papers.loc[32837036,&#39;doi&#39;]
+## &#39;10.1007/s12291-020-00919-0&#39;
+covid_papers.iloc[2,5]
+
+## 2020.0</code></pre>
+</div>
+</div>
+<div id="joinbind-data-sets" class="section level1">
+<h1><span class="header-section-number">4</span> Join/Bind data sets</h1>
+<div id="join" class="section level2">
+<h2><span class="header-section-number">4.1</span> Join</h2>
+<div class="python">
+<pre class="python"><code># Python
+
+df1 = pd.DataFrame({&#39;Id&#39;: [&#39;A&#39;,&#39;B&#39;,&#39;C&#39;,&#39;C&#39;],
+                    &#39;X1&#39;: [1,3,5,7],
+                    &#39;X2&#39;: [&#39;x2&#39;,&#39;x4&#39;,&#39;x6&#39;,&#39;x8&#39;]}).set_index(&#39;Id&#39;)
+
+df2 = pd.DataFrame({&#39;Id&#39;: [&#39;A&#39;,&#39;B&#39;,&#39;B&#39;,&#39;D&#39;],
+                    &#39;Y1&#39;: [1,3,5,7],
+                    &#39;Y2&#39;: [&#39;y1&#39;,&#39;y3&#39;,&#39;y5&#39;,&#39;y7&#39;]}).set_index(&#39;Id&#39;)</code></pre>
+</div>
+<ul>
+<li>Join matching rows from y to x</li>
+</ul>
+<div class="python">
+<pre class="python"><code># Python
+
+df1.join(df2)
+##     X1  X2   Y1   Y2
+## Id                  
+## A    1  x2  1.0   y1
+## B    3  x4  3.0   y3
+## B    3  x4  5.0   y5
+## C    5  x6  NaN  NaN
+## C    7  x8  NaN  NaN
+pd.merge(df1, df2, how= &#39;left&#39;, on = &#39;Id&#39;)
+##     X1  X2   Y1   Y2
+## Id                  
+## A    1  x2  1.0   y1
+## B    3  x4  3.0   y3
+## B    3  x4  5.0   y5
+## C    5  x6  NaN  NaN
+## C    7  x8  NaN  NaN</code></pre>
+</div>
+<ul>
+<li>Join matching rows from x to y</li>
+</ul>
+<div class="python">
+<pre class="python"><code># Python
+
+df2.join(df1)
+
+##     Y1  Y2   X1   X2
+## Id                  
+## A    1  y1  1.0   x2
+## B    3  y3  3.0   x4
+## B    5  y5  3.0   x4
+## D    7  y7  NaN  NaN
+pd.merge(df1, df2, how= &#39;right&#39;, on = &#39;Id&#39;)
+##      X1   X2  Y1  Y2
+## Id                  
+## A   1.0   x2   1  y1
+## B   3.0   x4   3  y3
+## B   3.0   x4   5  y5
+## D   NaN  NaN   7  y7</code></pre>
+</div>
+<ul>
+<li>Join matching rows from both x and y</li>
+</ul>
+<div class="python">
+<pre class="python"><code># Python
+
+pd.merge(df1, df2, how= &#39;inner&#39;, on = &#39;Id&#39;)
+##     X1  X2  Y1  Y2
+## Id                
+## A    1  x2   1  y1
+## B    3  x4   3  y3
+## B    3  x4   5  y5</code></pre>
+</div>
+<ul>
+<li>Join keeping all the rows</li>
+</ul>
+<div class="python">
+<pre class="python"><code># Python
+
+pd.merge(df1, df2, how= &#39;outer&#39;, on = &#39;Id&#39;)
+##      X1   X2   Y1   Y2
+## Id                    
+## A   1.0   x2  1.0   y1
+## B   3.0   x4  3.0   y3
+## B   3.0   x4  5.0   y5
+## C   5.0   x6  NaN  NaN
+## C   7.0   x8  NaN  NaN
+## D   NaN  NaN  7.0   y7</code></pre>
+</div>
+<ul>
+<li>Return rows from x matching y</li>
+</ul>
+<div class="python">
+<pre class="python"><code># Python
+
+df1[df1.index == df2.index]
+##     X1  X2
+## Id        
+## A    1  x2
+## B    3  x4</code></pre>
+</div>
+<ul>
+<li>Return rows from x not matching y</li>
+</ul>
+<div class="python">
+<pre class="python"><code># Python
+df1[df1.index != df2.index]
+##     X1  X2
+## Id        
+## C    5  x6
+## C    7  x8</code></pre>
+</div>
+</div>
+<div id="bind" class="section level2">
+<h2><span class="header-section-number">4.2</span> Bind</h2>
+<ul>
+<li>Bind rows</li>
+</ul>
+<div class="python">
+<pre class="python"><code># Python
+
+df1 = pd.DataFrame({&#39;Id&#39;: [&#39;A&#39;,&#39;B&#39;,&#39;C&#39;],
+                    &#39;X1&#39;: [1,3,5],
+                    &#39;X2&#39;: [&#39;x2&#39;,&#39;x4&#39;,&#39;x6&#39;]}).set_index(&#39;Id&#39;)
+
+df2 = pd.DataFrame({&#39;Id&#39;: [&#39;A&#39;,&#39;B&#39;,&#39;C&#39;],
+                    &#39;Y1&#39;: [1,3,5],
+                    &#39;Y2&#39;: [&#39;y1&#39;,&#39;y3&#39;,&#39;y5&#39;]}).set_index(&#39;Id&#39;)
+
+pd.concat([df1,df2])
+##      X1   X2   Y1   Y2
+## Id                    
+## A   1.0   x2  NaN  NaN
+## B   3.0   x4  NaN  NaN
+## C   5.0   x6  NaN  NaN
+## A   NaN  NaN  1.0   y1
+## B   NaN  NaN  3.0   y3
+## C   NaN  NaN  5.0   y5</code></pre>
+</div>
+<ul>
+<li>Bind columns</li>
+</ul>
+<div class="python">
+<pre class="python"><code># Python
+
+df3 = pd.concat([df1,df2],axis =1)
+df3
+##     X1  X2  Y1  Y2
+## Id                
+## A    1  x2   1  y1
+## B    3  x4   3  y3
+## C    5  x6   5  y5</code></pre>
+</div>
+</div>
+</div>
+<div id="other" class="section level1">
+<h1><span class="header-section-number">5</span> Other</h1>
+<ul>
+<li>Lead/Lag</li>
+</ul>
+<div class="python">
+<pre class="python"><code># Python
+
+
+df3.shift(periods = 1)
+##      X1   X2   Y1   Y2
+## Id                    
+## A   NaN  NaN  NaN  NaN
+## B   1.0   x2  1.0   y1
+## C   3.0   x4  3.0   y3
+df3.shift(periods = 1, axis= 1)
+##     X1   X2   Y1  Y2
+## Id                  
+## A  NaN  NaN  1.0  x2
+## B  NaN  NaN  3.0  x4
+## C  NaN  NaN  5.0  x6</code></pre>
+</div>
+</div>
+<div id="readwrite-data" class="section level1">
+<h1><span class="header-section-number">6</span> Read/Write data</h1>
+<div id="read" class="section level2">
+<h2><span class="header-section-number">6.1</span> Read</h2>
+<ul>
+<li>read csv file with pandas</li>
+</ul>
+<div class="python">
+<pre class="python"><code># Python
+
+covid_papers = pd.read_csv(&quot;data/covid_papers.csv&quot;)
+
+covid_papers
+##                              _id        pmid       pmcid  ... cited has_data oa
+## 0       5f69d6fa65a250f0edc4ee5c  32837036.0  PMC7424135  ...     0        N  Y
+## 1       5f69d6fa65a250f0edc4ee5d  32196410.0  PMC7170333  ...    61        N  Y
+## 2       5f69d6fa65a250f0edc4ee5e  32778421.0  PMC7402212  ...     0        N  Y
+## 3       5f69d6fa65a250f0edc4ee5f  32730205.0  PMC7382925  ...     0        N  Y
+## 4       5f69d6fa65a250f0edc4ee60         NaN         NaN  ...     0        N  N
+## ...                          ...         ...         ...  ...   ...      ... ..
+## 148911  5f69f29165a250f0edc7340b  31314321.0  PMC7121204  ...     0        N  Y
+## 148912  5f69f29165a250f0edc7340c  31314312.0  PMC7123335  ...     0        N  Y
+## 148913  5f69f29165a250f0edc7340d  32091757.0  PMC7124085  ...     0        N  Y
+## 148914  5f69f29165a250f0edc7340e  28590697.0  PMC7193726  ...     0        N  Y
+## 148915  5f69f29165a250f0edc7340f  28590695.0  PMC7193709  ...     0        N  Y
+## 
+## [148916 rows x 19 columns]</code></pre>
+</div>
+</div>
+<div id="write" class="section level2">
+<h2><span class="header-section-number">6.2</span> Write</h2>
+<ul>
+<li>write data to a csv file</li>
+</ul>
+<div class="python">
+<pre class="python"><code># Python
+
+covid_papers.to_csv(&quot;data/covid_papers.csv&quot;)</code></pre>
+</div>
+</div>
+</div>
+<div id="exercice" class="section level1">
+<h1><span class="header-section-number">7</span> Exercice</h1>
+<p>Translate last chapter’s exercice in Python using pandas.</p>
+<p><a href="">solution with pandas (python)</a></p>
 </div>
 
 

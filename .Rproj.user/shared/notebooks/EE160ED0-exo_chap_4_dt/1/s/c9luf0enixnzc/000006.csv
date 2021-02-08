@@ -1,0 +1,10 @@
+"0","# R data.table"
+"0",""
+"0","tic()"
+"0","dt_final_table = dt_table_1[dt_table_2, on = 'pmid']"
+"0","toc()"
+"1","0.14 sec elapsed
+"
+"0","dt_final_table = na.omit(dt_final_table)"
+"0","setDT(dt_final_table)"
+"0","dt_final_table"

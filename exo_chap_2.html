@@ -13,7 +13,6 @@
 
 <title>exo_chap_2</title>
 
-<script src="site_libs/header-attrs-2.1/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -396,8 +395,8 @@ div.python pre { background-color: #d0f5a9; }
 div.r pre { background-color: #dfdddf; }
 </style>
 <p><a href="3_Arrays_Vectors.html"> Go back to chapter 2</a></p>
-<div id="exercice-1" class="section level1" number="1">
-<h1 number="1"><span class="header-section-number">1</span> Exercice 1</h1>
+<div id="exercice-1" class="section level1">
+<h1><span class="header-section-number">1</span> Exercice 1</h1>
 <p>The series, <span class="math inline">\(1^{1} + 2^{2} + 3^{3} + ... + 10^{10} = 10405071317\)</span>.</p>
 <p>Find the last ten digits of the series, <span class="math inline">\(1^{1} + 2^{2} + 3^{3} + ... + 1000^{1000}\)</span>. ## R</p>
 <div class="r">
@@ -425,10 +424,10 @@ t = Sys.time()
 sum_n_power_last_digit(1000,10)
 ##  [1] &quot;1&quot; &quot;9&quot; &quot;1&quot; &quot;1&quot; &quot;0&quot; &quot;8&quot; &quot;4&quot; &quot;6&quot; &quot;7&quot; &quot;0&quot; &quot;0&quot;
 Sys.time() - t
-## Time difference of 0.02190399 secs</code></pre>
+## Time difference of 0.01891589 secs</code></pre>
 </div>
-<div id="python" class="section level2" number="1.1">
-<h2 number="1.1"><span class="header-section-number">1.1</span> Python</h2>
+<div id="python" class="section level2">
+<h2><span class="header-section-number">1.1</span> Python</h2>
 <div class="python">
 <pre class="python"><code># Python 
 import numpy as np
@@ -453,7 +452,7 @@ time.time() - t
 
 
 # In a function with python object
-## 0.02489018440246582
+## 0.024887800216674805
 def sum_n_power_last_digit(n,last_digit):
   sum_n = np.sum(np.power(np.arange(1,n+1, dtype=&quot;object&quot;),np.arange(1,n+1, dtype=&quot;object&quot;)))
   return str(sum_n)[-last_digit:]
@@ -462,18 +461,18 @@ t = time.time()
 sum_n_power_last_digit(1000,10)
 ## &#39;9110846700&#39;
 time.time() - t
-## 0.023894548416137695</code></pre>
+## 0.020908832550048828</code></pre>
 </div>
 </div>
 </div>
-<div id="exercice-2" class="section level1" number="2">
-<h1 number="2"><span class="header-section-number">2</span> Exercice 2</h1>
-<div id="exercice-1-1" class="section level2" number="2.1">
-<h2 number="2.1"><span class="header-section-number">2.1</span> Exercice 1</h2>
+<div id="exercice-2" class="section level1">
+<h1><span class="header-section-number">2</span> Exercice 2</h1>
+<div id="exercice-1-1" class="section level2">
+<h2><span class="header-section-number">2.1</span> Exercice 1</h2>
 <p>If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23.</p>
 <p>Find the sum of all the multiples of 3 or 5 below 10000.</p>
-<div id="r" class="section level3" number="2.1.1">
-<h3 number="2.1.1"><span class="header-section-number">2.1.1</span> R</h3>
+<div id="r" class="section level3">
+<h3><span class="header-section-number">2.1.1</span> R</h3>
 <div class="r">
 <pre class="r"><code>get_sum_multiples_below1 &lt;- function(below,multiple_1,multiple_2){
   sum &lt;- 0
@@ -489,7 +488,7 @@ t &lt;- Sys.time()
 get_sum_multiples_below1(10000,3,5)
 ## [1] 23331668
 Sys.time() - t
-## Time difference of 0.02090812 secs
+## Time difference of 0.01792097 secs
 
 
 
@@ -503,7 +502,7 @@ t &lt;- Sys.time()
 get_sum_multiples_below2(10000,3,5)
 ## [1] 23331668
 Sys.time() - t
-## Time difference of 0.02987099 secs
+## Time difference of 0.3643939 secs
 
 
 
@@ -517,11 +516,11 @@ t &lt;- Sys.time()
 get_sum_multiples_below3(10000,3,5)
 ## [1] 23331668
 Sys.time() - t
-## Time difference of 0.002986908 secs</code></pre>
+## Time difference of 0.002989054 secs</code></pre>
 </div>
 </div>
-<div id="python-1" class="section level3" number="2.1.2">
-<h3 number="2.1.2"><span class="header-section-number">2.1.2</span> Python</h3>
+<div id="python-1" class="section level3">
+<h3><span class="header-section-number">2.1.2</span> Python</h3>
 <div class="python">
 <pre class="python"><code>import time
 import numpy as np
@@ -539,7 +538,7 @@ get_sum_multiples_below1(10000,3,5)
 ## 23331668
 time.time() - t
 
-## 0.012942075729370117
+## 0.009955167770385742
 def get_sum_multiples_below2(below,mutiple_1,multiple_2):
   multiples = [i if ((i % mutiple_1 == 0) or (i % multiple_2 == 0)) else 0 for i in range(below)]
   return sum(multiples)
@@ -549,7 +548,7 @@ get_sum_multiples_below2(10000,3,5)
 ## 23331668
 time.time() - t
 
-## 0.011940717697143555
+## 0.013337135314941406
 def get_sum_multiples_below3(below,mutiple_1,multiple_2):
   seq = list(range(below))
   multiples = map(lambda i: i if ((i % mutiple_1 == 0) or (i % multiple_2 == 0)) else 0, seq) 
@@ -560,7 +559,7 @@ get_sum_multiples_below3(10000,3,5)
 ## 23331668
 time.time() - t
 
-## 0.010950803756713867
+## 0.010950088500976562
 def get_sum_multiples_below4(below,mutiple_1,multiple_2):
   seq = np.arange(below)
   seq = seq[((seq % mutiple_1 == 0) | (seq % multiple_2 == 0))]
@@ -573,22 +572,22 @@ time.time() - t
 
 
 # Mohammad
-## 0.01095271110534668
+## 0.010950565338134766
 t = time.time()
 div = sum(list(filter(lambda x: x % 3 == 0 or x % 5 == 0, range(1,1000))))
 print(div)
 ## 233168
 time.time() - t
-## 0.015929460525512695</code></pre>
+## 0.015930891036987305</code></pre>
 </div>
 </div>
 </div>
-<div id="exercice-2-1" class="section level2" number="2.2">
-<h2 number="2.2"><span class="header-section-number">2.2</span> Exercice 2</h2>
+<div id="exercice-2-1" class="section level2">
+<h2><span class="header-section-number">2.2</span> Exercice 2</h2>
 <p>By listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see that the 6th prime is 13.</p>
 <p>What is the 10 001st prime number?</p>
-<div id="r-1" class="section level3" number="2.2.1">
-<h3 number="2.2.1"><span class="header-section-number">2.2.1</span> R</h3>
+<div id="r-1" class="section level3">
+<h3><span class="header-section-number">2.2.1</span> R</h3>
 <div class="r">
 <pre class="r"><code>
 
@@ -618,7 +617,7 @@ t &lt;- Sys.time()
 nth_prime(10001)
 ## [1] 104743
 Sys.time() - t
-## Time difference of 1.783141 secs
+## Time difference of 1.473136 secs
 
 
 nth_prime2 &lt;- function(nth){
@@ -639,11 +638,11 @@ t &lt;- Sys.time()
 nth_prime2(10001)
 ## [1] 104743
 Sys.time() - t
-## Time difference of 2.531841 secs</code></pre>
+## Time difference of 2.522456 secs</code></pre>
 </div>
 </div>
-<div id="python-2" class="section level3" number="2.2.2">
-<h3 number="2.2.2"><span class="header-section-number">2.2.2</span> Python</h3>
+<div id="python-2" class="section level3">
+<h3><span class="header-section-number">2.2.2</span> Python</h3>
 <div class="python">
 <pre class="python"><code># Python 
 # Astrid
@@ -675,7 +674,7 @@ print(p)
 time.time() - t
 
 # Corentin
-## 0.18465375900268555
+## 0.16837430000305176
 import math
 
 def return_ith_prime(ith):
@@ -692,7 +691,7 @@ print(return_ith_prime(10001))
 ## 104743
 time.time() - t
 
-## 0.2867395877838135
+## 0.29470229148864746
 def nth_prime2(nth):
   primes = [2,3]
   i = 3
@@ -710,17 +709,17 @@ t = time.time()
 nth_prime2(10001)
 ## 104743
 time.time() - t
-## 0.8266496658325195</code></pre>
+## 0.860727071762085</code></pre>
 </div>
 </div>
 </div>
 </div>
-<div id="exercice-3" class="section level1" number="3">
-<h1 number="3"><span class="header-section-number">3</span> Exercice 3</h1>
+<div id="exercice-3" class="section level1">
+<h1><span class="header-section-number">3</span> Exercice 3</h1>
 <p>2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder.</p>
 <p>What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?</p>
-<div id="r-2" class="section level2" number="3.1">
-<h2 number="3.1"><span class="header-section-number">3.1</span> R</h2>
+<div id="r-2" class="section level2">
+<h2><span class="header-section-number">3.1</span> R</h2>
 <div class="r">
 <pre class="r"><code># R
 
@@ -748,11 +747,11 @@ t = Sys.time()
 smallest_multiple(20)
 ## [1] 232792560
 Sys.time() - t
-## Time difference of 10.00834 secs</code></pre>
+## Time difference of 9.549364 secs</code></pre>
 </div>
 </div>
-<div id="python-3" class="section level2" number="3.2">
-<h2 number="3.2"><span class="header-section-number">3.2</span> Python</h2>
+<div id="python-3" class="section level2">
+<h2><span class="header-section-number">3.2</span> Python</h2>
 <div class="python">
 <pre class="python"><code># Python
 # Corentin
@@ -776,7 +775,7 @@ print(smallest_multiple(np.arange(1, 21)))
 ## 232792560
 time.time() - t
 
-## 94.86909031867981</code></pre>
+## 84.67001748085022</code></pre>
 <pre class="python"><code># Python
 
 import numpy as np
@@ -800,7 +799,7 @@ def smallest_multiple(n):
     return results
     
 time.time() - t
-## 0.008960247039794922
+## 0.009955883026123047
 smallest_multiple(20)
 ## 232792560
 t = time.time() </code></pre>
@@ -854,14 +853,14 @@ t = time.time()
 print (DivisibleParN(20),&#39;est divisible par tous les chiffres.&#39;)
 ## 232792560 est divisible par tous les chiffres.
 time.time() - t
-## 0.021903276443481445</code></pre>
+## 0.01891779899597168</code></pre>
 </div>
 </div>
 </div>
-<div id="exercice-4" class="section level1" number="4">
-<h1 number="4"><span class="header-section-number">4</span> Exercice 4</h1>
-<div id="python-4" class="section level2" number="4.1">
-<h2 number="4.1"><span class="header-section-number">4.1</span> Python</h2>
+<div id="exercice-4" class="section level1">
+<h1><span class="header-section-number">4</span> Exercice 4</h1>
+<div id="python-4" class="section level2">
+<h2><span class="header-section-number">4.1</span> Python</h2>
 <div class="python">
 <pre class="python"><code>np.sum(np.array(list(str(2**1000)),dtype=np.int))
 
@@ -872,10 +871,10 @@ print(sum(int(i) for i in str(2**1000)))
 </div>
 </div>
 </div>
-<div id="exercice-5" class="section level1" number="5">
-<h1 number="5"><span class="header-section-number">5</span> Exercice 5</h1>
-<div id="python-5" class="section level2" number="5.1">
-<h2 number="5.1"><span class="header-section-number">5.1</span> Python</h2>
+<div id="exercice-5" class="section level1">
+<h1><span class="header-section-number">5</span> Exercice 5</h1>
+<div id="python-5" class="section level2">
+<h2><span class="header-section-number">5.1</span> Python</h2>
 <div class="python">
 <pre class="python"><code># Python
 # Tamara
@@ -920,7 +919,7 @@ print(&#39;le palindrome est:&#39;,maxpal,&#39;avec i=&#39;,maxi,&#39;et j=&#39;
 time.time() - t   
 
 # Julian
-## 0.32656049728393555
+## 0.2976877689361572
 t = time.time()
 pal = []
 for i in range(100, 1000):
@@ -935,7 +934,7 @@ print(max(pal))
 time.time() - t
 
 #
-## 0.4131791591644287
+## 0.400235652923584
 t = time.time()
 three_digits = np.arange(100,1000)
 products = np.repeat(three_digits, len(three_digits))*np.tile(three_digits,len(three_digits))
@@ -944,7 +943,7 @@ print(max(palindromes))
 ## 906609
 time.time() - t
 
-## 1.2285847663879395</code></pre>
+## 1.1678547859191895</code></pre>
 </div>
 <p><a href="3_Arrays_Vectors.html"> Go back to chapter 2</a></p>
 </div>

@@ -1,0 +1,11 @@
+"0","# R data.table"
+"0","tic()"
+"0","countries_dt = countries_dt[, .(clean_aff=str_replace_all(clean_aff,' USA','United States'),pmid=pmid)"
+"0","                            ][, .(clean_aff=str_replace_all(clean_aff,' UK','United Kingdom'),pmid=pmid)"
+"0","                              ][, .(clean_aff=str_replace_all(clean_aff,' Korea','South Korea'),pmid=pmid)]"
+"0",""
+"0","countries_dt = countries_dt[,.(clean_aff = tolower(clean_aff),pmid=pmid)]"
+"0","toc()"
+"1","17.16 sec elapsed
+"
+"0","countries_dt"
