@@ -424,7 +424,7 @@ t = Sys.time()
 sum_n_power_last_digit(1000,10)
 ##  [1] &quot;1&quot; &quot;9&quot; &quot;1&quot; &quot;1&quot; &quot;0&quot; &quot;8&quot; &quot;4&quot; &quot;6&quot; &quot;7&quot; &quot;0&quot; &quot;0&quot;
 Sys.time() - t
-## Time difference of 0.01891589 secs</code></pre>
+## Time difference of 0.01792002 secs</code></pre>
 </div>
 <div id="python" class="section level2">
 <h2><span class="header-section-number">1.1</span> Python</h2>
@@ -452,7 +452,7 @@ time.time() - t
 
 
 # In a function with python object
-## 0.024887800216674805
+## 0.021905183792114258
 def sum_n_power_last_digit(n,last_digit):
   sum_n = np.sum(np.power(np.arange(1,n+1, dtype=&quot;object&quot;),np.arange(1,n+1, dtype=&quot;object&quot;)))
   return str(sum_n)[-last_digit:]
@@ -461,7 +461,7 @@ t = time.time()
 sum_n_power_last_digit(1000,10)
 ## &#39;9110846700&#39;
 time.time() - t
-## 0.020908832550048828</code></pre>
+## 0.02290058135986328</code></pre>
 </div>
 </div>
 </div>
@@ -488,7 +488,7 @@ t &lt;- Sys.time()
 get_sum_multiples_below1(10000,3,5)
 ## [1] 23331668
 Sys.time() - t
-## Time difference of 0.01792097 secs
+## Time difference of 0.02090907 secs
 
 
 
@@ -502,7 +502,7 @@ t &lt;- Sys.time()
 get_sum_multiples_below2(10000,3,5)
 ## [1] 23331668
 Sys.time() - t
-## Time difference of 0.3643939 secs
+## Time difference of 0.02887416 secs
 
 
 
@@ -516,7 +516,7 @@ t &lt;- Sys.time()
 get_sum_multiples_below3(10000,3,5)
 ## [1] 23331668
 Sys.time() - t
-## Time difference of 0.002989054 secs</code></pre>
+## Time difference of 0.0029881 secs</code></pre>
 </div>
 </div>
 <div id="python-1" class="section level3">
@@ -538,7 +538,7 @@ get_sum_multiples_below1(10000,3,5)
 ## 23331668
 time.time() - t
 
-## 0.009955167770385742
+## 0.011948108673095703
 def get_sum_multiples_below2(below,mutiple_1,multiple_2):
   multiples = [i if ((i % mutiple_1 == 0) or (i % multiple_2 == 0)) else 0 for i in range(below)]
   return sum(multiples)
@@ -548,7 +548,7 @@ get_sum_multiples_below2(10000,3,5)
 ## 23331668
 time.time() - t
 
-## 0.013337135314941406
+## 0.013938665390014648
 def get_sum_multiples_below3(below,mutiple_1,multiple_2):
   seq = list(range(below))
   multiples = map(lambda i: i if ((i % mutiple_1 == 0) or (i % multiple_2 == 0)) else 0, seq) 
@@ -559,7 +559,7 @@ get_sum_multiples_below3(10000,3,5)
 ## 23331668
 time.time() - t
 
-## 0.010950088500976562
+## 0.014935016632080078
 def get_sum_multiples_below4(below,mutiple_1,multiple_2):
   seq = np.arange(below)
   seq = seq[((seq % mutiple_1 == 0) | (seq % multiple_2 == 0))]
@@ -572,13 +572,13 @@ time.time() - t
 
 
 # Mohammad
-## 0.010950565338134766
+## 0.011947393417358398
 t = time.time()
 div = sum(list(filter(lambda x: x % 3 == 0 or x % 5 == 0, range(1,1000))))
 print(div)
 ## 233168
 time.time() - t
-## 0.015930891036987305</code></pre>
+## 0.10653042793273926</code></pre>
 </div>
 </div>
 </div>
@@ -617,7 +617,7 @@ t &lt;- Sys.time()
 nth_prime(10001)
 ## [1] 104743
 Sys.time() - t
-## Time difference of 1.473136 secs
+## Time difference of 2.154986 secs
 
 
 nth_prime2 &lt;- function(nth){
@@ -638,7 +638,7 @@ t &lt;- Sys.time()
 nth_prime2(10001)
 ## [1] 104743
 Sys.time() - t
-## Time difference of 2.522456 secs</code></pre>
+## Time difference of 2.855793 secs</code></pre>
 </div>
 </div>
 <div id="python-2" class="section level3">
@@ -674,7 +674,7 @@ print(p)
 time.time() - t
 
 # Corentin
-## 0.16837430000305176
+## 0.3056511878967285
 import math
 
 def return_ith_prime(ith):
@@ -691,7 +691,7 @@ print(return_ith_prime(10001))
 ## 104743
 time.time() - t
 
-## 0.29470229148864746
+## 0.3763420581817627
 def nth_prime2(nth):
   primes = [2,3]
   i = 3
@@ -709,7 +709,7 @@ t = time.time()
 nth_prime2(10001)
 ## 104743
 time.time() - t
-## 0.860727071762085</code></pre>
+## 1.066735029220581</code></pre>
 </div>
 </div>
 </div>
@@ -747,7 +747,7 @@ t = Sys.time()
 smallest_multiple(20)
 ## [1] 232792560
 Sys.time() - t
-## Time difference of 9.549364 secs</code></pre>
+## Time difference of 13.80332 secs</code></pre>
 </div>
 </div>
 <div id="python-3" class="section level2">
@@ -775,7 +775,7 @@ print(smallest_multiple(np.arange(1, 21)))
 ## 232792560
 time.time() - t
 
-## 84.67001748085022</code></pre>
+## 111.8183650970459</code></pre>
 <pre class="python"><code># Python
 
 import numpy as np
@@ -799,7 +799,7 @@ def smallest_multiple(n):
     return results
     
 time.time() - t
-## 0.009955883026123047
+## 0.009957075119018555
 smallest_multiple(20)
 ## 232792560
 t = time.time() </code></pre>
@@ -853,7 +853,7 @@ t = time.time()
 print (DivisibleParN(20),&#39;est divisible par tous les chiffres.&#39;)
 ## 232792560 est divisible par tous les chiffres.
 time.time() - t
-## 0.01891779899597168</code></pre>
+## 0.020908594131469727</code></pre>
 </div>
 </div>
 </div>
@@ -919,7 +919,7 @@ print(&#39;le palindrome est:&#39;,maxpal,&#39;avec i=&#39;,maxi,&#39;et j=&#39;
 time.time() - t   
 
 # Julian
-## 0.2976877689361572
+## 0.36738133430480957
 t = time.time()
 pal = []
 for i in range(100, 1000):
@@ -934,7 +934,7 @@ print(max(pal))
 time.time() - t
 
 #
-## 0.400235652923584
+## 0.6969294548034668
 t = time.time()
 three_digits = np.arange(100,1000)
 products = np.repeat(three_digits, len(three_digits))*np.tile(three_digits,len(three_digits))
@@ -943,7 +943,7 @@ print(max(palindromes))
 ## 906609
 time.time() - t
 
-## 1.1678547859191895</code></pre>
+## 1.3181936740875244</code></pre>
 </div>
 <p><a href="3_Arrays_Vectors.html"> Go back to chapter 2</a></p>
 </div>

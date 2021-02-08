@@ -1,0 +1,34 @@
+"0","
+
+
+plot_top_n  = function(n_top,year){
+  
+  countries_to_plot = as.matrix(
+    countries_pub_dt[year_pub>=year,
+                     .(sum_paper = sum(n)),
+                     by = .(country)
+                     ][order(sum_paper, decreasing = T)
+                       ][1:n_top,'country']
+    )
+
+
+  fig = plot_ly(countries_pub_dt[year_pub>=year & country %in% countries_to_plot], 
+                x = ~year_pub,
+                y = ~n,
+                color = ~country) %>% 
+    layout(yaxis = list(title = 'Count',type = 'log'),
+           barmode = 'stack')
+
+  fig
+}
+
+plot_top_n(10,2001)
+"
+"2","No trace type specified:
+  Based on info supplied, a 'bar' trace seems appropriate.
+  Read more about this trace type -> https://plot.ly/r/reference/#bar
+"
+"2","No trace type specified:
+  Based on info supplied, a 'bar' trace seems appropriate.
+  Read more about this trace type -> https://plot.ly/r/reference/#bar
+"

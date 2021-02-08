@@ -1,0 +1,6 @@
+"0","# R data.table"
+"0","tic()"
+"0","dt_final_table[,pub_type := str_match_all(pubtype, '\\[""""(.*?)""""')[[1]][2],by = 'pmid']"
+"0","toc()"
+"1","2.5 sec elapsed
+"

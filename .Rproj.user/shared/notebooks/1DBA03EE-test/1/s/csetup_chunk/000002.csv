@@ -1,2 +1,5 @@
-"0","knitr::opts_chunk$set(echo = TRUE)"
-"0","library(reticulate)"
+"0","knitr::opts_chunk$set(echo = TRUE,"
+"0","                      warning=FALSE,"
+"0","                      error=FALSE,"
+"0","                      collaps = TRUE)"
+"0",""
