@@ -418,10 +418,11 @@ dt_table_1 = fread(file = &#39;data/table_1.csv&#39;)
 dt_table_2 = fread(file = &#39;data/table_2.csv&#39;)
 dt_cities = fread(file = &#39;data/cities_loc.csv&#39;)
 toc()
-## 1.78 sec elapsed
+## 1.69 sec elapsed
 
 setDT(dt_table_1)
 setDT(dt_table_2)
+
 setkey(dt_table_1,pmid)
 setkey(dt_table_2,pmid)</code></pre>
 </div>
@@ -446,25 +447,47 @@ toc()
 <pre class="r"><code># R data.table
 
 tic()
-dt_final_table = dt_table_1[dt_table_2, on = &#39;pmid&#39;]
+dt_final_table = na.omit(dt_table_2[dt_table_1, on = &#39;pmid&#39;])
 toc()
-## 0.03 sec elapsed
+## 0.06 sec elapsed
 
-dt_final_table = na.omit(dt_final_table)
-setDT(dt_final_table)
 dt_final_table
-##             pmid                                 doi
-##      1: 10022847             10.1093/emboj/18.4.1059
-##      2: 10023135                   10.1159/000028054
-##      3: 10023767       10.1016/s1074-7613(00)80003-5
-##      4: 10024427              10.1006/mcpr.1998.0204
-##      5: 10024430              10.1006/mcpr.1998.0211
-##     ---                                             
-## 108718:  9952375                      10.1086/314618
-## 108719:  9971782     10.1128/jvi.73.3.2016-2026.1999
-## 108720:  9971783     10.1128/jvi.73.3.2027-2037.1999
-## 108721:  9988465 10.1046/j.1365-2222.1998.028s5181.x
-## 108722:  9989453  10.1111/j.1750-3639.1999.tb00212.x
+##             pmid
+##      1: 10022847
+##      2: 10023135
+##      3: 10023767
+##      4: 10024427
+##      5: 10024430
+##     ---         
+## 108718:  9952375
+## 108719:  9971782
+## 108720:  9971783
+## 108721:  9988465
+## 108722:  9989453
+##                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               authors
+##      1:                                                                                                                                                                                                                                                                                                                                            &lt;AUTHOR&gt; Glombik MM Glombik&lt;AFFILIATION&gt;None&lt;AUTHOR&gt; KrÃ¶mer A KrÃ¶mer&lt;AFFILIATION&gt;None&lt;AUTHOR&gt; Salm T Salm&lt;AFFILIATION&gt;None&lt;AUTHOR&gt; Huttner WB Huttner&lt;AFFILIATION&gt;None&lt;AUTHOR&gt; Gerdes HH Gerdes&lt;AFFILIATION&gt;None
+##      2:                                                                                                                                                                                                                                          &lt;AUTHOR&gt; Lavi E E Lavi&lt;AFFILIATION&gt;Division of Neuropathology, Department of Pathology and Laboratory Medicine, University of Pennsylvania School of Medicine, Philadelphia, PA 19104-6085, USA.lavi@mail.med.upenn.edu&lt;AUTHOR&gt; Das Sarma J J Das Sarma&lt;AFFILIATION&gt;None&lt;AUTHOR&gt; Weiss SR S R Weiss&lt;AFFILIATION&gt;None
+##      3:                                                                                                            &lt;AUTHOR&gt; Saura M M Saura&lt;AFFILIATION&gt;Department of Medicine, The Johns Hopkins University School of Medicine, Baltimore, Maryland 21205, USA.&lt;AUTHOR&gt; Zaragoza C C Zaragoza&lt;AFFILIATION&gt;None&lt;AUTHOR&gt; McMillan A A McMillan&lt;AFFILIATION&gt;None&lt;AUTHOR&gt; Quick RA R A Quick&lt;AFFILIATION&gt;None&lt;AUTHOR&gt; Hohenadl C C Hohenadl&lt;AFFILIATION&gt;None&lt;AUTHOR&gt; Lowenstein JM J M Lowenstein&lt;AFFILIATION&gt;None&lt;AUTHOR&gt; Lowenstein CJ C J Lowenstein&lt;AFFILIATION&gt;None
+##      4:                                                                                                                                                                                                                                                                                                                                                               &lt;AUTHOR&gt; Wang X X Wang&lt;AFFILIATION&gt;Department of Pathobiology, University of Connecticut, U-89,61 North Eagleville Road, Storrs, CT, 06269-3089, USA.&lt;AUTHOR&gt; Khan MI M I Khan&lt;AFFILIATION&gt;None
+##      5:                                                                                                                                                                                                                                                                                              &lt;AUTHOR&gt; Wang RF Wang&lt;AFFILIATION&gt;None&lt;AUTHOR&gt; Campbell WL Campbell&lt;AFFILIATION&gt;None&lt;AUTHOR&gt; Cao WW Cao&lt;AFFILIATION&gt;None&lt;AUTHOR&gt; Colvert RM Colvert&lt;AFFILIATION&gt;None&lt;AUTHOR&gt; Holland MA Holland&lt;AFFILIATION&gt;None&lt;AUTHOR&gt; Cerniglia CE Cerniglia&lt;AFFILIATION&gt;None
+##     ---                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+## 108718: &lt;AUTHOR&gt; Teran LM L M Teran&lt;AFFILIATION&gt;Department of Medicine, Health, and Biological Sciences, University of Southampton, School of Medicine, Southampton General Hospital, Southampton, Hampshire, United Kingdom S016 6YD.&lt;AUTHOR&gt; Seminario MC M C Seminario&lt;AFFILIATION&gt;None&lt;AUTHOR&gt; Shute JK J K Shute&lt;AFFILIATION&gt;None&lt;AUTHOR&gt; Papi A A Papi&lt;AFFILIATION&gt;None&lt;AUTHOR&gt; Compton SJ S J Compton&lt;AFFILIATION&gt;None&lt;AUTHOR&gt; Low JL J L Low&lt;AFFILIATION&gt;None&lt;AUTHOR&gt; Gleich GJ G J Gleich&lt;AFFILIATION&gt;None&lt;AUTHOR&gt; Johnston SL S L Johnston&lt;AFFILIATION&gt;None
+## 108719:                                                                                                                                                                                                                                                                         &lt;AUTHOR&gt; Pedersen KW K W Pedersen&lt;AFFILIATION&gt;Division of Electron Microscopy, Department of Biology, University of Oslo, Oslo, Norway.&lt;AUTHOR&gt; van der Meer Y Y van der Meer&lt;AFFILIATION&gt;None&lt;AUTHOR&gt; Roos N N Roos&lt;AFFILIATION&gt;None&lt;AUTHOR&gt; Snijder EJ E J Snijder&lt;AFFILIATION&gt;None
+## 108720:                                                                                                                                                                                                                                                                         &lt;AUTHOR&gt; van Dinten LC L C van Dinten&lt;AFFILIATION&gt;Department of Virology, Leiden University Medical Center, Leiden, The Netherlands.&lt;AUTHOR&gt; Rensen S S Rensen&lt;AFFILIATION&gt;None&lt;AUTHOR&gt; Gorbalenya AE A E Gorbalenya&lt;AFFILIATION&gt;None&lt;AUTHOR&gt; Snijder EJ E J Snijder&lt;AFFILIATION&gt;None
+## 108721:                                                                                                                                                                                                                                                                                                                                                                                                                                                          &lt;AUTHOR&gt; Johnston SL S L Johnston&lt;AFFILIATION&gt;University Medicine, Southampton General Hospital, UK.
+## 108722:                                                                                                                                                                                                                                                                                                     &lt;AUTHOR&gt; Smith KJ K J Smith&lt;AFFILIATION&gt;Department of Clinical Neurological Sciences, Guy&#39;s, King&#39;s and St. Thomas&#39; School of Medicine, London. k.smith@umds.ac.uk&lt;AUTHOR&gt; Kapoor R R Kapoor&lt;AFFILIATION&gt;None&lt;AUTHOR&gt; Felts PA P A Felts&lt;AFFILIATION&gt;None
+##         year_pub has_data oa cited                                 doi
+##      1:     1999        N  N    61             10.1093/emboj/18.4.1059
+##      2:     1999        Y  Y    12                   10.1159/000028054
+##      3:     1999        N  Y   115       10.1016/s1074-7613(00)80003-5
+##      4:     1999        N  Y     8              10.1006/mcpr.1998.0204
+##      5:     1999        N  N     1              10.1006/mcpr.1998.0211
+##     ---                                                               
+## 108718:     1999        N  Y    48                      10.1086/314618
+## 108719:     1999        N  N   195     10.1128/jvi.73.3.2016-2026.1999
+## 108720:     1999        Y  N    65     10.1128/jvi.73.3.2027-2037.1999
+## 108721:     1998        N  Y     8 10.1046/j.1365-2222.1998.028s5181.x
+## 108722:     1999        N  Y   282  10.1111/j.1750-3639.1999.tb00212.x
 ##                                                                                                                                                                                                      title
 ##      1:                                                      The disulfide-bonded loop of chromogranin B mediates membrane binding and directs sorting from the trans-Golgi network to secretory granules.
 ##      2:                                                                                                   Cellular reservoirs for coronavirus infection of the brain in beta2-microglobulin knockout mice.
@@ -512,31 +535,7 @@ dt_final_table
 ## 108719: &quot;&quot;Print&quot;&quot;
 ## 108720: &quot;&quot;Print&quot;&quot;
 ## 108721: &quot;&quot;Print&quot;&quot;
-## 108722: &quot;&quot;Print&quot;&quot;
-##                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               authors
-##      1:                                                                                                                                                                                                                                                                                                                                            &lt;AUTHOR&gt; Glombik MM Glombik&lt;AFFILIATION&gt;None&lt;AUTHOR&gt; KrÃ¶mer A KrÃ¶mer&lt;AFFILIATION&gt;None&lt;AUTHOR&gt; Salm T Salm&lt;AFFILIATION&gt;None&lt;AUTHOR&gt; Huttner WB Huttner&lt;AFFILIATION&gt;None&lt;AUTHOR&gt; Gerdes HH Gerdes&lt;AFFILIATION&gt;None
-##      2:                                                                                                                                                                                                                                          &lt;AUTHOR&gt; Lavi E E Lavi&lt;AFFILIATION&gt;Division of Neuropathology, Department of Pathology and Laboratory Medicine, University of Pennsylvania School of Medicine, Philadelphia, PA 19104-6085, USA.lavi@mail.med.upenn.edu&lt;AUTHOR&gt; Das Sarma J J Das Sarma&lt;AFFILIATION&gt;None&lt;AUTHOR&gt; Weiss SR S R Weiss&lt;AFFILIATION&gt;None
-##      3:                                                                                                            &lt;AUTHOR&gt; Saura M M Saura&lt;AFFILIATION&gt;Department of Medicine, The Johns Hopkins University School of Medicine, Baltimore, Maryland 21205, USA.&lt;AUTHOR&gt; Zaragoza C C Zaragoza&lt;AFFILIATION&gt;None&lt;AUTHOR&gt; McMillan A A McMillan&lt;AFFILIATION&gt;None&lt;AUTHOR&gt; Quick RA R A Quick&lt;AFFILIATION&gt;None&lt;AUTHOR&gt; Hohenadl C C Hohenadl&lt;AFFILIATION&gt;None&lt;AUTHOR&gt; Lowenstein JM J M Lowenstein&lt;AFFILIATION&gt;None&lt;AUTHOR&gt; Lowenstein CJ C J Lowenstein&lt;AFFILIATION&gt;None
-##      4:                                                                                                                                                                                                                                                                                                                                                               &lt;AUTHOR&gt; Wang X X Wang&lt;AFFILIATION&gt;Department of Pathobiology, University of Connecticut, U-89,61 North Eagleville Road, Storrs, CT, 06269-3089, USA.&lt;AUTHOR&gt; Khan MI M I Khan&lt;AFFILIATION&gt;None
-##      5:                                                                                                                                                                                                                                                                                              &lt;AUTHOR&gt; Wang RF Wang&lt;AFFILIATION&gt;None&lt;AUTHOR&gt; Campbell WL Campbell&lt;AFFILIATION&gt;None&lt;AUTHOR&gt; Cao WW Cao&lt;AFFILIATION&gt;None&lt;AUTHOR&gt; Colvert RM Colvert&lt;AFFILIATION&gt;None&lt;AUTHOR&gt; Holland MA Holland&lt;AFFILIATION&gt;None&lt;AUTHOR&gt; Cerniglia CE Cerniglia&lt;AFFILIATION&gt;None
-##     ---                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
-## 108718: &lt;AUTHOR&gt; Teran LM L M Teran&lt;AFFILIATION&gt;Department of Medicine, Health, and Biological Sciences, University of Southampton, School of Medicine, Southampton General Hospital, Southampton, Hampshire, United Kingdom S016 6YD.&lt;AUTHOR&gt; Seminario MC M C Seminario&lt;AFFILIATION&gt;None&lt;AUTHOR&gt; Shute JK J K Shute&lt;AFFILIATION&gt;None&lt;AUTHOR&gt; Papi A A Papi&lt;AFFILIATION&gt;None&lt;AUTHOR&gt; Compton SJ S J Compton&lt;AFFILIATION&gt;None&lt;AUTHOR&gt; Low JL J L Low&lt;AFFILIATION&gt;None&lt;AUTHOR&gt; Gleich GJ G J Gleich&lt;AFFILIATION&gt;None&lt;AUTHOR&gt; Johnston SL S L Johnston&lt;AFFILIATION&gt;None
-## 108719:                                                                                                                                                                                                                                                                         &lt;AUTHOR&gt; Pedersen KW K W Pedersen&lt;AFFILIATION&gt;Division of Electron Microscopy, Department of Biology, University of Oslo, Oslo, Norway.&lt;AUTHOR&gt; van der Meer Y Y van der Meer&lt;AFFILIATION&gt;None&lt;AUTHOR&gt; Roos N N Roos&lt;AFFILIATION&gt;None&lt;AUTHOR&gt; Snijder EJ E J Snijder&lt;AFFILIATION&gt;None
-## 108720:                                                                                                                                                                                                                                                                         &lt;AUTHOR&gt; van Dinten LC L C van Dinten&lt;AFFILIATION&gt;Department of Virology, Leiden University Medical Center, Leiden, The Netherlands.&lt;AUTHOR&gt; Rensen S S Rensen&lt;AFFILIATION&gt;None&lt;AUTHOR&gt; Gorbalenya AE A E Gorbalenya&lt;AFFILIATION&gt;None&lt;AUTHOR&gt; Snijder EJ E J Snijder&lt;AFFILIATION&gt;None
-## 108721:                                                                                                                                                                                                                                                                                                                                                                                                                                                          &lt;AUTHOR&gt; Johnston SL S L Johnston&lt;AFFILIATION&gt;University Medicine, Southampton General Hospital, UK.
-## 108722:                                                                                                                                                                                                                                                                                                     &lt;AUTHOR&gt; Smith KJ K J Smith&lt;AFFILIATION&gt;Department of Clinical Neurological Sciences, Guy&#39;s, King&#39;s and St. Thomas&#39; School of Medicine, London. k.smith@umds.ac.uk&lt;AUTHOR&gt; Kapoor R R Kapoor&lt;AFFILIATION&gt;None&lt;AUTHOR&gt; Felts PA P A Felts&lt;AFFILIATION&gt;None
-##         year_pub has_data oa cited
-##      1:     1999        N  N    61
-##      2:     1999        Y  Y    12
-##      3:     1999        N  Y   115
-##      4:     1999        N  Y     8
-##      5:     1999        N  N     1
-##     ---                           
-## 108718:     1999        N  Y    48
-## 108719:     1999        N  N   195
-## 108720:     1999        Y  N    65
-## 108721:     1998        N  Y     8
-## 108722:     1999        N  Y   282</code></pre>
+## 108722: &quot;&quot;Print&quot;&quot;</code></pre>
 </div>
 </div>
 <div id="number-of-authors" class="section level1">
@@ -548,7 +547,7 @@ tic()
 dt_final_table[,nb_aut := dim(str_match_all(authors, &#39;&lt;AUTHOR&gt;&#39;)[[1]])[1],
                by = &#39;pmid&#39;]
 toc()
-## 3.23 sec elapsed
+## 3.36 sec elapsed
 
 dt_final_table[,c(&#39;authors&#39;, &#39;nb_aut&#39;)]
 ##                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               authors
@@ -603,7 +602,7 @@ dt_final_table[, &#39;title&#39; := .(tolower(title)),
                                               ifelse(oa == &#39;Y&#39;,1,0)),
                  by = &#39;pmid&#39;]
 toc()
-## 5.51 sec elapsed
+## 5.18 sec elapsed
 
 
 sum(dt_final_table$ML)
@@ -628,7 +627,7 @@ dt_final_table[,.(share_oa = sum(as.numeric(oa))/.N,
 ## 1:  0 0.7266799  11.277353
 ## 2:  1 0.8018018   1.054054
 toc()
-## 0.2 sec elapsed</code></pre>
+## 0.06 sec elapsed</code></pre>
 </div>
 </div>
 <div id="clean-up-pub_type" class="section level1">
@@ -639,7 +638,7 @@ toc()
 tic()
 dt_final_table[,pub_type := str_match_all(pubtype, &#39;\\[&quot;&quot;(.*?)&quot;&quot;&#39;)[[1]][2],by = &#39;pmid&#39;]
 toc()
-## 2.52 sec elapsed</code></pre>
+## 2.64 sec elapsed</code></pre>
 </div>
 </div>
 <div id="highest-meansd-of-citation" class="section level1">
@@ -822,7 +821,7 @@ dt_final_table[,
 ## 83:          NA
 ##             sd_
 toc()
-## 0.03 sec elapsed
+## 0.05 sec elapsed
 
 tic()
 dt_final_table[,
@@ -999,7 +998,7 @@ dt_final_table[,
 ## 83:          NA
 ##             sd_
 toc()
-## 0.03 sec elapsed</code></pre>
+## 0.05 sec elapsed</code></pre>
 </div>
 </div>
 <div id="most-representative-countres-by-year" class="section level1">
@@ -1011,10 +1010,10 @@ toc()
 countries = tolower(unique(dt_cities$country))
 
 tic()
-countries_dt = dt_final_table[,c(&#39;pmid&#39;,&#39;authors&#39;)]
-countries_dt = countries_dt[,.(authors = unlist(tstrsplit(authors, &quot;&lt;AUTHOR&gt;&quot;))),by= &#39;pmid&#39;]
+countries_dt = dt_final_table[,c(&#39;pmid&#39;,&#39;authors&#39;)
+                              ][,.(authors = unlist(tstrsplit(authors, &quot;&lt;AUTHOR&gt;&quot;))),by= &#39;pmid&#39;]
 toc()
-## 9.22 sec elapsed
+## 10.64 sec elapsed
 countries_dt
 ##             pmid
 ##      1: 10022847
@@ -1043,42 +1042,15 @@ countries_dt
 
 tic()
 setkey(countries_dt,pmid,authors)
-countries_dt = countries_dt[authors != &#39;&#39;&amp; !str_detect(authors,&#39;&lt;AFFILIATION&gt;None&#39;)]
-toc()
-## 24.73 sec elapsed
-countries_dt
-##             pmid
-##      1: 10023135
-##      2: 10023767
-##      3: 10024427
-##      4: 10028170
-##      5: 10029323
-##     ---         
-## 476363:  9952375
-## 476364:  9971782
-## 476365:  9971783
-## 476366:  9988465
-## 476367:  9989453
-##                                                                                                                                                                                                                        authors
-##      1:         Lavi E E Lavi&lt;AFFILIATION&gt;Division of Neuropathology, Department of Pathology and Laboratory Medicine, University of Pennsylvania School of Medicine, Philadelphia, PA 19104-6085, USA.lavi@mail.med.upenn.edu
-##      2:                                                                                   Saura M M Saura&lt;AFFILIATION&gt;Department of Medicine, The Johns Hopkins University School of Medicine, Baltimore, Maryland 21205, USA.
-##      3:                                                                           Wang X X Wang&lt;AFFILIATION&gt;Department of Pathobiology, University of Connecticut, U-89,61 North Eagleville Road, Storrs, CT, 06269-3089, USA.
-##      4:                                                                           Letellier C C Letellier&lt;AFFILIATION&gt;Centre d&#39;Etude et de Recherches VÃ©tÃ©rinaires et Agrochimiques 99, Brussels, Belgium. calet@var.fgov.be
-##      5:                                                                                         Gut M M Gut&lt;AFFILIATION&gt;Department of Internal Veterinary Medicine, University of Zurich, Switzerland. mgut@vetklinik.unizh.ch
-##     ---                                                                                                                                                                                                                       
-## 476363:  Teran LM L M Teran&lt;AFFILIATION&gt;Department of Medicine, Health, and Biological Sciences, University of Southampton, School of Medicine, Southampton General Hospital, Southampton, Hampshire, United Kingdom S016 6YD.
-## 476364:                                                                                         Pedersen KW K W Pedersen&lt;AFFILIATION&gt;Division of Electron Microscopy, Department of Biology, University of Oslo, Oslo, Norway.
-## 476365:                                                                                            van Dinten LC L C van Dinten&lt;AFFILIATION&gt;Department of Virology, Leiden University Medical Center, Leiden, The Netherlands.
-## 476366:                                                                                                                            Johnston SL S L Johnston&lt;AFFILIATION&gt;University Medicine, Southampton General Hospital, UK.
-## 476367:                                                              Smith KJ K J Smith&lt;AFFILIATION&gt;Department of Clinical Neurological Sciences, Guy&#39;s, King&#39;s and St. Thomas&#39; School of Medicine, London. k.smith@umds.ac.uk
+countries_dt = countries_dt[authors != &#39;&#39; 
+                              &amp; !str_detect(authors,&#39;&lt;AFFILIATION&gt;None&#39;)
+                            ][,clean_aff := .(unlist(tstrsplit(authors,&#39;&lt;AFFILIATION&gt;&#39;,keep = 2)))
+                              ][,-&#39;authors&#39;]
 
-tic()
-countries_dt[,clean_aff := .(unlist(tstrsplit(authors,&#39;&lt;AFFILIATION&gt;&#39;,keep = 2)))]
-countries_dt = countries_dt[,-&#39;authors&#39;]
 setkey(countries_dt,pmid,clean_aff)
 countries_dt = unique(countries_dt)
 toc()
-## 29.45 sec elapsed
+## 43.8 sec elapsed
 
 countries_dt
 ##             pmid
@@ -1109,26 +1081,13 @@ countries_dt
 <div class="r">
 <pre class="r"><code># R data.table
 tic()
-countries_dt = countries_dt[, .(clean_aff=str_replace_all(clean_aff,&#39; USA&#39;,&#39;United States&#39;),pmid=pmid)
-                            ][, .(clean_aff=str_replace_all(clean_aff,&#39; UK&#39;,&#39;United Kingdom&#39;),pmid=pmid)
-                              ][, .(clean_aff=str_replace_all(clean_aff,&#39; Korea&#39;,&#39;South Korea&#39;),pmid=pmid)]
-
-countries_dt = countries_dt[,.(clean_aff = tolower(clean_aff),pmid=pmid)]
+countries_dt[, clean_aff := str_replace_all(clean_aff,&#39; USA&#39;,&#39;United States&#39;)
+                            ][, clean_aff := str_replace_all(clean_aff,&#39; UK&#39;,&#39;United Kingdom&#39;)
+                              ][, clean_aff := str_replace_all(clean_aff,&#39; Korea&#39;,&#39;South Korea&#39;)
+                                ][, clean_aff := tolower(clean_aff)]
 toc()
-## 17.39 sec elapsed
+## 4.42 sec elapsed
 countries_dt
-##                                                                                                                                                                                             clean_aff
-##      1: division of neuropathology, department of pathology and laboratory medicine, university of pennsylvania school of medicine, philadelphia, pa 19104-6085,united states.lavi@mail.med.upenn.edu
-##      2:                                                                             department of medicine, the johns hopkins university school of medicine, baltimore, maryland 21205,united states.
-##      3:                                                                   department of pathobiology, university of connecticut, u-89,61 north eagleville road, storrs, ct, 06269-3089,united states.
-##      4:                                                                                      centre d&#39;etude et de recherches vã©tã©rinaires et agrochimiques 99, brussels, belgium. calet@var.fgov.be
-##      5:                                                                                        department of internal veterinary medicine, university of zurich, switzerland. mgut@vetklinik.unizh.ch
-##     ---                                                                                                                                                                                              
-## 291653:        department of medicine, health, and biological sciences, university of southampton, school of medicine, southampton general hospital, southampton, hampshire, united kingdom s016 6yd.
-## 291654:                                                                                                     division of electron microscopy, department of biology, university of oslo, oslo, norway.
-## 291655:                                                                                                            department of virology, leiden university medical center, leiden, the netherlands.
-## 291656:                                                                                                                             university medicine, southampton general hospital,united kingdom.
-## 291657:                                                                    department of clinical neurological sciences, guy&#39;s, king&#39;s and st. thomas&#39; school of medicine, london. k.smith@umds.ac.uk
 ##             pmid
 ##      1: 10023135
 ##      2: 10023767
@@ -1141,45 +1100,79 @@ countries_dt
 ## 291655:  9971783
 ## 291656:  9988465
 ## 291657:  9989453
+##                                                                                                                                                                                             clean_aff
+##      1: division of neuropathology, department of pathology and laboratory medicine, university of pennsylvania school of medicine, philadelphia, pa 19104-6085,united states.lavi@mail.med.upenn.edu
+##      2:                                                                             department of medicine, the johns hopkins university school of medicine, baltimore, maryland 21205,united states.
+##      3:                                                                   department of pathobiology, university of connecticut, u-89,61 north eagleville road, storrs, ct, 06269-3089,united states.
+##      4:                                                                                      centre d&#39;etude et de recherches vã©tã©rinaires et agrochimiques 99, brussels, belgium. calet@var.fgov.be
+##      5:                                                                                        department of internal veterinary medicine, university of zurich, switzerland. mgut@vetklinik.unizh.ch
+##     ---                                                                                                                                                                                              
+## 291653:        department of medicine, health, and biological sciences, university of southampton, school of medicine, southampton general hospital, southampton, hampshire, united kingdom s016 6yd.
+## 291654:                                                                                                     division of electron microscopy, department of biology, university of oslo, oslo, norway.
+## 291655:                                                                                                            department of virology, leiden university medical center, leiden, the netherlands.
+## 291656:                                                                                                                             university medicine, southampton general hospital,united kingdom.
+## 291657:                                                                    department of clinical neurological sciences, guy&#39;s, king&#39;s and st. thomas&#39; school of medicine, london. k.smith@umds.ac.uk
 
 key(countries_dt)
-## NULL
+## [1] &quot;pmid&quot;
 setkey(countries_dt,pmid,clean_aff)
 tic()
 countries_dt[,country := .(ifelse(any(str_detect(clean_aff,countries)),
                                   countries[str_detect(clean_aff,countries)][1],
                                   &quot;&quot;)),
-             by=c(&#39;pmid&#39;,&#39;clean_aff&#39;)]
-
-countries_dt = countries_dt[,-&#39;clean_aff&#39;]
+             by=c(&#39;pmid&#39;, &#39;clean_aff&#39;)]
 toc()
-## 703.03 sec elapsed
+## 709.5 sec elapsed
 countries_dt
-##             pmid        country
-##      1: 10023135  united states
-##      2: 10023767  united states
-##      3: 10024427  united states
-##      4: 10028170        belgium
-##      5: 10029323    switzerland
-##     ---                        
-## 291653:  9952375 united kingdom
-## 291654:  9971782         norway
-## 291655:  9971783    netherlands
-## 291656:  9988465 united kingdom
+##             pmid
+##      1: 10023135
+##      2: 10023767
+##      3: 10024427
+##      4: 10028170
+##      5: 10029323
+##     ---         
+## 291653:  9952375
+## 291654:  9971782
+## 291655:  9971783
+## 291656:  9988465
 ## 291657:  9989453
+##                                                                                                                                                                                             clean_aff
+##      1: division of neuropathology, department of pathology and laboratory medicine, university of pennsylvania school of medicine, philadelphia, pa 19104-6085,united states.lavi@mail.med.upenn.edu
+##      2:                                                                             department of medicine, the johns hopkins university school of medicine, baltimore, maryland 21205,united states.
+##      3:                                                                   department of pathobiology, university of connecticut, u-89,61 north eagleville road, storrs, ct, 06269-3089,united states.
+##      4:                                                                                      centre d&#39;etude et de recherches vã©tã©rinaires et agrochimiques 99, brussels, belgium. calet@var.fgov.be
+##      5:                                                                                        department of internal veterinary medicine, university of zurich, switzerland. mgut@vetklinik.unizh.ch
+##     ---                                                                                                                                                                                              
+## 291653:        department of medicine, health, and biological sciences, university of southampton, school of medicine, southampton general hospital, southampton, hampshire, united kingdom s016 6yd.
+## 291654:                                                                                                     division of electron microscopy, department of biology, university of oslo, oslo, norway.
+## 291655:                                                                                                            department of virology, leiden university medical center, leiden, the netherlands.
+## 291656:                                                                                                                             university medicine, southampton general hospital,united kingdom.
+## 291657:                                                                    department of clinical neurological sciences, guy&#39;s, king&#39;s and st. thomas&#39; school of medicine, london. k.smith@umds.ac.uk
+##                country
+##      1:  united states
+##      2:  united states
+##      3:  united states
+##      4:        belgium
+##      5:    switzerland
+##     ---               
+## 291653: united kingdom
+## 291654:         norway
+## 291655:    netherlands
+## 291656: united kingdom
+## 291657:
 
 tic()
-countries_dt = countries_dt[country != &#39;&#39;]
+countries_dt = countries_dt[country != &quot;&quot;, -&#39;clean_aff&#39;]
 setkey(countries_dt,pmid,country)
 countries_dt = unique(countries_dt)
 toc()
-## 4.67 sec elapsed
+## 5.5 sec elapsed
 
 tic()
 countries_year = countries_dt[dt_final_table[,c(&#39;pmid&#39;,&#39;year_pub&#39;)], on =&#39;pmid&#39;]
 countries_year = na.omit(countries_year)
 toc()
-## 0.05 sec elapsed
+## 0.04 sec elapsed
 
 tic()
 countries_pub_dt = countries_year[,
@@ -1195,7 +1188,7 @@ head(countries_pub_dt[order(n,decreasing = T)])
 ## 5:          india     2020  3297
 ## 6:         france     2020  2650
 toc()
-## 0.06 sec elapsed</code></pre>
+## 0.07 sec elapsed</code></pre>
 </div>
 </div>
 <div id="country-bar-plot-with-plotly" class="section level1">
@@ -1248,8 +1241,8 @@ plot_top_n(10,2001)
 ## No trace type specified:
 ##   Based on info supplied, a &#39;bar&#39; trace seems appropriate.
 ##   Read more about this trace type -&gt; https://plot.ly/r/reference/#bar</code></pre>
-<div id="htmlwidget-30bd290cf2e8295b52d2" style="width:672px;height:480px;" class="plotly html-widget"></div>
-<script type="application/json" data-for="htmlwidget-30bd290cf2e8295b52d2">{"x":{"visdat":{"3524515b41d0":["function () ","plotlyVisDat"]},"cur_data":"3524515b41d0","attrs":{"3524515b41d0":{"x":{},"y":{},"color":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20]}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"yaxis":{"domain":[0,1],"automargin":true,"title":"Count","type":"log"},"barmode":"stack","xaxis":{"domain":[0,1],"automargin":true,"title":"year_pub","type":"category","categoryorder":"array","categoryarray":["2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021"]},"hovermode":"closest","showlegend":true},"source":"A","config":{"showSendToCloud":false},"data":[{"x":["2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021"],"y":[2,5,10,22,26,33,39,44,51,27,46,42,72,98,122,122,115,131,138,2107,3],"type":"bar","name":"australia","marker":{"color":"rgba(102,194,165,1)","line":{"color":"rgba(102,194,165,1)"}},"textfont":{"color":"rgba(102,194,165,1)"},"error_y":{"color":"rgba(102,194,165,1)"},"error_x":{"color":"rgba(102,194,165,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021"],"y":[16,13,45,70,61,72,62,71,70,65,63,74,89,117,132,140,122,137,174,2363,4],"type":"bar","name":"canada","marker":{"color":"rgba(228,156,113,1)","line":{"color":"rgba(228,156,113,1)"}},"textfont":{"color":"rgba(228,156,113,1)"},"error_y":{"color":"rgba(228,156,113,1)"},"error_x":{"color":"rgba(228,156,113,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021"],"y":[101,191,190,170,157,146,171,225,167,176,319,389,513,525,566,590,739,7888,25],"type":"bar","name":"china","marker":{"color":"rgba(201,152,157,1)","line":{"color":"rgba(201,152,157,1)"}},"textfont":{"color":"rgba(201,152,157,1)"},"error_y":{"color":"rgba(201,152,157,1)"},"error_x":{"color":"rgba(201,152,157,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021"],"y":[11,13,17,32,39,36,46,40,56,43,53,44,87,129,134,144,136,158,156,2650,4],"type":"bar","name":"france","marker":{"color":"rgba(175,154,200,1)","line":{"color":"rgba(175,154,200,1)"}},"textfont":{"color":"rgba(175,154,200,1)"},"error_y":{"color":"rgba(175,154,200,1)"},"error_x":{"color":"rgba(175,154,200,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021"],"y":[19,22,31,35,36,70,53,59,55,46,59,48,80,129,151,154,166,172,182,2154,1],"type":"bar","name":"germany","marker":{"color":"rgba(226,148,184,1)","line":{"color":"rgba(226,148,184,1)"}},"textfont":{"color":"rgba(226,148,184,1)"},"error_y":{"color":"rgba(226,148,184,1)"},"error_x":{"color":"rgba(226,148,184,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2015","2013","2014","2016","2017","2018","2019","2020","2021"],"y":[4,1,5,9,8,10,9,24,18,33,31,30,68,54,86,92,92,95,130,3297,8],"type":"bar","name":"india","marker":{"color":"rgba(176,208,99,1)","line":{"color":"rgba(176,208,99,1)"}},"textfont":{"color":"rgba(176,208,99,1)"},"error_y":{"color":"rgba(176,208,99,1)"},"error_x":{"color":"rgba(176,208,99,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021"],"y":[10,8,18,24,35,30,32,37,33,31,41,43,48,71,95,113,109,114,132,5910,5],"type":"bar","name":"italy","marker":{"color":"rgba(227,217,62,1)","line":{"color":"rgba(227,217,62,1)"}},"textfont":{"color":"rgba(227,217,62,1)"},"error_y":{"color":"rgba(227,217,62,1)"},"error_x":{"color":"rgba(227,217,62,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2019","2018","2020","2021"],"y":[8,11,17,14,18,18,19,38,31,25,34,44,44,63,80,88,77,110,98,2039,5],"type":"bar","name":"spain","marker":{"color":"rgba(245,207,100,1)","line":{"color":"rgba(245,207,100,1)"}},"textfont":{"color":"rgba(245,207,100,1)"},"error_y":{"color":"rgba(245,207,100,1)"},"error_x":{"color":"rgba(245,207,100,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2014","2013","2015","2016","2017","2018","2019","2020","2021"],"y":[22,22,59,71,73,86,78,89,104,88,94,92,184,127,263,213,240,215,294,6262,10],"type":"bar","name":"united kingdom","marker":{"color":"rgba(219,192,155,1)","line":{"color":"rgba(219,192,155,1)"}},"textfont":{"color":"rgba(219,192,155,1)"},"error_y":{"color":"rgba(219,192,155,1)"},"error_x":{"color":"rgba(219,192,155,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2012","2011","2013","2014","2015","2016","2017","2018","2020","2019","2021"],"y":[162,134,240,391,407,482,436,529,554,594,592,587,658,702,811,799,800,801,11668,859,21],"type":"bar","name":"united states","marker":{"color":"rgba(179,179,179,1)","line":{"color":"rgba(179,179,179,1)"}},"textfont":{"color":"rgba(179,179,179,1)"},"error_y":{"color":"rgba(179,179,179,1)"},"error_x":{"color":"rgba(179,179,179,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-a5c9510169977ea73f52" style="width:672px;height:480px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a5c9510169977ea73f52">{"x":{"visdat":{"36643f8741dc":["function () ","plotlyVisDat"]},"cur_data":"36643f8741dc","attrs":{"36643f8741dc":{"x":{},"y":{},"color":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20]}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"yaxis":{"domain":[0,1],"automargin":true,"title":"Count","type":"log"},"barmode":"stack","xaxis":{"domain":[0,1],"automargin":true,"title":"year_pub","type":"category","categoryorder":"array","categoryarray":["2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021"]},"hovermode":"closest","showlegend":true},"source":"A","config":{"showSendToCloud":false},"data":[{"x":["2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021"],"y":[2,5,10,22,26,33,39,44,51,27,46,42,72,98,122,122,115,131,138,2107,3],"type":"bar","name":"australia","marker":{"color":"rgba(102,194,165,1)","line":{"color":"rgba(102,194,165,1)"}},"textfont":{"color":"rgba(102,194,165,1)"},"error_y":{"color":"rgba(102,194,165,1)"},"error_x":{"color":"rgba(102,194,165,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021"],"y":[16,13,45,70,61,72,62,71,70,65,63,74,89,117,132,140,122,137,174,2363,4],"type":"bar","name":"canada","marker":{"color":"rgba(228,156,113,1)","line":{"color":"rgba(228,156,113,1)"}},"textfont":{"color":"rgba(228,156,113,1)"},"error_y":{"color":"rgba(228,156,113,1)"},"error_x":{"color":"rgba(228,156,113,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021"],"y":[101,191,190,170,157,146,171,225,167,176,319,389,513,525,566,590,739,7888,25],"type":"bar","name":"china","marker":{"color":"rgba(201,152,157,1)","line":{"color":"rgba(201,152,157,1)"}},"textfont":{"color":"rgba(201,152,157,1)"},"error_y":{"color":"rgba(201,152,157,1)"},"error_x":{"color":"rgba(201,152,157,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021"],"y":[11,13,17,32,39,36,46,40,56,43,53,44,87,129,134,144,136,158,156,2650,4],"type":"bar","name":"france","marker":{"color":"rgba(175,154,200,1)","line":{"color":"rgba(175,154,200,1)"}},"textfont":{"color":"rgba(175,154,200,1)"},"error_y":{"color":"rgba(175,154,200,1)"},"error_x":{"color":"rgba(175,154,200,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021"],"y":[19,22,31,35,36,70,53,59,55,46,59,48,80,129,151,154,166,172,182,2154,1],"type":"bar","name":"germany","marker":{"color":"rgba(226,148,184,1)","line":{"color":"rgba(226,148,184,1)"}},"textfont":{"color":"rgba(226,148,184,1)"},"error_y":{"color":"rgba(226,148,184,1)"},"error_x":{"color":"rgba(226,148,184,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2015","2013","2014","2016","2017","2018","2019","2020","2021"],"y":[4,1,5,9,8,10,9,24,18,33,31,30,68,54,86,92,92,95,130,3297,8],"type":"bar","name":"india","marker":{"color":"rgba(176,208,99,1)","line":{"color":"rgba(176,208,99,1)"}},"textfont":{"color":"rgba(176,208,99,1)"},"error_y":{"color":"rgba(176,208,99,1)"},"error_x":{"color":"rgba(176,208,99,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021"],"y":[10,8,18,24,35,30,32,37,33,31,41,43,48,71,95,113,109,114,132,5910,5],"type":"bar","name":"italy","marker":{"color":"rgba(227,217,62,1)","line":{"color":"rgba(227,217,62,1)"}},"textfont":{"color":"rgba(227,217,62,1)"},"error_y":{"color":"rgba(227,217,62,1)"},"error_x":{"color":"rgba(227,217,62,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2019","2018","2020","2021"],"y":[8,11,17,14,18,18,19,38,31,25,34,44,44,63,80,88,77,110,98,2039,5],"type":"bar","name":"spain","marker":{"color":"rgba(245,207,100,1)","line":{"color":"rgba(245,207,100,1)"}},"textfont":{"color":"rgba(245,207,100,1)"},"error_y":{"color":"rgba(245,207,100,1)"},"error_x":{"color":"rgba(245,207,100,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2014","2013","2015","2016","2017","2018","2019","2020","2021"],"y":[22,22,59,71,73,86,78,89,104,88,94,92,184,127,263,213,240,215,294,6262,10],"type":"bar","name":"united kingdom","marker":{"color":"rgba(219,192,155,1)","line":{"color":"rgba(219,192,155,1)"}},"textfont":{"color":"rgba(219,192,155,1)"},"error_y":{"color":"rgba(219,192,155,1)"},"error_x":{"color":"rgba(219,192,155,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2012","2011","2013","2014","2015","2016","2017","2018","2020","2019","2021"],"y":[162,134,240,391,407,482,436,529,554,594,592,587,658,702,811,799,800,801,11668,859,21],"type":"bar","name":"united states","marker":{"color":"rgba(179,179,179,1)","line":{"color":"rgba(179,179,179,1)"}},"textfont":{"color":"rgba(179,179,179,1)"},"error_y":{"color":"rgba(179,179,179,1)"},"error_x":{"color":"rgba(179,179,179,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 

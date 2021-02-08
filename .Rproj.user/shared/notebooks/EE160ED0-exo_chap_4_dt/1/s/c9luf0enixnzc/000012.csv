@@ -1,0 +1,8 @@
+"0","# R data.table"
+"0",""
+"0","tic()"
+"0","dt_final_table = na.omit(dt_table_2[dt_table_1, on = 'pmid'])"
+"0","toc()"
+"1","0.36 sec elapsed
+"
+"0","dt_final_table"
