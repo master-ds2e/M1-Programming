@@ -642,7 +642,7 @@ covid_papers.to_csv("data/covid_papers.csv")
 </div>
 
 
-# Exercice 
+# Exercise 
 
 Translate last chapter's exercice in Python using pandas.
 

@@ -25,6 +25,8 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -371,9 +373,17 @@ div.tocify {
 <li>
   <a href="6_Data_Analysis_Py.html">Data Analysis (Python)</a>
 </li>
+<li>
+  <a href="7_Best_practices.html">Best Pratices</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/master-ds2e/">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -389,13 +399,14 @@ div.tocify {
 
 
 <style>
-div.python pre { background-color: #fdfcff; }
+div.python pre { background-color: #d0f5a9; }
 </style>
 <style>
-div.r pre { background-color: #fffffc; }
+div.r pre { background-color: #dfdddf; }
 </style>
 <div id="pep8" class="section level1">
 <h1><span class="header-section-number">1</span> PEP8</h1>
+<p>Check this video : <a href="https://www.youtube.com/watch?v=hgI0p1zf31k" class="uri">https://www.youtube.com/watch?v=hgI0p1zf31k</a></p>
 <p>The link below exposes a style guide for python, I strongly recommend that you read these guidelines before sending your project. It will be helpful to improve the readability of the code.</p>
 <p><a href="https://www.python.org/dev/peps/pep-0008/#introduction" class="uri">https://www.python.org/dev/peps/pep-0008/#introduction</a></p>
 <p>Here are a few short quotes from the guide :</p>
@@ -406,22 +417,21 @@ div.r pre { background-color: #fffffc; }
 <li><p>Spaces are the preferred indentation method.</p></li>
 <li><p>Indentation : Use 4 spaces per indentation level, no tabs. Continuation lines should align wrapped elements either vertically using Python’s implicit line joining inside parentheses, brackets and braces, or using a hanging indent</p></li>
 </ul>
-<pre><code># Correct:
+<div class="python">
+<pre class="python"><code># Correct:
 
 # Aligned with opening delimiter.
 foo = long_function_name(var_one, var_two,
-                         var_three, var_four)
-</code></pre>
-<pre><code># Wrong:
+                         var_three, var_four)</code></pre>
+<pre class="python"><code># Wrong:
 
 # Arguments on first line forbidden when not using vertical alignment.
 foo = long_function_name(var_one, var_two,
-    var_three, var_four)
-</code></pre>
+    var_three, var_four)</code></pre>
 <ul>
 <li>When the conditional part of an if-statement is long enough to require that it be written across multiple lines:</li>
 </ul>
-<pre><code># Acceptable
+<pre class="python"><code># Acceptable
 
 # No extra indentation.
 if (this_is_one_thing and
@@ -432,30 +442,28 @@ if (this_is_one_thing and
 # Add some extra indentation on the conditional continuation line.
 if (this_is_one_thing
         and that_is_another_thing):
-    do_something()
-</code></pre>
+    do_something()</code></pre>
 <ul>
 <li>Should a Line Break Before or After a Binary Operator?</li>
 </ul>
-<pre><code># Wrong:
+<pre class="python"><code># Wrong:
 # operators sit far away from their operands
 income = (gross_wages +
           taxable_interest +
           (dividends - qualified_dividends) -
           ira_deduction -
           student_loan_interest)</code></pre>
-<pre><code># Correct:
+<pre class="python"><code># Correct:
 # easy to match operators with operands
 income = (gross_wages
           + taxable_interest
           + (dividends - qualified_dividends)
           - ira_deduction
-          - student_loan_interest)
-</code></pre>
+          - student_loan_interest)</code></pre>
 <ul>
 <li>imports :</li>
 </ul>
-<pre><code># Correct:
+<pre class="python"><code># Correct:
 import os
 import sys
 
@@ -467,13 +475,12 @@ import sys, os</code></pre>
 <ul>
 <li>Whitespace in Expressions and Statements :</li>
 </ul>
-<pre><code># Correct:
+<pre class="python"><code># Correct:
 spam(ham[1], {eggs: 2})
 
 # Wrong:
-spam( ham[ 1 ], { eggs: 2 } )
-</code></pre>
-<pre><code># Correct:
+spam( ham[ 1 ], { eggs: 2 } )</code></pre>
+<pre class="python"><code># Correct:
 if x == 4: print x, y; x, y = y, x
 
 # Wrong:
@@ -481,7 +488,7 @@ if x == 4 : print x , y ; x , y = y , x</code></pre>
 <ul>
 <li>More than one space around an assignment (or other) operator to align it with another:</li>
 </ul>
-<pre><code># Correct:
+<pre class="python"><code># Correct:
 x = 1
 y = 2
 long_variable = 3
@@ -493,13 +500,13 @@ long_variable = 3</code></pre>
 <ul>
 <li>Operators</li>
 </ul>
-<pre><code># Correct:
+<pre class="python"><code># Correct:
 i = i + 1
 submitted += 1
 x = x*2 - 1
 hypot2 = x*x + y*y
 c = (a+b) * (a-b)</code></pre>
-<pre><code># Wrong:
+<pre class="python"><code># Wrong:
 i=i+1
 submitted +=1
 x = x * 2 - 1
@@ -508,28 +515,28 @@ c = (a + b) * (a - b)</code></pre>
 <ul>
 <li>Don’t use spaces around the = sign when used to indicate a keyword argument, or when used to indicate a default value for an unannotated function parameter:</li>
 </ul>
-<pre><code># Correct:
+<pre class="python"><code># Correct:
 def complex(real, imag=0.0):
     return magic(r=real, i=imag)</code></pre>
-<pre><code># Wrong:
+<pre class="python"><code># Wrong:
 def complex(real, imag = 0.0):
     return magic(r = real, i = imag)</code></pre>
 <ul>
 <li>Compound statements (multiple statements on the same line) are generally discouraged:</li>
 </ul>
-<pre><code># Correct:
+<pre class="python"><code># Correct:
 if foo == &#39;blah&#39;:
     do_blah_thing()
 do_one()
 do_two()
 do_three()</code></pre>
-<pre><code># Wrong:
+<pre class="python"><code># Wrong:
 if foo == &#39;blah&#39;: do_blah_thing()
 do_one(); do_two(); do_three()</code></pre>
 <ul>
 <li>When trailing commas are redundant..the pattern is to put each value (etc.) on a line by itself, always adding a trailing comma, and add the close parenthesis/bracket/brace on the next line.</li>
 </ul>
-<pre><code># Correct:
+<pre class="python"><code># Correct:
 FILES = [
     &#39;setup.cfg&#39;,
     &#39;tox.ini&#39;,
@@ -537,18 +544,17 @@ FILES = [
 initialize(FILES,
            error=True,
            )</code></pre>
-<pre><code># Wrong:
+<pre class="python"><code># Wrong:
 FILES = [&#39;setup.cfg&#39;, &#39;tox.ini&#39;,]
 initialize(FILES, error=True,)</code></pre>
 <ul>
 <li>Conventions for writing good documentation strings (a.k.a. “docstrings”) are immortalized in PEP 257. </li>
 </ul>
-<pre><code>&quot;&quot;&quot;Return a foobang
+<pre class="python"><code>&quot;&quot;&quot;Return a foobang
 
 Optional plotz says to frobnicate the bizbaz first.
 &quot;&quot;&quot;</code></pre>
-<pre><code>&quot;&quot;&quot;Return an ex-parrot.&quot;&quot;&quot;
-</code></pre>
+<pre class="python"><code>&quot;&quot;&quot;Return an ex-parrot.&quot;&quot;&quot;</code></pre>
 <ul>
 <li><p>Never use the characters ‘l’ (lowercase letter el), ‘O’ (uppercase letter oh), or ‘I’ (uppercase letter eye) as single character variable names.</p></li>
 <li><p>Function names should be lowercase, with words separated by underscores as necessary to improve readability.</p></li>
@@ -557,9 +563,9 @@ Optional plotz says to frobnicate the bizbaz first.
 <ul>
 <li>Constants are usually defined on a module level and written in all capital letters with underscores separating words. Examples include MAX_OVERFLOW and TOTAL.</li>
 </ul>
-<pre><code>PATH = &#39;/my/path&#39;</code></pre>
+<pre class="python"><code>PATH = &#39;/my/path&#39;</code></pre>
 <p>-Use is not operator rather than not … is. While both expressions are functionally identical, the former is more readable and preferred:</p>
-<pre><code># Correct:
+<pre class="python"><code># Correct:
 if foo is not None:
 
 
@@ -568,7 +574,7 @@ if not foo is None:</code></pre>
 <ul>
 <li>Always use a def statement instead of an assignment statement that binds a lambda expression directly to an identifier:</li>
 </ul>
-<pre><code># Correct:
+<pre class="python"><code># Correct:
 def f(x): return 2*x
 
 
@@ -577,14 +583,14 @@ f = lambda x: 2*x</code></pre>
 <ul>
 <li>Additionally, for all try/except clauses, limit the try clause to the absolute minimum amount of code necessary. Again, this avoids masking bugs:</li>
 </ul>
-<pre><code># Correct:
+<pre class="python"><code># Correct:
 try:
     value = collection[key]
 except KeyError:
     return key_not_found(key)
 else:
     return handle_value(value)</code></pre>
-<pre><code># Wrong:
+<pre class="python"><code># Wrong:
 try:
     # Too broad!
     return handle_value(collection[key])
@@ -594,9 +600,10 @@ except KeyError:
 <ul>
 <li>For sequences, (strings, lists, tuples), use the fact that empty sequences are false:</li>
 </ul>
-<pre><code># Correct:
+<pre class="python"><code># Correct:
 if not seq:
 if seq:
+
 
 # Wrong:
 if len(seq):
@@ -604,19 +611,250 @@ if not len(seq):</code></pre>
 <ul>
 <li>Don’t compare boolean values to True or False using ==:</li>
 </ul>
-<pre><code># Correct:
+<pre class="python"><code># Correct:
 if greeting:
 
 
 # Wrong:
 if greeting == True:</code></pre>
 </div>
+</div>
 <div id="rmarkdown" class="section level1">
 <h1><span class="header-section-number">2</span> Rmarkdown</h1>
+<p>Rmarkdown allows you to generate html, pdf and even word files. You can easily integrate R as Python and make your analyses in the document in order to communicate your code or their outputs (e.g. automate a report).</p>
+<p>Unlike latex and html markdown is very easy to read in its raw state. The layout, titles, tables etc… are very easy to handle and do not hinder readability.</p>
+<p>Before going deeper into details, see how to easily create an html or a pdf (or others) with Rmarkdown using R studio:</p>
+
+<div id="create-a-new-rmarkdown-document" class="section level2">
+<h2><span class="header-section-number">2.1</span> Create a new Rmarkdown document</h2>
+<p><img src="examples/img_md/md_1.png" /></p>
+<ul>
+<li>Fill name and title</li>
+</ul>
+<p><img src="examples/img_md/md_2.JPG" /></p>
+<ul>
+<li>It automaticcaly creates a report example</li>
+</ul>
+<p><img src="examples/img_md/md_3.JPG" /></p>
+<ul>
+<li>Modify the file structure, see how you can put both r and python code in your report</li>
+</ul>
+<p><img src="examples/img_md/md_4.JPG" /></p>
+<ul>
+<li>To create the html document clic on ‘knit’, you can choose html or pdf as outputs (and others).</li>
+</ul>
+<p><img src="examples/img_md/md_5.JPG" /></p>
+<ul>
+<li>See the results in html</li>
+</ul>
+<p><img src="examples/img_md/md_6.JPG" /></p>
+<ul>
+<li>in PDF</li>
+</ul>
+<p><img src="examples/img_md/md_7.JPG" /></p>
+</div>
+<div id="rmarkdown-structure" class="section level2">
+<h2><span class="header-section-number">2.2</span> Rmarkdown structure</h2>
+<p>Check this cheatsheet: <a href="https://rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf" class="uri">https://rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf</a></p>
+<div id="yaml-header" class="section level3">
+<h3><span class="header-section-number">2.2.1</span> YAML Header</h3>
+<p>The header of a Rmarkdown file is by default structured as follow :</p>
+<pre><code>---
+title: &quot;My Title&quot;
+author: &quot;Name&quot;
+date: &quot;10/02/2021&quot;
+output: html_document
+---</code></pre>
+<ul>
+<li>You can remove some if you don’t want the date to be in the document for example. You can also specify more details to custom the output. For example you may want to add the table of contents at the begining of your document, the YALM will be then :</li>
+</ul>
+<pre><code>---
+title: &quot;My Title&quot;
+author: &quot;Name&quot;
+date: &quot;10/02/2021&quot;
+output:
+  html_document:
+    toc: true
+    number_sections: true
+---</code></pre>
+<ul>
+<li>You can add an abstract to your document directly in the YAML header :</li>
+</ul>
+<pre><code>---
+author: &quot;Name&quot;
+abstract: &quot;Abstract&quot;
+output:
+  pdf_document:
+    toc: true
+    number_sections: true
+---</code></pre>
+<ul>
+<li>You can change the theme of your html output choosing in this list : <a href="https://bootswatch.com/3/" class="uri">https://bootswatch.com/3/</a> For example, the theme of this website is Flatly.</li>
+</ul>
+<pre><code>---
+output:
+  html_document:
+    theme: flatly
+---</code></pre>
+<ul>
+<li>More information here for html document: <a href="https://bookdown.org/yihui/rmarkdown/html-document.html" class="uri">https://bookdown.org/yihui/rmarkdown/html-document.html</a></li>
+</ul>
+</div>
+<div id="text" class="section level3">
+<h3><span class="header-section-number">2.2.2</span> Text</h3>
+<ul>
+<li><p>To create a title in markdown you need to use a <code>#</code> each <code>#</code> represents a title level. <code>##</code> returns a level two title.</p></li>
+<li><p>To create a new paragraph just end a line with two spaces. Otherwise you can skip a line to start a new paragraph but there will be a space between the two paragraphs.</p></li>
+<li><p>To write in italics or bold you only have to specify one <code>*</code> or two <code>**</code> respectively.</p></li>
+<li><p>Escaped character (remember it from chap 3 ;) ) must be specified with a \ before. <code>\*</code> give *</p></li>
+<li><p>To write example of code without running it like this <code>import numpy as np</code> just use <code>```import numpy as np```</code></p></li>
+<li><p>Show image from your computer in the output <code>![title](path/to/img.jpg)</code></p></li>
+<li><p>You can write directly in html, for example add a link to an external webpage : <code>&lt;a href="https://www.google.com/"&gt;Google&lt;/a&gt;</code></p></li>
+<li><p>You can write in <span class="math inline">\(\LaTeX\)</span>: <span class="math inline">\(\frac{1}{2}\)</span> . You just need to write the equation between two <code>$</code></p></li>
+<li><p>To make bulletpoints like this:</p>
+<ul>
+<li>here
+<ul>
+<li>and here, please use * then + then - for different levels. Also just using - and four whitespaces for each level works also.</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<div id="code-chunks" class="section level3">
+<h3><span class="header-section-number">2.2.3</span> Code chunks</h3>
+<ul>
+<li>By default the first chunk is about chunk options. It is presented like this :</li>
+</ul>
+<pre><code>knitr::opts_chunk$set(echo = TRUE)</code></pre>
+<ul>
+<li><p>You can set there chunk option for all you document, you can specify if we will see the code, the output, warnings, errors etc etc. Please see all options on the cheatsheet.</p></li>
+<li><p>As you noted a chunk start with <code>```{}</code>. First you specify the language used within the chunk and then the title of the chunk, after the comma, specify options for the given chunk :<br />
+<code>```{r chunk1, error = T}</code></p></li>
+</ul>
+</div>
+<div id="slides" class="section level3">
+<h3><span class="header-section-number">2.2.4</span> Slides</h3>
+<ul>
+<li>You can create slides directly with Rmarkdown also , ioslide and slidy will be used to create html slides, which are cool if you want to put interactive stuff in your slides, otherwise beamer can be used for static presentation in pdf</li>
+</ul>
+<p><img src="examples/img_md/md_8.JPG" /></p>
+<ul>
+<li>To create a new slide just type <code>---</code> between two empty lines or create a new title.</li>
+</ul>
+<p><img src="examples/img_md/md_9.JPG" /></p>
+<p><img src="examples/img_md/md_10.JPG" /></p>
+</div>
+</div>
+<div id="execute-rmd-automatically" class="section level2">
+<h2><span class="header-section-number">2.3</span> Execute rmd automatically</h2>
+<ul>
+<li>From R :</li>
+</ul>
+<p><code>rmarkdown::render('C:/Users/Beta/Documents/GitHub/M1_TDP/examples/Markdown/test.Rmd', 'pdf_document')</code></p>
+<ul>
+<li>From Shell:</li>
+</ul>
+<p><code>R -e "rmarkdown::render('C:/Users/Beta/Documents/GitHub/M1_TDP/examples/Markdown/test.Rmd', 'pdf_document')"</code></p>
+<ul>
+<li>From Python :</li>
+</ul>
+<div class="python">
+<pre class="python"><code>import os 
+os.system(&#39;&#39;&#39;R -e &quot;rmarkdown::render(&#39;C:/Users/Beta/Documents/GitHub/M1_TDP/examples/Markdown/test.Rmd&#39;, &#39;pdf_document&#39;)&quot; &#39;&#39;&#39;)</code></pre>
+</div>
+</div>
 </div>
 <div id="github" class="section level1">
 <h1><span class="header-section-number">3</span> GitHub</h1>
-<p>Github is a company that creates products that use the open source tool git. From wikipédia: “Git is a distributed version-control system for tracking changes in any set of files, originally designed for coordinating work among programmers cooperating on source code during software development.”. It was created by Linus Torvalds, the creator of the Linux kernel.</p>
+<p>Github is a company that creates products that use the open source tool git. From wikipedia: “Git is a distributed version-control system for tracking changes in any set of files, originally designed for coordinating work among programmers cooperating on source code during software development.”.</p>
+<div id="create-a-repository" class="section level2">
+<h2><span class="header-section-number">3.1</span> Create a repository</h2>
+<p>A repository is usually used to organize a single project. Repositories can contain folders and files, images, videos, spreadsheets, and data sets etc, etc.</p>
+<ul>
+<li>On your GitHub account create a new repository:</li>
+</ul>
+<p><img src="examples/img_gh/gh_1.JPG" /></p>
+<ul>
+<li>Name the project, Add a README, gitignore is used to ignore some files format that are stored in the same folder on your computer.</li>
+</ul>
+<p><img src="examples/img_gh/gh_2.JPG" /></p>
+<ul>
+<li>Now that you have a repository, you may want to invite people to collaborate with you and give them writing rights to the project. Conversely, these collaborators can also clone the project and then ask to attach their versions to yours afterwards.</li>
+</ul>
+<p><img src="examples/img_gh/gh_3.JPG" /></p>
+<ul>
+<li>Invite a collaborator</li>
+</ul>
+<p><img src="examples/img_gh/gh_5.JPG" /></p>
+</div>
+<div id="clone-a-repository" class="section level2">
+<h2><span class="header-section-number">3.2</span> Clone a repository</h2>
+<ul>
+<li>If you are not the creator of the repository, you can clone the repository to have it on your computer and then modify the project. In the same way you can easily use other people’s programs by cloning their repository.</li>
+</ul>
+<p><img src="examples/img_gh/gh_6.JPG" /></p>
+<p><img src="examples/img_gh/gh_7.JPG" /></p>
+</div>
+<div id="create-branches" class="section level2">
+<h2><span class="header-section-number">3.3</span> Create branches</h2>
+<ul>
+<li><p>Now that the directory is created, collaborators can work on it and contribute to the project. The final version of the project can be found on the ‘main’ branch.</p></li>
+<li><p>You can create a branch in order to start editing the project and save your changes on your own branch. Often branches will be linked to specific aspects of the project and will then be removed once the changes have been integrated into the final version.</p></li>
+</ul>
+<p><img src="examples/img_gh/gh_8.JPG" /></p>
+<ul>
+<li>You can publish this branch if you want it to be merged to the main branch after your changes.</li>
+</ul>
+<p><img src="examples/img_gh/gh_9.JPG" /></p>
+</div>
+<div id="commit-your-changes" class="section level2">
+<h2><span class="header-section-number">3.4</span> Commit your changes</h2>
+<p><img src="examples/img_gh/gh_11.JPG" /></p>
+<ul>
+<li>Once you have finished your changes for the day but you are still not at the stage where your branch has to be merged with the main branch you can push your commits to save them and make them available to the other one (still on your branch).</li>
+</ul>
+<p><img src="examples/img_gh/gh_12.JPG" /></p>
+<ul>
+<li>On github you can see the project as well as the two branches that compose it</li>
+</ul>
+<p><img src="examples/img_gh/gh_13.JPG" /></p>
+<p><img src="examples/img_gh/gh_14.JPG" /></p>
+</div>
+<div id="create-pull-request" class="section level2">
+<h2><span class="header-section-number">3.5</span> Create Pull Request</h2>
+<ul>
+<li>Once your changes are complete you can now submit your changes to the community and create a pull request.</li>
+</ul>
+<p><img src="examples/img_gh/gh_14.JPG" /></p>
+<ul>
+<li>This will signal to others that your changes are ready and that adding them to the final project needs to be discussed. You can also check the changes approved by the main branch before merging them.</li>
+</ul>
+<p><img src="examples/img_gh/gh_15.JPG" /></p>
+<p><img src="examples/img_gh/gh_16.JPG" /></p>
+<ul>
+<li>Then the authors of the repository will be able to approve or not the merge of the two branches. As I’m a collaborator of the project I can do it by myself.</li>
+</ul>
+<p><img src="examples/img_gh/gh_17.JPG" /></p>
+<p><img src="examples/img_gh/gh_22.JPG" /></p>
+<p><img src="examples/img_gh/gh_23.JPG" /></p>
+<ul>
+<li>Once the modifications are validated, you can delete the branch that was created for the occasion.</li>
+</ul>
+<p><img src="examples/img_gh/gh_19.JPG" /></p>
+<ul>
+<li>So we only have one branch left in our repository with the modifications made on the solutions folder.</li>
+</ul>
+<p><img src="examples/img_gh/gh_20.JPG" /></p>
+<ul>
+<li><p>Keeping your folder update</p></li>
+<li><p>If you are working on different aspects of your project you probably want to integrate into your computer folder the changes made by your collaborators, so you should regularly check if any changes have been made to a given branch and pull origin if necessary. Make sure you check the changes made to the files before doing it!</p></li>
+</ul>
+<p><img src="examples/img_gh/gh_21.JPG" /></p>
+</div>
+</div>
+<div id="exercise" class="section level1">
+<h1><span class="header-section-number">4</span> Exercise</h1>
+<p>Clone this repository and follow the instructions: <a href="https://github.com/master-ds2e/exam-schedules" class="uri">https://github.com/master-ds2e/exam-schedules</a></p>
 </div>
 
 

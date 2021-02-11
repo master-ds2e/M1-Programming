@@ -133,10 +133,6 @@ plot(density(log(final_table$nb_aut+1)))
  How many papers contains 'deep learning' or 'machine learning' and 'neural network' (also with a 's' for neural networks) in their title ? Create a binary variable to save this information. What is the mean of authors for ML papers and non-ML papers ? Transform has_data and oa into binary variable also, what is the share of ML paper that are oa ?
 
 
-
-
-
-
 <div class = "r">
 
 ```{r}

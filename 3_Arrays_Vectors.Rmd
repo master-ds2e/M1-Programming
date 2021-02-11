@@ -1027,25 +1027,25 @@ df_1.apply(sum)
 </div>
 
 
-# Exercices
+# Exercises
 
-## Exercice 1
+## Exercise 1
 
 The series, $1^{1} + 2^{2} + 3^{3} + ... + 10^{10} = 10405071317$.
 
 Find the last ten digits of the series, $1^{1} + 2^{2} + 3^{3} + ... + 1000^{1000}$.
 
-## Exercice 2
+## Exercise 2
 
 Try to vectorize exercices from chapter 1, you can also compare it with apply/map functions. 
 
-## Exercice 3
+## Exercise 3
 
 2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder.
 
 What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?
 
-## Exercice 4
+## Exercise 4
 A palindromic number reads the same both ways. The largest palindrome made from the product of two 2-digit numbers is 9009 = 91 × 99.
 
 Find the largest palindrome made from the product of two 3-digit numbers.

@@ -25,6 +25,8 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -371,9 +373,17 @@ div.tocify {
 <li>
   <a href="6_Data_Analysis_Py.html">Data Analysis (Python)</a>
 </li>
+<li>
+  <a href="7_Best_practices.html">Best Pratices</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/master-ds2e/">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -508,11 +518,11 @@ dataset %&gt;% function1(arg1) %&gt;% function2(arg2)</p></li>
 
 
 library(tidyverse)
-## -- Attaching packages ------------------------------------------------------------------- tidyverse 1.3.0 --
+## -- Attaching packages --------------------------------------------------------------------------------- tidyverse 1.3.0 --
 ## v ggplot2 3.3.0     v purrr   0.3.3
 ## v tibble  3.0.0     v forcats 0.5.0
 ## v tidyr   1.0.2
-## -- Conflicts ---------------------------------------------------------------------- tidyverse_conflicts() --
+## -- Conflicts ------------------------------------------------------------------------------------ tidyverse_conflicts() --
 ## x dplyr::filter() masks stats::filter()
 ## x dplyr::lag()    masks stats::lag()
 covid_papers &lt;- read_csv(&quot;data/covid_papers.csv&quot;)
@@ -568,7 +578,7 @@ dim(slice_sample(covid_papers,prop = 0.001))
 t &lt;- Sys.time()
 doi_clean &lt;- filter(covid_papers,doi != &#39;null&#39;)
 Sys.time()-t
-## Time difference of 0.01891589 secs</code></pre>
+## Time difference of 0.01792097 secs</code></pre>
 <p><b> Using Pipes </b></p>
 <pre class="r"><code># R
 
@@ -585,7 +595,7 @@ Sys.time() - t
 t = Sys.time()
 doi_clean &lt;- covid_papers[which(covid_papers$doi != &#39;null&#39;),]
 Sys.time() - t
-## Time difference of 0.02190399 secs</code></pre>
+## Time difference of 0.0219028 secs</code></pre>
 </div>
 </div>
 <div id="select-columns" class="section level3">
@@ -1698,7 +1708,7 @@ cp_tibble &lt;- cp_tibble %&gt;%
   mutate(across(where(is.character),
          toupper))
 Sys.time() - t
-## Time difference of 11.35514 secs</code></pre>
+## Time difference of 11.27247 secs</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -1723,7 +1733,7 @@ cp_datatable[, c(&#39;pubtype&#39;,&#39;mesh&#39;) := lapply(.SD, function(x){to
 t = Sys.time()
 for(j in  which(sapply(cp_datatable, class)==&#39;character&#39;)){set(cp_datatable, i=NULL, j=j, value=toupper(cp_datatable[[j]]))}
 Sys.time() - t 
-## Time difference of 10.78739 secs</code></pre>
+## Time difference of 10.06404 secs</code></pre>
 </div>
 </div>
 </div>
@@ -3148,8 +3158,8 @@ rbindlist(lapply(c(&quot;cp_datatable.csv&quot;, &quot;cp_datatable.csv&quot;), 
 </div>
 </div>
 </div>
-<div id="exercice" class="section level1">
-<h1><span class="header-section-number">7</span> Exercice</h1>
+<div id="exercise" class="section level1">
+<h1><span class="header-section-number">7</span> Exercise</h1>
 <p>Using first <code>dplyr</code> and the <code>tidyverse</code>, Use <code>table_1.csv</code>, <code>table_2.csv</code> and <code>loc_cities.csv</code>, we will need information from the three datasets.</p>
 <ul>
 <li><p>Import datasets</p></li>
