@@ -1,0 +1,65 @@
+---
+title: "exam schedule"
+author: "Pierre Pelletier"
+output: pdf_document
+---
+
+# My solution 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(reticulate)
+```
+
+## Python code
+```{python}
+import pandas as pd
+from datetime import datetime, timedelta
+from random import sample
+
+
+def create_exam_schedules(days, h_starts, h_ends,n_group):
+    schedules = []
+    for day, h_start, h_end in zip(days, h_starts, h_ends):
+        schedule = datetime(2021, 3, day, h_start, 0)
+        i = 0
+        while (schedule + timedelta(minutes=30) < datetime(2021, 3, day, h_end, 0)
+               and len(schedules) <= n_group-1):
+            i += 1
+            if i%3 != 0:
+                to_add = 30
+            else: 
+                to_add = 45
+            schedules.append(schedule)
+            schedule += timedelta(minutes=to_add)
+    return schedules
+
+groups = [
+  'Alioune/Tingyu/Yasser',
+  'Aristote/Habibata/Roland',
+  'Arstrid/Tamara',
+  'Corentin',
+  'Mohammad/Andrija/Mouhamadou Khoury',
+  'Amadou Abdoulaye/Mohamed/Julian',
+  'Chenyin/Yuchen/Chunhua',
+  'Guillaume/Lucas/Nikola',
+  'Akouahi/Ousmane'
+  ]
+
+
+schedules = pd.DataFrame({'date':create_exam_schedules([23,24],[8]*2,[11]*2, 9),
+                          'group':sample(groups,len(groups))})
+
+```
+
+## Output
+
+\centering
+
+```{r,warning=FALSE}
+library(kableExtra)
+
+py$schedules %>% 
+  kbl(booktabs = T)
+
+```

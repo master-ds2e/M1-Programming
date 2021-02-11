@@ -17,13 +17,13 @@ navbar:
       href: 5_Data_Analysis_R.html
     - text: "Data Analysis (Python)"
       href: 6_Data_Analysis_Py.html
-    #- text: "Best Pratices"
-    #  href: 6_Best_practices.html
+    - text: "Best Pratices"
+      href: 7_Best_practices.html
     #- text: "Efficient Prog"
     #  href: 7_Efficient_prog.html
-  #right:
-  #  - icon: fa-github fa-lg
-  #    href: https://github.com/master-ds2e/
+  right:
+    - icon: fa-github fa-lg
+      href: https://github.com/master-ds2e/
 output:
   html_document:
     theme: flatly

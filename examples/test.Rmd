@@ -22,8 +22,8 @@ knitr::opts_chunk$set(echo = TRUE,
 # Exercice 
 
 There are XX groups in the class, the orals must be spread over 6 hours, in two 3-hour sessions.
-For each group the duration of the oral is about 20 min + 5-10 min for Q&A.
-We will want to take two 15-minute breaks in the middle of each session.
+For each group the duration of the oral is about ~20 min + ~10 min for Q&A.
+We will want to take two 15-minute breaks in the after 1h30 of courses. 
 Write a program that randomly assigns a schedule to each group, write out this list of names and schedules in a table. Have a look on this : https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html
 
 
@@ -99,20 +99,3 @@ test_R %>%
     kable_classic(full_width = F, html_font = "Cambria")
 ``` 
 
-# Solution
-
-```{python}
-
-groups = [
-  'Alioune/Tingyu/Yasser',
-  'Aristote/Habibata/Roland',
-  'Arstrid/Tamara',
-  'Corentin',
-  'Mohammad/Andrija/Mouhamadou Khoury',
-  'Amadou Abdoulaye/Mohamed/Julian',
-  'Chenyin/Yuchen/Chunhua',
-  'Guillaume/Lucas/Nikola',
-  'Akouahi/Ousmane'
-  ]
-groups
-```

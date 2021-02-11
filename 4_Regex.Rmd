@@ -710,7 +710,7 @@ str_replace_all( '[38] min and [4] sec','\\[(\\d+)\\]', '\\10')
 </div>
 </div>
 
-# Exercice
+# Exercise
 
 Here is the list of all university restaurants in strasbourg, can you make a program that will allow us to compare the menus in the open restaurants for the next three days ?
 On your nagivator, go to the web page, inspect with a right click, and locate the appropriate html class.

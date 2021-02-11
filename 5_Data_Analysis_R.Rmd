@@ -2361,7 +2361,7 @@ rbindlist(lapply(c("cp_datatable.csv", "cp_datatable.csv"), fread))
 </div>
 
 
-# Exercice 
+# Exercise 
 
 Using first ```dplyr``` and the ```tidyverse```, Use ```table_1.csv```, ```table_2.csv``` and ```loc_cities.csv```, we will need information from the three datasets. 
 
