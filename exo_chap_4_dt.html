@@ -383,6 +383,9 @@ div.tocify {
 <li>
   <a href="7_Best_practices.html">Best Pratices</a>
 </li>
+<li>
+  <a href="8_Efficient_prog.html">Efficient Prog</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
@@ -428,7 +431,7 @@ dt_table_1 = fread(file = &#39;data/table_1.csv&#39;)
 dt_table_2 = fread(file = &#39;data/table_2.csv&#39;)
 dt_cities = fread(file = &#39;data/cities_loc.csv&#39;)
 toc()
-## 1.5 sec elapsed
+## 1.14 sec elapsed
 
 setDT(dt_table_1)
 setDT(dt_table_2)
@@ -521,7 +524,7 @@ toc()
 tic()
 dt_final_table = na.omit(dt_table_2[dt_table_1, on = &#39;pmid&#39;])
 toc()
-## 0.07 sec elapsed
+## 0.06 sec elapsed
 
 dt_final_table
 ##             pmid
@@ -619,7 +622,7 @@ tic()
 dt_final_table[,nb_aut := dim(str_match_all(authors, &#39;&lt;AUTHOR&gt;&#39;)[[1]])[1],
                by = &#39;pmid&#39;]
 toc()
-## 4.13 sec elapsed
+## 5.05 sec elapsed
 
 dt_final_table = dt_final_table[nb_aut&gt;0]
 
@@ -676,7 +679,7 @@ dt_final_table[, &#39;title&#39; := .(tolower(title)),
                                               ifelse(oa == &#39;Y&#39;,1,0)),
                  by = &#39;pmid&#39;]
 toc()
-## 4.25 sec elapsed
+## 5.09 sec elapsed
 
 
 sum(dt_final_table$ML)
@@ -714,7 +717,7 @@ toc()
 tic()
 dt_final_table[,pub_type := str_match_all(pubtype, &#39;\\[&quot;&quot;(.*?)&quot;&quot;&#39;)[[1]][2],by = &#39;pmid&#39;]
 toc()
-## 2.26 sec elapsed
+## 2.84 sec elapsed
 
 dt_final_table[,.(pubtype,pub_type)]
 ##                                                                                                                                                     pubtype
@@ -923,7 +926,7 @@ dt_final_table[,
 ## 83:          NA
 ##             sd_
 toc()
-## 0.03 sec elapsed
+## 0.02 sec elapsed
 
 tic()
 dt_final_table[,
@@ -1100,7 +1103,7 @@ dt_final_table[,
 ## 83:          NA
 ##             sd_
 toc()
-## 0.03 sec elapsed</code></pre>
+## 0.02 sec elapsed</code></pre>
 </div>
 </div>
 <div id="most-representative-countres-by-year" class="section level1">
@@ -1116,7 +1119,7 @@ countries_dt = dt_final_table[,c(&#39;pmid&#39;,&#39;authors&#39;)
                               ][,.(authors = unlist(tstrsplit(authors, &quot;&lt;AUTHOR&gt;&quot;))),
                                 by= &#39;pmid&#39;]
 toc()
-## 7.55 sec elapsed
+## 8.55 sec elapsed
 countries_dt
 ##             pmid
 ##      1: 10022847
@@ -1155,7 +1158,7 @@ countries_dt = countries_dt[,
 setkey(countries_dt,pmid,clean_aff)
 countries_dt = unique(countries_dt)
 toc()
-## 50.09 sec elapsed
+## 28.9 sec elapsed
 
 countries_dt
 ##             pmid
@@ -1191,7 +1194,7 @@ countries_dt[, clean_aff := str_replace_all(clean_aff,&#39; USA&#39;,&#39;United
                ][, clean_aff := str_replace_all(clean_aff,&#39; Korea&#39;,&#39;South Korea&#39;)
                  ][, clean_aff := tolower(clean_aff)]
 toc()
-## 4.48 sec elapsed
+## 6.05 sec elapsed
 countries_dt
 ##             pmid
 ##      1: 10023135
@@ -1227,7 +1230,7 @@ countries_dt[,country := .(ifelse(any(str_detect(clean_aff,countries)),
                                   &quot;&quot;)),
              by=c(&#39;pmid&#39;, &#39;clean_aff&#39;)]
 toc()
-## 713.09 sec elapsed
+## 863.37 sec elapsed
 countries_dt
 ##             pmid
 ##      1: 10023135
@@ -1271,7 +1274,7 @@ countries_dt = countries_dt[country != &quot;&quot;, -&#39;clean_aff&#39;]
 setkey(countries_dt,pmid,country)
 countries_dt = unique(countries_dt)
 toc()
-## 4.8 sec elapsed
+## 4.17 sec elapsed
 
 tic()
 countries_year = countries_dt[dt_final_table[,c(&#39;pmid&#39;,&#39;year_pub&#39;)], on =&#39;pmid&#39;]
@@ -1293,7 +1296,7 @@ head(countries_pub_dt[order(n,decreasing = T)])
 ## 5:          india     2020  3297
 ## 6:         france     2020  2650
 toc()
-## 0.3 sec elapsed</code></pre>
+## 0.06 sec elapsed</code></pre>
 </div>
 </div>
 <div id="country-bar-plot-with-plotly" class="section level1">
@@ -1346,8 +1349,8 @@ plot_top_n(10,2001)
 ## No trace type specified:
 ##   Based on info supplied, a &#39;bar&#39; trace seems appropriate.
 ##   Read more about this trace type -&gt; https://plot.ly/r/reference/#bar</code></pre>
-<div id="htmlwidget-1e91b6a142d0a4289576" style="width:672px;height:480px;" class="plotly html-widget"></div>
-<script type="application/json" data-for="htmlwidget-1e91b6a142d0a4289576">{"x":{"visdat":{"9724b356581":["function () ","plotlyVisDat"]},"cur_data":"9724b356581","attrs":{"9724b356581":{"x":{},"y":{},"color":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20]}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"yaxis":{"domain":[0,1],"automargin":true,"title":"Count","type":"log"},"barmode":"stack","xaxis":{"domain":[0,1],"automargin":true,"title":"year_pub","type":"category","categoryorder":"array","categoryarray":["2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021"]},"hovermode":"closest","showlegend":true},"source":"A","config":{"showSendToCloud":false},"data":[{"x":["2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021"],"y":[2,5,10,22,26,33,39,44,51,27,46,42,72,98,122,122,115,131,138,2107,3],"type":"bar","name":"australia","marker":{"color":"rgba(102,194,165,1)","line":{"color":"rgba(102,194,165,1)"}},"textfont":{"color":"rgba(102,194,165,1)"},"error_y":{"color":"rgba(102,194,165,1)"},"error_x":{"color":"rgba(102,194,165,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021"],"y":[16,13,45,70,61,72,62,71,70,65,63,74,89,117,132,140,122,137,174,2363,4],"type":"bar","name":"canada","marker":{"color":"rgba(228,156,113,1)","line":{"color":"rgba(228,156,113,1)"}},"textfont":{"color":"rgba(228,156,113,1)"},"error_y":{"color":"rgba(228,156,113,1)"},"error_x":{"color":"rgba(228,156,113,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021"],"y":[101,191,190,170,157,146,171,225,167,176,319,389,513,525,566,590,739,7888,25],"type":"bar","name":"china","marker":{"color":"rgba(201,152,157,1)","line":{"color":"rgba(201,152,157,1)"}},"textfont":{"color":"rgba(201,152,157,1)"},"error_y":{"color":"rgba(201,152,157,1)"},"error_x":{"color":"rgba(201,152,157,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021"],"y":[11,13,17,32,39,36,46,40,56,43,53,44,87,129,134,144,136,158,156,2650,4],"type":"bar","name":"france","marker":{"color":"rgba(175,154,200,1)","line":{"color":"rgba(175,154,200,1)"}},"textfont":{"color":"rgba(175,154,200,1)"},"error_y":{"color":"rgba(175,154,200,1)"},"error_x":{"color":"rgba(175,154,200,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021"],"y":[19,22,31,35,36,70,53,59,55,46,59,48,80,129,151,154,166,172,182,2154,1],"type":"bar","name":"germany","marker":{"color":"rgba(226,148,184,1)","line":{"color":"rgba(226,148,184,1)"}},"textfont":{"color":"rgba(226,148,184,1)"},"error_y":{"color":"rgba(226,148,184,1)"},"error_x":{"color":"rgba(226,148,184,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2015","2013","2014","2016","2017","2018","2019","2020","2021"],"y":[4,1,5,9,8,10,9,24,18,33,31,30,68,54,86,92,92,95,130,3297,8],"type":"bar","name":"india","marker":{"color":"rgba(176,208,99,1)","line":{"color":"rgba(176,208,99,1)"}},"textfont":{"color":"rgba(176,208,99,1)"},"error_y":{"color":"rgba(176,208,99,1)"},"error_x":{"color":"rgba(176,208,99,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021"],"y":[10,8,18,24,35,30,32,37,33,31,41,43,48,71,95,113,109,114,132,5910,5],"type":"bar","name":"italy","marker":{"color":"rgba(227,217,62,1)","line":{"color":"rgba(227,217,62,1)"}},"textfont":{"color":"rgba(227,217,62,1)"},"error_y":{"color":"rgba(227,217,62,1)"},"error_x":{"color":"rgba(227,217,62,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2019","2018","2020","2021"],"y":[8,11,17,14,18,18,19,38,31,25,34,44,44,63,80,88,77,110,98,2039,5],"type":"bar","name":"spain","marker":{"color":"rgba(245,207,100,1)","line":{"color":"rgba(245,207,100,1)"}},"textfont":{"color":"rgba(245,207,100,1)"},"error_y":{"color":"rgba(245,207,100,1)"},"error_x":{"color":"rgba(245,207,100,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2014","2013","2015","2016","2017","2018","2019","2020","2021"],"y":[22,22,59,71,73,86,78,89,104,88,94,92,184,127,263,213,240,215,294,6262,10],"type":"bar","name":"united kingdom","marker":{"color":"rgba(219,192,155,1)","line":{"color":"rgba(219,192,155,1)"}},"textfont":{"color":"rgba(219,192,155,1)"},"error_y":{"color":"rgba(219,192,155,1)"},"error_x":{"color":"rgba(219,192,155,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2012","2011","2013","2014","2015","2016","2017","2018","2020","2019","2021"],"y":[162,134,240,391,407,482,436,529,554,594,592,587,658,702,811,799,800,801,11668,859,21],"type":"bar","name":"united states","marker":{"color":"rgba(179,179,179,1)","line":{"color":"rgba(179,179,179,1)"}},"textfont":{"color":"rgba(179,179,179,1)"},"error_y":{"color":"rgba(179,179,179,1)"},"error_x":{"color":"rgba(179,179,179,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-2b541a4b179c187ef144" style="width:672px;height:480px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2b541a4b179c187ef144">{"x":{"visdat":{"c40883a3f68":["function () ","plotlyVisDat"]},"cur_data":"c40883a3f68","attrs":{"c40883a3f68":{"x":{},"y":{},"color":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20]}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"yaxis":{"domain":[0,1],"automargin":true,"title":"Count","type":"log"},"barmode":"stack","xaxis":{"domain":[0,1],"automargin":true,"title":"year_pub","type":"category","categoryorder":"array","categoryarray":["2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021"]},"hovermode":"closest","showlegend":true},"source":"A","config":{"showSendToCloud":false},"data":[{"x":["2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021"],"y":[2,5,10,22,26,33,39,44,51,27,46,42,72,98,122,122,115,131,138,2107,3],"type":"bar","name":"australia","marker":{"color":"rgba(102,194,165,1)","line":{"color":"rgba(102,194,165,1)"}},"textfont":{"color":"rgba(102,194,165,1)"},"error_y":{"color":"rgba(102,194,165,1)"},"error_x":{"color":"rgba(102,194,165,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021"],"y":[16,13,45,70,61,72,62,71,70,65,63,74,89,117,132,140,122,137,174,2363,4],"type":"bar","name":"canada","marker":{"color":"rgba(228,156,113,1)","line":{"color":"rgba(228,156,113,1)"}},"textfont":{"color":"rgba(228,156,113,1)"},"error_y":{"color":"rgba(228,156,113,1)"},"error_x":{"color":"rgba(228,156,113,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021"],"y":[101,191,190,170,157,146,171,225,167,176,319,389,513,525,566,590,739,7888,25],"type":"bar","name":"china","marker":{"color":"rgba(201,152,157,1)","line":{"color":"rgba(201,152,157,1)"}},"textfont":{"color":"rgba(201,152,157,1)"},"error_y":{"color":"rgba(201,152,157,1)"},"error_x":{"color":"rgba(201,152,157,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021"],"y":[11,13,17,32,39,36,46,40,56,43,53,44,87,129,134,144,136,158,156,2650,4],"type":"bar","name":"france","marker":{"color":"rgba(175,154,200,1)","line":{"color":"rgba(175,154,200,1)"}},"textfont":{"color":"rgba(175,154,200,1)"},"error_y":{"color":"rgba(175,154,200,1)"},"error_x":{"color":"rgba(175,154,200,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021"],"y":[19,22,31,35,36,70,53,59,55,46,59,48,80,129,151,154,166,172,182,2154,1],"type":"bar","name":"germany","marker":{"color":"rgba(226,148,184,1)","line":{"color":"rgba(226,148,184,1)"}},"textfont":{"color":"rgba(226,148,184,1)"},"error_y":{"color":"rgba(226,148,184,1)"},"error_x":{"color":"rgba(226,148,184,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2015","2013","2014","2016","2017","2018","2019","2020","2021"],"y":[4,1,5,9,8,10,9,24,18,33,31,30,68,54,86,92,92,95,130,3297,8],"type":"bar","name":"india","marker":{"color":"rgba(176,208,99,1)","line":{"color":"rgba(176,208,99,1)"}},"textfont":{"color":"rgba(176,208,99,1)"},"error_y":{"color":"rgba(176,208,99,1)"},"error_x":{"color":"rgba(176,208,99,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021"],"y":[10,8,18,24,35,30,32,37,33,31,41,43,48,71,95,113,109,114,132,5910,5],"type":"bar","name":"italy","marker":{"color":"rgba(227,217,62,1)","line":{"color":"rgba(227,217,62,1)"}},"textfont":{"color":"rgba(227,217,62,1)"},"error_y":{"color":"rgba(227,217,62,1)"},"error_x":{"color":"rgba(227,217,62,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2019","2018","2020","2021"],"y":[8,11,17,14,18,18,19,38,31,25,34,44,44,63,80,88,77,110,98,2039,5],"type":"bar","name":"spain","marker":{"color":"rgba(245,207,100,1)","line":{"color":"rgba(245,207,100,1)"}},"textfont":{"color":"rgba(245,207,100,1)"},"error_y":{"color":"rgba(245,207,100,1)"},"error_x":{"color":"rgba(245,207,100,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2014","2013","2015","2016","2017","2018","2019","2020","2021"],"y":[22,22,59,71,73,86,78,89,104,88,94,92,184,127,263,213,240,215,294,6262,10],"type":"bar","name":"united kingdom","marker":{"color":"rgba(219,192,155,1)","line":{"color":"rgba(219,192,155,1)"}},"textfont":{"color":"rgba(219,192,155,1)"},"error_y":{"color":"rgba(219,192,155,1)"},"error_x":{"color":"rgba(219,192,155,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2012","2011","2013","2014","2015","2016","2017","2018","2020","2019","2021"],"y":[162,134,240,391,407,482,436,529,554,594,592,587,658,702,811,799,800,801,11668,859,21],"type":"bar","name":"united states","marker":{"color":"rgba(179,179,179,1)","line":{"color":"rgba(179,179,179,1)"}},"textfont":{"color":"rgba(179,179,179,1)"},"error_y":{"color":"rgba(179,179,179,1)"},"error_x":{"color":"rgba(179,179,179,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 

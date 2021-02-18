@@ -19,8 +19,8 @@ navbar:
       href: 6_Data_Analysis_Py.html
     - text: "Best Pratices"
       href: 7_Best_practices.html
-    #- text: "Efficient Prog"
-    #  href: 7_Efficient_prog.html
+    - text: "Efficient Prog"
+      href: 8_Efficient_prog.html
   right:
     - icon: fa-github fa-lg
       href: https://github.com/master-ds2e/

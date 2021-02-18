@@ -2,13 +2,21 @@
 title: "Efficient Programming"
 ---
 
-# Parallel computing
 
+<style>
+div.python pre { background-color: #d0f5a9; }
+</style>
+
+<style>
+div.r pre { background-color: #dfdddf; }
+</style>
+
+This chapter is a very brief introduction to the concepts of generator and matrix sparse which can be useful to optimize RAM usage in some cases. Also it will show how to use the full power of cores present in our computer by initiating students to parallel algebra.
 
 
 # Python Generators
 
-Generator usages in Python is a simple way of creating iterators. The goal of this kind of function is to return an object for which we can iterate over it. The difference in terms of syntax hold in the fact that we will the statement 'yield' instead of 'return'. In comparaison to 'return', using 'yield' will pause the function and the control of that generator will be trasnfered to the object that call this generator.  
+Generator usages in Python is a simple way of creating iterators. The goal of this kind of function is to return an object for which we can iterate over it. When the function is called, the function code is not executed. Instead, the function will return a generator object. The difference in terms of syntax hold in the fact that we will the statement 'yield' instead of 'return'. In comparaison to 'return', using 'yield' will pause the function and the control of that generator will be trasnfered to the object which calls this generator.  
 Generators are very useful when we deal with objects which can be too heavy to store all the information in the memory.
 As a generators is an iterator, it will load in the RAM only the iteration that it is reading, meaning that we can have no size limit if we want to iterate over an object that is to heavy.
 This first example is made with a txt file with 1000 rows. We will see how RAM is used behind our machine to understand how it can be relevant to use generators. 
@@ -22,6 +30,8 @@ This first example is made with a txt file with 1000 rows. We will see how RAM i
 import os
 import psutil
 import re
+import time
+
 process = psutil.Process(os.getpid())
 
 t = time.time()
@@ -29,7 +39,7 @@ r1 = process.memory_info().rss
 def read_file_to_lower():
   with open("data/text.txt", "r") as txt:
     txt_list = txt.read().split('\n')
-    txt_list_low = [re.sub(' ','',row.lower()) for row in txt_list] # re.sub here is used to modify each ' ' by nothing.
+    txt_list_low = [re.sub(' ','',row.lower()) for row in txt_list]
   return txt_list_low
 
 txt_clean = read_file_to_lower()
@@ -81,35 +91,51 @@ type(memory_friendly_txt_clean)
 </div>
 
 
-Note how the memory used during the calculation is very different while the time spend does not really change. 
+Note how the memory used during the calculation is very different. 
 
 <p>&nbsp;</p>
 
 
 # Sparse Matrix
 
-When dealing with large array that are sparse (lot of element equalt to 0), it is inneficient to store this object as a dense matrix. Large matrix are sometimes difficult to store in the memory because they are weighty, when they dealing with sparse we can store it and do calculation with them in a very efficient way using the 'Compressed Sparse Column' (CSC) format. See how it change the weight of the matrix when changing the format to sparse matrix .
+When dealing with large array that are sparse (lot of element equal to 0), it is inneficient to store this object as a dense matrix. Large matrix are sometimes difficult to store in the memory because they are weighty, when they dealing with sparse we can store it and do calculation with them in a very efficient way using the 'Compressed Sparse Column' (CSC) format. See how it change the weight of the matrix when changing the format to sparse matrix .
 
 <div class = "row">
 <div class = "col-md-6">
 <div class = "python">
 
-```{python}
+```{python,collapse = TRUE}
 # Python 
- 
-#from scipy.sparse import csr_matrix
-#
-#X = np.zeros((10000,10000))
-#
-#idx = list(np.ndindex(X.shape))[np.random.randint(1,10000**2,1000)]
-#
-#X[idx] = 1
+import numpy as np
+from scipy.sparse import csr_matrix
+#from pympler import asizeof
+
+X = np.zeros(10000**2)
+idx = np.random.randint(1,10000**2,1000)
+X[idx] = 1
+
+X = X.reshape(10000,10000)
+
+#asizeof.asizeof(X)/1e+6
+
+sparse_X = csr_matrix(X)
+sparse_X
+#asizeof.asizeof(sparse_X)/1e+6
 ```
 
-```{python}
+```{python,collapse = TRUE}
 # Python 
+import time
 
+t = time.time()
+sum_x = X+X
+time.time() - t
+
+t = time.time()
+sum_sparse_x = sparse_X+sparse_X
+time.time() - t
 ```
+
 
 </div>
 </div>
@@ -120,31 +146,178 @@ When dealing with large array that are sparse (lot of element equalt to 0), it i
 # R
 library(Matrix)
 
-mat = matrix(0,10000,10000)
+X = matrix(0,10000,10000)
 idx = round(runif(1000,1,10000**2))
 
-mat[idx] = 1
+X[idx] = 1
 
-print(object.size(mat),units = 'auto')
+print(object.size(X),units = 'auto')
 
-sparse_mat = Matrix(mat,sparse = T)
-print(object.size(sparse_mat),units = 'auto')
+sparse_X = Matrix(X,sparse = T)
+print(object.size(sparse_X),units = 'auto')
 ```
 
 ```{r, collapse = TRUE}
 # R
+library(tictoc)
 
-mat = matrix(0,10000,10000)
-idx = round(runif(100000,1,10000**2))
+tic()
+sum_x = X+X
+toc()
 
-mat[idx] = 1
-
-print(object.size(mat),units = 'auto')
-
-sparse_mat = Matrix(mat,sparse = T)
-print(object.size(sparse_mat),units = 'auto')
+tic()
+sum_sparse_x = sparse_X+sparse_X
+toc()
 ```
 
 </div>
 </div>
 </div>
+
+
+
+# Parallel computing
+
+Sometimes the tasks performed successively in a loop are slow, as long as one operation is not finished the computer does not move on to the next one. When the iterations of a loop are independent of each other, i.e. the iteration i+1 is insensitive to the results of the previous iterations, we can use parallel calculation. Your computer is composed of physical processors and logical processors (cores and threads) on which the tasks will be distributed.
+
+
+Let's make an example where the goal will be to make a bootstrap with a linear model. We will resample 500 times our dataset and estimate a model for each sample. 
+
+
+Let's create first the dataset
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "python">
+
+```{python, collapse = TRUE}
+# Python 
+import numpy as np
+
+X = np.random.rand(100000,2)
+y = 2 + 0.5*X[:,0].reshape(100000,1) + 0.2*X[:,1].reshape(100000,1) + np.random.normal(0,3,100000).reshape(100000,1)
+```
+
+- Create a function to compute OLS coefficients for a given sample
+
+```{python, collapse = TRUE}
+# Python 
+from sklearn.linear_model import LinearRegression
+
+def lm_bs():
+    idx_sample = np.random.randint(0,len(y),len(y))
+    y_sample = y[idx_sample]
+    X_sample = X[idx_sample]
+    reg = LinearRegression().fit(X_sample, y_sample)
+    coef_s = reg.coef_[0]
+    return(coef_s)
+
+```
+
+- Run bootstrap with a loop
+
+```{python, collapse = TRUE}
+# Python
+import time 
+
+t = time.time()
+coefs = np.empty((500,2), float)
+for i in range(500):
+    coefs[i,:] = lm_bs()
+time.time() - t
+```
+
+
+- Check how many cores you can use 
+
+```{python, collapse = TRUE}
+# Python
+
+from joblib import Parallel, delayed
+import multiprocessing
+num_cores = multiprocessing.cpu_count()
+print(num_cores)
+```
+
+- Run the loop in parallel !
+
+```{python, eval = F, collapse = TRUE}
+t = time.time()
+coefs = Parallel(n_jobs=5)(delayed(lm_bs)() for i in range(500))
+time.time() - t
+## 7.585024118423462
+```
+
+</div>
+</div>
+<div class = "col-md-6">
+<div class = "r">
+
+```{r, collapse = TRUE}
+# R
+
+X = matrix(runif(100000*2),100000,2)
+y = 2 + 0.5*X[,1] + 0.2*X[,2] + rnorm(100000,0,3)
+```
+
+
+- Create a function to compute OLS coefficients for a given sample
+
+```{r, collapse = TRUE}
+# R 
+
+lm_bs <- function(){
+    idx_sample = sample(seq(1,length(y)))
+    y_sample = y[idx_sample]
+    X_sample = X[idx_sample,]
+    reg = lm(y_sample ~ X_sample)
+    coef_s = reg$coefficients[-1]
+    return(coef_s)
+}
+
+```
+
+
+- Run bootstrap with a loop
+
+```{r, collapse = TRUE}
+# R
+
+tic()
+coefs = matrix(0,500,2)
+for(i in 1:500){
+  coefs[i,] = lm_bs()
+}
+toc()
+
+```
+
+- Check how many cores you can use 
+
+```{r, collapse = TRUE}
+# R
+library(doParallel)
+detectCores()
+registerDoParallel(5)
+
+```
+
+- Run the loop in parallel !
+
+```{r, collapse = TRUE}
+# R
+
+tic()
+coefs =  foreach(i = 1:500,.packages = c('base')) %dopar% {
+                   lm_bs()
+                   }
+
+toc()
+
+
+```
+</div>
+</div>
+</div>
+
+

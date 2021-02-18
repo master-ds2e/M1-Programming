@@ -376,6 +376,9 @@ div.tocify {
 <li>
   <a href="7_Best_practices.html">Best Pratices</a>
 </li>
+<li>
+  <a href="8_Efficient_prog.html">Efficient Prog</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
@@ -428,7 +431,7 @@ t &lt;- Sys.time()
 get_sum_multiples_below1(10000,3,5)
 ## [1] 23331668
 Sys.time() - t
-## Time difference of 0.01680708 secs</code></pre>
+## Time difference of 0.02289987 secs</code></pre>
 </div>
 </div>
 <div id="python" class="section level2">
@@ -451,7 +454,7 @@ get_sum_multiples_below1(10000,3,5)
 ## 23331668
 time.time() - t
 
-## 0.0109405517578125</code></pre>
+## 0.010951519012451172</code></pre>
 <pre class="python"><code># Python 
 
 def get_sum_multiples_below2(below,mutiple_1,multiple_2):
@@ -462,7 +465,7 @@ t = time.time()
 get_sum_multiples_below2(10000,3,5)
 ## 23331668
 time.time() - t
-## 0.014933109283447266</code></pre>
+## 0.011947154998779297</code></pre>
 <pre class="python"><code># Python 
 # Aristote
 
@@ -474,7 +477,7 @@ for v in vec :
 print(s)
 ## 23341668
 time.time() - t
-## 0.028873443603515625</code></pre>
+## 0.031859397888183594</code></pre>
 </div>
 </div>
 </div>
@@ -513,7 +516,7 @@ t &lt;- Sys.time()
 nth_prime(10001)
 ## [1] 104743
 Sys.time() - t
-## Time difference of 1.884708 secs</code></pre>
+## Time difference of 2.462151 secs</code></pre>
 <pre class="r"><code># R
 # Mohammad
 
@@ -531,7 +534,7 @@ n=1
 print(c(&#39;10001st prime number is&#39;,Chiffre[length(Chiffre)]))
 ## [1] &quot;10001st prime number is&quot; &quot;104760&quot;
 Sys.time() - t
-## Time difference of 5.38086 mins</code></pre>
+## Time difference of 6.638991 mins</code></pre>
 </div>
 </div>
 <div id="python-1" class="section level2">
@@ -565,7 +568,7 @@ nth_prime(10001)
 ## 104729
 time.time() - t
 
-## 0.503197431564331</code></pre>
+## 0.48585939407348633</code></pre>
 </div>
 <div class="python">
 <pre class="python"><code># Python 
@@ -594,7 +597,7 @@ while i&lt;10001:
 
 time.time() - t
 
-## 0.2956972122192383</code></pre>
+## 0.2797670364379883</code></pre>
 <pre class="python"><code># Python 
 # Astrid
 
@@ -622,7 +625,7 @@ print(p)
 ## 104743
 time.time() - t
 
-## 0.16726279258728027</code></pre>
+## 0.17323660850524902</code></pre>
 </div>
 </div>
 </div>
@@ -688,7 +691,7 @@ sum(nb_sunday)
 ## [1] 171
 
 Sys.time() - t
-## Time difference of 0.02488995 secs</code></pre>
+## Time difference of 0.06636596 secs</code></pre>
 <pre class="r"><code># R
 # Mohammad
 
@@ -709,7 +712,7 @@ print(c(&#39;Nombre de dimanche coincide avec le prmier jour du mois&#39;,ND))
 
 
 Sys.time() - t
-## Time difference of 0.03285599 secs</code></pre>
+## Time difference of 0.03783393 secs</code></pre>
 </div>
 </div>
 <div id="python-2" class="section level2">
@@ -762,7 +765,7 @@ sum(nb_sunday)
 ## 171
 time.time() - t
 
-## 0.026881694793701172</code></pre>
+## 0.04978227615356445</code></pre>
 <pre class="python"><code># Python 
 # Corentin 
 import pandas as pd
@@ -817,7 +820,7 @@ answer = sum(twentieth.apply(sundays))
 answer
 ## 171
 time.time() - t
-## 0.39924144744873047</code></pre>
+## 0.7261810302734375</code></pre>
 </div>
 <p><a href="2_Basics.html"> Go back to chapter 1</a></p>
 </div>
