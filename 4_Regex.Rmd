@@ -750,4 +750,3 @@ Here is an other very simple webscrapping example where we scrap rap-genius to g
 
 
 <a href="4_Regex.html">Example with 'rap genius'</a> -->
-

@@ -376,6 +376,9 @@ div.tocify {
 <li>
   <a href="7_Best_practices.html">Best Pratices</a>
 </li>
+<li>
+  <a href="8_Efficient_prog.html">Efficient Prog</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
@@ -578,7 +581,7 @@ dim(slice_sample(covid_papers,prop = 0.001))
 t &lt;- Sys.time()
 doi_clean &lt;- filter(covid_papers,doi != &#39;null&#39;)
 Sys.time()-t
-## Time difference of 0.01792097 secs</code></pre>
+## Time difference of 0.01787806 secs</code></pre>
 <p><b> Using Pipes </b></p>
 <pre class="r"><code># R
 
@@ -590,12 +593,12 @@ dim(covid_papers %&gt;% slice_sample(prop = 0.001))
 t = Sys.time()
 doi_clean &lt;- covid_papers %&gt;% filter(doi != &#39;null&#39;)
 Sys.time() - t
-## Time difference of 0.01792192 secs
+## Time difference of 0.01991296 secs
 
 t = Sys.time()
 doi_clean &lt;- covid_papers[which(covid_papers$doi != &#39;null&#39;),]
 Sys.time() - t
-## Time difference of 0.0219028 secs</code></pre>
+## Time difference of 0.02389503 secs</code></pre>
 </div>
 </div>
 <div id="select-columns" class="section level3">
@@ -1708,7 +1711,7 @@ cp_tibble &lt;- cp_tibble %&gt;%
   mutate(across(where(is.character),
          toupper))
 Sys.time() - t
-## Time difference of 11.27247 secs</code></pre>
+## Time difference of 15.05015 secs</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -1733,7 +1736,7 @@ cp_datatable[, c(&#39;pubtype&#39;,&#39;mesh&#39;) := lapply(.SD, function(x){to
 t = Sys.time()
 for(j in  which(sapply(cp_datatable, class)==&#39;character&#39;)){set(cp_datatable, i=NULL, j=j, value=toupper(cp_datatable[[j]]))}
 Sys.time() - t 
-## Time difference of 10.06404 secs</code></pre>
+## Time difference of 11.87976 secs</code></pre>
 </div>
 </div>
 </div>
