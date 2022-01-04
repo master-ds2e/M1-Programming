@@ -9,12 +9,11 @@ library(reticulate)
 ```
 
 <style>
-div.python pre { background-color: #e9f7f5
-; }
+div.python pre { background-color: #d0f5a9; }
 </style>
 
 <style>
-div.r pre { background-color: #fff5fd; }
+div.r pre { background-color: #dfdddf; }
 </style>
 
 
@@ -1058,4 +1057,4 @@ $2^{15} = 32768$ and the sum of its digits is 3 + 2 + 7 + 6 + 8 = 26.
 What is the sum of the digits of the number $2^{1000}$?
 
 
-<a href="">Solutions</a>
+<a href="exo_chap_2.html">Solutions</a>

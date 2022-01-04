@@ -3,16 +3,12 @@ title: "Data Analysis (R)"
 ---
 
 <style>
-div.python pre { background-color: #e9f7f5
-; }
+div.python pre { background-color: #d0f5a9; }
 </style>
 
 <style>
-div.r pre { background-color: #fff5fd; }
+div.r pre { background-color: #dfdddf; }
 </style>
-
-
-
 
 
 "It is often said that 80% of data analysis is spent on the process of cleaning and preparing the data (Dasu and Johnson 2003).  Data preparation is not just a first step,  but must berepeated many times over the course of analysis as new problems come to light or new data is collected." [(Wickham, 2014)](https://www.jstatsoft.org/article/view/v059i10).
@@ -2396,7 +2392,7 @@ Can you redo the exercice using the data.table library?
 
 
 
-<a href="">solution with dplyr</a>
+<a href="exo_chap_4_tibble.html">solution with dplyr</a>
 
-<a href="">solution with data.table</a> 
+<a href="exo_chap_4_dt.html">solution with data.table</a> 
 

@@ -1,0 +1,44 @@
+"1","                                     V1          V2  ... oa grp_count
+source                                               ...             
+AGR    139938  5f69f0d865a250f0edc710fe         NaN  ...  N        35
+       140353  5f69f0ea65a250f0edc7129d         NaN  ...  N        35
+       140440  5f69f0f065a250f0edc712f4         NaN  ...  N        35
+       142874  5f69f16665a250f0edc71c76         NaN  ...  N        35
+       143048  5f69f16f65a250f0edc71d24         NaN  ...  N        35
+CBA    137119  5f69f05265a250f0edc705fb         NaN  ...  N       282
+       137397  5f69f06065a250f0edc70711         NaN  ...  N       282
+       138229  5f69f08765a250f0edc70a51         NaN  ...  N       282
+       139281  5f69f0b965a250f0edc70e6d         NaN  ...  N       282
+       139745  5f69f0cf65a250f0edc7103d         NaN  ...  N       282
+CTX    113536  5f69ebc365a250f0edc6a9dc         NaN  ...  N         3
+       114908  5f69ec0865a250f0edc6af38         NaN  ...  N         3
+       135771  5f69f00f65a250f0edc700b7         NaN  ...  N         3
+ETH    125320  5f69ee0765a250f0edc6d7e4         NaN  ...  N        24
+       125487  5f69ee0f65a250f0edc6d88b         NaN  ...  N        24
+       125645  5f69ee1765a250f0edc6d929         NaN  ...  N        24
+       127851  5f69ee8465a250f0edc6e1c7         NaN  ...  N        24
+       128123  5f69ee9365a250f0edc6e2d7         NaN  ...  N        24
+HIR    83204   5f69e5dd65a250f0edc63360         NaN  ...  N         1
+MED    148911  5f69f29165a250f0edc7340b  31314321.0  ...  Y    113919
+       148912  5f69f29165a250f0edc7340c  31314312.0  ...  Y    113919
+       148913  5f69f29165a250f0edc7340d  32091757.0  ...  Y    113919
+       148914  5f69f29165a250f0edc7340e  28590697.0  ...  Y    113919
+       148915  5f69f29165a250f0edc7340f  28590695.0  ...  Y    113919
+PAT    143307  5f69f17b65a250f0edc71e27         NaN  ...  N      1373
+       145353  5f69f1dc65a250f0edc72625         NaN  ...  N      1373
+       145378  5f69f1de65a250f0edc7263e         NaN  ...  N      1373
+       145407  5f69f1df65a250f0edc7265b         NaN  ...  N      1373
+       145511  5f69f1e565a250f0edc726c3         NaN  ...  N      1373
+PMC    148876  5f69f28f65a250f0edc733e8         NaN  ...  N     19428
+       148879  5f69f29065a250f0edc733eb         NaN  ...  N     19428
+       148880  5f69f29065a250f0edc733ec         NaN  ...  N     19428
+       148884  5f69f29065a250f0edc733f0         NaN  ...  N     19428
+       148885  5f69f29065a250f0edc733f1         NaN  ...  N     19428
+PPR    107435  5f69ea7565a250f0edc69207         NaN  ...  N     13807
+       107490  5f69ea7865a250f0edc6923e         NaN  ...  N     13807
+       107593  5f69ea7d65a250f0edc692a5         NaN  ...  N     13807
+       108500  5f69eac865a250f0edc69630         NaN  ...  N     13807
+       109186  5f69eaec65a250f0edc698de         NaN  ...  N     13807
+
+[39 rows x 19 columns]
+"

@@ -1,0 +1,101 @@
+---
+title: "Scheduling exercise solution"
+author: "Pierre Pelletier"
+date: "2/7/2021"
+output:
+  pdf_document: 
+    toc: true
+  html_document:
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      warning=FALSE,
+                      error=FALSE,
+                      collaps = TRUE)
+
+```
+
+\newpage
+
+# Exercice 
+
+There are XX groups in the class, the orals must be spread over 6 hours, in two 3-hour sessions.
+For each group the duration of the oral is about ~20 min + ~10 min for Q&A.
+We will want to take two 15-minute breaks in the after 1h30 of courses. 
+Write a program that randomly assigns a schedule to each group, write out the list of names and schedules in a table. Have a look on this : https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html
+
+
+# Examples
+
+## Using Python
+```{python}
+
+import pandas as pd
+
+test_py = pd.DataFrame(
+    {
+     'schedule':['h1','h2','h3'],
+     'name':['A','B','C']
+     }
+    )
+
+``` 
+
+
+## Using R
+
+```{r}
+library(dplyr)
+
+test_R = data.frame(
+  'schedule'=c('h1','h2','h3'),
+  'name'=c('A','B','C')
+  )
+
+``` 
+
+# Get Python object in R
+
+```{r}
+library(reticulate)
+
+py$test_py
+``` 
+
+# Create latex tables
+
+```{r}
+library(kableExtra)
+
+py$test_py %>% 
+  kbl(booktabs = T,
+      caption = "Schedules using pandas' DF") %>%
+    kable_classic(full_width = F, html_font = "Cambria")
+
+test_R %>% 
+  kbl(booktabs = T,
+      caption = "Schedules R's DF") %>%
+    kable_classic(full_width = F, html_font = "Cambria")
+``` 
+- then we put ```echo = FALSE,``` in ```` ```{r, echo = FALSE}``` ```` and we don't see the input anymore
+
+
+```{r, echo = F}
+test_R = data.frame(
+  'schedule'=c('h1','h2','h3'),
+  'name'=c('A','B','C')
+  )
+
+py$test_py %>% 
+  kbl(booktabs = T,
+      caption = "Schedules using pandas' DF") %>%
+    kable_classic(full_width = F, html_font = "Cambria")
+
+test_R %>% 
+  kbl(booktabs = T,
+      caption = "Schedules R's DF") %>%
+    kable_classic(full_width = F, html_font = "Cambria")
+``` 
+

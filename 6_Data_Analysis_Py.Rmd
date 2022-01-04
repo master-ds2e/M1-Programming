@@ -3,15 +3,12 @@ title: "Data Analysis (Py)"
 ---
 
 <style>
-div.python pre { background-color: #e9f7f5
-; }
+div.python pre { background-color: #d0f5a9; }
 </style>
 
 <style>
-div.r pre { background-color: #fff5fd; }
+div.r pre { background-color: #dfdddf; }
 </style>
-
-
 
 # Tibbles and data.tables
 ## Introduction
@@ -649,4 +646,4 @@ covid_papers.to_csv("data/covid_papers.csv")
 
 Translate last chapter's exercice in Python using pandas.
 
-<a href="">solution with pandas (python)</a>
+<a href="exo_4_py.html">solution with pandas (python)</a>

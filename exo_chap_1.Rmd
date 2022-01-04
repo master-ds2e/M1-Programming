@@ -1,0 +1,490 @@
+---
+title: "Exercice Chapter 1"
+output: html_document
+---
+
+<style>
+div.python pre { background-color: #d0f5a9; }
+</style>
+
+<style>
+div.r pre { background-color: #dfdddf; }
+</style>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,error=TRUE,collapse = T)
+``` 
+
+
+<a href="2_Basics.html"> Go back to chapter 1</a>
+
+# Exercice 1
+
+
+
+If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23.
+
+Find the sum of all the multiples of 3 or 5 below 10000.
+
+
+## R 
+
+<div class = "r">
+
+```{r}
+# R
+
+get_sum_multiples_below1 <- function(below,multiple_1,multiple_2){
+  sum <- 0
+  for(i in 1:(below-1)){
+    if((i %% multiple_1 == 0)|(i %% multiple_2 == 0)){
+      sum <-  sum + i 
+    }
+  }
+  return(sum)
+}
+
+t <- Sys.time()
+get_sum_multiples_below1(10000,3,5)
+Sys.time() - t
+```
+
+</div>
+
+## Python
+
+<div class = "python">
+
+```{python}
+# Python 
+
+import time
+
+def get_sum_multiples_below1(below,mutiple_1,multiple_2):
+  sum = 0
+  for i in range(below):
+    if (i % mutiple_1 == 0) or (i % multiple_2 == 0):
+      sum+= i 
+      
+  return sum
+
+t = time.time()
+get_sum_multiples_below1(10000,3,5)
+time.time() - t
+
+
+```
+
+
+```{python}
+# Python 
+
+def get_sum_multiples_below2(below,mutiple_1,multiple_2):
+  multiples = [i if ((i % mutiple_1 == 0) or (i % multiple_2 == 0)) else 0 for i in range(below)]
+  return sum(multiples)
+
+t = time.time()
+get_sum_multiples_below2(10000,3,5)
+time.time() - t
+
+```
+
+
+```{python}
+# Python 
+# Aristote
+
+t = time.time()
+vec = [t for t in range(1,10001) if t%3==0 or t%5==0]
+s = 0
+for v in vec :
+    s += v
+print(s)
+time.time() - t
+
+```
+
+</div>
+
+
+# Exercice 2
+
+By listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see that the 6th prime is 13.
+
+What is the 10 001st prime number?
+
+## R 
+
+<div class = "r">
+
+
+```{r}
+# R
+
+nth_prime <- function(nth){
+  primes = c(1,2)
+  i = 2
+  while(length(primes)<nth){
+    i <- i+1
+    is_prime = TRUE
+    for(j in 2:(round(sqrt(i))+1)){
+      if(i%%j == 0){
+        is_prime = FALSE
+      }
+      if(is_prime == FALSE){
+        break
+      }
+    }
+    if(is_prime == TRUE){
+      primes = c(primes,i)
+    }
+  }
+  
+  return(primes[nth])
+}
+
+t <- Sys.time()
+nth_prime(10001)
+Sys.time() - t
+```
+
+```{r}
+# R
+# Mohammad
+
+t = Sys.time()
+Chiffre=c(1,2,3,4,5)
+n=1
+  while (n<10001){
+    if (all(Chiffre[length(Chiffre)]%%Chiffre[3:length(Chiffre)-1]!=0)){
+      n=n+1
+      #print(Chiffre[length(Chiffre)])
+    } 
+    #if (n==10000) {break}
+    val=Chiffre[length(Chiffre)]+1
+    Chiffre<-append(Chiffre,val)}
+print(c('10001st prime number is',Chiffre[length(Chiffre)]))
+Sys.time() - t
+```
+</div>
+
+## Python
+
+<div class = "python">
+
+```{python}
+# Python 
+import numpy as np
+
+
+def nth_prime(nth):
+  primes = [1,2]
+  i = 2
+  while len(primes) < nth:
+    i+=1 
+    is_prime = True
+    for j in range(2,(int(np.sqrt(i))+1)):
+      if i%j == 0:
+        is_prime = False
+      
+      if is_prime == False:
+        break
+        
+    if is_prime == True:
+      primes.append(i)
+      
+  print(primes[nth-1])
+
+
+t = time.time()
+nth_prime(10001)
+time.time() - t
+
+
+
+```
+
+</div>
+
+<div class = "python">
+
+```{python}
+# Python 
+# Tamara
+
+
+from math import *
+
+def isPrime(n):
+    b=int(sqrt(n))
+    for i in range(2,b):
+        if n%i==0:
+            return False
+    return True
+
+
+t = time.time()
+i=1
+p=1
+
+while i<10001:
+    p+=1
+    if isPrime(p):
+        i+=1    
+
+
+time.time() - t
+
+
+
+```
+
+```{python}
+# Python 
+# Astrid
+
+
+def est_premier(nbr):
+  if nbr==1 :
+    return False
+  if nbr%2==0 :
+    return False
+  for i in range(3, int(sqrt(nbr)+1), 2):
+    if nbr%i==0:
+      return False
+  return True
+
+
+
+t = time.time()
+p=1
+count=1
+while count !=10001 :  
+  p+=2
+  if est_premier(p):
+    count+=1
+print(p)
+
+time.time() - t
+
+
+
+```
+
+
+</div>
+
+
+# Exercie 3
+
+You are given the following information, but you may prefer to do some research for yourself.
+
+- 1 Jan 1900 was a Monday.
+- Thirty days has September,
+    April, June and November.
+    All the rest have thirty-one,
+    Saving February alone,
+    Which has twenty-eight, rain or shine.
+    And on leap years, twenty-nine.
+- A leap year occurs on any year evenly divisible by 4, but not on a century unless it is divisible by 400.
+
+How many Sundays fell on the first of the month during the twentieth century (1 Jan 1901 to 31 Dec 2000)?
+
+## R
+
+<div class = "r">
+
+```{r}
+nb_sundays_y <- function(year,sunday_first){
+  # check if there is a leap
+  if(year %% 4 != 0 | year == 1900){
+    month_length <-  c(31,28,31,30,31,30,31,31,30,31,30,31)
+  } else {
+    month_length <-  c(31,29,31,30,31,30,31,31,30,31,30,31)
+  }
+  
+  # count the first sunday given if equal to 1
+  nb_sunday_first = ifelse(sunday_first == 1,1,0)  
+
+  # set the first sunday date
+  next_sunday = sunday_first
+  m <- 0
+  for(i in month_length){
+    m <- m+1
+    # compute all sundays of the given month
+    while(next_sunday <= i){
+      next_sunday = next_sunday + 7
+    }
+    # setting first sunday date for the next month
+    next_sunday = next_sunday - i
+    
+    # add to count if next month start with a sunday 
+    # and if this is still the current year
+    if(next_sunday == 1 & m!=12){
+      nb_sunday_first = nb_sunday_first + 1
+    }
+  }
+  return(c(nb_sunday_first,next_sunday))
+}
+
+
+
+t <- Sys.time()
+# Intialize with 1900 for which we know that the first sunday is the 6th.
+year_results <- nb_sundays_y(1900,6)
+nb_sunday <- c() 
+
+# compute the sum for each year
+for(year in 1901:2000){
+  year_results <- nb_sundays_y(year,year_results[2])
+  nb_sunday <- c(nb_sunday,year_results[1]) 
+}
+  
+# results
+sum(nb_sunday)
+
+Sys.time() - t
+``` 
+
+```{r}
+# R
+# Mohammad
+
+t = Sys.time()
+
+date=c()
+Y=c(1900:2000)
+for(year in Y){
+  if((year-1900)%%4 != 0){
+    date<- append(c(1:31, 1:28, 1:31, 1:30, 1:31, 1:30, 1:31, 1:31, 1:30, 1:31, 1:30, 1:31),date)
+  }else {
+    date<-append(c(1:31, 1:28, 1:31, 1:30, 1:31, 1:30, 1:31, 1:31, 1:30, 1:31, 1:30, 1:31),date)
+  }}
+ND <- sum(which(date[365:length(date)] == 1) %% 7 == 0)
+print(c('Nombre de dimanche coincide avec le prmier jour du mois',ND))
+
+
+Sys.time() - t
+``` 
+
+</div>
+
+## Python 
+
+<div class = "python">
+
+```{python}
+# Python
+
+def nb_sundays_y(year,sunday_first):
+  # check if there is a leap
+  if year % 4 != 0 or year == 1900:
+    month_length = [31,28,31,30,31,30,31,31,30,31,30,31]
+  else:
+    month_length = [31,29,31,30,31,30,31,31,30,31,30,31]
+    
+  # count the first sunday given if equal to 1
+  nb_sunday_first = 1 if sunday_first == 1 else 0  
+
+  # set the first sunday date
+  next_sunday = sunday_first
+  m = 0
+  for i in month_length:
+    m += 1
+    # compute all sundays of the given month
+    while next_sunday <= i:
+      next_sunday += 7
+    
+    # setting first sunday date for the next month
+    next_sunday = next_sunday - i
+    
+    # add to count if next month start with a sunday 
+    # and if this is still the current year
+    if next_sunday == 1 and m!=12:
+      nb_sunday_first += 1
+    
+  
+  return(nb_sunday_first,next_sunday)
+
+
+t = time.time()
+# Intialize with 1900 for which we know that the first sunday is the 6th.
+year_results = nb_sundays_y(1900,6)
+nb_sunday = [] 
+
+# compute the sum for each year
+for year in range(1901,2001):
+  year_results = nb_sundays_y(year,year_results[1])
+  nb_sunday.append(year_results[0]) 
+# results
+sum(nb_sunday)
+
+time.time() - t
+
+
+
+``` 
+
+```{python}
+# Python 
+# Corentin 
+import pandas as pd
+
+t = time.time()
+# Create a DF of years~months
+
+dic = {}
+for y in range(1900, 2001):
+    dic[y] = range(1, 13)
+
+calendar = pd.DataFrame(dic)
+
+# Find the day of each month's first day
+for year in calendar:
+    for month in range(12):
+        # 30 days months
+        if month in [4, 6, 9, 11]:
+            days_in_month = 30
+        # leap years february
+        elif (month == 2) and ((year%4 == 0 and year%100 > 0) or (year%400 == 0)):
+            days_in_month = 29
+        # february
+        elif (month == 2):
+            days_in_month = 28
+        # others have 31 days
+        else:
+            days_in_month = 31
+            
+        # fill each cell with the day
+        # all months except january
+        if (year != 1900 or (year == 1900 and month != 0)) and (month > 0):    
+            calendar.iloc[month, year-1900] = calendar.iloc[month-1, year-1900] + days_in_month%7
+        # January
+        elif (year != 1900 or (year == 1900 and month != 0)) and (month == 0):
+            calendar.iloc[month, year-1900] = calendar.iloc[11, year-1901] + days_in_month%7
+        # normalize on the 7-day week
+        if calendar.iloc[month, year-1900] > 7:
+            calendar.iloc[month, year-1900] -= 7
+    
+## 1st day Sunday in th 20th
+
+# remove 1900
+twentieth = calendar.iloc[:, 1:]
+
+# function : calaculates the number of 1st day of month sundays in a given year
+def sundays(vec):
+    return(sum(vec==7))
+
+# sum over all years from the dataframe
+answer = sum(twentieth.apply(sundays))
+answer
+
+time.time() - t
+
+``` 
+
+
+</div>
+
+
+<a href="2_Basics.html"> Go back to chapter 1</a>
