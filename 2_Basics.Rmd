@@ -35,11 +35,12 @@ library(reticulate)
 ```
 
 <style>
-div.python pre { background-color: #d0f5a9; }
+div.python pre { background-color: #e9f7f5
+; }
 </style>
 
 <style>
-div.r pre { background-color: #dfdddf; }
+div.r pre { background-color: #fff5fd; }
 </style>
 
 
@@ -91,7 +92,7 @@ Python and R work as classical calculator, using "+", "-", "*" and "/" we can do
 <div class = "col-md-6">
 <div class = "python">
 
-```{python}
+```{python ope}
 # Python 
 
 1+2
@@ -106,7 +107,7 @@ Python and R work as classical calculator, using "+", "-", "*" and "/" we can do
 <div class = "col-md-6">
 <div class = "r">
 
-```{r, collapse = TRUE}
+```{r r-ope, collapse = TRUE}
 # R
 
 1+2
@@ -128,7 +129,7 @@ We can also apply exponantiation, Modulo and floor division easily in both langu
 <div class = "col-md-6">
 <div class = "python">
 
-```{python,echo = T,collapse = TRUE}
+```{python ope2,echo = T,collapse = TRUE}
 # Python 
 
 2**8 # exponantiation
@@ -142,7 +143,7 @@ We can also apply exponantiation, Modulo and floor division easily in both langu
 <div class = "col-md-6">
 <div class = "r">
 
-```{r,echo=T,collapse = TRUE}
+```{r r-ope2,echo=T,collapse = TRUE}
 # R
 
 2**8 # exponantiation
@@ -176,7 +177,7 @@ Theses operators are the same in both language.
 <div class = "row">
 <div class = "col-md-6">
 <div class = "python">
-```{python,echo = T,collapse = TRUE}
+```{python comp,echo = T,collapse = TRUE}
 # Python 
 
 2==8
@@ -191,7 +192,7 @@ Theses operators are the same in both language.
 </div>
 <div class = "col-md-6">
 <div class = "r">
-```{r,echo=T,collapse = TRUE}
+```{r r-cromp,echo=T,collapse = TRUE}
 # R
 
 2==8
@@ -221,7 +222,7 @@ Operator (R/Python) |	Description
 <div class = "row">
 <div class = "col-md-6">
 <div class = "python">
-```{python,echo = T,collapse = TRUE}
+```{python logope,echo = T,collapse = TRUE}
 # Python 
 x = [True,True]
 y = [True,False]
@@ -235,7 +236,7 @@ x or y
 </div>
 <div class = "col-md-6">
 <div class = "r">
-```{r,echo=T,collapse = TRUE}
+```{r r-logope,echo=T,collapse = TRUE}
 # R
 
 x = c(TRUE,TRUE)
@@ -270,7 +271,7 @@ See how we can check that 'Hello' is in 'Hello world' using just in with python.
 <div class = "row">
 <div class = "col-md-6">
 <div class = "python">
-```{python,echo = T,collapse = TRUE}
+```{python relope,echo = T,collapse = TRUE}
 # Python 
 x = 'Hello world'
 y = {1:'a',2:'b'}
@@ -286,7 +287,7 @@ print('a' in y)
 </div>
 <div class = "col-md-6">
 <div class = "r">
-```{r,echo=T,collapse = TRUE}
+```{r r-relope,echo=T,collapse = TRUE}
 # R
 
 x = 'Hello World'
@@ -305,7 +306,7 @@ stringr::str_detect(x,'Hello')
 <div class = "row">
 <div class = "col-md-6">
 <div class = "python">
-```{python,echo = T,collapse = TRUE}
+```{python relope2,echo = T,collapse = TRUE}
 # Python 
 x = ['Hello','World']
 
@@ -316,7 +317,7 @@ print('Hello' in x)
 </div>
 <div class = "col-md-6">
 <div class = "r">
-```{r,echo=T,collapse = TRUE}
+```{r r-relope2,echo=T,collapse = TRUE}
 # R
 
 x = c('Hello','World')
@@ -356,7 +357,7 @@ We mostly should never use for loops in R - they're very slow because they execu
 <div class = "row">
 <div class = "col-md-6">
 <div class = "python">
-```{python,echo = T,collapse = TRUE}
+```{python ov,echo = T,collapse = TRUE}
 # Python 
 import numpy as np
 only_nb = [1,2,3,4]
@@ -373,7 +374,7 @@ np.std(with_char)
 </div>
 <div class = "col-md-6">
 <div class = "r">
-```{r,echo=T,collapse = TRUE}
+```{r r-ov,echo=T,collapse = TRUE}
 # R
 only_nb <- c(1,2,3,4)
 sd(only_nb)
@@ -410,7 +411,7 @@ Finaly we can check easily the data-type of the variable that we are dealing by 
 <div class = "row">
 <div class = "col-md-6">
 <div class = "python">
-```{python,echo = T,collapse = TRUE}
+```{python tnv,echo = T,collapse = TRUE}
 # Python 
 
 import sys 
@@ -440,7 +441,7 @@ float(f)
 <div class = "col-md-6">
 <div class = "r">
 
-```{r,echo=T,collapse = TRUE}
+```{r r-tnv,echo=T,collapse = TRUE}
 # R
 
 a = 1
@@ -482,7 +483,7 @@ There is a lot of datatypes in both language that we will discover along this co
 <div class = "row">
 <div class = "col-md-6">
 
-```{r}
+```{r r-vm}
 # R
 
 vec = c(1, 2, 3)
@@ -504,7 +505,7 @@ vec[-1] # throwaway value
 </div>
 <div class = "col-md-6">
 
-```{r}
+```{r r-vm2}
 # R
 
 mat = matrix(c(1, 2, 3, 4, 5, 6),3,2)
@@ -533,7 +534,7 @@ mat[1,-1] # throwaway values
 </div>
 </div>
 
-```{r}
+```{r r-vm3}
 # modify
 
 b = rep(0,3)
@@ -565,7 +566,7 @@ A Data frame in R is a matrix which can store different types of data, character
 
 <div class = "r">
 
-```{r,echo=T,collapse = TRUE}
+```{r r-df,echo=T,collapse = TRUE}
 # R
 
 df = data.frame(chr = letters[1:5], # letters is a vector of letter provided directly in R
@@ -587,7 +588,7 @@ df[3:dim(df)[1],]
 df[1,-1] # throwaway values
 
 ```
-```{r,echo = T,collapse = TRUE}
+```{r r-df2,echo = T,collapse = TRUE}
 # modify
 
 b = rep(0,3)
@@ -609,7 +610,7 @@ Arrays is a generalisation of the matrix, meaning that we can have a matrix with
 
 <div class = "r">
 
-```{r,echo=T,collapse = TRUE}
+```{r r-ar,echo=T,collapse = TRUE}
 # R
 
 arr = array(seq(1,12,1), dim = c(2,2,3)) # create a matrix with 3 dimension
@@ -631,7 +632,7 @@ A list permits us to assemble an assortment of disconnected objects behind one o
 
 <div class = "r">
 
-```{r,echo=T,collapse = TRUE}
+```{r r-lst,echo=T,collapse = TRUE}
 # R
 
 lst = list(df = df,
@@ -662,7 +663,7 @@ Note that for the moment, for modifiying a variable we always use '='. Keep in m
 Keep in mind that Lists are mutable, as discussed in the Section "Difference between R and Python"
 
 <div class = "python">
-```{python,echo = T,collapse = TRUE}
+```{python lst,echo = T,collapse = TRUE}
 # Python
 
 a = [1, 2, 3]
@@ -679,7 +680,7 @@ a[0:-1]
 a[:]
 
 ```
-```{python,echo = T,collapse = TRUE}
+```{python lst2,echo = T,collapse = TRUE}
 # modify
 
 b = [0, 0, 0]
@@ -702,7 +703,7 @@ len(a) # number of elements in the list
 
 ```
 
-```{python,echo = T,collapse = TRUE}
+```{python lst3,echo = T,collapse = TRUE}
 # mutable
 
 a = [1,2,3]
@@ -721,7 +722,7 @@ a
 The main difference between Lists and tuples is the fact that tuples is an immutable type of data, making it faster to use.
 
 <div class = "python">
-```{python,echo=T,collapse = TRUE}
+```{python tup,echo=T,collapse = TRUE}
 # Python
 
 a = (1, 2, 3)
@@ -737,7 +738,7 @@ a[0:-1]
 a[:]
 
 ```
-```{python,echo = T,collapse = TRUE}
+```{python tup2,echo = T,collapse = TRUE}
 
 # modify
 a += (4,5) 
@@ -746,7 +747,7 @@ a = a*2 # replicate the tuple n times
 len(a) # number of elements in the tuple
 
 ```
-```{python,echo = T,collapse = TRUE}
+```{python tup3,echo = T,collapse = TRUE}
 # immutable
 
 a = (1,2,3)
@@ -765,7 +766,7 @@ Dictionary refers to a way of storing data that is not sorted. It works with key
 
 
 <div class = "python">
-```{python,echo=T,collapse = TRUE}
+```{python dic,echo=T,collapse = TRUE}
 # Python
 
 a = {'a':1, 'b':2, 'c':3}
@@ -782,7 +783,7 @@ a
 a.popitem('b')
 a
 ```
-```{python,echo = T,collapse = TRUE}
+```{python dic2,echo = T,collapse = TRUE}
 # modify
 a['a'] =1 
 a.setdefault('d',0) # create new item with a default value
@@ -793,7 +794,7 @@ a
 a.clear() # remove all items
 
 ```
-```{python,echo = T,collapse = TRUE}
+```{python dic3,echo = T,collapse = TRUE}
 # mutable
 
 a = {'a':1, 'b':2, 'c':3}
@@ -812,7 +813,7 @@ Sets are unordered collection of unique elements. If we give to a set multiple t
 
 
 <div class = "python">
-```{python,echo=T,collapse = TRUE}
+```{python set,echo=T,collapse = TRUE}
 # Python
 
 a = {1, 2, 3}
@@ -823,14 +824,14 @@ a[0] # since it unordered, we can not access to a given element of a set
 
 
 ```
-```{python,echo = T,collapse = TRUE}
+```{python set2,echo = T,collapse = TRUE}
 # modify
 b = {3,4,5}
 a.update(b)  # update values from other set
 a
 
 ```
-```{python,echo = T,collapse = TRUE}
+```{python set3,echo = T,collapse = TRUE}
 # mutable
 
 a = {1, 2, 3}
@@ -854,7 +855,7 @@ R represents all arrays in column-major order, which is not the case in python.
 <div class = "col-md-6">
 <div class = "python">
 
-```{python,echo=T,collapse = TRUE}
+```{python ar,echo=T,collapse = TRUE}
 # Python
 
 import numpy
@@ -876,7 +877,7 @@ arr
 </div>
 <div class = "col-md-6">
 <div class = "r">
-```{r,echo = T,collapse = TRUE}
+```{r r-ar2,echo = T,collapse = TRUE}
 # R
 arr = as.array(rbind(c(1,4),c(2,5),c(3,6)))
 arr
@@ -894,7 +895,7 @@ As you can see, R and Python does not store vector in the same way: R is storing
 
 
 <div class = "python">
-```{python,echo=T,collapse = TRUE}
+```{python ar2,echo=T,collapse = TRUE}
 # Python
 
 # access the element of an array
@@ -903,14 +904,14 @@ arr[0] # access directly to the raw 1
 
 
 ```
-```{python,echo = T,collapse = TRUE}
+```{python ar3,echo = T,collapse = TRUE}
 # modify
 vec = [7,8]
 arr = numpy.insert(arr, len(arr),vec,axis = 0)  # update values from other set
 arr
 
 ```
-```{python,echo = T,collapse = TRUE}
+```{python ar4,echo = T,collapse = TRUE}
 # mutable
 
 arr2 = arr
@@ -928,15 +929,13 @@ arr
 Pandas Data Frames are also very common data-type in Python. The package Pandas is also view deeper in following chapters.
 
 <div class = "python">
-```{python,echo = T,collapse = TRUE}
+```{python pd,echo = T,collapse = TRUE}
 # Python
 
 import pandas
 
 df = pandas.DataFrame(arr)
 df
-
-type(df)
 
 vec = [1,2,3,4,5,6]
 
@@ -1247,7 +1246,6 @@ The full power of programming comes is the fact that we can be autonomous by rea
 <div class = "python">
 ```{python,echo = T,collapse = TRUE}
 # Python 
-
 seq = [1,2,None,4,None,6]*120
 
 def clean_sum(seq):
@@ -1259,7 +1257,7 @@ def clean_sum(seq):
   return total
   
 t = time.time()
-clean_sum(seq =  seq)
+clean_sum(seq = seq)
 time.time() - t
 
 
@@ -1268,7 +1266,7 @@ def clean_sum2(seq):
   return total
   
 t = time.time()
-clean_sum2(seq =  seq)
+clean_sum2(seq = seq)
 time.time() - t
 
 
@@ -1675,5 +1673,5 @@ How many Sundays fell on the first of the month during the twentieth century (1 
 
 <p>&nbsp;</p>
 
-<a href="exo_chap_1.html">Possible solutions in R and Python without vectorisation</a>
+<a href="">Possible solutions in R and Python without vectorisation</a>
 

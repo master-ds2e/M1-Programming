@@ -1,3 +1,0 @@
-"0","# Python
-covid_papers = covid_papers.drop('month_pub',axis = 1)
-"

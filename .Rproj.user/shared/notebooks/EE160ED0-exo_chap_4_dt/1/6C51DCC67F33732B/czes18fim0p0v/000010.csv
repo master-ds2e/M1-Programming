@@ -1,6 +1,0 @@
-"0","toc()"
-"1","0.09 sec elapsed
-"
-"0","tic()"
-"0","dt_final_table[,.(share_oa = sum(as.numeric(oa))/.N,"
-"0","                  mean_cited = mean(cited)), by = 'ML']"
