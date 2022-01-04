@@ -4,12 +4,15 @@ title: "Efficient Programming"
 
 
 <style>
-div.python pre { background-color: #d0f5a9; }
+div.python pre { background-color: #e9f7f5
+; }
 </style>
 
 <style>
-div.r pre { background-color: #dfdddf; }
+div.r pre { background-color: #fff5fd; }
 </style>
+
+
 
 This chapter is a very brief introduction to the concepts of generator and matrix sparse which can be useful to optimize RAM usage in some cases. Also it will show how to use the full power of cores present in our computer by initiating students to parallel algebra.
 

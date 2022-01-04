@@ -2,14 +2,15 @@
 title: "Best Practices"
 ---
 
-
 <style>
-div.python pre { background-color: #d0f5a9; }
+div.python pre { background-color: #e9f7f5
+; }
 </style>
 
 <style>
-div.r pre { background-color: #dfdddf; }
+div.r pre { background-color: #fff5fd; }
 </style>
+
 
 
 # PEP8

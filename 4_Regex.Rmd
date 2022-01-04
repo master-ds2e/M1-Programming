@@ -3,12 +3,14 @@ title: "Regex"
 ---
 
 <style>
-div.python pre { background-color: #d0f5a9; }
+div.python pre { background-color: #e9f7f5
+; }
 </style>
 
 <style>
-div.r pre { background-color: #dfdddf; }
+div.r pre { background-color: #fff5fd; }
 </style>
+
 
 # Strings
 
@@ -741,9 +743,9 @@ contents = soup.find_all(class_= html_class)
 
 ```
 
-<a href="resto_u_explication.html">Detailled solution</a> 
+<a href="">Detailled solution</a> 
 
-<a href="Genius_scrap.html">Other example</a> 
+<a href="">Other example</a> 
 
 <!--
 Here is an other very simple webscrapping example where we scrap rap-genius to get lyrics from all songs in the album '13 Organisé', for each artist we count the number of unique words after remooving stopwords.
