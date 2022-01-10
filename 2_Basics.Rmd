@@ -61,7 +61,7 @@ Both data science languages are great for business analysis. They can both be us
 
 ## R Strengths
 
-The S language was a precursor to R developed by John Chambers (statistician) at Bell Labs in 1976 as a programming language designed to implement statistics. The R statistical programming language was developed at the University of Auckland, New Zealand, to increase S capacities. S and R developers were not software engineers or computer scientists, they were researchers that developed tools in order carry out research and communicate results more efficiently. 
+The S language was a precursor to R developed by John Chambers (statistician) at Bell Labs in 1976 as a programming language designed to implement statistics. The R statistical programming language was developed at the University of Auckland, New Zealand, to increase S capacities. S and R developers were not software engineers or computer scientists, they were researchers that developed tools in order carry out research and communicate results more efficiently.  
 
 R is a language with roots in statistics, data analysis, data exploration, and data visualization. It has utilities for reporting and communicate including RMarkdown and Shiny. 
 
@@ -73,7 +73,7 @@ The Python language is a general-purpose programming language created by Guido v
 
 In essence, the foundations of Python are in computer science and mathematics. With over 100,000 open source libraries, Python has the largest ecosystem of any programming language, making it a unique choice for those who want high flexibility.
 
-Python has great data science libraries including Scikit Learn, the most popular machine learning library which is easy to pick up, includes support for pipelines to simplify the machine learning workflow, and has almost all of the algorithms one needs in one place. Another very common library is TensorFlow, developed by software engineers at Google to perform deep learning, commonly used for image recognition and natural language processing tasks (NLTK is also very useful for NLP). Facebook also have his own deep learning framework named PyTorch which is a concurrent of Tenserflow and Keras (which is desinged for efficiently building neural networks). 
+Python has great data science libraries including Scikit Learn, the most popular machine learning library which is easy to pick up, includes support for pipelines to simplify the machine learning workflow, and has almost all of the algorithms one needs in one place. Another very common library is TensorFlow, developed by software engineers at Google to perform deep learning, commonly used for image recognition and natural language processing tasks (NLTK is also very useful for NLP). Facebook also have his own deep learning framework named PyTorch which is a concurrent of Tenserflow and Keras (which is designed for efficiently building neural networks). 
 
  
 
@@ -122,7 +122,7 @@ Python and R work as classical calculator, using "+", "-", "*" and "/" we can do
 
 <p>&nbsp;</p>
 
-We can also apply exponantiation, Modulo and floor division easily in both language. Note that in R we can write the exponantiation "^". It is used for exclusive-or (XOR) in Python.
+We can also apply exponentiation, Modulo and floor division easily in both language. Note that in R we can write the exponentiation "^". It is used for exclusive-or (XOR) in Python.
 
 
 <div class = "row">
@@ -132,7 +132,7 @@ We can also apply exponantiation, Modulo and floor division easily in both langu
 ```{python ope2,echo = T,collapse = TRUE}
 # Python 
 
-2**8 # exponantiation
+2**8 # exponentiation
 2^8 == 2**8 # False
 8%3 # modulo
 8//3 # floor division
@@ -146,7 +146,7 @@ We can also apply exponantiation, Modulo and floor division easily in both langu
 ```{r r-ope2,echo=T,collapse = TRUE}
 # R
 
-2**8 # exponantiation
+2**8 # exponentiation
 2^8 == 2**8 # TRUE
 8%%3 # modulo
 8%/%3 # floor division
@@ -264,7 +264,7 @@ Operator (R)| Operator (Python)|	Description
 <p>&nbsp;</p>
 ## Membership operators
 
-'In' and 'not in' are membership operators in Python. They are used to test whether a value or variable is found in a sequence. In R '%in%' allows you to use the python in, but you have to be aware that they may not react the same way, the reason is that list of character can be directly decomposed in a character list in python, which is not the case in R.
+'In' and 'not in' are membership operators in Python. They are used to test whether a value or variable is found in a sequence. In R '%in%' allows you to use the python in, but you have to be aware that they may not react the same way, the reason is that list of character can be directly decomposed in a character list in python, which is not the case in R.  
 See how we can check that 'Hello' is in 'Hello world' using just in with python. In R we look if the string exactly match one element.
 
 
@@ -346,11 +346,11 @@ While Python is much appreciated for being a versatile language with an easy-to-
 
 In R, a variable and an object are the same things, they refer to the same entities. If we assign to a new variable a variable that already exist, it will refers to two different objects.
 
-Things in Python are more conventional, but since most of you learned R before Python it is important to notice that variables refers to an objet but they are still two entities.
+Things in Python are more conventional, but since most of you learned R before Python it is important to notice that variables refers to an object but they are still two entities.
 It means that two variables can refer to a single object. If two variables are pointing the same object, the modification made with one variable will be also available when using the other variable.
 
 
-We mostly should never use for loops in R - they're very slow because they execute a function call with every iteration. One should vectorize and use the apply family of functions instead (Weird, I know..). Vectorization is king in R if we want fast code. Assuming we vectorize both our R and Python codes (and other factors), we should probably get the same order of magnitude in speed. For data larger than memory (we can specify the limit), R starts to become a bad choice. 
+We mostly should never use for loops in R - they're very slow because they execute a function call with every iteration. One should vectorize and use the apply family of functions instead. Vectorization is king in R if we want fast code. Assuming we vectorize both our R and Python codes (and other factors), we should probably get the same order of magnitude in speed. For data larger than memory (we can specify the limit), R starts to become a bad choice. 
 
 
 
@@ -392,10 +392,10 @@ sd(with_char)
 
 <p>&nbsp;</p>
 
-- See how R does not show any error and directly remove NA to compute the standard deviation and also converts string to numeric if possible. If converting the string to numeric is not feasible, R finally return a NA. This is not an error message but a warning message.  
+- When computing a standard deviation R does not show any error using NA and returns NA, see how it also converts string to numeric if possible. If converting the string to numeric is not feasible, R finally return a NA. This is not an error message but a warning message.  
 We need to write our code carefully since R can do calculation for a while and just return NA without stopping the process which is not the case in Python. 
 
-- see here that R calulates the standard deviation with N - 1 as the denominator, and numpy with N. To get the same result we need to use 'ddof=1' as argument in std.
+- R calculates the standard deviation with N - 1 as the denominator, and numpy with N. To get the same result we need to use 'ddof=1' as argument in std.
 </div>
 
 
@@ -404,9 +404,9 @@ We need to write our code carefully since R can do calculation for a while and j
 
 In R textual data are called 'character', in Python it is a string, abbreviate as 'str'. " or ' are used when we set a textual variable in both language, but we can also set a variable to textual variable if needed.
 
-Numerical variables a decomposed in three types. In Python we have integer, float and complex. In R float is called 'double', reffering to double precision floating point. Without entering into details, it means that the number have a precision up to 15 decimals. Float can refers to a precision of 7 decimals, however in Python the data-type 'float' has a precision of 15 numbers. They are ways to get more precisions using Numpy for example. 
+Numerical variables a decomposed in three types. In Python we have integer, float and complex. In R float is called 'double', referring to double precision floating point. Without entering into details, it means that the number have a precision up to 15 decimals. Float can refers to a precision of 7 decimals, however in Python the data-type 'float' has a precision of 15 numbers. They are ways to get more precision using Numpy for example. 
 
-Finaly we can check easily the data-type of the variable that we are dealing by asking the language with the command 'type' in Python, or 'typeof' in R.
+Finally we can check easily the data-type of the variable that we are dealing by asking the language with the command 'type' in Python, or 'typeof' in R.
 
 <div class = "row">
 <div class = "col-md-6">
@@ -472,7 +472,7 @@ as.numeric(f)
 
 ## Other Data-Type (R)
 
-There is a lot of datatypes in both language that we will discover along this course, for now, we will focus only on basic data-type that are directly available without using anyother package or library,in R common data-type are Vector, Matrix, List, Dataframe.
+There is a lot of datatypes in both language that we will discover along this course, for now, we will focus only on basic data-type that are directly available without using any other package or library,in R common data-type are Vector, Matrix, List, Dataframe.
 
 <p>&nbsp;</p>
 
@@ -562,7 +562,7 @@ i_mat
 
 ### Data frame
 
-A Data frame in R is a matrix which can store different types of data, characters, numerics or factors. Contrary to the matrix, it does not have a fixed dimension which means that we can create a column very easily using the operator '$'.
+A Data frame in R is a matrix which can store different types of data, characters, numeric or factors. Contrary to the matrix, it does not have a fixed dimension which means that we can create a column very easily using the operator '$'.
 
 <div class = "r">
 
@@ -572,7 +572,7 @@ A Data frame in R is a matrix which can store different types of data, character
 df = data.frame(chr = letters[1:5], # letters is a vector of letter provided directly in R
                 num = seq(1,5,1),
                 fac = factor(c(rep('a',3),rep('b',2)))) 
-class(df$chr) # automaticaly converted to factor, which can be very inneficient !
+class(df$chr) # automatically converted to factor, which can be very inefficient ! UP: Not any more with R >= 4.0 !
 df$chr = as.character(df$chr)
 class(df$chr)
 colnames(df)
@@ -592,8 +592,8 @@ df[1,-1] # throwaway values
 # modify
 
 b = rep(0,3)
-df = rbind(df,b) # introduce a new row in the data frame, note that we get a NA in the factor colmun because '0' is not a level
-df$new_col = rep(2,6) # we can introduce new colmuns by specifiying the name and set a value
+df = rbind(df,b) # introduce a new row in the data frame, note that we get a NA in the factor column because '0' is not a level
+df$new_col = rep(2,6) # we can introduce new columns by specifying the name and set a value
 
 
 df
@@ -606,7 +606,7 @@ class(t_df)
 
 ### Arrays
 
-Arrays is a generalisation of the matrix, meaning that we can have a matrix with more than two dimensions. We can modify them as we modify a matrix.
+Arrays is a generalization of the matrix, meaning that we can have a matrix with more than two dimensions. We can modify them as we modify a matrix.
 
 <div class = "r">
 
@@ -653,8 +653,8 @@ lst[[1]][1,] # first row of first element of the list
 
 
 
-In Python the most common are List, tuple, sets, Dictionnary.
-Note that for the moment, for modifiying a variable we always use '='. Keep in mind that using the '.' can modify the object behind the variable in Python.
+In Python the most common are List, tuple, sets, Dictionary.
+Note that for the moment, for modifying a variable we always use '='. Keep in mind that using the '.' can modify the object behind the variable in Python.
 
 <p>&nbsp;</p>
 
@@ -809,7 +809,7 @@ a
 <p>&nbsp;</p>
 ### Sets
 
-Sets are unordered collection of unique elements. If we give to a set multiple time the same element, it will automatically delete dupplicated values.
+Sets are unordered collection of unique elements. If we give to a set multiple time the same element, it will automatically delete duplicated values.
 
 
 <div class = "python">
@@ -846,7 +846,7 @@ a
 <p>&nbsp;</p>
 ### Arrays
 
-In order to manipulate arrays in Python we need to use package numpy, this package is very usefull and will be covered in other chapters.
+In order to manipulate arrays in Python we need to use package numpy, this package is very useful and will be covered in other chapters.
 
 First see that we can make an array using R by starting from a vector.
 R represents all arrays in column-major order, which is not the case in python.
@@ -891,7 +891,7 @@ arr
 </div>
 </div>
 
-As you can see, R and Python does not store vector in the same way: R is storing them by column while python does it by row. Using "order = 'F'" alows us to store vector into matrix by column.
+As you can see, R and Python does not store vector in the same way: R is storing them by column while python does it by row. Using "order = 'F'" allows us to store vector into matrix by column.
 
 
 <div class = "python">
@@ -950,7 +950,7 @@ df
 ```{python,echo=T,collapse = TRUE}
 # Python
 
-# access the element of a Pandas Data Frame
+# access element of a Pandas Data Frame
 
 df['vec'] 
 
@@ -978,7 +978,8 @@ df2
 # Control flow
 
 There are two main control flow tools: choices, and loops. 
-'Choices' are very useful for establishing rules or conditions. 'Choices' can be used to modify a value according to a certain condition, generally it allows to launch certain actions in specific cases.
+'Choices' are very useful for establishing rules or conditions. 'Choices' can be used to modify a value according to a certain condition, generally it allows to launch certain actions in specific cases.  
+
 The 'loops' when it allows to execute sequentially actions, it can be to interactively modify an object, more generally it allows to launch a procedure several times. For example, we can create N similar objects but we can also modify the N lines of an object.
 
 
@@ -1052,7 +1053,9 @@ if(!is.integer(n)){
 <p>&nbsp;</p>
 ## Loops
 
-Using 'Loops', we iterate over a predefined number of iterations. Sometimes we do not know how many steps we need to perform a given task. Imagine that we want to optimize a function, we don't know how many steps we need until reaching an optimum, but we can set a condition for which we will consider that the algorithm converged. For this kind of exercice we can use 'while' loops, it will iterate until a given condition is satisfied.
+Using 'Loops', we iterate over a predefined number of iterations. Sometimes we do not know how many steps we need to perform a given task.  
+
+Imagine that we want to optimize a function, we don't know how many steps we need until reaching an optimum, but we can set a condition for which we will consider that the algorithm converged. For this kind of exercise we can use 'while' loops, it will iterate until a given condition is satisfied.
 
 
 <div class = "row">
@@ -1115,7 +1118,7 @@ total = 0
 while(total < 1){
   rnd = rnorm(n=1, mean = 0, sd = 1)
   if(rnd < 0){
-    # in R we can specify nothing instead of specifiying 'pass'
+    # in R we can specify nothing instead of specifying 'pass'
     } else {
     total = total + rnd }
 }
@@ -1130,7 +1133,7 @@ total
 <p>&nbsp;</p>
 ## List, Set and Dict comprehensions (Python)
 
-List comprehension is very common and appreciate in the python language features, think of it as a loop for which we will directly store output in a list, set, or dict. we can use it as a filter for exemple.
+List comprehension is very common and appreciate in the python language features, think of it as a loop for which we will directly store output in a list, set, or dict. we can use it as a filter for example.
 
 
 <div class = "python">
@@ -1231,8 +1234,9 @@ results
 
 
 Functions are very important in both languages, being able to code ourselves things are sometimes more efficient than looking for a package and understand it.  
-Being able to write our own functions gives us more flexibility and a better understanding of what we are actually doing.
-It is important to not reinvent the wheel, but it is important to be able to construct it ourself. Read documentation carefully while using packages, sometimes packages are misleading and we can spend a lot of time understanding how they work. Look at the packages source code when we are not sure of what the function does behind.  
+Being able to write our own functions gives us more flexibility and a better understanding of what we are actually doing.  
+
+It is important to not reinvent the wheel, but it is important to be able to construct it our-self. Read documentation carefully while using packages, sometimes packages are misleading and we can spend a lot of time understanding how they work. Look at the packages source code when we are not sure of what the function does behind.  
 The full power of programming comes is the fact that we can be autonomous by reading, modifying and writing codes and pre-existing codes.
 
 
@@ -1319,7 +1323,8 @@ Sys.time() - t
 
 Functions in Python are objects, they can have attributes and methods like objects. The functions can have data variables and even functions written inside of them.  
 Suppose we want to apply several transformation to data, we can create multiple functions to do the different tasks that we want to perform. We can stock functions in list a apply them sequentially very easily.  
-Note that we can separate the output into several variables by specifiying the different values before the assignation. We cannot do that in R directly bt the zeallot package can tackle this problem.
+
+Note that we can separate the output into several variables by specifying the different values before the assignation. We cannot do that in R directly but the zeallot package can tackle this problem.
 
 
 
@@ -1392,11 +1397,10 @@ x2
 
 ## Error and Exception Handling
 
-Most of the time, writing a function is very task-specific, but since data are often dirty and incomplete, our given task may not work. It is important to understand why a given function can produce an error. Being sure that this and this case can leads to errors is not so easy, but it's important not to be too flexible to keep. In those examples, we are going to see how setting the flexibility of the function can leads to different results that are more or less efficient.
-
-Look before we leap vs Easier to ask for forgiveness than permission.
+It is important to understand why a given function can produce an error. Being sure that this and this case can leads to errors is not so easy, but it's important not to be too flexible to keep. In those examples, we are going to see how setting the flexibility of the function can leads to different results that are more or less efficient.
 
 If we expect that 99 % of the time result will actually contain something iterable, we would use the try/except approach. It will be faster if exceptions really are exceptional. If result is None more than 50 % of the time, then using 'if' is probably better.
+
 So, whereas an 'if' statement always costs us, it's nearly free to set up a try/except block. But when an Exception actually occurs, the cost is much higher.
 
 <div class = "row">
