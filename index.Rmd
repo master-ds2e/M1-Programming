@@ -51,7 +51,7 @@ There are three different grades in this course :
 ```{r,echo=F}
 library(downloadthis)
 download_link(
-  link = "https://github.com/master-ds2e/M1-Programming/blob/gh-pages/m1_recap.pdf",
+  link = "https://github.com/master-ds2e/M1-Programming/raw/gh-pages/m1_recap.pdf",
   button_label = "Download Exams Instructions",
   button_type = "danger",
   has_icon = TRUE,
