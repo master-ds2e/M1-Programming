@@ -48,6 +48,18 @@ There are three different grades in this course :
 <p>&nbsp;</p>
 - The project must be presented orally, students will discuss the issues raised in the project. They will present the weak and strong points of their codes and the different approaches used to address them during the creation of their tools.
 
+```{r,echo=F}
+library(downloadthis)
+download_link(
+  link = "https://github.com/master-ds2e/M1-Programming/blob/gh-pages/m1_recap.pdf",
+  button_label = "Download Exams Instructions",
+  button_type = "danger",
+  has_icon = TRUE,
+  icon = "fa fa-save",
+  self_contained = FALSE
+)
+```
+
 <p>&nbsp;</p>
 
 
