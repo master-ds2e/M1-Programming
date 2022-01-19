@@ -542,7 +542,7 @@ wd_info = &#39;\nCurrent working directory: &#39;
 infos = time_info+time_+wd_info+wd
 
 print(infos)
-## Time: Tue Jan  4 11:24:40 2022
+## Time: Wed Jan 19 10:28:51 2022
 ## Current working directory: /home/peltouz/Documents/GitHub/M1-Programming</code></pre>
 <p>In R we use cat() to take into account ‘’ (new line), Python automatically understand it with print.</p>
 </div>
@@ -559,10 +559,10 @@ wd_info = &#39;\nCurrent working directory: &#39;
 infos &lt;- paste0(time_info,time_,
            wd_info,wd)
 print(infos) 
-## [1] &quot;Time: 2022-01-04 11:24:40\nCurrent working directory: /home/peltouz/Documents/GitHub/M1-Programming&quot;
+## [1] &quot;Time: 2022-01-19 10:28:51\nCurrent working directory: /home/peltouz/Documents/GitHub/M1-Programming&quot;
 
 cat(infos) 
-## Time: 2022-01-04 11:24:40
+## Time: 2022-01-19 10:28:51
 ## Current working directory: /home/peltouz/Documents/GitHub/M1-Programming</code></pre>
 </div>
 </div>
@@ -646,13 +646,13 @@ def get_infos_3():
   
 
 get_infos()
-## Time: Tue Jan  4 11:24:40 2022
+## Time: Wed Jan 19 10:28:51 2022
 ## Current working directory: /home/peltouz/Documents/GitHub/M1-Programming
 get_infos_2()
-## Time: Tue Jan  4 11:24:40 2022 
+## Time: Wed Jan 19 10:28:51 2022 
 ##   Current working directory: /home/peltouz/Documents/GitHub/M1-Programming
 get_infos_3()
-## Time: Tue Jan  4 11:24:40 2022 
+## Time: Wed Jan 19 10:28:51 2022 
 ##   Current working directory: /home/peltouz/Documents/GitHub/M1-Programming</code></pre>
 </div>
 </div>
@@ -681,11 +681,11 @@ get_infos_2&lt;- function(){
 }
 
 get_infos()
-## Time: 2022-01-04 11:24:40
+## Time: 2022-01-19 10:28:51
 ## Current working directory: /home/peltouz/Documents/GitHub/M1-Programming
 
 get_infos_2()
-## Time: 2022-01-04 11:24:40 
+## Time: 2022-01-19 10:28:51 
 ##   Current working directory: /home/peltouz/Documents/GitHub/M1-Programming</code></pre>
 </div>
 </div>
@@ -1034,7 +1034,7 @@ re.findall(&#39;top-[15]&#39;,abstract)
 ## [&#39;top-1&#39;, &#39;top-5&#39;]
 re.finditer(&#39;[0-9]&#39;,abstract)
 
-## &lt;callable_iterator object at 0x7f3b5f9877f0&gt;</code></pre>
+## &lt;callable_iterator object at 0x7fd9cac5bcf8&gt;</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -1358,15 +1358,15 @@ re.sub(r&#39;\[(\d+)\]&#39;, r&#39;\10&#39;, &#39;[38] min and [4] sec&#39;)
 ## 
 ## Detailed traceback:
 ##   File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;
-##   File &quot;/home/peltouz/.local/share/r-miniconda/envs/r-reticulate/lib/python3.6/re.py&quot;, line 191, in sub
+##   File &quot;/usr/lib/python3.6/re.py&quot;, line 191, in sub
 ##     return _compile(pattern, flags).sub(repl, string, count)
-##   File &quot;/home/peltouz/.local/share/r-miniconda/envs/r-reticulate/lib/python3.6/re.py&quot;, line 326, in _subx
+##   File &quot;/usr/lib/python3.6/re.py&quot;, line 326, in _subx
 ##     template = _compile_repl(template, pattern)
-##   File &quot;/home/peltouz/.local/share/r-miniconda/envs/r-reticulate/lib/python3.6/re.py&quot;, line 317, in _compile_repl
+##   File &quot;/usr/lib/python3.6/re.py&quot;, line 317, in _compile_repl
 ##     return sre_parse.parse_template(repl, pattern)
-##   File &quot;/home/peltouz/.local/share/r-miniconda/envs/r-reticulate/lib/python3.6/sre_parse.py&quot;, line 943, in parse_template
+##   File &quot;/usr/lib/python3.6/sre_parse.py&quot;, line 943, in parse_template
 ##     addgroup(int(this[1:]), len(this) - 1)
-##   File &quot;/home/peltouz/.local/share/r-miniconda/envs/r-reticulate/lib/python3.6/sre_parse.py&quot;, line 887, in addgroup
+##   File &quot;/usr/lib/python3.6/sre_parse.py&quot;, line 887, in addgroup
 ##     raise s.error(&quot;invalid group reference %d&quot; % index, pos)
 re.sub(r&#39;\[(\d+)\]&#39;, r&#39;\g&lt;1&gt;0&#39;, &#39;[38] min and [4] sec&#39;)
 
