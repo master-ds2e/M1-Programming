@@ -1,0 +1,297 @@
+---
+title: "Exercice Chapter 1"
+output: html_document
+---
+
+<style>
+div.python pre { background-color: #e9f7f5
+; }
+</style>
+
+<style>
+div.r pre { background-color: #fff5fd; }
+</style>
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,error=TRUE,collapse = T)
+``` 
+
+
+<a href="2_Basics.html"> Go back to chapter 1</a>
+
+# Exercice 1
+
+
+
+If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23.
+
+Find the sum of all the multiples of 3 or 5 below 10000.
+
+
+## R 
+
+<div class = "r">
+
+```{r}
+# R
+
+get_sum_multiples_below1 <- function(below,multiple_1,multiple_2){
+  sum <- 0
+  for(i in 1:(below-1)){
+    if((i %% multiple_1 == 0)|(i %% multiple_2 == 0)){
+      sum <-  sum + i 
+    }
+  }
+  return(sum)
+}
+
+t <- Sys.time()
+get_sum_multiples_below1(10000,3,5)
+Sys.time() - t
+```
+
+</div>
+
+## Python
+
+<div class = "python">
+
+```{python}
+# Python 
+
+import time
+
+def get_sum_multiples_below1(below,mutiple_1,multiple_2):
+  sum = 0
+  for i in range(below):
+    if (i % mutiple_1 == 0) or (i % multiple_2 == 0):
+      sum+= i 
+      
+  return sum
+
+t = time.time()
+get_sum_multiples_below1(10000,3,5)
+time.time() - t
+
+
+```
+
+
+```{python}
+# Python 
+
+def get_sum_multiples_below2(below,mutiple_1,multiple_2):
+  multiples = [i if ((i % mutiple_1 == 0) or (i % multiple_2 == 0)) else 0 for i in range(below)]
+  return sum(multiples)
+
+t = time.time()
+get_sum_multiples_below2(10000,3,5)
+time.time() - t
+
+```
+
+
+</div>
+
+
+# Exercice 2
+
+By listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see that the 6th prime is 13.
+
+What is the 10 001st prime number?
+
+## R 
+
+<div class = "r">
+
+
+```{r}
+# R
+
+nth_prime <- function(nth){
+  primes = c(1,2)
+  i = 2
+  while(length(primes)<nth){
+    i <- i+1
+    is_prime = TRUE
+    for(j in 2:(round(sqrt(i))+1)){
+      if(i%%j == 0){
+        is_prime = FALSE
+        break
+      }
+    }
+    if(is_prime == TRUE){
+      primes = c(primes,i)
+    }
+  }
+  
+  return(primes[nth])
+}
+
+t <- Sys.time()
+nth_prime(10001)
+Sys.time() - t
+```
+</div>
+
+## Python
+
+<div class = "python">
+
+```{python}
+# Python 
+import numpy as np
+
+
+def nth_prime(nth):
+  primes = [1,2]
+  i = 2
+  while len(primes) < nth+1:
+    i+=1 
+    is_prime = True
+    for j in range(2,(int(np.sqrt(i))+1)):
+      if i%j == 0:
+        is_prime = False
+        break
+        
+    if is_prime == True:
+      primes.append(i)
+      
+  print(primes[-1])
+
+
+t = time.time()
+nth_prime(10001)
+time.time() - t
+
+
+
+```
+
+</div>
+
+
+# Exercie 3
+
+You are given the following information, but you may prefer to do some research for yourself.
+
+- 1 Jan 1900 was a Monday.
+- Thirty days has September,
+    April, June and November.
+    All the rest have thirty-one,
+    Saving February alone,
+    Which has twenty-eight, rain or shine.
+    And on leap years, twenty-nine.
+- A leap year occurs on any year evenly divisible by 4, but not on a century unless it is divisible by 400.
+
+How many Sundays fell on the first of the month during the twentieth century (1 Jan 1901 to 31 Dec 2000)?
+
+## R
+
+<div class = "r">
+
+```{r}
+
+get_sundays <- function(year,first_sunday){
+  
+  # Get number of days per month
+  if((year %% 100 != 0 & year%%4 == 0) | year %% 400 == 0){
+    month_length =  c(31,29,31,30,31,30,31,31,30,31,30,31)
+  } else {
+    month_length = c(31,28,31,30,31,30,31,31,30,31,30,31)
+  }
+  
+  # total number of days
+  nb_days = sum(month_length)
+  # position of the first days of the month
+  cumsum_year = cumsum(month_length)-month_length+1
+  
+  # position of all sundays
+  sundays = seq(first_sunday,nb_days,7)
+  
+  # get first sunday of the following year
+  next_sunday_position = sundays[length(sundays)] - nb_days + 7
+  
+  nb_sundays_first = length(which(sundays %in% cumsum_year))
+  
+  return(c(next_sunday_position,nb_sundays_first))
+}
+
+
+t = Sys.time()
+# Intialize with 1900, we know that the first sunday is the 6th.
+year_result = get_sundays(1900,6)
+
+
+# compute the sum for each year
+nb_sundays = 0
+for(i in seq(1901,2000)){
+  next_sunday = year_result[1]
+  year_result = get_sundays(i,next_sunday)
+  nb_sundays = nb_sundays + year_result[2]
+}
+Sys.time() - t
+
+
+# results
+nb_sundays
+``` 
+
+</div>
+
+## Python 
+
+<div class = "python">
+
+```{python}
+# Python
+import numpy as np 
+
+def get_sundays(year,first_sunday):
+  # check if there is a leap
+  if (year % 100 != 0 and year%4 == 0) or year % 400 == 0 :
+    month_length = [31,29,31,30,31,30,31,31,30,31,30,31]
+  else:
+    month_length = [31,28,31,30,31,30,31,31,30,31,30,31]
+    
+  # total number of days
+  nb_days = sum(month_length)
+  # position of the first days of the month
+  cumsum_year = np.cumsum(month_length)-month_length+1
+  
+  # position of all sundays
+  sundays = list(range(first_sunday,nb_days,7))
+  
+  # get first sunday of the following year
+  next_sunday_position = sundays[-1] - nb_days + 7
+  
+  nb_sundays_first = len(np.where(np.isin(sundays,cumsum_year)==True)[0])
+  
+  return next_sunday_position, nb_sundays_first
+
+
+t = time.time()
+# Intialize with 1900, we know that the first sunday is the 6th.
+year_result = get_sundays(1900,6)
+
+# compute the sum for each year
+nb_sundays = 0
+
+for i in range(1901,2001):
+  next_sunday = year_result[0]
+  year_result = get_sundays(i,next_sunday)
+  nb_sundays = nb_sundays + year_result[1]
+
+
+time.time() - t
+nb_sundays
+
+
+``` 
+
+
+</div>
+
+
+<a href="2_Basics.html"> Go back to chapter 1</a>
