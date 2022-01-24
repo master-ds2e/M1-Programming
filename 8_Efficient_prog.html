@@ -405,9 +405,9 @@ def read_file_to_lower():
 txt_clean = read_file_to_lower()
 
 process.memory_info().rss - r1 # in bytes
-## 98304
+## 94208
 time.time() - t
-## 0.028032541275024414
+## 0.02128124237060547
 type(txt_clean)
 ## &lt;class &#39;list&#39;&gt;</code></pre>
 </div>
@@ -436,7 +436,7 @@ process.memory_info().rss - r1 # in bytes
 ## 0
 time.time() - t
 
-## 0.032776594161987305
+## 0.02462029457092285
 type(memory_friendly_txt_clean)
 
 ## &lt;class &#39;generator&#39;&gt;</code></pre>
@@ -478,11 +478,11 @@ import time
 t = time.time()
 sum_x = X+X
 time.time() - t
-## 0.1081552505493164
+## 0.0796210765838623
 t = time.time()
 sum_sparse_x = sparse_X+sparse_X
 time.time() - t
-## 0.011062145233154297</code></pre>
+## 0.01710796356201172</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -512,12 +512,12 @@ library(tictoc)
 tic()
 sum_x = X+X
 toc()
-## 0.264 sec elapsed
+## 0.192 sec elapsed
 
 tic()
 sum_sparse_x = sparse_X+sparse_X
 toc()
-## 0.008 sec elapsed</code></pre>
+## 0.006 sec elapsed</code></pre>
 </div>
 </div>
 </div>
@@ -559,7 +559,7 @@ coefs = np.empty((500,2), float)
 for i in range(500):
     coefs[i,:] = lm_bs()
 time.time() - t
-## 4.644759893417358</code></pre>
+## 3.48210072517395</code></pre>
 <ul>
 <li>Check how many cores you can use</li>
 </ul>
@@ -609,7 +609,7 @@ for(i in 1:500){
   coefs[i,] = lm_bs()
 }
 toc()
-## 19.23 sec elapsed</code></pre>
+## 13.385 sec elapsed</code></pre>
 <ul>
 <li>Check how many cores you can use</li>
 </ul>
@@ -637,7 +637,7 @@ coefs =  foreach(i = 1:500,.packages = c(&#39;base&#39;)) %dopar% {
                    }
 
 toc()
-## 8.534 sec elapsed</code></pre>
+## 5.411 sec elapsed</code></pre>
 </div>
 </div>
 </div>

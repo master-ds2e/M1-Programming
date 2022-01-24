@@ -11,7 +11,7 @@
 
 
 
-<title>Exercice Chapter 1</title>
+<title>exo_chap_2</title>
 
 <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -366,7 +366,7 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Exercice Chapter 1</h1>
+<h1 class="title toc-ignore">exo_chap_2</h1>
 
 </div>
 
@@ -378,17 +378,86 @@ div.python pre { background-color: #e9f7f5
 <style>
 div.r pre { background-color: #fff5fd; }
 </style>
-<p><a href="2_Basics.html"> Go back to chapter 1</a></p>
+<p><a href="3_Arrays_Vectors.html"> Go back to chapter 2</a></p>
 <div id="exercice-1" class="section level1" number="1">
 <h1><span class="header-section-number">1</span> Exercice 1</h1>
-<p>If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23.</p>
-<p>Find the sum of all the multiples of 3 or 5 below 10000.</p>
-<div id="r" class="section level2" number="1.1">
-<h2><span class="header-section-number">1.1</span> R</h2>
+<p>The series, <span class="math inline">\(1^{1} + 2^{2} + 3^{3} + ... + 10^{10} = 10405071317\)</span>.</p>
+<p>Find the last ten digits of the series, <span class="math inline">\(1^{1} + 2^{2} + 3^{3} + ... + 1000^{1000}\)</span>. ## R</p>
 <div class="r">
 <pre class="r"><code># R
 
-get_sum_multiples_below1 &lt;- function(below,multiple_1,multiple_2){
+1000**1000
+## [1] Inf
+
+# To manage very large numbers you have to use gmp
+library(gmp)
+## 
+## Attaching package: &#39;gmp&#39;
+## The following objects are masked from &#39;package:Matrix&#39;:
+## 
+##     crossprod, tcrossprod
+## The following objects are masked from &#39;package:base&#39;:
+## 
+##     %*%, apply, crossprod, matrix, tcrossprod
+
+sum_n_power_last_digit &lt;- function(n, last_digit){
+  sum_series = sum(as.bigz(seq(1, n))**(seq(1, n)))
+  sum_n = stringr::str_split(as.character(sum_series),&#39;&#39;)[[1]]
+  last_digits = sum_n[(length(sum_n)-last_digit+1):length(sum_n)]
+  return(last_digits)
+}
+
+t = Sys.time()
+sum_n_power_last_digit(1000,10)
+##  [1] &quot;9&quot; &quot;1&quot; &quot;1&quot; &quot;0&quot; &quot;8&quot; &quot;4&quot; &quot;6&quot; &quot;7&quot; &quot;0&quot; &quot;0&quot;
+Sys.time() - t
+## Time difference of 0.02070332 secs</code></pre>
+</div>
+<div id="python" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> Python</h2>
+<div class="python">
+<pre class="python"><code># Python 
+import numpy as np
+import time
+
+# default numpy dtype may not be appropriate to deal with very large number, python can do it, you can specify to numpy to use it as a python object
+
+np.power(np.arange(1,15),np.arange(1,15))
+## array([                1,                 4,                27,
+##                      256,              3125,             46656,
+##                   823543,          16777216,         387420489,
+##              10000000000,      285311670611,     8916100448256,
+##          302875106592253, 11112006825558016])
+np.power(np.arange(1,15, dtype=&quot;object&quot;),np.arange(1,15, dtype=&quot;object&quot;))
+
+
+# In a function with python object
+## array([1, 4, 27, 256, 3125, 46656, 823543, 16777216, 387420489,
+##        10000000000, 285311670611, 8916100448256, 302875106592253,
+##        11112006825558016], dtype=object)
+def sum_n_power_last_digit(n,last_digit):
+  sum_series = np.sum(np.power(np.arange(1,n+1, dtype=&quot;object&quot;),np.arange(1,n+1, dtype=&quot;object&quot;)))
+  last_digits = str(sum_series)[-last_digit:]
+  return last_digits
+
+t = time.time()
+sum_n_power_last_digit(1000,10)
+## &#39;9110846700&#39;
+time.time() - t
+## 0.012727975845336914</code></pre>
+</div>
+</div>
+</div>
+<div id="exercice-2" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Exercice 2</h1>
+<div id="exercice-1-1" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Exercice 1</h2>
+<p>If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23.</p>
+<p>Find the sum of all the multiples of 3 or 5 below 10000.</p>
+<div id="r" class="section level3" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> R</h3>
+<div class="r">
+<pre class="r"><code>get_sum_multiples_below1 &lt;- function(below,multiple_1,multiple_2){
   sum &lt;- 0
   for(i in 1:(below-1)){
     if((i %% multiple_1 == 0)|(i %% multiple_2 == 0)){
@@ -399,18 +468,45 @@ get_sum_multiples_below1 &lt;- function(below,multiple_1,multiple_2){
 }
 
 t &lt;- Sys.time()
-get_sum_multiples_below1(10000,3,5)
-## [1] 23331668
+get_sum_multiples_below1(1000000,3,5)
+## [1] 233333166668
 Sys.time() - t
-## Time difference of 0.01349354 secs</code></pre>
-</div>
-</div>
-<div id="python" class="section level2" number="1.2">
-<h2><span class="header-section-number">1.2</span> Python</h2>
-<div class="python">
-<pre class="python"><code># Python 
+## Time difference of 0.5786219 secs
 
-import time
+
+
+get_sum_multiples_below2 &lt;- function(below,multiple_1,multiple_2){
+  seq &lt;- seq(1,(below-1))
+  multiples &lt;- sapply(seq,FUN = function(x){if((x %% multiple_1 == 0) | (x %% multiple_2 == 0)){x}else{0} })
+  return(sum(multiples))
+}
+
+t &lt;- Sys.time()
+get_sum_multiples_below2(1000000,3,5)
+## [1] 233333166668
+Sys.time() - t
+## Time difference of 1.548877 secs
+
+
+
+get_sum_multiples_below3 &lt;- function(below,multiple_1,multiple_2){
+  seq &lt;- seq(1,(below-1))
+  multiples &lt;- seq[which((seq %% multiple_1 == 0) | (seq %% multiple_2 == 0))]
+  return(sum(multiples))
+}
+
+t &lt;- Sys.time()
+get_sum_multiples_below3(1000000,3,5)
+## [1] 233333166668
+Sys.time() - t
+## Time difference of 0.03721166 secs</code></pre>
+</div>
+</div>
+<div id="python-1" class="section level3" number="2.1.2">
+<h3><span class="header-section-number">2.1.2</span> Python</h3>
+<div class="python">
+<pre class="python"><code>import time
+import numpy as np
 
 def get_sum_multiples_below1(below,mutiple_1,multiple_2):
   sum = 0
@@ -421,33 +517,53 @@ def get_sum_multiples_below1(below,mutiple_1,multiple_2):
   return sum
 
 t = time.time()
-get_sum_multiples_below1(10000,3,5)
-## 23331668
+get_sum_multiples_below1(1000000,3,5)
+## 233333166668
 time.time() - t
 
-## 0.008446455001831055</code></pre>
-<pre class="python"><code># Python 
-
+## 0.07460927963256836
 def get_sum_multiples_below2(below,mutiple_1,multiple_2):
   multiples = [i if ((i % mutiple_1 == 0) or (i % multiple_2 == 0)) else 0 for i in range(below)]
   return sum(multiples)
 
 t = time.time()
-get_sum_multiples_below2(10000,3,5)
-## 23331668
+get_sum_multiples_below2(1000000,3,5)
+## 233333166668
 time.time() - t
-## 0.008016109466552734</code></pre>
+
+## 0.0839073657989502
+def get_sum_multiples_below3(below,mutiple_1,multiple_2):
+  seq = list(range(below))
+  multiples = map(lambda i: i if ((i % mutiple_1 == 0) or (i % multiple_2 == 0)) else 0, seq) 
+  return sum(multiples)
+
+t = time.time()
+get_sum_multiples_below3(1000000,3,5)
+## 233333166668
+time.time() - t
+
+## 0.12708044052124023
+def get_sum_multiples_below4(below,mutiple_1,multiple_2):
+  seq = np.arange(below)
+  seq = seq[((seq % mutiple_1 == 0) | (seq % multiple_2 == 0))]
+  return sum(seq)
+
+t = time.time()
+get_sum_multiples_below4(1000000,3,5)
+## 233333166668
+time.time() - t
+## 0.09205913543701172</code></pre>
 </div>
 </div>
 </div>
-<div id="exercice-2" class="section level1" number="2">
-<h1><span class="header-section-number">2</span> Exercice 2</h1>
+<div id="exercice-2-1" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Exercice 2</h2>
 <p>By listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see that the 6th prime is 13.</p>
 <p>What is the 10 001st prime number?</p>
-<div id="r-1" class="section level2" number="2.1">
-<h2><span class="header-section-number">2.1</span> R</h2>
+<div id="r-1" class="section level3" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> R</h3>
 <div class="r">
-<pre class="r"><code># R
+<pre class="r"><code>
 
 nth_prime &lt;- function(nth){
   primes = c(1,2)
@@ -458,6 +574,8 @@ nth_prime &lt;- function(nth){
     for(j in 2:(round(sqrt(i))+1)){
       if(i%%j == 0){
         is_prime = FALSE
+      }
+      if(is_prime == FALSE){
         break
       }
     }
@@ -473,11 +591,32 @@ t &lt;- Sys.time()
 nth_prime(10001)
 ## [1] 104743
 Sys.time() - t
-## Time difference of 0.8120534 secs</code></pre>
+## Time difference of 1.224922 secs
+
+
+nth_prime2 &lt;- function(nth){
+  primes = c(2,3)
+  i = 3
+  while(length(primes)&lt;nth){
+    i &lt;- i+1
+    ratio = i%%seq(2,round(sqrt(i))+1) == 0
+    if(!any(ratio)){
+      primes = c(primes,i)
+    }
+  }
+  return(primes[nth])
+}
+
+
+t &lt;- Sys.time()
+nth_prime2(10001)
+## [1] 104743
+Sys.time() - t
+## Time difference of 1.200765 secs</code></pre>
 </div>
 </div>
-<div id="python-1" class="section level2" number="2.2">
-<h2><span class="header-section-number">2.2</span> Python</h2>
+<div id="python-2" class="section level3" number="2.2.2">
+<h3><span class="header-section-number">2.2.2</span> Python</h3>
 <div class="python">
 <pre class="python"><code># Python 
 import numpy as np
@@ -505,119 +644,206 @@ nth_prime(10001)
 ## 104743
 time.time() - t
 
-## 0.21983671188354492</code></pre>
-</div>
-</div>
-</div>
-<div id="exercie-3" class="section level1" number="3">
-<h1><span class="header-section-number">3</span> Exercie 3</h1>
-<p>You are given the following information, but you may prefer to do some research for yourself.</p>
-<ul>
-<li>1 Jan 1900 was a Monday.</li>
-<li>Thirty days has September, April, June and November. All the rest have thirty-one, Saving February alone, Which has twenty-eight, rain or shine. And on leap years, twenty-nine.</li>
-<li>A leap year occurs on any year evenly divisible by 4, but not on a century unless it is divisible by 400.</li>
-</ul>
-<p>How many Sundays fell on the first of the month during the twentieth century (1 Jan 1901 to 31 Dec 2000)?</p>
-<div id="r-2" class="section level2" number="3.1">
-<h2><span class="header-section-number">3.1</span> R</h2>
-<div class="r">
-<pre class="r"><code>
-get_sundays &lt;- function(year,first_sunday){
-  
-  # Get number of days per month
-  if((year %% 100 != 0 &amp; year%%4 == 0) | year %% 400 == 0){
-    month_length =  c(31,29,31,30,31,30,31,31,30,31,30,31)
-  } else {
-    month_length = c(31,28,31,30,31,30,31,31,30,31,30,31)
-  }
-  
-  # total number of days
-  nb_days = sum(month_length)
-  # position of the first days of the month
-  cumsum_year = cumsum(month_length)-month_length+1
-  
-  # position of all sundays
-  sundays = seq(first_sunday,nb_days,7)
-  
-  # get first sunday of the following year
-  next_sunday_position = sundays[length(sundays)] - nb_days + 7
-  
-  nb_sundays_first = length(which(sundays %in% cumsum_year))
-  
-  return(c(next_sunday_position,nb_sundays_first))
-}
-
-
-t = Sys.time()
-# Intialize with 1900, we know that the first sunday is the 6th.
-year_result = get_sundays(1900,6)
-
-
-# compute the sum for each year
-nb_sundays = 0
-for(i in seq(1901,2000)){
-  next_sunday = year_result[1]
-  year_result = get_sundays(i,next_sunday)
-  nb_sundays = nb_sundays + year_result[2]
-}
-Sys.time() - t
-## Time difference of 0.01559401 secs
-
-
-# results
-nb_sundays
-## [1] 171</code></pre>
-</div>
-</div>
-<div id="python-2" class="section level2" number="3.2">
-<h2><span class="header-section-number">3.2</span> Python</h2>
-<div class="python">
-<pre class="python"><code># Python
-import numpy as np 
-
-def get_sundays(year,first_sunday):
-  # check if there is a leap
-  if (year % 100 != 0 and year%4 == 0) or year % 400 == 0 :
-    month_length = [31,29,31,30,31,30,31,31,30,31,30,31]
-  else:
-    month_length = [31,28,31,30,31,30,31,31,30,31,30,31]
+## 0.2188577651977539
+def nth_prime2(nth):
+  primes = [2,3]
+  i = 3
+  while len(primes)&lt;nth: 
+    i+=1
+    ratio = np.mod(i,np.arange(2,int(np.sqrt(i)+1))) == 0
+    if not any(ratio):
+      primes.append(i)
     
-  # total number of days
-  nb_days = sum(month_length)
-  # position of the first days of the month
-  cumsum_year = np.cumsum(month_length)-month_length+1
   
-  # position of all sundays
-  sundays = list(range(first_sunday,nb_days,7))
-  
-  # get first sunday of the following year
-  next_sunday_position = sundays[-1] - nb_days + 7
-  
-  nb_sundays_first = len(np.where(np.isin(sundays,cumsum_year)==True)[0])
-  
-  return next_sunday_position, nb_sundays_first
+  print(primes[nth-1])
 
 
 t = time.time()
-# Intialize with 1900, we know that the first sunday is the 6th.
-year_result = get_sundays(1900,6)
-
-# compute the sum for each year
-nb_sundays = 0
-
-for i in range(1901,2001):
-  next_sunday = year_result[0]
-  year_result = get_sundays(i,next_sunday)
-  nb_sundays = nb_sundays + year_result[1]
-
-
+nth_prime2(10001)
+## 104743
 time.time() - t
-## 0.018251895904541016
-nb_sundays
-
-## 171</code></pre>
+## 0.6036193370819092</code></pre>
 </div>
-<p><a href="2_Basics.html"> Go back to chapter 1</a></p>
+</div>
+</div>
+</div>
+<div id="exercice-3" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Exercice 3</h1>
+<p>2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder.</p>
+<p>What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?</p>
+<div id="r-2" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> R</h2>
+<div class="r">
+<pre class="r"><code># R
+
+
+smalles_multiple &lt;- function(n){
+  dividers = seq(1,n)
+  i = 10
+  is_multiple = FALSE
+  while(is_multiple == FALSE){
+    modulos = i%%dividers
+    len_multiple = length(modulos[which(modulos == 0)])
+    if(len_multiple == length(dividers)){
+      is_multiple = TRUE
+    } else {
+      i = i + 1
+    }
+  }
+  print(i)
+}
+
+t = Sys.time()
+smalles_multiple(10)
+## [1] 2520
+Sys.time() - t
+## Time difference of 0.01383519 secs
+
+t = Sys.time()
+#smalles_multiple(20)
+Sys.time() - t
+## Time difference of 0.0006034374 secs
+
+
+
+smalles_multiple &lt;- function(n){
+  dividers_all = seq(1,n)
+  multiple = 1
+  i = 10
+  for(j in seq(1,n,10)){
+    dividers = dividers_all[j:(j+9)]
+    is_multiple = FALSE
+    while(is_multiple == FALSE){
+      modulos = i%%dividers
+      len_multiple = length(modulos[which(modulos == 0)])
+      if(len_multiple == length(dividers)){
+        is_multiple = TRUE
+        multiple = i
+      } else {
+        i = i + multiple
+      }
+    }
+  }
+  print(i)
+}
+
+t = Sys.time()
+smalles_multiple(10)
+## [1] 2520
+Sys.time() - t
+## Time difference of 0.01755095 secs
+
+
+t = Sys.time()
+smalles_multiple(20)
+## [1] 232792560
+Sys.time() - t
+## Time difference of 0.3544216 secs</code></pre>
+</div>
+</div>
+<div id="python-3" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Python</h2>
+<div class="python">
+<pre class="python"><code># Python
+
+def smalles_multiple(n):
+  dividers = np.arange(1,n+1)
+  i = 10
+  is_multiple = False
+  while is_multiple == False:
+    modulos = np.mod(i,dividers)
+    len_multiple = len(np.where(modulos == 0)[0])
+    if len_multiple == len(dividers):
+      is_multiple = True
+    else:
+      i += 1
+  print(i)
+
+
+t = time.time()
+smalles_multiple(10)
+## 2520
+time.time() - t
+## 0.013401269912719727
+t = time.time()
+#smalles_multiple(20)
+time.time() - t
+
+## 0.0037567615509033203
+def smalles_multiple(n):
+  dividers_all = np.arange(1,n+1)
+  multiple = 1
+  i = 10
+  for j in range(0,n+1,10):
+    dividers = dividers_all[j:(j+10)]
+    is_multiple = False
+    while is_multiple == False:
+      modulos = np.mod(i,dividers)
+      len_multiple = len(np.where(modulos == 0)[0])
+      if len_multiple == len(dividers):
+        is_multiple = True
+        multiple = i
+      else:
+        i += multiple
+  print(i)
+
+
+t = time.time()
+smalles_multiple(10)
+## 2520
+time.time() - t
+
+## 0.013449430465698242
+t = time.time()
+smalles_multiple(20)
+## 232792560
+time.time() - t
+
+## 0.22094488143920898</code></pre>
+</div>
+</div>
+</div>
+<div id="exercice-4" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> Exercice 4</h1>
+<p><span class="math inline">\(2^{15}\)</span>=32768 and the sum of its digits is 3 + 2 + 7 + 6 + 8 = 26.</p>
+<p>What is the sum of the digits of the number <span class="math inline">\(2^{1000}\)</span>?</p>
+<div id="r-3" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> R</h2>
+<div class="r">
+<pre class="r"><code>library(gmp)
+bigq = as.bigz(2**1000)
+sum(as.integer(stringr::str_split(as.character(bigq),&#39;&#39;)[[1]]))
+## [1] 1366</code></pre>
+</div>
+</div>
+<div id="python-4" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Python</h2>
+<div class="python">
+<pre class="python"><code>np.sum(np.array(list(str(2**1000)),dtype=np.int))
+## 1366</code></pre>
+</div>
+</div>
+</div>
+<div id="exercice-5" class="section level1" number="5">
+<h1><span class="header-section-number">5</span> Exercice 5</h1>
+<p>A palindromic number reads the same both ways. The largest palindrome made from the product of two 2-digit numbers is 9009 = 91 × 99.</p>
+<p>Find the largest palindrome made from the product of two 3-digit numbers.</p>
+<div id="python-5" class="section level2" number="5.1">
+<h2><span class="header-section-number">5.1</span> Python</h2>
+<div class="python">
+<pre class="python"><code># Python
+#
+t = time.time()
+three_digits = np.arange(100,1000)
+products = np.repeat(three_digits, len(three_digits))*np.tile(three_digits,len(three_digits))
+palindromes = [x for x in products if str(x)==str(x)[::-1]]
+print(max(palindromes))
+## 906609
+time.time() - t
+
+## 0.7815449237823486</code></pre>
+</div>
+<p><a href="3_Arrays_Vectors.html"> Go back to chapter 2</a></p>
 </div>
 </div>
 
