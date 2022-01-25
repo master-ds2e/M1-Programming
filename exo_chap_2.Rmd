@@ -1,5 +1,5 @@
 ---
-title: "exo_chap_2"
+title: "exo chap 2"
 ---
 
 <style>
@@ -25,6 +25,7 @@ knitr::opts_chunk$set(echo = TRUE,error=TRUE,collapse = T)
 The series, $1^{1} + 2^{2} + 3^{3} + ... + 10^{10} = 10405071317$.
 
 Find the last ten digits of the series, $1^{1} + 2^{2} + 3^{3} + ... + 1000^{1000}$.
+
 ## R 
 
 <div class = "r">
