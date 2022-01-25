@@ -542,7 +542,7 @@ wd_info = &#39;\nCurrent working directory: &#39;
 infos = time_info+time_+wd_info+wd
 
 print(infos)
-## Time: Sun Jan 23 23:48:12 2022
+## Time: Tue Jan 25 13:06:26 2022
 ## Current working directory: /home/peltouz/Documents/GitHub/M1-Programming</code></pre>
 <p>In R we use cat() to take into account ‘’ (new line), Python automatically understand it with print.</p>
 </div>
@@ -559,10 +559,10 @@ wd_info = &#39;\nCurrent working directory: &#39;
 infos &lt;- paste0(time_info,time_,
            wd_info,wd)
 print(infos) 
-## [1] &quot;Time: 2022-01-23 23:48:12\nCurrent working directory: /home/peltouz/Documents/GitHub/M1-Programming&quot;
+## [1] &quot;Time: 2022-01-25 13:06:26\nCurrent working directory: /home/peltouz/Documents/GitHub/M1-Programming&quot;
 
 cat(infos) 
-## Time: 2022-01-23 23:48:12
+## Time: 2022-01-25 13:06:26
 ## Current working directory: /home/peltouz/Documents/GitHub/M1-Programming</code></pre>
 </div>
 </div>
@@ -646,13 +646,13 @@ def get_infos_3():
   
 
 get_infos()
-## Time: Sun Jan 23 23:48:12 2022
+## Time: Tue Jan 25 13:06:26 2022
 ## Current working directory: /home/peltouz/Documents/GitHub/M1-Programming
 get_infos_2()
-## Time: Sun Jan 23 23:48:12 2022 
+## Time: Tue Jan 25 13:06:26 2022 
 ##   Current working directory: /home/peltouz/Documents/GitHub/M1-Programming
 get_infos_3()
-## Time: Sun Jan 23 23:48:12 2022 
+## Time: Tue Jan 25 13:06:26 2022 
 ##   Current working directory: /home/peltouz/Documents/GitHub/M1-Programming</code></pre>
 </div>
 </div>
@@ -681,11 +681,11 @@ get_infos_2&lt;- function(){
 }
 
 get_infos()
-## Time: 2022-01-23 23:48:12
+## Time: 2022-01-25 13:06:26
 ## Current working directory: /home/peltouz/Documents/GitHub/M1-Programming
 
 get_infos_2()
-## Time: 2022-01-23 23:48:12 
+## Time: 2022-01-25 13:06:26 
 ##   Current working directory: /home/peltouz/Documents/GitHub/M1-Programming</code></pre>
 </div>
 </div>
@@ -1034,7 +1034,7 @@ re.findall(&#39;top-[15]&#39;,abstract)
 ## [&#39;top-1&#39;, &#39;top-5&#39;]
 re.finditer(&#39;[0-9]&#39;,abstract)
 
-## &lt;callable_iterator object at 0x7f0d6ddf3550&gt;</code></pre>
+## &lt;callable_iterator object at 0x7f8a2140ff60&gt;</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -1199,11 +1199,11 @@ str_locate_all(&#39;\\d&#39;,abstract)
 <tbody>
 <tr class="odd">
 <td>&lt;.*&gt;</td>
-<td align="right">Greedy repetition: matches “<python>perl&gt;”</td>
+<td align="right">Greedy repetition: matches <code>"&lt;python&gt;perl&gt;"</code></td>
 </tr>
 <tr class="even">
 <td>&lt;.*?&gt;</td>
-<td align="right">Nongreedy: matches “<python>” in “<python>perl&gt;”</td>
+<td align="right">Nongreedy: matches <code>"&lt;python&gt;"</code> in <code>"&lt;python&gt;perl&gt;"</code></td>
 </tr>
 </tbody>
 </table>
@@ -1341,8 +1341,10 @@ str_match_all(pattern = &#39;(?:[A-Z]\\d)+&#39;, &quot;A8 DF Z7 376 A28 A0A4A8&q
 </tr>
 </tbody>
 </table>
-<p>Alternatives Sr.No. Example &amp; Description</p>
-<p>python|perl|Match “python” or “perl” rub(y|le))|Match “ruby” or “ruble” Python(!+|\?)|“Python” followed by one or more ! or one ?</p>
+<p>Alternatives</p>
+<p>python|perl : Match “python” or “perl”</p>
+<p>rub(y|le)) : Match “ruby” or “ruble”</p>
+<p>Python(!+|\?) : Match “Python” followed by one or more ! or one ?</p>
 <div class="row">
 <div class="col-md-6">
 <div class="python">

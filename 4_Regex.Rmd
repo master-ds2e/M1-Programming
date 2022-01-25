@@ -570,8 +570,8 @@ This matches the smallest number of repetitions
 
 Example|Description
 -|-:	
-<.*>|Greedy repetition: matches "<python>perl>"
-<.*?>|Nongreedy: matches "<python>" in "<python>perl>"
+<.*>|Greedy repetition: matches ```"<python>perl>"```
+<.*?>|Nongreedy: matches ```"<python>"``` in ```"<python>perl>"```
 
 <div class = "row">
 <div class = "col-md-6">
@@ -668,11 +668,13 @@ Example|Description
 (['"])[^\\1]*\\1|Single or double-quoted string. \\1 matches whatever the 1st group matched. \\2 matches whatever the 2nd group matched, etc.
 
 Alternatives
-Sr.No.	Example & Description
+
 	
-python|perl|Match "python" or "perl"
-rub(y|le))|Match "ruby" or "ruble"
-Python(!+|\\?)|"Python" followed by one or more ! or one ?
+python|perl : Match "python" or "perl"
+
+rub(y|le)) : Match "ruby" or "ruble"
+
+Python(!+|\\?) : Match "Python" followed by one or more ! or one ?
 
 <div class = "row">
 <div class = "col-md-6">
