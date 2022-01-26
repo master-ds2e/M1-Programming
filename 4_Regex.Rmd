@@ -737,17 +737,16 @@ page  %>%
 from bs4 import BeautifulSoup
 import urllib3
 
-req = urllib3.PoolManager()
-res = req.request('GET', url)
-soup = BeautifulSoup(res.data, 'html.parser')
+req = requests.get(urlpage)
+soup = BeautifulSoup(req.text, 'html.parser')
 contents = soup.find_all(class_= html_class)
 
 
 ```
 
-<a href="">Detailled solution</a> 
+<a href="resto_u_explication.html">Detailled solution</a> 
 
-<a href="">Other example</a> 
+<a href="Genius_scrap.html">Other example</a> 
 
 <!--
 Here is an other very simple webscrapping example where we scrap rap-genius to get lyrics from all songs in the album '13 Organisé', for each artist we count the number of unique words after remooving stopwords.
