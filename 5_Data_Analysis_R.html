@@ -377,6 +377,9 @@ div.python pre { background-color: #e9f7f5
 <style>
 div.r pre { background-color: #fff5fd; }
 </style>
+<a href="https://github.com/master-ds2e/M1-Programming/raw/gh-pages/data/covid_papers.zip">
+<button class="btn btn-danger"><i class="fa fa-save"></i> Download Data</button>
+</a>
 <p>“It is often said that 80% of data analysis is spent on the process of cleaning and preparing the data (Dasu and Johnson 2003). Data preparation is not just a first step, but must berepeated many times over the course of analysis as new problems come to light or new data is collected.” <a href="https://www.jstatsoft.org/article/view/v059i10">(Wickham, 2014)</a>.</p>
 <p>The Tidyverse is a collection of differents packages which works together in a common philosophy, the biggest contributor to this collection is named Hadley Wickham. Hadley Wickham did so much for the R community, he published a lot of books that are highly recommended to read. Check <a href="https://en.wikipedia.org/wiki/Hadley_Wickham">Wikipedia: Haldey Wickham</a> for his bibliograpy. Here is the list of libraries that are contained in the Tidyverse:</p>
 <ul>
@@ -538,7 +541,7 @@ dim(slice_sample(covid_papers,prop = 0.001))
 t &lt;- Sys.time()
 doi_clean &lt;- filter(covid_papers,doi != &#39;null&#39;)
 Sys.time()-t
-## Time difference of 0.008044958 secs</code></pre>
+## Time difference of 0.009500504 secs</code></pre>
 <p><b> Using Pipes </b></p>
 <pre class="r"><code># R
 
@@ -550,12 +553,12 @@ dim(covid_papers %&gt;% slice_sample(prop = 0.001))
 t = Sys.time()
 doi_clean &lt;- covid_papers %&gt;% filter(doi != &#39;null&#39;)
 Sys.time() - t
-## Time difference of 0.278033 secs
+## Time difference of 0.008820057 secs
 
 t = Sys.time()
 doi_clean &lt;- covid_papers[which(covid_papers$doi != &#39;null&#39;),]
 Sys.time() - t
-## Time difference of 0.007923841 secs</code></pre>
+## Time difference of 0.00978899 secs</code></pre>
 </div>
 </div>
 <div id="select-columns" class="section level3" number="1.1.2">
@@ -1657,7 +1660,7 @@ cp_tibble &lt;- cp_tibble %&gt;%
   mutate(across(where(is.character),
          toupper))
 Sys.time() - t
-## Time difference of 3.758512 secs</code></pre>
+## Time difference of 4.654947 secs</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -1682,7 +1685,7 @@ cp_datatable[, c(&#39;pubtype&#39;,&#39;mesh&#39;) := lapply(.SD, function(x){to
 t = Sys.time()
 for(j in  which(sapply(cp_datatable, class)==&#39;character&#39;)){set(cp_datatable, i=NULL, j=j, value=toupper(cp_datatable[[j]]))}
 Sys.time() - t 
-## Time difference of 3.169213 secs</code></pre>
+## Time difference of 3.783049 secs</code></pre>
 </div>
 </div>
 </div>

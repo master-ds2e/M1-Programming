@@ -60,6 +60,18 @@ download_link(
 )
 ```
 
+
+```{r,echo=F}
+library(downloadthis)
+download_link(
+  link = "https://github.com/master-ds2e/M1-Programming/raw/gh-pages/examples/exam_2021.zip",
+  button_label = "Final Exam and solution (2021)",
+  button_type = "danger",
+  has_icon = TRUE,
+  icon = "fa fa-save",
+  self_contained = FALSE
+)
+```
 <p>&nbsp;</p>
 
 
