@@ -35,8 +35,7 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.13.0/js/script.js"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -539,7 +538,7 @@ dim(slice_sample(covid_papers,prop = 0.001))
 t &lt;- Sys.time()
 doi_clean &lt;- filter(covid_papers,doi != &#39;null&#39;)
 Sys.time()-t
-## Time difference of 0.01424384 secs</code></pre>
+## Time difference of 0.008044958 secs</code></pre>
 <p><b> Using Pipes </b></p>
 <pre class="r"><code># R
 
@@ -551,12 +550,12 @@ dim(covid_papers %&gt;% slice_sample(prop = 0.001))
 t = Sys.time()
 doi_clean &lt;- covid_papers %&gt;% filter(doi != &#39;null&#39;)
 Sys.time() - t
-## Time difference of 0.01307344 secs
+## Time difference of 0.278033 secs
 
 t = Sys.time()
 doi_clean &lt;- covid_papers[which(covid_papers$doi != &#39;null&#39;),]
 Sys.time() - t
-## Time difference of 0.01410151 secs</code></pre>
+## Time difference of 0.007923841 secs</code></pre>
 </div>
 </div>
 <div id="select-columns" class="section level3" number="1.1.2">
@@ -1658,7 +1657,7 @@ cp_tibble &lt;- cp_tibble %&gt;%
   mutate(across(where(is.character),
          toupper))
 Sys.time() - t
-## Time difference of 4.906221 secs</code></pre>
+## Time difference of 3.758512 secs</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -1683,7 +1682,7 @@ cp_datatable[, c(&#39;pubtype&#39;,&#39;mesh&#39;) := lapply(.SD, function(x){to
 t = Sys.time()
 for(j in  which(sapply(cp_datatable, class)==&#39;character&#39;)){set(cp_datatable, i=NULL, j=j, value=toupper(cp_datatable[[j]]))}
 Sys.time() - t 
-## Time difference of 3.798972 secs</code></pre>
+## Time difference of 3.169213 secs</code></pre>
 </div>
 </div>
 </div>
@@ -3093,6 +3092,9 @@ rbindlist(lapply(c(&quot;cp_datatable.csv&quot;, &quot;cp_datatable.csv&quot;), 
 </div>
 <div id="exercise" class="section level1" number="7">
 <h1><span class="header-section-number">7</span> Exercise</h1>
+<a href="https://github.com/master-ds2e/M1-Programming/raw/gh-pages/data/data.zip">
+<button class="btn btn-danger"><i class="fa fa-save"></i> Download Data</button>
+</a>
 <p>Using first <code>dplyr</code> and the <code>tidyverse</code>, Use <code>table_1.csv</code>, <code>table_2.csv</code> and <code>loc_cities.csv</code>, we will need information from the three datasets.</p>
 <ul>
 <li><p>Import datasets</p></li>

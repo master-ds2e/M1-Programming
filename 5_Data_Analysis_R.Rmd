@@ -2367,6 +2367,18 @@ rbindlist(lapply(c("cp_datatable.csv", "cp_datatable.csv"), fread))
 
 # Exercise 
 
+```{r,echo=F}
+library(downloadthis)
+download_link(
+  link = "https://github.com/master-ds2e/M1-Programming/raw/gh-pages/data/data.zip",
+  button_label = "Download Data",
+  button_type = "danger",
+  has_icon = TRUE,
+  icon = "fa fa-save",
+  self_contained = FALSE
+)
+```
+
 Using first ```dplyr``` and the ```tidyverse```, Use ```table_1.csv```, ```table_2.csv``` and ```loc_cities.csv```, we will need information from the three datasets. 
 
 - Import datasets
