@@ -1,0 +1,353 @@
+---
+title: "Dplyr"
+---
+
+
+<style>
+div.python pre { background-color: #e9f7f5
+; }
+</style>
+
+<style>
+div.r pre { background-color: #fff5fd; }
+</style>
+
+
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,error=TRUE, warnings = F)
+library(reticulate)
+```
+
+
+<a href="5_Data_Analysis_R.html">Go back to chapter 4</a> 
+
+# Import datasets
+
+
+<div class = "r">
+
+```{r}
+# R dplyr
+library(tidyverse)
+library(tictoc)
+# Import the two datasets using readr's read_csv funciton
+tic()
+table_1 = read_csv(file = 'data/table_1.csv')
+table_2 = read_csv(file = 'data/table_2.csv')
+cities = read_csv(file = 'data/cities_loc.csv')
+toc()
+
+```
+
+</div>
+
+# Clean
+
+Remove articles with no pmid and no DOI, and all articles before 1975
+
+<div class = "r">
+
+```{r}
+# R dplyr
+
+tic()
+table_1 = table_1 %>%
+  filter(pmid != 'null' & doi != 'null')
+
+table_2 = table_2 %>%
+  filter(pmid != 'null' & year_pub > 1975)
+toc()
+
+```
+
+</div>
+
+# Merge
+
+Merge the two datasets, pmid is unique for each paper
+
+
+<div class = "r">
+
+```{r}
+# R dplyr
+tic()
+final_table = inner_join(table_1, table_2, by = 'pmid')
+toc()
+
+final_table = na.omit(final_table)
+final_table
+```
+
+</div>
+
+
+
+# Number of authors
+
+Create a new variable with the number of authors for each paper
+
+
+
+<div class = "r">
+
+```{r}
+# R dplyr
+
+tic()
+final_table = final_table %>% 
+  rowwise() %>%
+  mutate(nb_aut = dim(str_match_all(authors, '<AUTHOR>')[[1]])[1]) 
+toc()
+
+final_table = final_table %>% 
+  filter(nb_aut > 0)
+
+final_table %>% 
+  select(authors, nb_aut)
+```
+
+</div>
+
+
+#  plot distribution
+
+plot distribution for the log(number of authors +1)
+
+
+<div class = "r">
+
+```{r}
+# R 
+
+plot(density(log(final_table$nb_aut+1)))
+```
+
+</div>
+
+
+
+# Search for DL/ML/NN in title
+
+ How many papers contains 'deep learning' or 'machine learning' and 'neural network' (also with a 's' for neural networks) in their title ? Create a binary variable to save this information. What is the mean of authors for ML papers and non-ML papers ? Transform has_data and oa into binary variable also, what is the share of ML paper that are oa ?
+
+
+<div class = "r">
+
+```{r}
+# R dplyr
+
+tic()
+final_table = final_table %>%
+  mutate(title = tolower(title),
+         ML = ifelse(str_detect(title,'deep learning|machine learning|neural networks?'), 1, 0),
+         has_data = ifelse(has_data == 'Y', 1, 0),
+         oa = ifelse(oa == 'Y', 1, 0))
+toc()
+
+
+sum(final_table$ML)
+sum(final_table$oa)
+sum(final_table$has_data)
+
+tic()
+final_table %>% 
+  group_by(ML) %>%
+  summarize(mean_nb_aut = mean(nb_aut))
+toc()
+
+tic()
+final_table %>% 
+  group_by(ML) %>% 
+  summarize(n = sum(oa)/n(),
+            citation = mean(cited))
+toc()
+```
+
+</div>
+
+# Clean up pub_type
+
+ Clean up pub_type, for simplicity just get the first type
+
+
+
+<div class = "r">
+
+```{r}
+# R dplyr
+tic()
+final_table = final_table %>%
+  mutate(pub_type = str_match_all(pubtype, '\\[\\"(.*?)\\"')[[1]][2])
+toc()
+
+final_table %>% 
+  select(pubtype,pub_type)
+
+```
+
+</div>
+
+
+# Highest mean/sd of citation
+
+What is the pub type with the highest mean/sd of citation ? (use cited and the cleaned pub_type)
+
+
+<div class = "r">
+
+```{r}
+# R dplyr
+
+final_table %>% 
+  group_by(pub_type) %>% 
+  summarize(mean = mean(cited),
+            sd = sd(cited)) %>%
+  arrange(desc(mean))
+
+final_table %>%
+  group_by(pub_type) %>% 
+  summarize(mean = mean(cited),
+            sd = sd(cited)) %>%
+  arrange(desc(sd))
+
+```
+
+</div>
+
+# Most representative countres by year ?
+
+ Which are the most representative countres by year ? Store this information in an other tibble by keep only pmid and authors, get the country for each author from the loc_cities.csv. You may want to separate rows for each authors to get all countries involved in the paper,if an authors have multiple affiliations, take the first one. 
+
+<div class = "r">
+
+```{r}
+# R dplyr
+
+countries = tolower(unique(cities$country))
+tic()
+countries_tibble = final_table %>%
+  select(pmid,authors) %>% 
+  separate_rows(authors, sep = '<AUTHOR>')
+toc()
+
+countries_tibble %>% 
+  select(authors)
+
+tic()
+countries_tibble = countries_tibble %>%
+  rowwise() %>% 
+  filter(authors !="" & !str_detect(authors, '<AFFILIATION>None'))
+toc()
+
+countries_tibble %>% 
+  select(authors)
+
+tic()
+countries_tibble = countries_tibble %>%
+  group_by(pmid,authors) %>%
+  mutate(authors = unlist(str_split(authors, '<AFFILIATION>'))[2]) %>% 
+  filter(!duplicated(pmid, authors))
+toc()
+
+countries_tibble %>% 
+  select(authors)
+```
+
+</div>
+
+
+
+<div class = "r">
+
+```{r}
+# R dplyr
+tic()
+countries_tibble  = countries_tibble %>%
+  mutate(authors = str_replace_all(authors, ' USA', 'United States'),
+         authors = str_replace_all(authors, ' UK', 'United Kingdom'),
+         authors = str_replace_all(authors, ' Korea', 'South Korea'),
+         authors = tolower(authors)) 
+toc()
+
+tic()
+countries_tibble = countries_tibble %>%
+  group_by(pmid, authors) %>%
+  mutate(country = ifelse(any(str_detect(authors, countries)),
+                          countries[str_detect(authors, countries)][1],
+                          "")) %>%
+  select(-authors)
+toc()
+
+tic()
+countries_tibble = countries_tibble %>%
+  filter(country != '') %>%
+  distinct(pmid, country)
+toc()
+countries_tibble
+
+
+tic()
+countries_tibble = left_join(countries_tibble,
+                             final_table[,c('pmid','year_pub')],
+                             by = 'pmid')
+toc()
+
+tic()
+countries_pub = countries_tibble %>% 
+  group_by(country, year_pub) %>%
+  summarize(n = length(unique(pmid))) %>% 
+  arrange(desc(n))
+toc()
+```
+
+</div>
+
+#  Country bar plot with plotly
+
+ Select the top 25 of countries involved in coronavirus research since 2001, plot the evolution on a bar chart with plot_ly
+
+
+Two usefull links:
+
+- https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html
+
+
+- https://plotly.com/r/bar-charts/
+
+<div class = "r">
+
+```{r, warning= F}
+# R 
+library(plotly)
+library(kableExtra)
+
+plot_top_n  = function(n_top,year){
+  
+  countries_top = countries_pub %>%
+    filter(year_pub >= year) %>%
+    group_by(country) %>% 
+    summarize(n = sum(n)) %>% 
+    arrange(desc(n)) %>% 
+    ungroup() %>% 
+    slice(1:n_top)
+
+  countries_top %>% 
+    kbl(caption = "Top 25 most active countries in coronavirus research  (2001-2021)") %>%
+    kable_classic(full_width = F, html_font = "Cambria")
+  
+  countries_pub %>% 
+    filter(country %in% as.matrix(countries_top$country) & year_pub >= year) %>% 
+    plot_ly(x = ~year_pub, y = ~n, color = ~country) %>% 
+    layout(yaxis = list(title = 'Count',type = 'log'), barmode = 'stack')
+}
+
+plot_top_n(25,2001)
+
+```
+
+</div>
+

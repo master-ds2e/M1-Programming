@@ -2420,7 +2420,7 @@ Can you redo the exercice using the data.table library?
 
 
 
-<a href="">solution with dplyr</a>
+<a href="exo_chap_4_tibble.html">solution with dplyr</a>
 
-<a href="">solution with data.table</a> 
+<a href="exo_chap_4_dt.html">solution with data.table</a> 
 
