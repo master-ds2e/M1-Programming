@@ -1,0 +1,349 @@
+---
+title: "Data.table"
+---
+
+
+
+
+<style>
+div.python pre { background-color: #e9f7f5
+; }
+</style>
+
+<style>
+div.r pre { background-color: #fff5fd; }
+</style>
+
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, error=TRUE, warnings = F ,collapse = T)
+library(reticulate)
+```
+
+
+<a href="5_Data_Analysis_R.html">Go back to chapter 4</a> 
+
+# Import datasets
+
+
+<div class = "r">
+
+```{r}
+# R data.table
+
+library(data.table)
+library(stringr)
+library(tictoc)
+# Import the two datasets 
+setwd('C:/Users/Beta/Documents/GitHub/M1_TDP')
+
+tic()
+dt_table_1 = fread(file = 'data/table_1.csv')
+dt_table_2 = fread(file = 'data/table_2.csv')
+dt_cities = fread(file = 'data/cities_loc.csv')
+toc()
+
+setDT(dt_table_1)
+setDT(dt_table_2)
+
+setkey(dt_table_1,pmid)
+setkey(dt_table_2,pmid)
+
+dt_table_1
+```
+
+</div>
+
+# Clean
+
+Remove articles with no pmid and no DOI, and all articles before 1975
+
+<div class = "r">
+
+```{r}
+# R data.table
+
+tic()
+dt_table_1 = dt_table_1[pmid != 'null' & doi != 'null']
+dt_table_2 = dt_table_2[pmid != 'null' & year_pub > 1975]
+toc()
+
+```
+
+</div>
+
+
+
+# Merge
+
+Merge the two datasets, pmid is unique for each paper
+
+
+<div class = "r">
+
+```{r}
+# R data.table
+
+tic()
+dt_final_table = na.omit(dt_table_2[dt_table_1, on = 'pmid'])
+toc()
+
+dt_final_table
+```
+
+</div>
+
+
+# Number of authors
+
+Create a new variable with the number of authors for each paper
+
+
+<div class = "r">
+
+```{r}
+# R data.table
+tic()
+dt_final_table[,nb_aut := dim(str_match_all(authors, '<AUTHOR>')[[1]])[1],
+               by = 'pmid']
+toc()
+
+dt_final_table = dt_final_table[nb_aut>0]
+
+dt_final_table[,c('authors', 'nb_aut')]
+```
+
+</div>
+
+# Nb authors distribution
+
+plot distribution for the log(number of authors +1)
+
+<div class = "r">
+
+```{r}
+# R 
+
+plot(density(log(dt_final_table$nb_aut+1)))
+```
+
+</div>
+
+
+
+# Search for DL/ML/NN in title
+
+ How many papers contains 'deep learning' or 'machine learning' and 'neural network' (also with a 's' for neural networks) in their title ? Create a binary variable to save this information. What is the mean of authors for ML papers and non-ML papers ? Transform has_data and oa into binary variable also, what is the share of ML paper that are oa ?
+
+
+<div class = "r">
+
+```{r}
+# R data.table
+
+tic()
+dt_final_table[, 'title' := .(tolower(title)),
+               by = 'pmid'
+               ][,
+                 c('ML','has_data','oa') := .(ifelse(str_detect(title,
+                                                                'deep learning|machine learning|neural networks?'),1,0),
+                                              ifelse(has_data == 'Y',1,0),
+                                              ifelse(oa == 'Y',1,0)),
+                 by = 'pmid']
+toc()
+
+
+sum(dt_final_table$ML)
+sum(as.numeric(dt_final_table$oa))
+sum(as.numeric(dt_final_table$has_data))
+
+tic()
+dt_final_table[,.(mean_nb_aut = mean(nb_aut)),
+               by = 'ML']
+toc()
+
+tic()
+dt_final_table[,.(share_oa = sum(as.numeric(oa))/.N,
+                  mean_cited = mean(cited)),
+               by = 'ML']
+toc()
+```
+
+</div>
+
+
+# Clean up pub_type
+
+ Clean up pub_type, for simplicity just get the first type
+
+
+<div class = "r">
+
+```{r}
+# R data.table
+tic()
+dt_final_table[,pub_type := str_match_all(pubtype, '\\[""(.*?)""')[[1]][2],by = 'pmid']
+toc()
+
+dt_final_table[,.(pubtype,pub_type)]
+```
+
+</div>
+
+
+# Highest mean/sd of citation
+
+What is the pub type with the highest mean/sd of citation ? (use cited and the cleaned pub_type)
+
+
+<div class = "r">
+
+```{r}
+# R data.table
+tic()
+dt_final_table[,
+               .(mean_ = mean(cited),sd_ = sd(cited)),by='pub_type'
+               ][order(mean_,decreasing = T)]
+toc()
+
+tic()
+dt_final_table[,
+               .(mean_ = mean(cited),sd_ = sd(cited)),by='pub_type'
+               ][order(sd_,decreasing = T)]
+toc()
+```
+
+</div>
+
+# Most representative countres by year ?
+
+ Which are the most representative countres by year ? Store this information in an other tibble by keep only pmid and authors, get the country for each author from the loc_cities.csv. You may want to separate rows for each authors to get all countries involved in the paper,if an authors have multiple affiliations, take the first one. 
+
+<div class = "r">
+
+```{r}
+# R data.table
+
+countries = tolower(unique(dt_cities$country))
+
+tic()
+countries_dt = dt_final_table[,c('pmid','authors')
+                              ][,.(authors = unlist(tstrsplit(authors, "<AUTHOR>"))),
+                                by= 'pmid']
+toc()
+countries_dt
+
+tic()
+setkey(countries_dt,pmid,authors)
+countries_dt = countries_dt[authors != '' 
+                              & !str_detect(authors,'<AFFILIATION>None')]
+countries_dt = countries_dt[,
+                            clean_aff := .(unlist(tstrsplit(authors,'<AFFILIATION>',
+                                                               keep = 2)))
+                            ][,-'authors']
+
+setkey(countries_dt,pmid,clean_aff)
+countries_dt = unique(countries_dt)
+toc()
+
+countries_dt
+
+
+
+```
+
+</div>
+
+
+
+<div class = "r">
+
+```{r}
+# R data.table
+tic()
+countries_dt[, clean_aff := str_replace_all(clean_aff,' USA','United States')
+             ][, clean_aff := str_replace_all(clean_aff,' UK','United Kingdom')
+               ][, clean_aff := str_replace_all(clean_aff,' Korea','South Korea')
+                 ][, clean_aff := tolower(clean_aff)]
+toc()
+countries_dt
+
+key(countries_dt)
+setkey(countries_dt,pmid,clean_aff)
+tic()
+countries_dt[,country := .(ifelse(any(str_detect(clean_aff,countries)),
+                                  countries[str_detect(clean_aff,countries)][1],
+                                  "")),
+             by=c('pmid', 'clean_aff')]
+toc()
+countries_dt
+
+tic()
+countries_dt = countries_dt[country != "", -'clean_aff']
+setkey(countries_dt,pmid,country)
+countries_dt = unique(countries_dt)
+toc()
+
+tic()
+countries_year = countries_dt[dt_final_table[,c('pmid','year_pub')], on ='pmid']
+countries_year = na.omit(countries_year)
+toc()
+
+tic()
+countries_pub_dt = countries_year[,
+                                  .(n = length(unique(pmid))),
+                                  by=c('country','year_pub')]
+
+head(countries_pub_dt[order(n,decreasing = T)])
+toc()
+```
+
+</div>
+
+#  Country bar plot with plotly
+
+ Select the top 25 of countries involved in coronavirus research since 2001, plot the evolution on a bar chart with plot_ly
+
+
+Two usefull links:
+
+- https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html
+
+
+- https://plotly.com/r/bar-charts/
+
+<div class = "r">
+
+```{r, warning= F}
+# R 
+library(plotly)
+
+
+
+plot_top_n  = function(n_top,year){
+  
+  countries_to_plot = as.matrix(
+    countries_pub_dt[year_pub>=year,
+                     .(sum_paper = sum(n)),
+                     by = .(country)
+                     ][order(sum_paper, decreasing = T)
+                       ][1:n_top,'country']
+    )
+
+
+  fig = plot_ly(countries_pub_dt[year_pub>=year & country %in% countries_to_plot], 
+                x = ~year_pub,
+                y = ~n,
+                color = ~country) %>% 
+    layout(yaxis = list(title = 'Count',type = 'log'),
+           barmode = 'stack')
+
+  fig
+}
+
+plot_top_n(10,2001)
+```
+
+</div>
