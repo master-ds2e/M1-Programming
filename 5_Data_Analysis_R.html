@@ -549,7 +549,7 @@ dim(slice_sample(covid_papers,prop = 0.001))
 t &lt;- Sys.time()
 doi_clean &lt;- filter(covid_papers,doi != &#39;null&#39;)
 Sys.time()-t
-## Time difference of 0.1837201 secs</code></pre>
+## Time difference of 0.03829765 secs</code></pre>
 <p><b> Using Pipes </b></p>
 <pre class="r"><code># R
 
@@ -561,12 +561,12 @@ dim(covid_papers %&gt;% slice_sample(prop = 0.001))
 t = Sys.time()
 doi_clean &lt;- covid_papers %&gt;% filter(doi != &#39;null&#39;)
 Sys.time() - t
-## Time difference of 0.02675796 secs
+## Time difference of 0.03091836 secs
 
 t = Sys.time()
 doi_clean &lt;- covid_papers[which(covid_papers$doi != &#39;null&#39;),]
 Sys.time() - t
-## Time difference of 0.02871394 secs</code></pre>
+## Time difference of 0.0300715 secs</code></pre>
 </div>
 </div>
 <div id="select-columns" class="section level3" number="1.1.2">
@@ -1670,7 +1670,7 @@ cp_tibble &lt;- cp_tibble %&gt;%
   mutate(across(where(is.character),
          toupper))
 Sys.time() - t
-## Time difference of 3.811522 secs</code></pre>
+## Time difference of 3.623192 secs</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -1695,7 +1695,7 @@ cp_datatable[, c(&#39;pubtype&#39;,&#39;mesh&#39;) := lapply(.SD, function(x){to
 t = Sys.time()
 for(j in  which(sapply(cp_datatable, class)==&#39;character&#39;)){set(cp_datatable, i=NULL, j=j, value=toupper(cp_datatable[[j]]))}
 Sys.time() - t 
-## Time difference of 3.25298 secs</code></pre>
+## Time difference of 3.104221 secs</code></pre>
 </div>
 </div>
 </div>
@@ -3123,8 +3123,10 @@ rbindlist(lapply(c(&quot;cp_datatable.csv&quot;, &quot;cp_datatable.csv&quot;), 
 <li><p>Select the top 25 of countries involved in coronavirus research since 2001, plot the evolution on a bar chart with plot_ly</p></li>
 </ul>
 <p>Can you redo the exercice using the data.table library?</p>
-<p><a href="exo_chap_4_tibble.html">solution with dplyr</a></p>
-<p><a href="exo_chap_4_dt.html">solution with data.table</a></p>
+<p><a href="">solution with dplyr</a></p>
+<p>&lt;! – exo_chap_4_tibble.html –&gt;</p>
+<p><a href="">solution with data.table</a></p>
+<p>&lt;! – exo_chap_4_dt.html –&gt;</p>
 </div>
 
 

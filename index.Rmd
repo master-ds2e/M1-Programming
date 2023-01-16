@@ -75,6 +75,20 @@ download_link(
 <p>&nbsp;</p>
 
 
+```{r,echo=F}
+library(downloadthis)
+download_link(
+  link = "https://github.com/master-ds2e/M1-Programming/raw/gh-pages/examples/exam_2022.pdf",
+  button_label = "Final Exam (2022)",
+  button_type = "danger",
+  has_icon = TRUE,
+  icon = "fa fa-save",
+  self_contained = FALSE
+)
+```
+<p>&nbsp;</p>
+
+
 # Installs
 
 Here are some link that you can use to download and install stuff that we will need.
