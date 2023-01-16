@@ -13,7 +13,7 @@
 
 <title>Data Analysis (R)</title>
 
-<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -64,6 +64,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -84,6 +85,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -141,11 +145,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -315,7 +323,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -494,13 +502,13 @@ dataset %&gt;% function1(arg1) %&gt;% function2(arg2)</p></li>
 
 
 library(tidyverse)
-## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──
-## ✓ ggplot2 3.3.5     ✓ purrr   0.3.4
-## ✓ tibble  3.1.6     ✓ forcats 0.5.1
-## ✓ tidyr   1.1.4
+## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+## ✔ ggplot2 3.3.6     ✔ purrr   0.3.4
+## ✔ tibble  3.1.6     ✔ forcats 0.5.2
+## ✔ tidyr   1.2.1     
 ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
 covid_papers &lt;- read_csv(&quot;data/covid_papers.csv&quot;)
 ## Rows: 148916 Columns: 19
 ## ── Column specification ────────────────────────────────────────────────────────
@@ -541,7 +549,7 @@ dim(slice_sample(covid_papers,prop = 0.001))
 t &lt;- Sys.time()
 doi_clean &lt;- filter(covid_papers,doi != &#39;null&#39;)
 Sys.time()-t
-## Time difference of 0.01128745 secs</code></pre>
+## Time difference of 0.1837201 secs</code></pre>
 <p><b> Using Pipes </b></p>
 <pre class="r"><code># R
 
@@ -553,12 +561,12 @@ dim(covid_papers %&gt;% slice_sample(prop = 0.001))
 t = Sys.time()
 doi_clean &lt;- covid_papers %&gt;% filter(doi != &#39;null&#39;)
 Sys.time() - t
-## Time difference of 0.01106167 secs
+## Time difference of 0.02675796 secs
 
 t = Sys.time()
 doi_clean &lt;- covid_papers[which(covid_papers$doi != &#39;null&#39;),]
 Sys.time() - t
-## Time difference of 0.01122642 secs</code></pre>
+## Time difference of 0.02871394 secs</code></pre>
 </div>
 </div>
 <div id="select-columns" class="section level3" number="1.1.2">
@@ -999,7 +1007,8 @@ cp_tibble %&gt;%
 cp_tibble %&gt;%
   group_by(year_pub, source) %&gt;%
   summarise(mean_cited = mean(cited))
-## `summarise()` has grouped output by &#39;year_pub&#39;. You can override using the `.groups` argument.
+## `summarise()` has grouped output by &#39;year_pub&#39;. You can override using the
+## `.groups` argument.
 ## # A tibble: 113 × 3
 ## # Groups:   year_pub [113]
 ##    year_pub source mean_cited
@@ -1295,7 +1304,8 @@ cp_tibble %&gt;%
 cp_tibble %&gt;%
   group_by(PY) %&gt;%
   summarize(cur_group_rows()[c(1, n())])
-## `summarise()` has grouped output by &#39;PY&#39;. You can override using the `.groups` argument.
+## `summarise()` has grouped output by &#39;PY&#39;. You can override using the `.groups`
+## argument.
 ## # A tibble: 226 × 2
 ## # Groups:   PY [113]
 ##       PY `cur_group_rows()[c(1, n())]`
@@ -1660,7 +1670,7 @@ cp_tibble &lt;- cp_tibble %&gt;%
   mutate(across(where(is.character),
          toupper))
 Sys.time() - t
-## Time difference of 3.778529 secs</code></pre>
+## Time difference of 3.811522 secs</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -1685,7 +1695,7 @@ cp_datatable[, c(&#39;pubtype&#39;,&#39;mesh&#39;) := lapply(.SD, function(x){to
 t = Sys.time()
 for(j in  which(sapply(cp_datatable, class)==&#39;character&#39;)){set(cp_datatable, i=NULL, j=j, value=toupper(cp_datatable[[j]]))}
 Sys.time() - t 
-## Time difference of 3.104746 secs</code></pre>
+## Time difference of 3.25298 secs</code></pre>
 </div>
 </div>
 </div>
@@ -2813,8 +2823,8 @@ rbindlist(list(x, y), idcol = TRUE)
 
 bind_cols(x, y)
 ## New names:
-## * V1 -&gt; V1...1
-## * V1 -&gt; V1...2
+## • `V1` -&gt; `V1...1`
+## • `V1` -&gt; `V1...2`
 ##    V1...1 V1...2
 ## 1:      1      4
 ## 2:      2      5

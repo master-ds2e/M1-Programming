@@ -13,7 +13,7 @@
 
 <title>exo chap 2</title>
 
-<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -65,6 +65,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -85,6 +86,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -142,11 +146,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -316,7 +324,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -393,14 +401,7 @@ div.r pre { background-color: #fff5fd; }
 
 # To manage very large numbers you have to use gmp
 library(gmp)
-## 
-## Attaching package: &#39;gmp&#39;
-## The following objects are masked from &#39;package:Matrix&#39;:
-## 
-##     crossprod, tcrossprod
-## The following objects are masked from &#39;package:base&#39;:
-## 
-##     %*%, apply, crossprod, matrix, tcrossprod
+## Error in library(gmp): there is no package called &#39;gmp&#39;
 
 sum_n_power_last_digit &lt;- function(n, last_digit){
   sum_series = sum(as.bigz(seq(1, n))**(seq(1, n)))
@@ -411,9 +412,9 @@ sum_n_power_last_digit &lt;- function(n, last_digit){
 
 t = Sys.time()
 sum_n_power_last_digit(1000,10)
-##  [1] &quot;9&quot; &quot;1&quot; &quot;1&quot; &quot;0&quot; &quot;8&quot; &quot;4&quot; &quot;6&quot; &quot;7&quot; &quot;0&quot; &quot;0&quot;
+## Error in as.bigz(seq(1, n)): could not find function &quot;as.bigz&quot;
 Sys.time() - t
-## Time difference of 0.02453804 secs</code></pre>
+## Time difference of 0.001517534 secs</code></pre>
 </div>
 </div>
 <div id="python" class="section level2" number="1.2">
@@ -447,7 +448,7 @@ t = time.time()
 sum_n_power_last_digit(1000,10)
 ## &#39;9110846700&#39;
 time.time() - t
-## 0.01381993293762207</code></pre>
+## 0.013330459594726562</code></pre>
 </div>
 </div>
 </div>
@@ -474,7 +475,7 @@ t &lt;- Sys.time()
 get_sum_multiples_below1(1000000,3,5)
 ## [1] 233333166668
 Sys.time() - t
-## Time difference of 0.7910769 secs
+## Time difference of 0.8064635 secs
 
 
 
@@ -488,7 +489,7 @@ t &lt;- Sys.time()
 get_sum_multiples_below2(1000000,3,5)
 ## [1] 233333166668
 Sys.time() - t
-## Time difference of 1.618848 secs
+## Time difference of 2.558743 secs
 
 
 
@@ -502,7 +503,7 @@ t &lt;- Sys.time()
 get_sum_multiples_below3(1000000,3,5)
 ## [1] 233333166668
 Sys.time() - t
-## Time difference of 0.0348146 secs</code></pre>
+## Time difference of 0.03508735 secs</code></pre>
 </div>
 </div>
 <div id="python-1" class="section level3" number="2.1.2">
@@ -524,7 +525,7 @@ get_sum_multiples_below1(1000000,3,5)
 ## 233333166668
 time.time() - t
 
-## 0.07610201835632324
+## 0.08220195770263672
 def get_sum_multiples_below2(below,mutiple_1,multiple_2):
   multiples = [i if ((i % mutiple_1 == 0) or (i % multiple_2 == 0)) else 0 for i in range(below)]
   return sum(multiples)
@@ -534,7 +535,7 @@ get_sum_multiples_below2(1000000,3,5)
 ## 233333166668
 time.time() - t
 
-## 0.09062075614929199
+## 0.08638215065002441
 def get_sum_multiples_below3(below,mutiple_1,multiple_2):
   seq = list(range(below))
   multiples = map(lambda i: i if ((i % mutiple_1 == 0) or (i % multiple_2 == 0)) else 0, seq) 
@@ -545,7 +546,7 @@ get_sum_multiples_below3(1000000,3,5)
 ## 233333166668
 time.time() - t
 
-## 0.13068938255310059
+## 0.1266930103302002
 def get_sum_multiples_below4(below,mutiple_1,multiple_2):
   seq = np.arange(below)
   seq = seq[((seq % mutiple_1 == 0) | (seq % multiple_2 == 0))]
@@ -555,7 +556,7 @@ t = time.time()
 get_sum_multiples_below4(1000000,3,5)
 ## 233333166668
 time.time() - t
-## 0.08574676513671875</code></pre>
+## 0.07602477073669434</code></pre>
 </div>
 </div>
 </div>
@@ -594,7 +595,7 @@ t &lt;- Sys.time()
 nth_prime(10001)
 ## [1] 104743
 Sys.time() - t
-## Time difference of 1.179212 secs
+## Time difference of 1.08505 secs
 
 
 nth_prime2 &lt;- function(nth){
@@ -615,7 +616,7 @@ t &lt;- Sys.time()
 nth_prime2(10001)
 ## [1] 104743
 Sys.time() - t
-## Time difference of 1.136369 secs</code></pre>
+## Time difference of 1.042129 secs</code></pre>
 </div>
 </div>
 <div id="python-2" class="section level3" number="2.2.2">
@@ -647,7 +648,7 @@ nth_prime(10001)
 ## 104743
 time.time() - t
 
-## 0.22566008567810059
+## 0.23310160636901855
 def nth_prime2(nth):
   primes = [2,3]
   i = 3
@@ -665,7 +666,7 @@ t = time.time()
 nth_prime2(10001)
 ## 104743
 time.time() - t
-## 0.6099457740783691</code></pre>
+## 0.6193315982818604</code></pre>
 </div>
 </div>
 </div>
@@ -700,12 +701,12 @@ t = Sys.time()
 smalles_multiple(10)
 ## [1] 2520
 Sys.time() - t
-## Time difference of 0.01551127 secs
+## Time difference of 0.01364231 secs
 
 t = Sys.time()
 #smalles_multiple(20)
 Sys.time() - t
-## Time difference of 0.0006375313 secs
+## Time difference of 0.0005486012 secs
 
 
 
@@ -734,14 +735,14 @@ t = Sys.time()
 smalles_multiple(10)
 ## [1] 2520
 Sys.time() - t
-## Time difference of 0.07765412 secs
+## Time difference of 0.01416302 secs
 
 
 t = Sys.time()
 smalles_multiple(20)
 ## [1] 232792560
 Sys.time() - t
-## Time difference of 0.2998397 secs</code></pre>
+## Time difference of 0.3224359 secs</code></pre>
 </div>
 </div>
 <div id="python-3" class="section level2" number="3.2">
@@ -767,12 +768,12 @@ t = time.time()
 smalles_multiple(10)
 ## 2520
 time.time() - t
-## 0.013643741607666016
+## 0.013176202774047852
 t = time.time()
 #smalles_multiple(20)
 time.time() - t
 
-## 0.003847360610961914
+## 0.0033698081970214844
 def smalles_multiple(n):
   dividers_all = np.arange(1,n+1)
   multiple = 1
@@ -796,13 +797,13 @@ smalles_multiple(10)
 ## 2520
 time.time() - t
 
-## 0.01379704475402832
+## 0.013597965240478516
 t = time.time()
 smalles_multiple(20)
 ## 232792560
 time.time() - t
 
-## 0.2244713306427002</code></pre>
+## 0.24174880981445312</code></pre>
 </div>
 </div>
 </div>
@@ -814,9 +815,11 @@ time.time() - t
 <h2><span class="header-section-number">4.1</span> R</h2>
 <div class="r">
 <pre class="r"><code>library(gmp)
+## Error in library(gmp): there is no package called &#39;gmp&#39;
 bigq = as.bigz(2**1000)
+## Error in as.bigz(2^1000): could not find function &quot;as.bigz&quot;
 sum(as.integer(stringr::str_split(as.character(bigq),&#39;&#39;)[[1]]))
-## [1] 1366</code></pre>
+## Error in stri_split_boundaries(string, n = n, simplify = simplify, opts_brkiter = opts(pattern)): object &#39;bigq&#39; not found</code></pre>
 </div>
 </div>
 <div id="python-4" class="section level2" number="4.2">
@@ -844,7 +847,7 @@ print(max(palindromes))
 ## 906609
 time.time() - t
 
-## 0.7620761394500732</code></pre>
+## 0.8157608509063721</code></pre>
 </div>
 <p><a href="3_Arrays_Vectors.html"> Go back to chapter 2</a></p>
 </div>

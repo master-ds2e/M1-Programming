@@ -13,7 +13,7 @@
 
 <title>Efficient Programming</title>
 
-<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -65,6 +65,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -85,6 +86,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -142,11 +146,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -316,7 +324,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -405,9 +413,9 @@ def read_file_to_lower():
 txt_clean = read_file_to_lower()
 
 process.memory_info().rss - r1 # in bytes
-## 106496
+## 36864
 time.time() - t
-## 0.02752065658569336
+## 0.01823139190673828
 type(txt_clean)
 ## &lt;class &#39;list&#39;&gt;</code></pre>
 </div>
@@ -433,10 +441,10 @@ memory_friendly_txt_clean = read_to_lower()
 txt_clean = [line_clean for line_clean in memory_friendly_txt_clean]
 
 process.memory_info().rss - r1 # in bytes
-## 16384
+## 12288
 time.time() - t
 
-## 0.024925708770751953
+## 0.02179574966430664
 type(memory_friendly_txt_clean)
 
 ## &lt;class &#39;generator&#39;&gt;</code></pre>
@@ -478,11 +486,11 @@ import time
 t = time.time()
 sum_x = X+X
 time.time() - t
-## 0.0834040641784668
+## 0.07865762710571289
 t = time.time()
 sum_sparse_x = sparse_X+sparse_X
 time.time() - t
-## 0.008107423782348633</code></pre>
+## 0.0077707767486572266</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -508,16 +516,21 @@ print(object.size(sparse_X),units = &#39;auto&#39;)
 ## 52.2 Kb</code></pre>
 <pre class="r"><code># R
 library(tictoc)
+## 
+## Attaching package: &#39;tictoc&#39;
+## The following object is masked from &#39;package:data.table&#39;:
+## 
+##     shift
 
 tic()
 sum_x = X+X
 toc()
-## 0.21 sec elapsed
+## 0.198 sec elapsed
 
 tic()
 sum_sparse_x = sparse_X+sparse_X
 toc()
-## 0.007 sec elapsed</code></pre>
+## 0.015 sec elapsed</code></pre>
 </div>
 </div>
 </div>
@@ -559,7 +572,7 @@ coefs = np.empty((500,2), float)
 for i in range(500):
     coefs[i,:] = lm_bs()
 time.time() - t
-## 3.25921368598938</code></pre>
+## 3.0380630493164062</code></pre>
 <ul>
 <li>Check how many cores you can use</li>
 </ul>
@@ -609,7 +622,7 @@ for(i in 1:500){
   coefs[i,] = lm_bs()
 }
 toc()
-## 14.064 sec elapsed</code></pre>
+## 12.615 sec elapsed</code></pre>
 <ul>
 <li>Check how many cores you can use</li>
 </ul>
@@ -637,7 +650,7 @@ coefs =  foreach(i = 1:500,.packages = c(&#39;base&#39;)) %dopar% {
                    }
 
 toc()
-## 5.621 sec elapsed</code></pre>
+## 3.879 sec elapsed</code></pre>
 </div>
 </div>
 </div>
