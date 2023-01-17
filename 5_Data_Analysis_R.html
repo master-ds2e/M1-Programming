@@ -398,18 +398,17 @@ div.r pre { background-color: #fff5fd; }
 <li><p>readr: Data importation</p></li>
 <li><p>tibble: Data tables</p></li>
 <li><p>forcats: Qualitative variables</p></li>
-<li><p>stringr: Strings</p></li>
+<li><p>stringr: Strings The goal of the tidyverse is to make data analysis easier by simplifying data preparation. Tidyverse includes a new data type, Tibbles.</p></li>
 </ul>
-<p>The goal of tidyverse is to make easy data analysis by simplifying the data preparation. Tidyverse comes with a new data-type, Tibbles.</p>
-<p>Tibbles can be considered a modern version of data.frame but they differs in some aspects. They do not have rowname and allows users to have colnames with special character (e.g. if colname of x is ‘Col 1’ then to access to this colnums you can use x$`Col 1` to acces to this variables.). It provide a good way also to visualize the data since it directly show data as if you were running the ‘head()’ function before. It shows you the 10 first rows.</p>
-<p>Data.table is also very common when dealing with data and is very fast. Using tibbles can be very time consuming when dealing with large tables.</p>
+<p>Tibbles can be considered a modern version of data.frame, but they differ in some aspects. They do not have row names and allow users to have column names with special characters (e.g. if the column name of x is ‘Col 1’, then to access this column you can use x$`Col 1` to access this variable). Tibbles also provide a good way to visualize data since it directly shows data as if you were running the ‘head()’ function before, displaying the first 10 rows.</p>
+<p>Data.table is also a common choice when dealing with data and it is very fast. However, using Tibbles can be time-consuming when dealing with large tables.</p>
 <div id="tibbles-and-data.tables" class="section level1" number="1">
 <h1><span class="header-section-number">1</span> Tibbles and data.tables</h1>
 <div id="basic-operations" class="section level2" number="1.1">
 <h2><span class="header-section-number">1.1</span> Basic Operations</h2>
 <div id="pipes" class="section level3" number="1.1.1">
 <h3><span class="header-section-number">1.1.1</span> Pipes</h3>
-<p>Dplyr is very friendly, it use very understandable words to manipulate data. It uses a very specific way of writting calculation, the pipe : ‘%&gt;%’. Pipes allows us to writte sequential calculation in a quiet readable way. Here is how we need to read R code that use pipes:</p>
+<p>Dplyr is user-friendly as it uses very understandable words to manipulate data. It uses a specific way of writing calculations called the pipe operator: ‘%&gt;%’. Pipes allow us to write sequential calculations in a readable way. Here is how we need to read R code that uses pipes: The code on the left side of the pipe operator is passed as the first argument to the function on the right side of the operator. This allows for a more readable and concise way of performing multiple operations on data, as it eliminates the need to create intermediate variables and makes the code more readable by showing the flow of data.</p>
 <ul>
 <li><p><b> Usual Way </b><br />
 funtion2(function1(dataset,arg1),arg2)</p></li>
@@ -549,7 +548,7 @@ dim(slice_sample(covid_papers,prop = 0.001))
 t &lt;- Sys.time()
 doi_clean &lt;- filter(covid_papers,doi != &#39;null&#39;)
 Sys.time()-t
-## Time difference of 0.03829765 secs</code></pre>
+## Time difference of 0.05131102 secs</code></pre>
 <p><b> Using Pipes </b></p>
 <pre class="r"><code># R
 
@@ -561,12 +560,12 @@ dim(covid_papers %&gt;% slice_sample(prop = 0.001))
 t = Sys.time()
 doi_clean &lt;- covid_papers %&gt;% filter(doi != &#39;null&#39;)
 Sys.time() - t
-## Time difference of 0.03091836 secs
+## Time difference of 0.04876781 secs
 
 t = Sys.time()
 doi_clean &lt;- covid_papers[which(covid_papers$doi != &#39;null&#39;),]
 Sys.time() - t
-## Time difference of 0.0300715 secs</code></pre>
+## Time difference of 0.03805852 secs</code></pre>
 </div>
 </div>
 <div id="select-columns" class="section level3" number="1.1.2">
@@ -908,11 +907,11 @@ cp_datatable[, uniqueN(language)]
 </div>
 </div>
 </div>
-<p>dplyr helper functions for summarise() (or summarize()) include first(), last(), n(), nth(), and n_distinct(). The data.table package also include first(), last(), and uniqueN().</p>
+<p>Dplyr helper functions for the summarise() function include first(), last(), n(), nth(), and n_distinct(). The data.table package also includes first(), last(), and uniqueN().</p>
 <ul>
-<li>Modifying</li>
+<li>Modifiying</li>
 </ul>
-<p>In the following commands, with data.table, columns are modified by reference using the column assignment symbol := (no copy performed) and the results are returned invisibly. With dplyr, we have to assign the results.</p>
+<p>When it comes to modifying columns, data.table allows for the use of the column assignment symbol := to modify columns by reference without creating a copy. With dplyr, the results must be assigned.</p>
 <div class="row">
 <div class="col-md-6">
 <div class="r">
@@ -978,7 +977,10 @@ cp_datatable[, (cols) := NULL] # ! not cp_datatable[, cols := NULL]</code></pre>
 <ul>
 <li>Grouping by</li>
 </ul>
-<p>The dplyr::group_by() function and the corresponding by and keyby statements in data.table allow to run manipulate each group of observations and combine the results. The sole difference between by and keyby is that keyby orders the results and creates a key that will allow faster subsetting (cf. the indexing and keys section). Below, we arbitrary use one or the other. group_by() takes an existing tibble and converts it into a grouped tibble where operations will always be performed “by group”. Using ungroup() removes grouping. With data.table, by is always used on the fly. Note that it is possible to reorder the arguments in data.table: cp_datatable[i, j, by] &lt;=&gt; cp_datatable[i, by, j]. This is done below to better highlight the similarity with dplyr.</p>
+<p>The dplyr::group_by() function and the corresponding by and keyby statements in data.table allow for the manipulation of each group of observations and combining the results. The main difference between by and keyby is that keyby orders the results and creates a key that allows for faster subsetting (cf. the indexing and keys section). Below, we use one or the other arbitrarily.</p>
+<p>The group_by() function takes an existing tibble and converts it into a grouped tibble where operations will always be performed “by group”. Using ungroup() removes grouping. With data.table, by is always used on the fly.</p>
+<p>Note that it is possible to reorder the arguments in data.table: cp_datatable[i, j, by] &lt;=&gt; cp_datatable[i, by, j]. This is done below to better highlight the similarity with dplyr.</p>
+<p>It’s worth noting that group_by() and by in data.table perform the same task of grouping the data by certain variable(s) and keyby is used to enhance the performance of data.table by creating keys on certain columns, also note that you have to use ungroup() function to remove the grouping in dplyr while in data.table you don’t need to do that.</p>
 <div class="row">
 <div class="col-md-6">
 <div class="r">
@@ -1526,7 +1528,7 @@ groupingsets(cp_datatable,
 <ul>
 <li>Using multiple Variables</li>
 </ul>
-<p>To manipulate multiple columns, dplyr_1.0.0 has introduced the across() function, superseding the _all, _at, and _if versions of summarise(), mutate(), and transmute(). With data.table, we use .SD, which is a data.table containing the Subset of Data for each group, excluding the column(s) used in by. So, cp_datatable[, .SD] is cp_datatable itself and in the expression cp_datatable[, .SD, by = title], .SD contains all the cp_datatable columns (except title) for each values in title (see cp_datatable[, print(.SD), by = title]). .SDcols allows to select the columns included in .SD.</p>
+<p>To manipulate multiple columns, dplyr 1.0.0 introduced the across() function, which supersedes the _all, _at, and _if versions of summarise(), mutate(), and transmute(). In data.table, we use the .SD symbol which is a data.table containing the Subset of Data for each group, excluding the column(s) used in the ‘by’ argument. For example, cp_datatable[, .SD] is equivalent to cp_datatable itself. In the expression cp_datatable[, .SD, by = title], .SD contains all the cp_datatable columns (except the title column) for each unique value of the title column. The .SDcols argument allows to select specific columns to include in the .SD.</p>
 <div class="row">
 <div class="col-md-6">
 <div class="r">
@@ -1670,7 +1672,7 @@ cp_tibble &lt;- cp_tibble %&gt;%
   mutate(across(where(is.character),
          toupper))
 Sys.time() - t
-## Time difference of 3.623192 secs</code></pre>
+## Time difference of 4.81094 secs</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -1695,15 +1697,15 @@ cp_datatable[, c(&#39;pubtype&#39;,&#39;mesh&#39;) := lapply(.SD, function(x){to
 t = Sys.time()
 for(j in  which(sapply(cp_datatable, class)==&#39;character&#39;)){set(cp_datatable, i=NULL, j=j, value=toupper(cp_datatable[[j]]))}
 Sys.time() - t 
-## Time difference of 3.104221 secs</code></pre>
+## Time difference of 3.877063 secs</code></pre>
 </div>
 </div>
 </div>
-<p>The use of cp_datatable[,j] is very flexible, allowing to pass complex expressions in a straightforward way, or combine expressions with multiple outputs.</p>
+<p>The use of cp_datatable[,j] in data.table is very flexible, as it allows for the passing of complex expressions in a straightforward way, or the combination of expressions with multiple outputs. This makes it easy to perform complex data manipulation and calculations on large datasets efficiently. The flexibility of the j-expression in data.table is a powerful feature that allows you to perform various data manipulation tasks with a simple and readable syntax.</p>
 <ul>
 <li>Chain expressions</li>
 </ul>
-<p>The dplyr workflow relies on the magrittr pipe operator (%&gt;%). The magrittr package can also be used with data.table objects, but data.table comes with its own chaining system: cp_datatable[][][].</p>
+<p>The dplyr workflow relies on the magrittr pipe operator (%&gt;%). The magrittr package can also be used with data.table objects, but data.table has its own chaining system: cp_datatable[][][].</p>
 <div class="row">
 <div class="col-md-6">
 <div class="r">
@@ -1827,8 +1829,8 @@ head(cp_datatable[, {is_en = ifelse(language ==&#39;ENG&#39;,1,0)
 </div>
 <div id="reshape-data" class="section level1" number="2">
 <h1><span class="header-section-number">2</span> Reshape data</h1>
-<p>Imagine you have a variable with multiple categories that are store in one cell as the variables ‘pubtype’ in our dataset. You may want to create different columns for each of this variable. The opposit is also possible, one can have several columns with value that we want to transforme in two columns : one with the factor and the other with the values.</p>
-<p>First let’s clean this variable and separate the string in each cells in order to have on row for each article’s pubtype.</p>
+<p>When you have a variable with multiple categories that are stored in one cell, such as the ‘pubtype’ variable in our dataset, you may want to create separate columns for each category. The opposite is also possible, where you have several columns with values that you want to transform into two columns: one with the factor and the other with the values.</p>
+<p>To clean this variable and separate the string in each cell, you can use the tidyr package in R. The separate() function allows you to split a single column into multiple columns based on a delimiter. Additionally, the spread() function can be used to transform wide format data into long format data. This can be used to create separate rows for each pubtype.</p>
 <div class="row">
 <div class="col-md-6">
 <div class="r">
@@ -2011,13 +2013,13 @@ setDT(tstrsplit(vec, split = &quot;:&quot;))[]
 <h1><span class="header-section-number">3</span> Indexing and Keys</h1>
 <div id="set-keyindex" class="section level2" number="3.1">
 <h2><span class="header-section-number">3.1</span> Set key/index</h2>
-<p>Row subsetting in dplyr relies on the filter() and slice() functions, as shown in the first section. With data.table, in addition to the above-mentioned approach, two systems are available to make row filtering and join operations more convenient and blazingly fast (~170x speed-up): keys (primary ordered index) and indices (automatic secondary indexing).</p>
+<p>Row subsetting in dplyr relies on the filter() and slice() functions. In addition to these methods, data.table provides two systems that make row filtering and join operations faster and more convenient: keys (primary ordered index) and indices (automatic secondary indexing).</p>
 <p>The main differences between keys and indices are:</p>
 <ul>
-<li><p>When using keys, data are physically reordered in memory. When using indices, the order is stored as an attribute.</p></li>
-<li><p>Only one key is possible but several indices can coexist.</p></li>
-<li><p>Keys are defined explicitly. Indices can be created manually but are also created on-the-fly (and stored when using == or %in%).</p></li>
-<li><p>Indices are used with the on argument. It is optional when using keys, but recommended (and used below) for better readability. Note: in the following code, we set both a key and an index to demonstrate their usage, but internally, indices are not used when a key already exists for the same columns(s).</p></li>
+<li>Keys involve physically reordering the data in memory, while indices store the order as an attribute.</li>
+<li>Only one key can be used at a time, but multiple indices can coexist.</li>
+<li>Keys are defined explicitly, while indices can be created manually or automatically (when using == or %in%).</li>
+<li>Indices are used with the ‘on’ argument, while keys are optional but recommended for better readability.</li>
 </ul>
 <div class="row">
 <div class="col-md-6">
@@ -2230,7 +2232,7 @@ setindex(cp_datatable, NULL)</code></pre>
 </div>
 <div id="set-modifications" class="section level2" number="3.2">
 <h2><span class="header-section-number">3.2</span> set*() modifications</h2>
-<p>In data.table, set*() functions modify objects by reference, making these operations fast and memory-efficient. In case this is not a desired behaviour, users can use copy(). The corresponding expressions in dplyr will be less memory-efficient.</p>
+<p>In data.table, the set<em>() functions such as set(), setcol() and setnames() modify objects by reference, which makes these operations fast and memory-efficient. However, if this is not the desired behavior, users can use the copy() function to create a new object. In contrast, the corresponding expressions in dplyr will be less memory-efficient as it creates a new object each time an operation is performed. It’s important to note that data.table’s way of modifying in place is very efficient in terms of time and memory usage when working with large datasets, but it can cause problems if you don’t want to modify your original data. Therefore, it’s recommended to use copy() or make a copy of the data.table before applying set</em>() functions.</p>
 <ul>
 <li>Replace values</li>
 </ul>
@@ -2485,7 +2487,7 @@ all.equal(x, x) # S3 method
 <h1><span class="header-section-number">4</span> Join/Bind data sets</h1>
 <div id="join" class="section level2" number="4.1">
 <h2><span class="header-section-number">4.1</span> Join</h2>
-<p>Joining data in data.table works like the fast subsetting approach described above. It can be performed using keys, using the ad hoc on argument, or using the merge.data.table method. For the sake of completeness, the three methods are presented below. As previously mentioned, the on and by (in merge) arguments are optional with keyed data.tables, but recommended to make the code more explicit. In the examples below, the x, y, and z data.tables are also used with dplyr.</p>
+<p>Joining data in data.table can be done using keys, the ad-hoc ‘on’ argument, or the merge.data.table method. The three methods are presented below. As mentioned earlier, the ‘on’ and ‘by’ (in merge) arguments are optional with keyed data.tables, but are recommended to make the code more explicit. In the examples below, the x, y, and z data.tables can also be used with dplyr.</p>
 <div class="row">
 <div class="col-md-6">
 <div class="r">
@@ -2975,7 +2977,8 @@ load(&#39;covid_papers.RData&#39;)
 <ul>
 <li>Read / Write data</li>
 </ul>
-<p>fread() and fwrite() are among the most powerful functions of data.table. They are not only incredibly fast (see benchmarks), they are also extremely robust. The few commands below only scratch the surface and there are a lot of awesome features. For example, fread() accepts http and https URLs directly as well as operating system commands such as sed and awk output. Make sure to check the docs. Here again, fread() and fwrite() are very versatile and allow to handle different file formats while dplyr delegates file reading and writing to the readr package with several specific functions (csv, tsv, delim, …).</p>
+<p>fread() and fwrite() are among the most powerful functions of data.table. They are not only incredibly fast (as seen in benchmarks), but they are also extremely robust. The few commands below only touch the surface, and there are many awesome features. For example, fread() accepts http and https URLs directly, as well as operating system commands such as sed and awk output. Make sure to check the documentation.</p>
+<p>Here again, fread() and fwrite() are very versatile and can handle different file formats while dplyr delegates file reading and writing to the readr package with several specific functions (csv, tsv, delim, …). This means that dplyr requires the use of different functions for different file formats, whereas fread() and fwrite() can handle multiple file formats with a single function. This makes data.table’s file handling functions more efficient and easier to use.</p>
 <ul>
 <li>Write data to a csv file</li>
 </ul>

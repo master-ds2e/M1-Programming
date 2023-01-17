@@ -386,14 +386,14 @@ div.python pre { background-color: #e9f7f5
 <style>
 div.r pre { background-color: #fff5fd; }
 </style>
-<p>This chapter deepens the notions of arrays and vectors seen in the ‘Basics’ chapter. In python, numpy will be the main package to deal with arrays, while in R everything is contains in the base. The main advantage of using vectors is to vectorize operation, instead of using loops to run operation on each elements of an object, we can simply perform it on blocks of data in a more efficient way.</p>
+<p>This chapter delves deeper into the concepts of arrays and vectors that were introduced in the ‘Basics’ chapter. In Python, the primary package for working with arrays is numpy, while in R, everything is included in the base package. The main advantage of using vectors is that it allows for vectorized operations, rather than using loops to perform operations on each element of an object. Vectorized operations allow for more efficient processing of blocks of data.</p>
 <p>
  
 </p>
 <p>
  
 </p>
-<p>let’s first see an example to understand the benefit of using vectorized operation :</p>
+<p>Let’s first take a look at an example to understand the benefits of using vectorized operations:</p>
 <div class="row">
 <div class="col-md-6">
 <div class="python">
@@ -409,12 +409,12 @@ lst = list(range(2000000))
 t = time.time()
 arr_2 = arr*2
 time.time() - t
-## 0.0096893310546875
+## 0.01297760009765625
 t = time.time()
 lst_2 = [i*2  for i in lst]
 time.time() - t
 
-## 0.08368110656738281</code></pre>
+## 0.1169893741607666</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -426,7 +426,7 @@ vec = c(1:2000000)
 t = Sys.time()
 vec_2 = vec*2
 Sys.time() - t
-## Time difference of 0.006661892 secs
+## Time difference of 0.008863688 secs
 
 t = Sys.time()
 vec_2_loop &lt;- rep(0,length(vec))
@@ -434,15 +434,15 @@ for(i in 1:length(vec)){
   vec_2_loop[i] = vec[i]*2
     }
 Sys.time() - t
-## Time difference of 0.2095854 secs</code></pre>
+## Time difference of 0.2807641 secs</code></pre>
 </div>
 </div>
 </div>
 <div id="create-arrays" class="section level1" number="1">
 <h1><span class="header-section-number">1</span> Create arrays</h1>
-<p>The NumPy library contains multidimensional array and matrix data structures, it provides methods to efficiently operate on it. If you do not have numpy on you computer, open a terminal and run <code>pip install numpy</code>.</p>
-<p>To use numpy one need to load the module by running <code>import numpy as np</code>, you can just import numpy but then you will need to write numpy.something to perform calculation. In order to keep code standardized we simply say that we will refers to numpy using np.</p>
-<p>Numpy allows to perform fast and efficient calculation. The main difference between Numpy and python list is that all elements in a numpy array must be homogenous, Numpy uses less memory to store data.</p>
+<p>The NumPy library contains multidimensional array and matrix data structures and provides methods to efficiently operate on them. If you do not have numpy installed on your computer, you can install it by running <code>pip install numpy</code> in a terminal.</p>
+<p>To use numpy, you need to load the module by running <code>import numpy as np</code>. This allows you to refer to numpy as “np” throughout your code, which keeps it standardized.</p>
+<p>Numpy allows for fast and efficient calculations. The main difference between Numpy and python lists is that all elements in a numpy array must be homogeneous and numpy uses less memory to store data.</p>
 <table>
 <thead>
 <tr class="header">
@@ -602,10 +602,10 @@ seq(1, 4, length.out = 10)
 arr_rd = np.random.randn(4,5)
 
 arr_rd
-## array([[-0.84739907,  1.27214283,  1.00450592,  0.11461396, -1.33412489],
-##        [ 0.94547239,  0.23476959,  0.16889698,  2.04414324, -2.34165821],
-##        [ 0.27470013,  0.71861977, -0.70198151,  0.72957307,  0.49306797],
-##        [-0.87165034,  1.53452227, -0.36367855, -1.26017808,  0.96846206]])</code></pre>
+## array([[-1.15993799, -0.97529355, -1.24711413,  0.46332129,  0.42903727],
+##        [-0.3808252 , -0.27659077, -0.47035748,  2.17750609,  0.19585234],
+##        [-0.72662306, -0.99669753, -1.48042268,  1.78437037,  0.69717185],
+##        [-0.67830193,  0.27474327, -2.20766391,  1.3073485 ,  0.04412706]])</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -616,11 +616,11 @@ arr_rd
 mat_rd &lt;- matrix(runif(4*5),4,5)
 
 mat_rd
-##           [,1]      [,2]      [,3]        [,4]      [,5]
-## [1,] 0.3928105 0.2355662 0.2830937 0.273370775 0.0165101
-## [2,] 0.7793618 0.1798444 0.8257788 0.007125872 0.4760067
-## [3,] 0.6160248 0.6624312 0.7925897 0.920333941 0.6915235
-## [4,] 0.7767947 0.8696889 0.5818120 0.480261121 0.2291004</code></pre>
+##           [,1]       [,2]      [,3]      [,4]      [,5]
+## [1,] 0.3608808 0.24898361 0.9990529 0.5518669 0.6581141
+## [2,] 0.9807058 0.02488953 0.8016563 0.4689206 0.7360735
+## [3,] 0.9640870 0.51038323 0.8171002 0.3049984 0.7768370
+## [4,] 0.6557324 0.91221592 0.7773068 0.5573502 0.9412847</code></pre>
 </div>
 </div>
 </div>
@@ -880,8 +880,8 @@ mat[-2,]
 arr = np.random.randn(10)
 
 arr
-## array([-0.36073775, -0.20937831,  0.92437658, -3.03297136,  0.3020192 ,
-##        -0.80187989, -0.55548615, -0.92133763,  0.45517299, -0.56068543])
+## array([ 0.16550558, -1.62579659,  0.27199492, -0.29092356,  1.81158339,
+##         0.47274166, -0.24977091,  0.32560435, -0.01650368, -0.82171368])
 arr.sort()
 </code></pre>
 <pre class="python"><code># Python 
@@ -889,10 +889,10 @@ arr.sort()
 arr = np.random.randn(4,3)
 
 arr
-## array([[-1.10811589, -0.99525408, -0.32846821],
-##        [ 0.18627277, -0.15754837,  0.53259444],
-##        [ 0.32008138, -0.03110246, -0.36771071],
-##        [-0.73577576, -0.7304646 , -0.08499671]])
+## array([[-0.27305141, -0.424939  ,  1.54912122],
+##        [-1.98224044,  0.4624665 , -1.2445387 ],
+##        [-1.90600104,  0.38152639, -1.14016556],
+##        [-0.50999648, -1.16752914, -1.08851296]])
 arr.sort(1)
 </code></pre>
 </div>
@@ -904,27 +904,27 @@ arr.sort(1)
 arr &lt;- runif(10)
 
 arr
-##  [1] 0.48667830 0.83681276 0.05976267 0.35492672 0.75018815 0.96449452
-##  [7] 0.98793064 0.87327355 0.84424743 0.12559049
+##  [1] 0.02366228 0.15548141 0.74731206 0.75623677 0.11709343 0.27356727
+##  [7] 0.22866735 0.94281174 0.04186485 0.11499257
 sort(arr)
-##  [1] 0.05976267 0.12559049 0.35492672 0.48667830 0.75018815 0.83681276
-##  [7] 0.84424743 0.87327355 0.96449452 0.98793064</code></pre>
+##  [1] 0.02366228 0.04186485 0.11499257 0.11709343 0.15548141 0.22866735
+##  [7] 0.27356727 0.74731206 0.75623677 0.94281174</code></pre>
 <pre class="r"><code># R
 
 arr &lt;- matrix(runif(4*3),4,3)
 
 arr
 ##           [,1]      [,2]      [,3]
-## [1,] 0.7657997 0.2173162 0.2292322
-## [2,] 0.3458426 0.8456844 0.4549587
-## [3,] 0.9673521 0.7429760 0.6396253
-## [4,] 0.1950549 0.8732825 0.7083203
+## [1,] 0.5352339 0.8540893 0.3896798
+## [2,] 0.9038067 0.4849222 0.5910878
+## [3,] 0.9814624 0.9699021 0.2697616
+## [4,] 0.4254191 0.3905449 0.8199586
 apply(arr,MARGIN = 2, FUN = sort)
 ##           [,1]      [,2]      [,3]
-## [1,] 0.1950549 0.2173162 0.2292322
-## [2,] 0.3458426 0.7429760 0.4549587
-## [3,] 0.7657997 0.8456844 0.6396253
-## [4,] 0.9673521 0.8732825 0.7083203</code></pre>
+## [1,] 0.4254191 0.3905449 0.2697616
+## [2,] 0.5352339 0.4849222 0.3896798
+## [3,] 0.9038067 0.8540893 0.5910878
+## [4,] 0.9814624 0.9699021 0.8199586</code></pre>
 </div>
 </div>
 </div>
@@ -932,7 +932,7 @@ apply(arr,MARGIN = 2, FUN = sort)
 </div>
 <div id="conditional-logic-on-array" class="section level1" number="3">
 <h1><span class="header-section-number">3</span> Conditional Logic on array</h1>
-<p>Imagine two square matrices representing interaction between entities. Each matrix is a basic network: having interaction = 1, no interaction = 0. You want to know if two entities that are linked in one network are also linked in an other network. Instead of checking each entities interaction sequentially in a loop, one can simply use matrix to do element-wise calculation and get the same answer.</p>
+<p>Imagine you have two square matrices representing interactions between entities. Each matrix represents a basic network, with a value of 1 indicating interaction and 0 indicating no interaction. You want to determine if two entities that are linked in one network are also linked in another network. Instead of checking each entity’s interaction sequentially in a loop, you can use matrix operations to perform element-wise calculations and get the same result in a more efficient manner.</p>
 <div class="row">
 <div class="col-md-6">
 <div class="python">
@@ -1010,8 +1010,8 @@ network_12[network_12&gt;0]
 </div>
 </div>
 </div>
-<p>On thing that we often need is to modify specific value in a array that are satisfiying a condition. The first thing we want to know is which cells is satisfying the condition. In Python np.where is very common while in R we use the which function.</p>
-<p>See how the execution time is changing depending on the size of the vector</p>
+<p>One thing that is commonly needed is to modify specific values in an array that meet a certain condition. The first step is to identify which cells meet the condition. In Python, the function np.where is commonly used, while in R the which function is used.</p>
+<p>It is important to note that the execution time can change depending on the size of the vector.</p>
 <div class="row">
 <div class="col-md-6">
 <div class="python">
@@ -1024,11 +1024,11 @@ t = time.time()
 results = [(i if i%2==0 else 0) for i in arr]
 time.time() - t
 
-## 0.08809065818786621
+## 0.11252164840698242
 t = time.time()
 results = np.where(arr%2!=0,0,arr)
 time.time() - t
-## 0.013175487518310547</code></pre>
+## 0.022777318954467773</code></pre>
 <pre class="python"><code># Python 
 
 arr = np.arange(20000000)
@@ -1038,11 +1038,11 @@ t = time.time()
 results = [(i if i%2==0 else 0) for i in arr]
 time.time() - t
 
-## 8.02905535697937
+## 10.392428874969482
 t = time.time()
 results = np.where(arr%2!=0,0,arr)
 time.time() - t
-## 0.6069421768188477</code></pre>
+## 0.7787919044494629</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -1061,13 +1061,13 @@ for(i in 1:length(vec)){
   }
 }
 Sys.time() - t
-## Time difference of 0.05570936 secs
+## Time difference of 0.2239821 secs
 
 
 t &lt;- Sys.time()
 results &lt;- ifelse(vec%%2!=0,vec,0)
 Sys.time() - t
-## Time difference of 0.008244038 secs</code></pre>
+## Time difference of 0.008413315 secs</code></pre>
 <pre class="r"><code># R
 
 vec &lt;- seq(1,20000000)
@@ -1082,13 +1082,13 @@ for(i in 1:length(vec)){
   }
 }
 Sys.time() - t
-## Time difference of 4.201545 secs
+## Time difference of 5.733559 secs
 
 
 t &lt;- Sys.time()
 results &lt;- ifelse(vec%%2!=0,vec,0)
 Sys.time() - t
-## Time difference of 0.9773867 secs
+## Time difference of 1.325557 secs
 
 
 ## other way using which
@@ -1096,7 +1096,7 @@ Sys.time() - t
 t &lt;- Sys.time()
 vec[which(vec%%2==0)] = 0
 Sys.time() - t 
-## Time difference of 0.5429785 secs</code></pre>
+## Time difference of 0.7375767 secs</code></pre>
 </div>
 </div>
 </div>
@@ -1349,7 +1349,7 @@ apply(network_12,MARGIN = 2,FUN = mean)
 </div>
 <div id="apply-familly-r" class="section level2" number="5.1">
 <h2><span class="header-section-number">5.1</span> Apply familly (R)</h2>
-<p>The apply() family allows to manipulate slices of data from matrices, arrays, lists and dataframes in a repetitive way. It avoid explicit use of loop constructs. They act on an input list, matrix or array and apply a function with one or several optional arguments.</p>
+<p>The apply() family of functions allows for the manipulation of slices of data from matrices, arrays, lists, and dataframes in a repetitive manner, without the need for explicit use of loop constructs. These functions act on an input list, matrix or array and apply a function with one or several optional arguments.</p>
 <div id="apply" class="section level3" number="5.1.1">
 <h3><span class="header-section-number">5.1.1</span> apply</h3>
 <p>apply takes a matrix as input, transform it by row or by columns and returns a matrix</p>
@@ -1457,7 +1457,7 @@ sapply(list_1,FUN = sum)
 </div>
 <div id="mapply" class="section level3" number="5.1.4">
 <h3><span class="header-section-number">5.1.4</span> mapply</h3>
-<p>mapply is used for ‘multivariate’ apply. The main goal is to vectorize arguments to a function that is not usually accepting vectors as arguments. Depending on the size of the outputs it return a matrix or a list.</p>
+<p>mapply is used for ‘multivariate’ apply, which is used to vectorize arguments to a function that does not typically accept vector arguments. Depending on the size of the outputs, it will return a matrix or a list.</p>
 <div class="r">
 <pre class="r"><code># R
 
@@ -1492,7 +1492,7 @@ mapply(FUN = function(x,y,z){seq(x,y,length.out = z)},1,1:5,1:5)
 <div id="map-python" class="section level2" number="5.2">
 <h2><span class="header-section-number">5.2</span> Map (Python)</h2>
 <p>In python we can use <code>map</code> to do the same thing than apply familly in R with a bit of manipulation.</p>
-<p><code>map</code> takes different kind of input, it transforms it by row if the object is an array and returns an iterator.You can then transform this into a list or an array.</p>
+<p><code>map</code> takes different types of input and transforms it by row if the object is an array, returning an iterator. You can then transform this iterator into a list or an array.</p>
 <div class="python">
 <pre class="python"><code># Python
 
@@ -1500,7 +1500,7 @@ arr_1 = np.arange(1,17).reshape([4,4], order = &#39;F&#39;)
 
 # by row, by columns you need to tranpose the array
 map(np.sum,arr_1)
-## &lt;map object at 0x7efffea47438&gt;
+## &lt;map object at 0x7f768b3935f8&gt;
 list(map(np.sum,arr_1))
 ## [28, 32, 36, 40]
 np.fromiter(map(sum,arr_1.T), dtype = np.int)
@@ -1520,7 +1520,7 @@ list(map(lambda x: x**2,lst_1))
 <ul>
 <li>Pandas’ apply function:</li>
 </ul>
-<p>Using pandas one can also use apply functions, the difference with map is that by default it works by columns since variables in a df are store by colmuns.</p>
+<p>When using pandas, you can also use apply functions. The difference between “apply” and “map” is that, by default, “apply” works on columns, because variables in a dataframe are stored by columns.</p>
 <div class="python">
 <pre class="python"><code># Python
 

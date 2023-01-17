@@ -402,7 +402,7 @@ table_1 = read_csv(file = &#39;data/table_1.csv&#39;)</code></pre>
 <pre class="r"><code>cities = read_csv(file = &#39;data/cities_loc.csv&#39;)</code></pre>
 <pre><code>## Error: &#39;data/cities_loc.csv&#39; does not exist in current working directory (&#39;/home/peltouz/Documents/GitHub/M1-Programming&#39;).</code></pre>
 <pre class="r"><code>toc()</code></pre>
-<pre><code>## 0.012 sec elapsed</code></pre>
+<pre><code>## 0.026 sec elapsed</code></pre>
 </div>
 </div>
 <div id="clean" class="section level1" number="2">
@@ -419,7 +419,7 @@ table_1 = table_1 %&gt;%
   filter(pmid != &#39;null&#39; &amp; year_pub &gt; 1975)</code></pre>
 <pre><code>## Error in filter(., pmid != &quot;null&quot; &amp; year_pub &gt; 1975): object &#39;table_2&#39; not found</code></pre>
 <pre class="r"><code>toc()</code></pre>
-<pre><code>## 0.003 sec elapsed</code></pre>
+<pre><code>## 0.009 sec elapsed</code></pre>
 </div>
 </div>
 <div id="merge" class="section level1" number="3">
@@ -431,7 +431,7 @@ tic()
 final_table = inner_join(table_1, table_2, by = &#39;pmid&#39;)</code></pre>
 <pre><code>## Error in inner_join(table_1, table_2, by = &quot;pmid&quot;): object &#39;table_1&#39; not found</code></pre>
 <pre class="r"><code>toc()</code></pre>
-<pre><code>## 0.002 sec elapsed</code></pre>
+<pre><code>## 0.003 sec elapsed</code></pre>
 <pre class="r"><code>final_table = na.omit(final_table)</code></pre>
 <pre><code>## Error in na.omit(final_table): object &#39;final_table&#39; not found</code></pre>
 <pre class="r"><code>final_table</code></pre>
@@ -450,7 +450,7 @@ final_table = final_table %&gt;%
   mutate(nb_aut = dim(str_match_all(authors, &#39;&lt;AUTHOR&gt;&#39;)[[1]])[1]) </code></pre>
 <pre><code>## Error in rowwise(.): object &#39;final_table&#39; not found</code></pre>
 <pre class="r"><code>toc()</code></pre>
-<pre><code>## 0.002 sec elapsed</code></pre>
+<pre><code>## 0.005 sec elapsed</code></pre>
 <pre class="r"><code>final_table = final_table %&gt;% 
   filter(nb_aut &gt; 0)</code></pre>
 <pre><code>## Error in filter(., nb_aut &gt; 0): object &#39;final_table&#39; not found</code></pre>
@@ -483,7 +483,7 @@ final_table = final_table %&gt;%
          oa = ifelse(oa == &#39;Y&#39;, 1, 0))</code></pre>
 <pre><code>## Error in mutate(., title = tolower(title), ML = ifelse(str_detect(title, : object &#39;final_table&#39; not found</code></pre>
 <pre class="r"><code>toc()</code></pre>
-<pre><code>## 0.001 sec elapsed</code></pre>
+<pre><code>## 0.01 sec elapsed</code></pre>
 <pre class="r"><code>sum(final_table$ML)</code></pre>
 <pre><code>## Error in eval(expr, envir, enclos): object &#39;final_table&#39; not found</code></pre>
 <pre class="r"><code>sum(final_table$oa)</code></pre>
@@ -496,7 +496,7 @@ final_table %&gt;%
   summarize(mean_nb_aut = mean(nb_aut))</code></pre>
 <pre><code>## Error in group_by(., ML): object &#39;final_table&#39; not found</code></pre>
 <pre class="r"><code>toc()</code></pre>
-<pre><code>## 0.002 sec elapsed</code></pre>
+<pre><code>## 0.004 sec elapsed</code></pre>
 <pre class="r"><code>tic()
 final_table %&gt;% 
   group_by(ML) %&gt;% 
@@ -504,7 +504,7 @@ final_table %&gt;%
             citation = mean(cited))</code></pre>
 <pre><code>## Error in group_by(., ML): object &#39;final_table&#39; not found</code></pre>
 <pre class="r"><code>toc()</code></pre>
-<pre><code>## 0.002 sec elapsed</code></pre>
+<pre><code>## 0.005 sec elapsed</code></pre>
 </div>
 </div>
 <div id="clean-up-pub_type" class="section level1" number="7">
@@ -517,7 +517,7 @@ final_table = final_table %&gt;%
   mutate(pub_type = str_match_all(pubtype, &#39;\\[\\&quot;(.*?)\\&quot;&#39;)[[1]][2])</code></pre>
 <pre><code>## Error in mutate(., pub_type = str_match_all(pubtype, &quot;\\[\\\&quot;(.*?)\\\&quot;&quot;)[[1]][2]): object &#39;final_table&#39; not found</code></pre>
 <pre class="r"><code>toc()</code></pre>
-<pre><code>## 0.001 sec elapsed</code></pre>
+<pre><code>## 0.003 sec elapsed</code></pre>
 <pre class="r"><code>final_table %&gt;% 
   select(pubtype,pub_type)</code></pre>
 <pre><code>## Error in select(., pubtype, pub_type): object &#39;final_table&#39; not found</code></pre>
@@ -557,7 +557,7 @@ countries_tibble = final_table %&gt;%
   separate_rows(authors, sep = &#39;&lt;AUTHOR&gt;&#39;)</code></pre>
 <pre><code>## Error in select(., pmid, authors): object &#39;final_table&#39; not found</code></pre>
 <pre class="r"><code>toc()</code></pre>
-<pre><code>## 0.001 sec elapsed</code></pre>
+<pre><code>## 0.006 sec elapsed</code></pre>
 <pre class="r"><code>countries_tibble %&gt;% 
   select(authors)</code></pre>
 <pre><code>## Error in select(., authors): object &#39;countries_tibble&#39; not found</code></pre>
@@ -567,7 +567,7 @@ countries_tibble = countries_tibble %&gt;%
   filter(authors !=&quot;&quot; &amp; !str_detect(authors, &#39;&lt;AFFILIATION&gt;None&#39;))</code></pre>
 <pre><code>## Error in rowwise(.): object &#39;countries_tibble&#39; not found</code></pre>
 <pre class="r"><code>toc()</code></pre>
-<pre><code>## 0.002 sec elapsed</code></pre>
+<pre><code>## 0.005 sec elapsed</code></pre>
 <pre class="r"><code>countries_tibble %&gt;% 
   select(authors)</code></pre>
 <pre><code>## Error in select(., authors): object &#39;countries_tibble&#39; not found</code></pre>
@@ -578,7 +578,7 @@ countries_tibble = countries_tibble %&gt;%
   filter(!duplicated(pmid, authors))</code></pre>
 <pre><code>## Error in group_by(., pmid, authors): object &#39;countries_tibble&#39; not found</code></pre>
 <pre class="r"><code>toc()</code></pre>
-<pre><code>## 0.002 sec elapsed</code></pre>
+<pre><code>## 0.004 sec elapsed</code></pre>
 <pre class="r"><code>countries_tibble %&gt;% 
   select(authors)</code></pre>
 <pre><code>## Error in select(., authors): object &#39;countries_tibble&#39; not found</code></pre>
@@ -593,7 +593,7 @@ countries_tibble  = countries_tibble %&gt;%
          authors = tolower(authors)) </code></pre>
 <pre><code>## Error in mutate(., authors = str_replace_all(authors, &quot; USA&quot;, &quot;United States&quot;), : object &#39;countries_tibble&#39; not found</code></pre>
 <pre class="r"><code>toc()</code></pre>
-<pre><code>## 0.002 sec elapsed</code></pre>
+<pre><code>## 0.004 sec elapsed</code></pre>
 <pre class="r"><code>tic()
 countries_tibble = countries_tibble %&gt;%
   group_by(pmid, authors) %&gt;%
@@ -603,14 +603,14 @@ countries_tibble = countries_tibble %&gt;%
   select(-authors)</code></pre>
 <pre><code>## Error in group_by(., pmid, authors): object &#39;countries_tibble&#39; not found</code></pre>
 <pre class="r"><code>toc()</code></pre>
-<pre><code>## 0.001 sec elapsed</code></pre>
+<pre><code>## 0.004 sec elapsed</code></pre>
 <pre class="r"><code>tic()
 countries_tibble = countries_tibble %&gt;%
   filter(country != &#39;&#39;) %&gt;%
   distinct(pmid, country)</code></pre>
 <pre><code>## Error in filter(., country != &quot;&quot;): object &#39;countries_tibble&#39; not found</code></pre>
 <pre class="r"><code>toc()</code></pre>
-<pre><code>## 0.002 sec elapsed</code></pre>
+<pre><code>## 0.003 sec elapsed</code></pre>
 <pre class="r"><code>countries_tibble</code></pre>
 <pre><code>## Error in eval(expr, envir, enclos): object &#39;countries_tibble&#39; not found</code></pre>
 <pre class="r"><code>tic()
@@ -627,7 +627,7 @@ countries_pub = countries_tibble %&gt;%
   arrange(desc(n))</code></pre>
 <pre><code>## Error in group_by(., country, year_pub): object &#39;countries_tibble&#39; not found</code></pre>
 <pre class="r"><code>toc()</code></pre>
-<pre><code>## 0.001 sec elapsed</code></pre>
+<pre><code>## 0.003 sec elapsed</code></pre>
 </div>
 </div>
 <div id="country-bar-plot-with-plotly" class="section level1" number="10">

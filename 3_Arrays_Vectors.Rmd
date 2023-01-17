@@ -18,16 +18,12 @@ div.r pre { background-color: #fff5fd; }
 </style>
 
 
-
-This chapter deepens the notions of arrays and vectors seen in the 'Basics' chapter.
-In python, numpy will be the main package to deal with arrays, while in R everything is contains in the base.
-The main advantage of using vectors is to vectorize operation, instead of using loops to run operation on each elements of an object, we can simply perform it on blocks of data in a more efficient way.
-
+This chapter delves deeper into the concepts of arrays and vectors that were introduced in the 'Basics' chapter. In Python, the primary package for working with arrays is numpy, while in R, everything is included in the base package. The main advantage of using vectors is that it allows for vectorized operations, rather than using loops to perform operations on each element of an object. Vectorized operations allow for more efficient processing of blocks of data.
 
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 
-let's first see an example to understand the benefit of using vectorized operation :
+Let's first take a look at an example to understand the benefits of using vectorized operations:
 
 <div class = "row">
 <div class = "col-md-6">
@@ -84,11 +80,11 @@ Sys.time() - t
 
 # Create arrays 
 
-The NumPy library contains multidimensional array and matrix data structures, it provides methods to efficiently operate on it. If you do not have numpy on you computer, open a terminal and run ```pip install numpy```.
+The NumPy library contains multidimensional array and matrix data structures and provides methods to efficiently operate on them. If you do not have numpy installed on your computer, you can install it by running ```pip install numpy``` in a terminal.
 
-To use numpy one need to load the module by running ```import numpy as np```, you can just import numpy but then you will need to write numpy.something to perform calculation. In order to keep code standardized we simply say that we will refers to numpy using np.
+To use numpy, you need to load the module by running ```import numpy as np```. This allows you to refer to numpy as "np" throughout your code, which keeps it standardized.
 
-Numpy allows to perform fast and efficient calculation. The main difference between Numpy and python list is that all elements in a numpy array must be homogenous, Numpy uses less memory to store data.
+Numpy allows for fast and efficient calculations. The main difference between Numpy and python lists is that all elements in a numpy array must be homogeneous and numpy uses less memory to store data.
 
 Functions | Tasks
 -|-:
@@ -509,8 +505,7 @@ apply(arr,MARGIN = 2, FUN = sort)
 
 # Conditional Logic on array
 
-Imagine two square matrices representing interaction between entities. Each matrix is a basic network: having interaction = 1, no interaction = 0.
-You want to know if two entities that are linked in one network are also linked in an other network. Instead of checking each entities interaction sequentially in a loop, one can simply use matrix to do element-wise calculation and get the same answer.
+Imagine you have two square matrices representing interactions between entities. Each matrix represents a basic network, with a value of 1 indicating interaction and 0 indicating no interaction. You want to determine if two entities that are linked in one network are also linked in another network. Instead of checking each entity's interaction sequentially in a loop, you can use matrix operations to perform element-wise calculations and get the same result in a more efficient manner.
 
 <div class = "row">
 <div class = "col-md-6">
@@ -592,9 +587,9 @@ network_12[network_12>0]
 </div>
 
 
-On thing that we often need is to modify specific value in a array that are satisfiying a condition. The first thing we want to know is which cells is satisfying the condition. In Python np.where is very common while in R we use the which function.
+One thing that is commonly needed is to modify specific values in an array that meet a certain condition. The first step is to identify which cells meet the condition. In Python, the function np.where is commonly used, while in R the which function is used.
 
-See how the execution time is changing depending on the size of the vector
+It is important to note that the execution time can change depending on the size of the vector.
 
 <div class = "row">
 <div class = "col-md-6">
@@ -881,8 +876,7 @@ apply(network_12,MARGIN = 2,FUN = mean)
 
 ## Apply familly (R)
 
-
-The apply() family allows to manipulate slices of data from matrices, arrays, lists and dataframes in a repetitive way. It avoid explicit use of loop constructs. They act on an input list, matrix or array and apply a function with one or several optional arguments.
+The apply() family of functions allows for the manipulation of slices of data from matrices, arrays, lists, and dataframes in a repetitive manner, without the need for explicit use of loop constructs. These functions act on an input list, matrix or array and apply a function with one or several optional arguments.
 
 ### apply
 
@@ -957,7 +951,7 @@ sapply(list_1,FUN = sum)
 
 ### mapply
 
-mapply is used for ‘multivariate’ apply. The main goal is to vectorize arguments to a function that is not usually accepting vectors as arguments. Depending on the size of the outputs it return a matrix or a list.
+mapply is used for 'multivariate' apply, which is used to vectorize arguments to a function that does not typically accept vector arguments. Depending on the size of the outputs, it will return a matrix or a list.
 
 <div class = "r">
 
@@ -979,7 +973,7 @@ mapply(FUN = function(x,y,z){seq(x,y,length.out = z)},1,1:5,1:5)
 
 In python we can use ```map``` to do the same thing than apply familly in R with a bit of manipulation.
 
-```map``` takes different kind of input, it transforms it by row if the object is an array and returns an iterator.You can then transform this into a list or an array.
+```map```  takes different types of input and transforms it by row if the object is an array, returning an iterator. You can then transform this iterator into a list or an array.
 
 <div class = "python">
 
@@ -1003,7 +997,7 @@ list(map(lambda x: x**2,lst_1))
 
 - Pandas' apply function:
 
-Using pandas one can also use apply functions, the difference with map is that by default it works by columns since variables in a df are store by colmuns.
+When using pandas, you can also use apply functions. The difference between "apply" and "map" is that, by default, "apply" works on columns, because variables in a dataframe are stored by columns.
 
 <div class = "python">
 
@@ -1060,4 +1054,4 @@ What is the sum of the digits of the number $2^{1000}$?
 
 <a href="">Solutions</a>
 
- <! -- exo_chap_2.html -->
+<! -- exo_chap_2.html -->

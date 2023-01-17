@@ -407,7 +407,7 @@ dt_table_2 = fread(file = &#39;data/table_2.csv&#39;)
 dt_cities = fread(file = &#39;data/cities_loc.csv&#39;)
 ## Error in fread(file = &quot;data/cities_loc.csv&quot;): File &#39;data/cities_loc.csv&#39; does not exist or is non-readable. getwd()==&#39;/home/peltouz/Documents/GitHub/M1-Programming&#39;
 toc()
-## 0.005 sec elapsed
+## 0.01 sec elapsed
 
 setDT(dt_table_1)
 ## Error: Cannot find symbol dt_table_1
@@ -435,7 +435,7 @@ dt_table_1 = dt_table_1[pmid != &#39;null&#39; &amp; doi != &#39;null&#39;]
 dt_table_2 = dt_table_2[pmid != &#39;null&#39; &amp; year_pub &gt; 1975]
 ## Error in eval(expr, envir, enclos): object &#39;dt_table_2&#39; not found
 toc()
-## 0.003 sec elapsed</code></pre>
+## 0.006 sec elapsed</code></pre>
 </div>
 </div>
 <div id="merge" class="section level1" number="3">
@@ -448,7 +448,7 @@ tic()
 dt_final_table = na.omit(dt_table_2[dt_table_1, on = &#39;pmid&#39;])
 ## Error in na.omit(dt_table_2[dt_table_1, on = &quot;pmid&quot;]): object &#39;dt_table_2&#39; not found
 toc()
-## 0.002 sec elapsed
+## 0.004 sec elapsed
 
 dt_final_table
 ## Error in eval(expr, envir, enclos): object &#39;dt_final_table&#39; not found</code></pre>
@@ -464,7 +464,7 @@ dt_final_table[,nb_aut := dim(str_match_all(authors, &#39;&lt;AUTHOR&gt;&#39;)[[
                by = &#39;pmid&#39;]
 ## Error in eval(expr, envir, enclos): object &#39;dt_final_table&#39; not found
 toc()
-## 0.002 sec elapsed
+## 0.003 sec elapsed
 
 dt_final_table = dt_final_table[nb_aut&gt;0]
 ## Error in eval(expr, envir, enclos): object &#39;dt_final_table&#39; not found
@@ -500,7 +500,7 @@ dt_final_table[, &#39;title&#39; := .(tolower(title)),
                  by = &#39;pmid&#39;]
 ## Error in eval(expr, envir, enclos): object &#39;dt_final_table&#39; not found
 toc()
-## 0.001 sec elapsed
+## 0.003 sec elapsed
 
 
 sum(dt_final_table$ML)
@@ -515,7 +515,7 @@ dt_final_table[,.(mean_nb_aut = mean(nb_aut)),
                by = &#39;ML&#39;]
 ## Error in eval(expr, envir, enclos): object &#39;dt_final_table&#39; not found
 toc()
-## 0.002 sec elapsed
+## 0.003 sec elapsed
 
 tic()
 dt_final_table[,.(share_oa = sum(as.numeric(oa))/.N,
@@ -523,7 +523,7 @@ dt_final_table[,.(share_oa = sum(as.numeric(oa))/.N,
                by = &#39;ML&#39;]
 ## Error in eval(expr, envir, enclos): object &#39;dt_final_table&#39; not found
 toc()
-## 0.002 sec elapsed</code></pre>
+## 0.003 sec elapsed</code></pre>
 </div>
 </div>
 <div id="clean-up-pub_type" class="section level1" number="7">
@@ -578,7 +578,7 @@ countries_dt = dt_final_table[,c(&#39;pmid&#39;,&#39;authors&#39;)
                                 by= &#39;pmid&#39;]
 ## Error in eval(expr, envir, enclos): object &#39;dt_final_table&#39; not found
 toc()
-## 0.002 sec elapsed
+## 0.003 sec elapsed
 countries_dt
 ## Error in eval(expr, envir, enclos): object &#39;countries_dt&#39; not found
 
@@ -599,7 +599,7 @@ setkey(countries_dt,pmid,clean_aff)
 countries_dt = unique(countries_dt)
 ## Error in unique(countries_dt): object &#39;countries_dt&#39; not found
 toc()
-## 0.004 sec elapsed
+## 0.007 sec elapsed
 
 countries_dt
 ## Error in eval(expr, envir, enclos): object &#39;countries_dt&#39; not found</code></pre>
@@ -613,7 +613,7 @@ countries_dt[, clean_aff := str_replace_all(clean_aff,&#39; USA&#39;,&#39;United
                  ][, clean_aff := tolower(clean_aff)]
 ## Error in eval(expr, envir, enclos): object &#39;countries_dt&#39; not found
 toc()
-## 0.117 sec elapsed
+## 0.002 sec elapsed
 countries_dt
 ## Error in eval(expr, envir, enclos): object &#39;countries_dt&#39; not found
 
@@ -640,7 +640,7 @@ setkey(countries_dt,pmid,country)
 countries_dt = unique(countries_dt)
 ## Error in unique(countries_dt): object &#39;countries_dt&#39; not found
 toc()
-## 0.006 sec elapsed
+## 0.004 sec elapsed
 
 tic()
 countries_year = countries_dt[dt_final_table[,c(&#39;pmid&#39;,&#39;year_pub&#39;)], on =&#39;pmid&#39;]
@@ -659,7 +659,7 @@ countries_pub_dt = countries_year[,
 head(countries_pub_dt[order(n,decreasing = T)])
 ## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;x&#39; in selecting a method for function &#39;head&#39;: object &#39;countries_pub_dt&#39; not found
 toc()
-## 0.003 sec elapsed</code></pre>
+## 0.004 sec elapsed</code></pre>
 </div>
 </div>
 <div id="country-bar-plot-with-plotly" class="section level1" number="10">

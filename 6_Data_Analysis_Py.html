@@ -858,8 +858,8 @@ oa = tobinary).groupby(&#39;year_pub&#39;).agg(share_en= (&#39;is_en&#39;,sum)).
 </div>
 <div id="reshape-data" class="section level1" number="2">
 <h1><span class="header-section-number">2</span> Reshape data</h1>
-<p>Imagine you have a variable with multiple categories that are store in one cell as the variables ‘pubtype’ in our dataset. You may want to create different columns for each of this variable. The opposit is also possible, one can have several columns with value that we want to transforme in two columns : one with the factor and the other with the values.</p>
-<p>First let’s clean this variable and separate the string in each cells in order to have one row for each article’s pubtype.</p>
+<p>When you have a variable with multiple categories that are stored in one cell, such as the ‘pubtype’ variable in our dataset, you may want to create separate columns for each category. The opposite is also possible, where you have several columns with values that you want to transform into two columns: one with the factor and the other with the values.</p>
+<p>To clean this variable and separate the string in each cell, you can use the tidyr package in R. The separate() function allows you to split a single column into multiple columns based on a delimiter, and the spread() function can be used to transform wide format data into long format data. This can be used to create separate rows for each pubtype.</p>
 <div class="python">
 <pre class="python"><code># Python
 covid_papers.pubtype.loc[1]

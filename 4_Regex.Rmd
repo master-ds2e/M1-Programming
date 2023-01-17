@@ -30,11 +30,11 @@ wd_t
 print(wd_t)
 ```
 
-- The point of the r'...' notation is for writing raw strings and use different rules for interpreting backslash escape sequences. If we're just getting the value from another variable, there's no need for an r.
 
-- A string in Python is workng as an array, we can easily select pieces of the string with the position of the letters. In R a string is a block that we need to decompose ourself if we want to select a specific letter. The nb of character present in a string will be then the length of the object.
-We can modify string in several ways which are listed here : https://www.w3schools.com/python/python_ref_string.asp  
-We see here some classical examples 
+- The purpose of the r'...' notation is to create raw strings and use different rules for interpreting backslash escape sequences. There is no need to use r if you're just getting the value from another variable.
+
+- In Python, a string can be treated as an array, and it's easy to select specific pieces of the string using the position of the letters. In R, a string is a block that needs to be decomposed in order to select specific letters. The number of characters in a string is its length. Strings can be modified in various ways, which are listed in the following link: https://www.w3schools.com/python/python_ref_string.asp . Some examples are provided there.
+
 ```{python , collapse = T, error= T}
 # Python 
 
@@ -91,9 +91,7 @@ wd_t = 'C:\\Users\\mypath\\to\\myfolder'
 print(wd_t)
 cat(wd_t)
 ```
- - In R they are no way of told R to read literal backslash, we need to double it while writting it. Also we need to split the string before accessing to element of this string.  
-The function 'strsplit' is made to work with vector also, it automatically create a list for which each element of this list is the decomposed string.  
-That's why we see '[[1]]' after each strsplit function calls. We want to access only the first element because there is only one string in the object submitted to the function.
+ - In R, there is no way to tell R to read a literal backslash, we need to double it while writing it. Also, we need to split the string before accessing its elements. The 'strsplit' function is designed to work with vectors and automatically creates a list, with each element of the list being a decomposed string. This is why we see '[[1]]' after each 'strsplit' function call. We only want to access the first element because there is only one string in the object submitted to the function.
 ```{r , collapse = T, error= T}
 # R 
 library(stringr)
@@ -196,15 +194,13 @@ cat(infos)
 </div>
 </div>
 
+Here is some information on the computer where this document was created:
 
-Here is some information on the computer where this document was compiled. 
+The working directory is the path to the folder where we are currently working. If we read or write a file without specifying the exact path (only the name of the file), the program will search for the file in the current working directory.
 
-The working directory is the path to the folder where we are working, If we read or write on a file without specifiying the exact path (only the name of the file), the program will search for this file in the current working directory.
+'\\' is the backslash character and is used to specify special characters, tabulation, new lines, backslashes or quotes, etc. When working with file paths, this can be confusing for the machine. To avoid this, we can specify that the string must be read as it is by using 'r' before the quotation mark.
 
-'\', the backslash character is used to specify special character, tabulation, new lines, backslash or quotes and so on. When dealing with path this may be confusing for the machine. We can specify that the string must be read as it is by using 'r' before the quote.  
-
-Here is a list of escape character that can be usefull
-
+Here is a list of escape characters that can be useful:
  Escape Sequence | Description 
 - | -:
  \\t 	| Insert a tab in the text at this point.
@@ -219,8 +215,7 @@ Here is a list of escape character that can be usefull
 
 ## Formatted strings
 
- - In Python, the % sign lets us produce formatted output. We can also use "{}".format() in order to change automatically values in raw text. Let's rewritte our function.
- 
+ - In Python, the % sign is used for producing formatted output. Another way to format output is to use the "{}".format() method, which allows for the automatic replacement of values in a raw text. Let's rewrite our function using this method.
  
 <div class = "row">
 <div class = "col-md-6">
@@ -264,7 +259,7 @@ get_infos_3()
 <div class = "r">
 
 
-- In R the use of % is also possible for formatting strings. We can directly use sprintf to print the formated string but is also possible to store it for later use. Then we can use cat to print the string containing escape character or we can use writeLines as in 'get_info_2'
+- In R, the use of % is also possible for formatting strings. We can use the sprintf function to print the formatted string, but it can also be stored for later use. We can use the cat function to print the string containing escape characters, or we can use writeLines as shown in the 'get_info_2' function.
 
 ```{r , collapse = T}
 
@@ -315,11 +310,11 @@ implementation of convolutional nets. To reduce overfitting in the globally
 connected layers we employed a new regularization method that proved to be very effective.</p>'
 ```
 
-- Regex are a way to express how a character sequence should be matched, it is a a very flexible tool. Regular expression are commonly used in text manipulation, usually such patterns are used by string-searching algorithms for "find" or "find and replace" operations on strings, or for input validation. 
+- Regular expressions (regex) are a way to express how a character sequence should be matched, and are a very flexible tool. They are commonly used in text manipulation and are used by string-searching algorithms for "find" or "find and replace" operations on strings, or for input validation.
 
-- Except for control characters, (+ ? . * ^ $ ( ) [ ] { } | \), all characters match themselves. You can escape a control character by preceding it with a backslash.
+- Except for control characters (+ ? . * ^ $ ( ) [ ] { } | \ ), all characters match themselves. You can escape a control character by preceding it with a backslash.
 
-- Some functions in 're' (Python) and 'stingr'(R)  :
+- Some functions in 're' (Python) and 'stringr'(R) that can be useful when working with regular expressions are:
 
 Re | Stringr |Description
 -|:-|-:
@@ -329,13 +324,9 @@ search |	str_locate_all |Returns a Match object if there is a match anywhere in 
 split | str_split | 	Returns a list where the string has been split at each match
 sub | str_replace_all |	Replaces one or many matches with a string
 
+- Metacharacters are characters that have a special meaning in regular expressions. Their uses are discussed in more detail in the next few sections.
 
-
-- Metacharacters are characters with a special meaning in Regex, their uses are discussed in more detail in the next few sections :
-
-parentheses can be used for grouping. Square brackets define a character class, and curly braces are used by a quantifier with specific limits.
-
-
+- Parentheses ( ) are used for grouping. Square brackets [ ] define a character class, and curly braces { } are used by a quantifier with specific limits.
 
 Character |	Description |	Example
 -|:-|-:
@@ -716,8 +707,7 @@ str_replace_all( '[38] min and [4] sec','\\[(\\d+)\\]', '\\10')
 
 # Exercise
 
-Here is the list of all university restaurants in strasbourg, can you make a program that will allow us to compare the menus in the open restaurants for the next three days ?
-On your nagivator, go to the web page, inspect with a right click, and locate the appropriate html class.
+Here is the list of all university restaurants in strasbourg, could you create a program that would enable us to compare the menus of open university restaurants in Strasbourg for the next three days ? To do this, please go to the web page on your browser, inspect it by right-clicking, and find the correct HTML class.
 
 https://www.crous-strasbourg.fr/restauration/vos-restaurants-et-leurs-menus/
 
