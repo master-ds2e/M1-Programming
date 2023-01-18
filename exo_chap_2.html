@@ -401,7 +401,14 @@ div.r pre { background-color: #fff5fd; }
 
 # To manage very large numbers you have to use gmp
 library(gmp)
-## Error in library(gmp): there is no package called &#39;gmp&#39;
+## 
+## Attaching package: &#39;gmp&#39;
+## The following objects are masked from &#39;package:Matrix&#39;:
+## 
+##     crossprod, tcrossprod
+## The following objects are masked from &#39;package:base&#39;:
+## 
+##     %*%, apply, crossprod, matrix, tcrossprod
 
 sum_n_power_last_digit &lt;- function(n, last_digit){
   sum_series = sum(as.bigz(seq(1, n))**(seq(1, n)))
@@ -412,9 +419,9 @@ sum_n_power_last_digit &lt;- function(n, last_digit){
 
 t = Sys.time()
 sum_n_power_last_digit(1000,10)
-## Error in as.bigz(seq(1, n)): could not find function &quot;as.bigz&quot;
+##  [1] &quot;9&quot; &quot;1&quot; &quot;1&quot; &quot;0&quot; &quot;8&quot; &quot;4&quot; &quot;6&quot; &quot;7&quot; &quot;0&quot; &quot;0&quot;
 Sys.time() - t
-## Time difference of 0.004440784 secs</code></pre>
+## Time difference of 0.02925515 secs</code></pre>
 </div>
 </div>
 <div id="python" class="section level2" number="1.2">
@@ -448,7 +455,7 @@ t = time.time()
 sum_n_power_last_digit(1000,10)
 ## &#39;9110846700&#39;
 time.time() - t
-## 0.0175628662109375</code></pre>
+## 0.013491630554199219</code></pre>
 </div>
 </div>
 </div>
@@ -475,7 +482,7 @@ t &lt;- Sys.time()
 get_sum_multiples_below1(1000000,3,5)
 ## [1] 233333166668
 Sys.time() - t
-## Time difference of 1.168653 secs
+## Time difference of 0.838135 secs
 
 
 
@@ -489,7 +496,7 @@ t &lt;- Sys.time()
 get_sum_multiples_below2(1000000,3,5)
 ## [1] 233333166668
 Sys.time() - t
-## Time difference of 2.835223 secs
+## Time difference of 2.356255 secs
 
 
 
@@ -503,7 +510,7 @@ t &lt;- Sys.time()
 get_sum_multiples_below3(1000000,3,5)
 ## [1] 233333166668
 Sys.time() - t
-## Time difference of 0.0496242 secs</code></pre>
+## Time difference of 0.03783131 secs</code></pre>
 </div>
 </div>
 <div id="python-1" class="section level3" number="2.1.2">
@@ -525,7 +532,7 @@ get_sum_multiples_below1(1000000,3,5)
 ## 233333166668
 time.time() - t
 
-## 0.10601687431335449
+## 0.0838623046875
 def get_sum_multiples_below2(below,mutiple_1,multiple_2):
   multiples = [i if ((i % mutiple_1 == 0) or (i % multiple_2 == 0)) else 0 for i in range(below)]
   return sum(multiples)
@@ -535,7 +542,7 @@ get_sum_multiples_below2(1000000,3,5)
 ## 233333166668
 time.time() - t
 
-## 0.12578415870666504
+## 0.10018563270568848
 def get_sum_multiples_below3(below,mutiple_1,multiple_2):
   seq = list(range(below))
   multiples = map(lambda i: i if ((i % mutiple_1 == 0) or (i % multiple_2 == 0)) else 0, seq) 
@@ -546,7 +553,7 @@ get_sum_multiples_below3(1000000,3,5)
 ## 233333166668
 time.time() - t
 
-## 0.2660501003265381
+## 0.13850140571594238
 def get_sum_multiples_below4(below,mutiple_1,multiple_2):
   seq = np.arange(below)
   seq = seq[((seq % mutiple_1 == 0) | (seq % multiple_2 == 0))]
@@ -556,7 +563,7 @@ t = time.time()
 get_sum_multiples_below4(1000000,3,5)
 ## 233333166668
 time.time() - t
-## 0.11902356147766113</code></pre>
+## 0.08732414245605469</code></pre>
 </div>
 </div>
 </div>
@@ -595,7 +602,7 @@ t &lt;- Sys.time()
 nth_prime(10001)
 ## [1] 104743
 Sys.time() - t
-## Time difference of 2.257818 secs
+## Time difference of 1.755555 secs
 
 
 nth_prime2 &lt;- function(nth){
@@ -616,7 +623,7 @@ t &lt;- Sys.time()
 nth_prime2(10001)
 ## [1] 104743
 Sys.time() - t
-## Time difference of 1.779613 secs</code></pre>
+## Time difference of 1.48669 secs</code></pre>
 </div>
 </div>
 <div id="python-2" class="section level3" number="2.2.2">
@@ -648,7 +655,7 @@ nth_prime(10001)
 ## 104743
 time.time() - t
 
-## 0.31528496742248535
+## 0.2610154151916504
 def nth_prime2(nth):
   primes = [2,3]
   i = 3
@@ -666,7 +673,7 @@ t = time.time()
 nth_prime2(10001)
 ## 104743
 time.time() - t
-## 0.816032886505127</code></pre>
+## 0.6709802150726318</code></pre>
 </div>
 </div>
 </div>
@@ -701,12 +708,12 @@ t = Sys.time()
 smalles_multiple(10)
 ## [1] 2520
 Sys.time() - t
-## Time difference of 0.02358413 secs
+## Time difference of 0.08529639 secs
 
 t = Sys.time()
 #smalles_multiple(20)
 Sys.time() - t
-## Time difference of 0.001095533 secs
+## Time difference of 0.001543522 secs
 
 
 
@@ -735,14 +742,14 @@ t = Sys.time()
 smalles_multiple(10)
 ## [1] 2520
 Sys.time() - t
-## Time difference of 0.1252422 secs
+## Time difference of 0.0304904 secs
 
 
 t = Sys.time()
 smalles_multiple(20)
 ## [1] 232792560
 Sys.time() - t
-## Time difference of 0.553755 secs</code></pre>
+## Time difference of 0.4912467 secs</code></pre>
 </div>
 </div>
 <div id="python-3" class="section level2" number="3.2">
@@ -768,12 +775,12 @@ t = time.time()
 smalles_multiple(10)
 ## 2520
 time.time() - t
-## 0.01818394660949707
+## 0.013246297836303711
 t = time.time()
 #smalles_multiple(20)
 time.time() - t
 
-## 0.0054759979248046875
+## 0.00350189208984375
 def smalles_multiple(n):
   dividers_all = np.arange(1,n+1)
   multiple = 1
@@ -797,13 +804,13 @@ smalles_multiple(10)
 ## 2520
 time.time() - t
 
-## 0.019422531127929688
+## 0.013292312622070312
 t = time.time()
 smalles_multiple(20)
 ## 232792560
 time.time() - t
 
-## 0.31587910652160645</code></pre>
+## 0.23670434951782227</code></pre>
 </div>
 </div>
 </div>
@@ -815,11 +822,9 @@ time.time() - t
 <h2><span class="header-section-number">4.1</span> R</h2>
 <div class="r">
 <pre class="r"><code>library(gmp)
-## Error in library(gmp): there is no package called &#39;gmp&#39;
 bigq = as.bigz(2**1000)
-## Error in as.bigz(2^1000): could not find function &quot;as.bigz&quot;
 sum(as.integer(stringr::str_split(as.character(bigq),&#39;&#39;)[[1]]))
-## Error in stri_split_boundaries(string, n = n, simplify = simplify, opts_brkiter = opts(pattern)): object &#39;bigq&#39; not found</code></pre>
+## [1] 1366</code></pre>
 </div>
 </div>
 <div id="python-4" class="section level2" number="4.2">
@@ -847,7 +852,7 @@ print(max(palindromes))
 ## 906609
 time.time() - t
 
-## 1.0992958545684814</code></pre>
+## 0.8105721473693848</code></pre>
 </div>
 <p><a href="3_Arrays_Vectors.html"> Go back to chapter 2</a></p>
 </div>
