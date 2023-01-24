@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Data Analysis (Py)</title>
+
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">M1 Programming</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="2_Basics.html">Basics</a>
+</li>
+<li>
+  <a href="3_Arrays_Vectors.html">Arrays/Vectors</a>
+</li>
+<li>
+  <a href="4_Regex.html">Regex</a>
+</li>
+<li>
+  <a href="5_Data_Analysis_R.html">Data Analysis (R)</a>
+</li>
+<li>
+  <a href="6_Data_Analysis_Py.html">Data Analysis (Python)</a>
+</li>
+<li>
+  <a href="7_Best_practices.html">Best Pratices</a>
+</li>
+<li>
+  <a href="8_Efficient_prog.html">Efficient Prog</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/master-ds2e/">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Data Analysis (Py)</h1>
+
+</div>
+
+
+<style>
+div.python pre { background-color: #e9f7f5
+; }
+</style>
+<style>
+div.r pre { background-color: #fff5fd; }
+</style>
+<div id="tibbles-and-data.tables" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Tibbles and data.tables</h1>
+<div id="introduction" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> Introduction</h2>
+<div class="python">
+<pre class="python"><code># Python
+import pandas as pd
+import re
+covid_papers = pd.read_csv(&quot;data/covid_papers.csv&quot;)
+covid_papers
+##                              _id        pmid       pmcid  ... cited has_data oa
+## 0       5f69d6fa65a250f0edc4ee5c  32837036.0  PMC7424135  ...     0        N  Y
+## 1       5f69d6fa65a250f0edc4ee5d  32196410.0  PMC7170333  ...    61        N  Y
+## 2       5f69d6fa65a250f0edc4ee5e  32778421.0  PMC7402212  ...     0        N  Y
+## 3       5f69d6fa65a250f0edc4ee5f  32730205.0  PMC7382925  ...     0        N  Y
+## 4       5f69d6fa65a250f0edc4ee60         NaN         NaN  ...     0        N  N
+## ...                          ...         ...         ...  ...   ...      ... ..
+## 148911  5f69f29165a250f0edc7340b  31314321.0  PMC7121204  ...     0        N  Y
+## 148912  5f69f29165a250f0edc7340c  31314312.0  PMC7123335  ...     0        N  Y
+## 148913  5f69f29165a250f0edc7340d  32091757.0  PMC7124085  ...     0        N  Y
+## 148914  5f69f29165a250f0edc7340e  28590697.0  PMC7193726  ...     0        N  Y
+## 148915  5f69f29165a250f0edc7340f  28590695.0  PMC7193709  ...     0        N  Y
+## 
+## [148916 rows x 19 columns]
+covid_papers.sample(frac = 0.001).shape
+## (149, 19)</code></pre>
+</div>
+<ul>
+<li>Select columns</li>
+</ul>
+<div class="python">
+<pre class="python"><code># Python
+
+covid_papers.doi
+## 0               10.1007/s12291-020-00919-0
+## 1            10.1080/22221751.2020.1746199
+## 2               10.1016/j.jiph.2020.07.011
+## 3               10.1016/j.ijsu.2020.07.032
+## 4         10.20944/preprints202008.0312.v1
+##                         ...               
+## 148911                                 NaN
+## 148912                                 NaN
+## 148913                                 NaN
+## 148914                                 NaN
+## 148915                                 NaN
+## Name: doi, Length: 148916, dtype: object
+covid_papers[[&#39;doi&#39;,&#39;title&#39;]]
+##                                      doi                                              title
+## 0             10.1007/s12291-020-00919-0  The Pathophysiology, Diagnosis and Treatment o...
+## 1          10.1080/22221751.2020.1746199  Hypothesis for potential pathogenesis of SARS-...
+## 2             10.1016/j.jiph.2020.07.011  The outbreak of the novel severe acute respira...
+## 3             10.1016/j.ijsu.2020.07.032  A comparative overview of COVID-19, MERS and S...
+## 4       10.20944/preprints202008.0312.v1  Virion Structure and Mechanism of Propagation ...
+## ...                                  ...                                                ...
+## 148911                               NaN      BMT Settings, Infection and Infection Control
+## 148912                               NaN  Early and Acute Complications and the Principl...
+## 148913                               NaN                                   Viral Infections
+## 148914                               NaN  International Collaboration for Global Public ...
+## 148915                               NaN           Resource Allocation and Priority Setting
+## 
+## [148916 rows x 2 columns]
+covid_papers.drop([&#39;doi&#39;,&#39;creation&#39;],axis = 1)
+##                              _id        pmid       pmcid  ... cited has_data  oa
+## 0       5f69d6fa65a250f0edc4ee5c  32837036.0  PMC7424135  ...     0        N   Y
+## 1       5f69d6fa65a250f0edc4ee5d  32196410.0  PMC7170333  ...    61        N   Y
+## 2       5f69d6fa65a250f0edc4ee5e  32778421.0  PMC7402212  ...     0        N   Y
+## 3       5f69d6fa65a250f0edc4ee5f  32730205.0  PMC7382925  ...     0        N   Y
+## 4       5f69d6fa65a250f0edc4ee60         NaN         NaN  ...     0        N   N
+## ...                          ...         ...         ...  ...   ...      ...  ..
+## 148911  5f69f29165a250f0edc7340b  31314321.0  PMC7121204  ...     0        N   Y
+## 148912  5f69f29165a250f0edc7340c  31314312.0  PMC7123335  ...     0        N   Y
+## 148913  5f69f29165a250f0edc7340d  32091757.0  PMC7124085  ...     0        N   Y
+## 148914  5f69f29165a250f0edc7340e  28590697.0  PMC7193726  ...     0        N   Y
+## 148915  5f69f29165a250f0edc7340f  28590695.0  PMC7193709  ...     0        N   Y
+## 
+## [148916 rows x 16 columns]</code></pre>
+</div>
+<ul>
+<li>using regular expression</li>
+</ul>
+<div class="python">
+<pre class="python"><code># Python
+import numpy as np
+covid_papers = covid_papers.rename({ name:replace for name, replace in zip(list(covid_papers.columns[:4]),&#39;V&#39;+np.char.array([&#39;1&#39;,&#39;2&#39;,&#39;3&#39;]))},axis = 1)
+# filter columns using regex
+covid_papers.filter(regex=(&quot;V[12]&quot;))
+covid_papers.filter(regex=(&quot;V.*&quot;))
+covid_papers.filter(regex=(&quot;3$&quot;))
+covid_papers.filter(regex=(&quot;^V&quot;))</code></pre>
+</div>
+<ul>
+<li>Filtering</li>
+</ul>
+<div class="python">
+<pre class="python"><code># Python
+covid_papers.loc[3:4,]
+covid_papers.drop(range(3,8))
+covid_papers[covid_papers.year_pub &gt; 2018]
+covid_papers[covid_papers.title.isin([&quot;Deep convolutional approaches for the analysis of Covid-19 using chest X-Ray images from portable devices&quot;,
+                               &quot;Evaluating the effect of city lock-down on controlling COVID-19 propagation through deep learning and network science models.&quot;])]
+covid_papers[covid_papers.year_pub == 2018 &amp; covid_papers.title.isin([&quot;Deep convolutional approaches for the analysis of Covid-19 using chest X-Ray images from portable devices&quot;,
+                               &quot;Evaluating the effect of city lock-down on controlling COVID-19 propagation through deep learning and network science models.&quot;])]
+                               
+covid_papers = covid_papers.dropna(subset = [&#39;title&#39;])
+covid_papers[covid_papers.title.str.contains(&#39;deep learning&#39;)][:5]
+covid_papers.drop_duplicates()
+covid_papers.drop_duplicates(subset=[&#39;V1&#39;, &#39;title&#39;])</code></pre>
+</div>
+<ul>
+<li>Sorting</li>
+</ul>
+<div class="python">
+<pre class="python"><code># Python
+covid_papers.sort_values(&#39;year_pub&#39;)
+##                               V1          V2          V3  ... cited has_data oa
+## 148865  5f69f28f65a250f0edc733dd         NaN  PMC5613494  ...     0        N  Y
+## 148799  5f69f28c65a250f0edc7339b         NaN  PMC5639501  ...     0        N  Y
+## 148793  5f69f28b65a250f0edc73395  29919123.0  PMC5100527  ...     0        N  Y
+## 148888  5f69f29065a250f0edc733f4  29917937.0  PMC5082205  ...     0        N  Y
+## 148867  5f69f28f65a250f0edc733df  29918028.0  PMC5086967  ...     0        N  Y
+## ...                          ...         ...         ...  ...   ...      ... ..
+## 138520  5f69f09565a250f0edc70b74         NaN  PMC7120167  ...     0        N  Y
+## 139464  5f69f0c265a250f0edc70f24         NaN  PMC7123719  ...     0        N  Y
+## 142783  5f69f16265a250f0edc71c1b         NaN  PMC7121730  ...     0        N  Y
+## 145952  5f69f1fb65a250f0edc7287c         NaN  PMC7153414  ...     0        N  Y
+## 147551  5f69f24a65a250f0edc72ebb         NaN  PMC7123278  ...     0        N  Y
+## 
+## [148872 rows x 18 columns]
+covid_papers.sort_values(&#39;year_pub&#39;,ascending=False)
+##                               V1          V2          V3  ... cited has_data oa
+## 118345  5f69ecb165a250f0edc6bca5  32835130.0  PMC7332907  ...     0        N  Y
+## 92675   5f69e7a965a250f0edc6585f         NaN  PMC7258713  ...     0        N  Y
+## 125910  5f69ee2465a250f0edc6da32  32904425.0  PMC7455151  ...     0        N  Y
+## 50368   5f69dfcb65a250f0edc5b31c  32834290.0  PMC7396951  ...     0        N  Y
+## 16091   5f69d9b565a250f0edc52d37  32921917.0         NaN  ...     0        N  N
+## ...                          ...         ...         ...  ...   ...      ... ..
+## 138520  5f69f09565a250f0edc70b74         NaN  PMC7120167  ...     0        N  Y
+## 139464  5f69f0c265a250f0edc70f24         NaN  PMC7123719  ...     0        N  Y
+## 142783  5f69f16265a250f0edc71c1b         NaN  PMC7121730  ...     0        N  Y
+## 145952  5f69f1fb65a250f0edc7287c         NaN  PMC7153414  ...     0        N  Y
+## 147551  5f69f24a65a250f0edc72ebb         NaN  PMC7123278  ...     0        N  Y
+## 
+## [148872 rows x 18 columns]</code></pre>
+</div>
+<ul>
+<li>Summarise</li>
+</ul>
+<div class="python">
+<pre class="python"><code># Python
+
+covid_papers.agg({&#39;cited&#39;:sum})
+## cited    1241806
+## dtype: int64
+covid_papers.agg({&#39;cited&#39;:[sum,np.std]})
+##             cited
+## sum  1.241806e+06
+## std  3.883440e+01</code></pre>
+</div>
+<ul>
+<li>Modifying</li>
+</ul>
+<div class="python">
+<pre class="python"><code># Python
+covid_papers.assign(oa = covid_papers.oa.map(lambda oa: 1 if  oa==&#39;Y&#39; else 0),
+ log_cited = np.log(covid_papers.cited+1))
+##                               V1          V2  ... oa log_cited
+## 0       5f69d6fa65a250f0edc4ee5c  32837036.0  ...  1  0.000000
+## 1       5f69d6fa65a250f0edc4ee5d  32196410.0  ...  1  4.127134
+## 2       5f69d6fa65a250f0edc4ee5e  32778421.0  ...  1  0.000000
+## 3       5f69d6fa65a250f0edc4ee5f  32730205.0  ...  1  0.000000
+## 4       5f69d6fa65a250f0edc4ee60         NaN  ...  0  0.000000
+## ...                          ...         ...  ... ..       ...
+## 148911  5f69f29165a250f0edc7340b  31314321.0  ...  1  0.000000
+## 148912  5f69f29165a250f0edc7340c  31314312.0  ...  1  0.000000
+## 148913  5f69f29165a250f0edc7340d  32091757.0  ...  1  0.000000
+## 148914  5f69f29165a250f0edc7340e  28590697.0  ...  1  0.000000
+## 148915  5f69f29165a250f0edc7340f  28590695.0  ...  1  0.000000
+## 
+## [148872 rows x 19 columns]
+np.where( covid_papers.oa==&#39;Y&#39;,1,0) 
+## array([1, 1, 1, ..., 1, 1, 1])
+covid_papers.title.map(lambda x: str(x).lower())
+## 0         the pathophysiology, diagnosis and treatment o...
+## 1         hypothesis for potential pathogenesis of sars-...
+## 2         the outbreak of the novel severe acute respira...
+## 3         a comparative overview of covid-19, mers and s...
+## 4         virion structure and mechanism of propagation ...
+##                                 ...                        
+## 148911        bmt settings, infection and infection control
+## 148912    early and acute complications and the principl...
+## 148913                                     viral infections
+## 148914    international collaboration for global public ...
+## 148915             resource allocation and priority setting
+## Name: title, Length: 148872, dtype: object</code></pre>
+</div>
+<ul>
+<li>Grouping</li>
+</ul>
+<div class="python">
+<pre class="python"><code># Python
+
+covid_papers.groupby(&#39;year_pub&#39;).language.nunique()
+# By several groups
+## year_pub
+## 1820.0     1
+## 1821.0     1
+## 1830.0     1
+## 1832.0     1
+## 1833.0     1
+##           ..
+## 2017.0    12
+## 2018.0     8
+## 2019.0    10
+## 2020.0    21
+## 2021.0     2
+## Name: language, Length: 137, dtype: int64
+covid_papers.groupby(&#39;year_pub&#39;).agg({&#39;cited&#39;:sum})
+
+
+# first obs for each group 
+##            cited
+## year_pub        
+## 1820.0         0
+## 1821.0         0
+## 1830.0         0
+## 1832.0         0
+## 1833.0         0
+## ...          ...
+## 2017.0     24850
+## 2018.0     17139
+## 2019.0     10151
+## 2020.0    147528
+## 2021.0         2
+## 
+## [137 rows x 1 columns]
+covid_papers.groupby(&#39;source&#39;).first()
+##                               V1          V2          V3  ... cited has_data  oa
+## source                                                    ...                   
+## AGR     5f69dfd965a250f0edc5b44c         NaN        None  ...     0        N   N
+## CBA     5f69e54965a250f0edc626c8         NaN        None  ...     0        N   N
+## CTX     5f69ebc365a250f0edc6a9dc         NaN        None  ...     0        N   N
+## ETH     5f69e80565a250f0edc65f8e         NaN        None  ...     0        N   N
+## HIR     5f69e5dd65a250f0edc63360         NaN        None  ...     0        N   N
+## MED     5f69d6fa65a250f0edc4ee5c  32837036.0  PMC7424135  ...     0        N   Y
+## PAT     5f69e34f65a250f0edc5fdbb         NaN        None  ...     0        N   N
+## PMC     5f69d6fa65a250f0edc4ee61         NaN  PMC7480804  ...     0        N   Y
+## PPR     5f69d6fa65a250f0edc4ee60         NaN        None  ...     0        N   N
+## 
+## [9 rows x 17 columns]
+covid_papers.groupby(&#39;source&#39;).last()
+
+# Add a column with number of observations for each group
+##                               V1          V2          V3  ... cited has_data  oa
+## source                                                    ...                   
+## AGR     5f69f16f65a250f0edc71d24         NaN        None  ...     0        N   N
+## CBA     5f69f0cf65a250f0edc7103d         NaN        None  ...     0        N   N
+## CTX     5f69f00f65a250f0edc700b7         NaN        None  ...     0        N   N
+## ETH     5f69ee9365a250f0edc6e2d7         NaN        None  ...     0        N   N
+## HIR     5f69e5dd65a250f0edc63360         NaN        None  ...     0        N   N
+## MED     5f69f29165a250f0edc7340f  28590695.0  PMC7193709  ...     0        N   Y
+## PAT     5f69f1e565a250f0edc726c3         NaN        None  ...     0        N   N
+## PMC     5f69f29065a250f0edc733f1         NaN  PMC2297516  ...     0        N   N
+## PPR     5f69eaec65a250f0edc698de         NaN        None  ...     0        N   N
+## 
+## [9 rows x 17 columns]
+covid_papers[&#39;grp_count&#39;] = covid_papers.groupby(&#39;source&#39;)[&#39;source&#39;].transform(&#39;count&#39;)</code></pre>
+</div>
+</div>
+<div id="more-complex-use-of-by" class="section level2" number="1.2">
+<h2><span class="header-section-number">1.2</span> More complex use of by</h2>
+<ul>
+<li>Select specific row by group</li>
+</ul>
+<div class="python">
+<pre class="python"><code># Python
+
+covid_papers.groupby(&#39;source&#39;).apply(lambda df: df.iloc[:3])
+covid_papers.groupby(&#39;source&#39;).apply(lambda df: df.iloc[-5:])</code></pre>
+</div>
+<ul>
+<li>Group counter</li>
+</ul>
+<div class="python">
+<pre class="python"><code># Python
+
+covid_papers.groupby([&#39;source&#39;,&#39;year_pub&#39;]).ngroups</code></pre>
+</div>
+<ul>
+<li>Get row number of observation by group</li>
+</ul>
+<div class="python">
+<pre class="python"><code># Python
+
+covid_papers.groupby([&#39;source&#39;,&#39;year_pub&#39;]).size()
+## source  year_pub
+## AGR     1987.0          2
+##         1991.0          1
+##         1993.0          1
+##         1994.0          1
+##         1995.0         10
+##                     ...  
+## PPR     2016.0          6
+##         2017.0         15
+##         2018.0         24
+##         2019.0         34
+##         2020.0      13726
+## Length: 301, dtype: int64</code></pre>
+</div>
+<ul>
+<li>Grouping sets (multiple by at once)</li>
+</ul>
+<div class="python">
+<pre class="python"><code># Python
+
+
+covid_papers.groupby([&#39;source&#39;,&#39;year_pub&#39;]).agg({&#39;cited&#39;:np.mean,&#39;V1&#39;:&#39;count&#39;})
+##                      cited     V1
+## source year_pub                  
+## AGR    1987.0     0.500000      2
+##        1991.0     1.000000      1
+##        1993.0     3.000000      1
+##        1994.0     0.000000      1
+##        1995.0    11.600000     10
+## ...                    ...    ...
+## PPR    2016.0     0.000000      6
+##        2017.0     0.533333     15
+##        2018.0     0.541667     24
+##        2019.0     0.147059     34
+##        2020.0     0.120866  13726
+## 
+## [301 rows x 2 columns]</code></pre>
+</div>
+</div>
+<div id="more-complex-manipulation" class="section level2" number="1.3">
+<h2><span class="header-section-number">1.3</span> More Complex manipulation</h2>
+<ul>
+<li>Using multiple Variables</li>
+</ul>
+<div class="python">
+<pre class="python"><code># Python
+# Summarise several columns
+
+covid_papers.agg({var:func for var, func in zip([&#39;cited&#39;,&#39;year_pub&#39;],[np.mean]*2)})
+
+# Summarise several columns by group
+## cited          8.341434
+## year_pub    2015.348434
+## dtype: float64
+covid_papers.groupby([&#39;source&#39;,&#39;year_pub&#39;]).agg({var:func for var, func in zip([&#39;cited&#39;,&#39;year_pub&#39;],[np.mean]*2)})
+
+## using patterns (regex)
+##                      cited  year_pub
+## source year_pub                     
+## AGR    1987.0     0.500000    1987.0
+##        1991.0     1.000000    1991.0
+##        1993.0     3.000000    1993.0
+##        1994.0     0.000000    1994.0
+##        1995.0    11.600000    1995.0
+## ...                    ...       ...
+## PPR    2016.0     0.000000    2016.0
+##        2017.0     0.533333    2017.0
+##        2018.0     0.541667    2018.0
+##        2019.0     0.147059    2019.0
+##        2020.0     0.120866    2020.0
+## 
+## [301 rows x 2 columns]
+cols = list(filter(lambda x: x.startswith(&quot;V&quot;),covid_papers.columns.tolist()))
+
+
+covid_papers.groupby([&#39;source&#39;,&#39;year_pub&#39;]).agg({var:func for var, func in zip(cols,[&#39;count&#39;]*len(cols))})
+
+# Summarise with more than one function by group
+##                     V1  V2  V3
+## source year_pub               
+## AGR    1987.0        2   0   0
+##        1991.0        1   0   0
+##        1993.0        1   0   0
+##        1994.0        1   0   0
+##        1995.0       10   0   0
+## ...                ...  ..  ..
+## PPR    2016.0        6   0   0
+##        2017.0       15   0   0
+##        2018.0       24   0   0
+##        2019.0       34   0   0
+##        2020.0    13726   0   0
+## 
+## [301 rows x 3 columns]
+covid_papers.groupby([&#39;source&#39;]).agg({var:func for var, func in zip([&#39;year_pub&#39;,&#39;cited&#39;],[np.mean,np.median]*len(cols))})
+
+##            year_pub  cited
+## source                    
+## AGR     2003.371429      2
+## CBA     2004.014870      0
+## CTX     2001.333333      0
+## ETH     2004.666667      0
+## HIR     2004.000000      0
+## MED     2015.179733      0
+## PAT     2005.511289      0
+## PMC     2013.610694      0
+## PPR     2019.988194      0</code></pre>
+</div>
+<ul>
+<li>Modify Multiples Variables</li>
+</ul>
+<div class="python">
+<pre class="python"><code>
+def tobinary(x):
+    if str(x) == &#39;Y&#39;:
+        return 1
+    else :
+        return 0
+        
+# Modify several columns (dropping the others)
+
+covid_papers.agg({var:func for var, func in zip([&#39;oa&#39;,&#39;has_data&#39;],[tobinary]*2)})
+
+# Modify several columns (keeping the others)
+##         oa  has_data
+## 0        1         0
+## 1        1         0
+## 2        1         0
+## 3        1         0
+## 4        0         0
+## ...     ..       ...
+## 148911   1         0
+## 148912   1         0
+## 148913   1         0
+## 148914   1         0
+## 148915   1         0
+## 
+## [148872 rows x 2 columns]
+for var in [&#39;oa&#39;,&#39;has_data&#39;]:
+    covid_papers = covid_papers.assign(var = tobinary)
+
+# Modify columns using a condition
+
+for var in [&#39;oa&#39;,&#39;has_data&#39;]:
+    if covid_papers[var].dtypes == &#39;O&#39;:
+        covid_papers = covid_papers.assign(var = tobinary)
+</code></pre>
+</div>
+<ul>
+<li>More complex expression</li>
+</ul>
+<div class="python">
+<pre class="python"><code># Python
+
+grp_size = covid_papers.groupby(&#39;year_pub&#39;).size().to_frame()
+grp_size.columns = [&#39;share_en&#39;]
+
+covid_papers.assign(is_en = np.where(covid_papers.language == &#39;eng&#39;,1,0),
+oa = tobinary).groupby(&#39;year_pub&#39;).agg(share_en= (&#39;is_en&#39;,sum)).div(grp_size).sort_values(&#39;share_en&#39;)
+##           share_en
+## year_pub          
+## 1956.0    0.666667
+## 1964.0    0.750000
+## 1966.0    0.750000
+## 1967.0    0.785714
+## 2020.0    0.796331
+## ...            ...
+## 1935.0    1.000000
+## 1968.0    1.000000
+## 1936.0    1.000000
+## 1965.0    1.000000
+## 1820.0    1.000000
+## 
+## [137 rows x 1 columns]</code></pre>
+</div>
+</div>
+</div>
+<div id="reshape-data" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Reshape data</h1>
+<p>When you have a variable with multiple categories that are stored in one cell, such as the ‘pubtype’ variable in our dataset, you may want to create separate columns for each category. The opposite is also possible, where you have several columns with values that you want to transform into two columns: one with the factor and the other with the values.</p>
+<p>To clean this variable and separate the string in each cell, you can use the tidyr package in R. The separate() function allows you to split a single column into multiple columns based on a delimiter, and the spread() function can be used to transform wide format data into long format data. This can be used to create separate rows for each pubtype.</p>
+<div class="python">
+<pre class="python"><code># Python
+covid_papers.pubtype.loc[1]
+## &#39;{&quot;pubType&quot;: [&quot;review-article&quot;, &quot;Journal Article&quot;]}&#39;
+def clean_pubtype(str_):
+  return re.sub(&#39;[{]|[}]|pubType|: |[[]|[]]&#39;,&#39;&#39;,str_)
+
+
+clean_pubtype(covid_papers.pubtype.loc[1])
+## &#39;&quot;&quot;&quot;review-article&quot;, &quot;Journal Article&quot;&#39;
+covid_papers[&#39;pubtype&#39;] = covid_papers.pubtype.map(lambda pt: clean_pubtype(str(pt)))
+pubtype_cp = covid_papers.assign(pubtype = covid_papers.pubtype.str.split(&#39;&quot;, &quot;&#39;)).explode(&#39;pubtype&#39;)
+pubtype_cp[&#39;pubtype&#39;] = pubtype_cp.pubtype.map(lambda pubtype: re.sub(&#39;&quot;&#39;,&#39;&#39;,(pubtype)))
+pubtype_cp
+##                               V1          V2          V3  ... oa grp_count var
+## 0       5f69d6fa65a250f0edc4ee5c  32837036.0  PMC7424135  ...  Y    113919   0
+## 0       5f69d6fa65a250f0edc4ee5c  32837036.0  PMC7424135  ...  Y    113919   0
+## 0       5f69d6fa65a250f0edc4ee5c  32837036.0  PMC7424135  ...  Y    113919   0
+## 1       5f69d6fa65a250f0edc4ee5d  32196410.0  PMC7170333  ...  Y    113919   0
+## 1       5f69d6fa65a250f0edc4ee5d  32196410.0  PMC7170333  ...  Y    113919   0
+## ...                          ...         ...         ...  ... ..       ...  ..
+## 148913  5f69f29165a250f0edc7340d  32091757.0  PMC7124085  ...  Y    113919   0
+## 148914  5f69f29165a250f0edc7340e  28590697.0  PMC7193726  ...  Y    113919   0
+## 148914  5f69f29165a250f0edc7340e  28590697.0  PMC7193726  ...  Y    113919   0
+## 148915  5f69f29165a250f0edc7340f  28590695.0  PMC7193709  ...  Y    113919   0
+## 148915  5f69f29165a250f0edc7340f  28590695.0  PMC7193709  ...  Y    113919   0
+## 
+## [308408 rows x 20 columns]
+pubtype_cp =  pubtype_cp[[&#39;V2&#39;,&#39;pubtype&#39;]].groupby([&#39;V2&#39;,&#39;pubtype&#39;]).size().to_frame(&#39;n&#39;).reset_index()
+pubtype_cp_i = pubtype_cp[[&#39;V2&#39;,&#39;pubtype&#39;]].groupby([&#39;V2&#39;,&#39;pubtype&#39;]).size().to_frame(&#39;n&#39;)</code></pre>
+</div>
+<div id="cast-data-from-long-to-wide" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Cast data (from long to wide)</h2>
+<div class="python">
+<pre class="python"><code># Python
+pubtype_cp_i.unstack().fillna(0)
+##               n                          ...                                 
+## pubtype     AIM Adaptive Clinical Trial  ... review-article systematic-review
+## V2                                       ...                                 
+## 2142.0      0.0                     0.0  ...            0.0               0.0
+## 2145.0      0.0                     0.0  ...            0.0               0.0
+## 12235.0     0.0                     0.0  ...            0.0               0.0
+## 30881.0     0.0                     0.0  ...            0.0               0.0
+## 36849.0     0.0                     0.0  ...            0.0               0.0
+## ...         ...                     ...  ...            ...               ...
+## 32931118.0  0.0                     0.0  ...            0.0               0.0
+## 32931136.0  0.0                     0.0  ...            0.0               0.0
+## 32931146.0  0.0                     0.0  ...            0.0               0.0
+## 32931161.0  0.0                     0.0  ...            0.0               0.0
+## 32931162.0  0.0                     0.0  ...            0.0               0.0
+## 
+## [113919 rows x 118 columns]
+casted_pubtype_cp = pubtype_cp.pivot(index=&quot;V2&quot;, columns=&quot;pubtype&quot;, values=&quot;n&quot;).fillna(0)
+
+casted_pubtype_cp.shape
+## (113919, 118)</code></pre>
+</div>
+</div>
+<div id="melt-data-from-wide-to-long" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Melt data (from wide to long)</h2>
+<div class="python">
+<pre class="python"><code># Python
+
+casted_pubtype_cp.stack()
+
+## V2          pubtype                
+## 2142.0      AIM                        0.0
+##             Adaptive Clinical Trial    0.0
+##             Address                    0.0
+##             Addresses                  0.0
+##             Autobiography              0.0
+##                                       ... 
+## 32931162.0  report                     0.0
+##             research-article           0.0
+##             retraction                 0.0
+##             review-article             0.0
+##             systematic-review          0.0
+## Length: 13442442, dtype: float64
+casted_pubtype_cp.stack().to_frame(&#39;n&#39;).reset_index()
+##                   V2                  pubtype    n
+## 0             2142.0                      AIM  0.0
+## 1             2142.0  Adaptive Clinical Trial  0.0
+## 2             2142.0                  Address  0.0
+## 3             2142.0                Addresses  0.0
+## 4             2142.0            Autobiography  0.0
+## ...              ...                      ...  ...
+## 13442437  32931162.0                   report  0.0
+## 13442438  32931162.0         research-article  0.0
+## 13442439  32931162.0               retraction  0.0
+## 13442440  32931162.0           review-article  0.0
+## 13442441  32931162.0        systematic-review  0.0
+## 
+## [13442442 rows x 3 columns]</code></pre>
+</div>
+</div>
+<div id="split" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Split</h2>
+<div class="python">
+<pre class="python"><code># Python
+
+list(covid_papers.groupby(&#39;oa&#39;))</code></pre>
+</div>
+</div>
+<div id="split-and-transpose-a-vectorcolumn" class="section level2" number="2.4">
+<h2><span class="header-section-number">2.4</span> Split and transpose a vector/column</h2>
+<div class="python">
+<pre class="python"><code># Python
+covid_papers[[&#39;doi1&#39;,&#39;doi2&#39;]] = covid_papers.doi.str.split(&quot;/&quot;,expand=True).loc[:,:1]
+covid_papers[[&#39;doi&#39;,&#39;doi1&#39;,&#39;doi2&#39;]]
+##                                      doi      doi1                     doi2
+## 0             10.1007/s12291-020-00919-0   10.1007       s12291-020-00919-0
+## 1          10.1080/22221751.2020.1746199   10.1080    22221751.2020.1746199
+## 2             10.1016/j.jiph.2020.07.011   10.1016       j.jiph.2020.07.011
+## 3             10.1016/j.ijsu.2020.07.032   10.1016       j.ijsu.2020.07.032
+## 4       10.20944/preprints202008.0312.v1  10.20944  preprints202008.0312.v1
+## ...                                  ...       ...                      ...
+## 148911                               NaN       NaN                      NaN
+## 148912                               NaN       NaN                      NaN
+## 148913                               NaN       NaN                      NaN
+## 148914                               NaN       NaN                      NaN
+## 148915                               NaN       NaN                      NaN
+## 
+## [148872 rows x 3 columns]
+covid_papers.doi.str.split(&#39;/&#39;).explode()
+## 0                       10.1007
+## 0            s12291-020-00919-0
+## 1                       10.1080
+## 1         22221751.2020.1746199
+## 2                       10.1016
+##                   ...          
+## 148911                      NaN
+## 148912                      NaN
+## 148913                      NaN
+## 148914                      NaN
+## 148915                      NaN
+## Name: doi, Length: 279799, dtype: object</code></pre>
+</div>
+</div>
+</div>
+<div id="index-and-keys" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Index and Keys</h1>
+<ul>
+<li>df.loc are for labels/ names</li>
+<li>df.iloc are for position numbers</li>
+</ul>
+<div class="python">
+<pre class="python"><code># Python
+covid_papers = covid_papers.set_index(&#39;V2&#39;)
+
+covid_papers.loc[32837036,&#39;doi&#39;]
+## &#39;10.1007/s12291-020-00919-0&#39;
+covid_papers.iloc[2,5]
+
+## 2020.0</code></pre>
+</div>
+</div>
+<div id="joinbind-data-sets" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> Join/Bind data sets</h1>
+<div id="join" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Join</h2>
+<div class="python">
+<pre class="python"><code># Python
+
+df1 = pd.DataFrame({&#39;Id&#39;: [&#39;A&#39;,&#39;B&#39;,&#39;C&#39;,&#39;C&#39;],
+                    &#39;X1&#39;: [1,3,5,7],
+                    &#39;X2&#39;: [&#39;x2&#39;,&#39;x4&#39;,&#39;x6&#39;,&#39;x8&#39;]}).set_index(&#39;Id&#39;)
+
+df2 = pd.DataFrame({&#39;Id&#39;: [&#39;A&#39;,&#39;B&#39;,&#39;B&#39;,&#39;D&#39;],
+                    &#39;Y1&#39;: [1,3,5,7],
+                    &#39;Y2&#39;: [&#39;y1&#39;,&#39;y3&#39;,&#39;y5&#39;,&#39;y7&#39;]}).set_index(&#39;Id&#39;)</code></pre>
+</div>
+<ul>
+<li>Join matching rows from y to x</li>
+</ul>
+<div class="python">
+<pre class="python"><code># Python
+
+df1.join(df2)
+##     X1  X2   Y1   Y2
+## Id                  
+## A    1  x2  1.0   y1
+## B    3  x4  3.0   y3
+## B    3  x4  5.0   y5
+## C    5  x6  NaN  NaN
+## C    7  x8  NaN  NaN
+pd.merge(df1, df2, how= &#39;left&#39;, on = &#39;Id&#39;)
+##     X1  X2   Y1   Y2
+## Id                  
+## A    1  x2  1.0   y1
+## B    3  x4  3.0   y3
+## B    3  x4  5.0   y5
+## C    5  x6  NaN  NaN
+## C    7  x8  NaN  NaN</code></pre>
+</div>
+<ul>
+<li>Join matching rows from x to y</li>
+</ul>
+<div class="python">
+<pre class="python"><code># Python
+
+df2.join(df1)
+
+##     Y1  Y2   X1   X2
+## Id                  
+## A    1  y1  1.0   x2
+## B    3  y3  3.0   x4
+## B    5  y5  3.0   x4
+## D    7  y7  NaN  NaN
+pd.merge(df1, df2, how= &#39;right&#39;, on = &#39;Id&#39;)
+##      X1   X2  Y1  Y2
+## Id                  
+## A   1.0   x2   1  y1
+## B   3.0   x4   3  y3
+## B   3.0   x4   5  y5
+## D   NaN  NaN   7  y7</code></pre>
+</div>
+<ul>
+<li>Join matching rows from both x and y</li>
+</ul>
+<div class="python">
+<pre class="python"><code># Python
+
+pd.merge(df1, df2, how= &#39;inner&#39;, on = &#39;Id&#39;)
+##     X1  X2  Y1  Y2
+## Id                
+## A    1  x2   1  y1
+## B    3  x4   3  y3
+## B    3  x4   5  y5</code></pre>
+</div>
+<ul>
+<li>Join keeping all the rows</li>
+</ul>
+<div class="python">
+<pre class="python"><code># Python
+
+pd.merge(df1, df2, how= &#39;outer&#39;, on = &#39;Id&#39;)
+##      X1   X2   Y1   Y2
+## Id                    
+## A   1.0   x2  1.0   y1
+## B   3.0   x4  3.0   y3
+## B   3.0   x4  5.0   y5
+## C   5.0   x6  NaN  NaN
+## C   7.0   x8  NaN  NaN
+## D   NaN  NaN  7.0   y7</code></pre>
+</div>
+<ul>
+<li>Return rows from x matching y</li>
+</ul>
+<div class="python">
+<pre class="python"><code># Python
+
+df1[df1.index == df2.index]
+##     X1  X2
+## Id        
+## A    1  x2
+## B    3  x4</code></pre>
+</div>
+<ul>
+<li>Return rows from x not matching y</li>
+</ul>
+<div class="python">
+<pre class="python"><code># Python
+df1[df1.index != df2.index]
+##     X1  X2
+## Id        
+## C    5  x6
+## C    7  x8</code></pre>
+</div>
+</div>
+<div id="bind" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Bind</h2>
+<ul>
+<li>Bind rows</li>
+</ul>
+<div class="python">
+<pre class="python"><code># Python
+
+df1 = pd.DataFrame({&#39;Id&#39;: [&#39;A&#39;,&#39;B&#39;,&#39;C&#39;],
+                    &#39;X1&#39;: [1,3,5],
+                    &#39;X2&#39;: [&#39;x2&#39;,&#39;x4&#39;,&#39;x6&#39;]}).set_index(&#39;Id&#39;)
+
+df2 = pd.DataFrame({&#39;Id&#39;: [&#39;A&#39;,&#39;B&#39;,&#39;C&#39;],
+                    &#39;Y1&#39;: [1,3,5],
+                    &#39;Y2&#39;: [&#39;y1&#39;,&#39;y3&#39;,&#39;y5&#39;]}).set_index(&#39;Id&#39;)
+
+pd.concat([df1,df2])
+##      X1   X2   Y1   Y2
+## Id                    
+## A   1.0   x2  NaN  NaN
+## B   3.0   x4  NaN  NaN
+## C   5.0   x6  NaN  NaN
+## A   NaN  NaN  1.0   y1
+## B   NaN  NaN  3.0   y3
+## C   NaN  NaN  5.0   y5</code></pre>
+</div>
+<ul>
+<li>Bind columns</li>
+</ul>
+<div class="python">
+<pre class="python"><code># Python
+
+df3 = pd.concat([df1,df2],axis =1)
+df3
+##     X1  X2  Y1  Y2
+## Id                
+## A    1  x2   1  y1
+## B    3  x4   3  y3
+## C    5  x6   5  y5</code></pre>
+</div>
+</div>
+</div>
+<div id="other" class="section level1" number="5">
+<h1><span class="header-section-number">5</span> Other</h1>
+<ul>
+<li>Lead/Lag</li>
+</ul>
+<div class="python">
+<pre class="python"><code># Python
+
+
+df3.shift(periods = 1)
+##      X1   X2   Y1   Y2
+## Id                    
+## A   NaN  NaN  NaN  NaN
+## B   1.0   x2  1.0   y1
+## C   3.0   x4  3.0   y3
+df3.shift(periods = 1, axis= 1)
+##     X1  X2  Y1  Y2
+## Id                
+## A  NaN   1  x2   1
+## B  NaN   3  x4   3
+## C  NaN   5  x6   5</code></pre>
+</div>
+</div>
+<div id="readwrite-data" class="section level1" number="6">
+<h1><span class="header-section-number">6</span> Read/Write data</h1>
+<div id="read" class="section level2" number="6.1">
+<h2><span class="header-section-number">6.1</span> Read</h2>
+<ul>
+<li>read csv file with pandas</li>
+</ul>
+<div class="python">
+<pre class="python"><code># Python
+
+covid_papers = pd.read_csv(&quot;data/covid_papers.csv&quot;)
+
+covid_papers
+##                              _id        pmid       pmcid  ... cited has_data oa
+## 0       5f69d6fa65a250f0edc4ee5c  32837036.0  PMC7424135  ...     0        N  Y
+## 1       5f69d6fa65a250f0edc4ee5d  32196410.0  PMC7170333  ...    61        N  Y
+## 2       5f69d6fa65a250f0edc4ee5e  32778421.0  PMC7402212  ...     0        N  Y
+## 3       5f69d6fa65a250f0edc4ee5f  32730205.0  PMC7382925  ...     0        N  Y
+## 4       5f69d6fa65a250f0edc4ee60         NaN         NaN  ...     0        N  N
+## ...                          ...         ...         ...  ...   ...      ... ..
+## 148911  5f69f29165a250f0edc7340b  31314321.0  PMC7121204  ...     0        N  Y
+## 148912  5f69f29165a250f0edc7340c  31314312.0  PMC7123335  ...     0        N  Y
+## 148913  5f69f29165a250f0edc7340d  32091757.0  PMC7124085  ...     0        N  Y
+## 148914  5f69f29165a250f0edc7340e  28590697.0  PMC7193726  ...     0        N  Y
+## 148915  5f69f29165a250f0edc7340f  28590695.0  PMC7193709  ...     0        N  Y
+## 
+## [148916 rows x 19 columns]</code></pre>
+</div>
+</div>
+<div id="write" class="section level2" number="6.2">
+<h2><span class="header-section-number">6.2</span> Write</h2>
+<ul>
+<li>write data to a csv file</li>
+</ul>
+<div class="python">
+<pre class="python"><code># Python
+
+covid_papers.to_csv(&quot;data/covid_papers.csv&quot;)</code></pre>
+</div>
+</div>
+</div>
+<div id="exercise" class="section level1" number="7">
+<h1><span class="header-section-number">7</span> Exercise</h1>
+<p>Translate last chapter’s exercice in Python using pandas.</p>
+<p><a href="">solution with pandas (python)</a> &lt;! – exo_4_py.html –&gt;</p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

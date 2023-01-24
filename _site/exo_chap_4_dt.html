@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Data.table</title>
+
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">M1 Programming</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="2_Basics.html">Basics</a>
+</li>
+<li>
+  <a href="3_Arrays_Vectors.html">Arrays/Vectors</a>
+</li>
+<li>
+  <a href="4_Regex.html">Regex</a>
+</li>
+<li>
+  <a href="5_Data_Analysis_R.html">Data Analysis (R)</a>
+</li>
+<li>
+  <a href="6_Data_Analysis_Py.html">Data Analysis (Python)</a>
+</li>
+<li>
+  <a href="7_Best_practices.html">Best Pratices</a>
+</li>
+<li>
+  <a href="8_Efficient_prog.html">Efficient Prog</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/master-ds2e/">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Data.table</h1>
+
+</div>
+
+
+<style>
+div.python pre { background-color: #e9f7f5
+; }
+</style>
+<style>
+div.r pre { background-color: #fff5fd; }
+</style>
+<p><a href="5_Data_Analysis_R.html">Go back to chapter 4</a></p>
+<div id="import-datasets" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Import datasets</h1>
+<div class="r">
+<pre class="r"><code># R data.table
+
+library(data.table)
+library(stringr)
+library(tictoc)
+# Import the two datasets 
+setwd(&#39;C:/Users/Beta/Documents/GitHub/M1_TDP&#39;)
+## Error in setwd(&quot;C:/Users/Beta/Documents/GitHub/M1_TDP&quot;): cannot change working directory
+
+tic()
+dt_table_1 = fread(file = &#39;data/table_1.csv&#39;)
+## Error in fread(file = &quot;data/table_1.csv&quot;): File &#39;data/table_1.csv&#39; does not exist or is non-readable. getwd()==&#39;/home/peltouz/Documents/GitHub/M1-Programming&#39;
+dt_table_2 = fread(file = &#39;data/table_2.csv&#39;)
+## Error in fread(file = &quot;data/table_2.csv&quot;): File &#39;data/table_2.csv&#39; does not exist or is non-readable. getwd()==&#39;/home/peltouz/Documents/GitHub/M1-Programming&#39;
+dt_cities = fread(file = &#39;data/cities_loc.csv&#39;)
+## Error in fread(file = &quot;data/cities_loc.csv&quot;): File &#39;data/cities_loc.csv&#39; does not exist or is non-readable. getwd()==&#39;/home/peltouz/Documents/GitHub/M1-Programming&#39;
+toc()
+## 0.006 sec elapsed
+
+setDT(dt_table_1)
+## Error: Cannot find symbol dt_table_1
+setDT(dt_table_2)
+## Error: Cannot find symbol dt_table_2
+
+setkey(dt_table_1,pmid)
+## Error in setkey(dt_table_1, pmid): object &#39;dt_table_1&#39; not found
+setkey(dt_table_2,pmid)
+## Error in setkey(dt_table_2, pmid): object &#39;dt_table_2&#39; not found
+
+dt_table_1
+## Error in eval(expr, envir, enclos): object &#39;dt_table_1&#39; not found</code></pre>
+</div>
+</div>
+<div id="clean" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Clean</h1>
+<p>Remove articles with no pmid and no DOI, and all articles before 1975</p>
+<div class="r">
+<pre class="r"><code># R data.table
+
+tic()
+dt_table_1 = dt_table_1[pmid != &#39;null&#39; &amp; doi != &#39;null&#39;]
+## Error in eval(expr, envir, enclos): object &#39;dt_table_1&#39; not found
+dt_table_2 = dt_table_2[pmid != &#39;null&#39; &amp; year_pub &gt; 1975]
+## Error in eval(expr, envir, enclos): object &#39;dt_table_2&#39; not found
+toc()
+## 0.003 sec elapsed</code></pre>
+</div>
+</div>
+<div id="merge" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Merge</h1>
+<p>Merge the two datasets, pmid is unique for each paper</p>
+<div class="r">
+<pre class="r"><code># R data.table
+
+tic()
+dt_final_table = na.omit(dt_table_2[dt_table_1, on = &#39;pmid&#39;])
+## Error in na.omit(dt_table_2[dt_table_1, on = &quot;pmid&quot;]): object &#39;dt_table_2&#39; not found
+toc()
+## 0.001 sec elapsed
+
+dt_final_table
+## Error in eval(expr, envir, enclos): object &#39;dt_final_table&#39; not found</code></pre>
+</div>
+</div>
+<div id="number-of-authors" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> Number of authors</h1>
+<p>Create a new variable with the number of authors for each paper</p>
+<div class="r">
+<pre class="r"><code># R data.table
+tic()
+dt_final_table[,nb_aut := dim(str_match_all(authors, &#39;&lt;AUTHOR&gt;&#39;)[[1]])[1],
+               by = &#39;pmid&#39;]
+## Error in eval(expr, envir, enclos): object &#39;dt_final_table&#39; not found
+toc()
+## 0.002 sec elapsed
+
+dt_final_table = dt_final_table[nb_aut&gt;0]
+## Error in eval(expr, envir, enclos): object &#39;dt_final_table&#39; not found
+
+dt_final_table[,c(&#39;authors&#39;, &#39;nb_aut&#39;)]
+## Error in eval(expr, envir, enclos): object &#39;dt_final_table&#39; not found</code></pre>
+</div>
+</div>
+<div id="nb-authors-distribution" class="section level1" number="5">
+<h1><span class="header-section-number">5</span> Nb authors distribution</h1>
+<p>plot distribution for the log(number of authors +1)</p>
+<div class="r">
+<pre class="r"><code># R 
+
+plot(density(log(dt_final_table$nb_aut+1)))
+## Error in density(log(dt_final_table$nb_aut + 1)): object &#39;dt_final_table&#39; not found</code></pre>
+</div>
+</div>
+<div id="search-for-dlmlnn-in-title" class="section level1" number="6">
+<h1><span class="header-section-number">6</span> Search for DL/ML/NN in title</h1>
+<p>How many papers contains ‘deep learning’ or ‘machine learning’ and ‘neural network’ (also with a ‘s’ for neural networks) in their title ? Create a binary variable to save this information. What is the mean of authors for ML papers and non-ML papers ? Transform has_data and oa into binary variable also, what is the share of ML paper that are oa ?</p>
+<div class="r">
+<pre class="r"><code># R data.table
+
+tic()
+dt_final_table[, &#39;title&#39; := .(tolower(title)),
+               by = &#39;pmid&#39;
+               ][,
+                 c(&#39;ML&#39;,&#39;has_data&#39;,&#39;oa&#39;) := .(ifelse(str_detect(title,
+                                                                &#39;deep learning|machine learning|neural networks?&#39;),1,0),
+                                              ifelse(has_data == &#39;Y&#39;,1,0),
+                                              ifelse(oa == &#39;Y&#39;,1,0)),
+                 by = &#39;pmid&#39;]
+## Error in eval(expr, envir, enclos): object &#39;dt_final_table&#39; not found
+toc()
+## 0.002 sec elapsed
+
+
+sum(dt_final_table$ML)
+## Error in eval(expr, envir, enclos): object &#39;dt_final_table&#39; not found
+sum(as.numeric(dt_final_table$oa))
+## Error in eval(expr, envir, enclos): object &#39;dt_final_table&#39; not found
+sum(as.numeric(dt_final_table$has_data))
+## Error in eval(expr, envir, enclos): object &#39;dt_final_table&#39; not found
+
+tic()
+dt_final_table[,.(mean_nb_aut = mean(nb_aut)),
+               by = &#39;ML&#39;]
+## Error in eval(expr, envir, enclos): object &#39;dt_final_table&#39; not found
+toc()
+## 0.002 sec elapsed
+
+tic()
+dt_final_table[,.(share_oa = sum(as.numeric(oa))/.N,
+                  mean_cited = mean(cited)),
+               by = &#39;ML&#39;]
+## Error in eval(expr, envir, enclos): object &#39;dt_final_table&#39; not found
+toc()
+## 0.002 sec elapsed</code></pre>
+</div>
+</div>
+<div id="clean-up-pub_type" class="section level1" number="7">
+<h1><span class="header-section-number">7</span> Clean up pub_type</h1>
+<p>Clean up pub_type, for simplicity just get the first type</p>
+<div class="r">
+<pre class="r"><code># R data.table
+tic()
+dt_final_table[,pub_type := str_match_all(pubtype, &#39;\\[&quot;&quot;(.*?)&quot;&quot;&#39;)[[1]][2],by = &#39;pmid&#39;]
+## Error in eval(expr, envir, enclos): object &#39;dt_final_table&#39; not found
+toc()
+## 0.003 sec elapsed
+
+dt_final_table[,.(pubtype,pub_type)]
+## Error in eval(expr, envir, enclos): object &#39;dt_final_table&#39; not found</code></pre>
+</div>
+</div>
+<div id="highest-meansd-of-citation" class="section level1" number="8">
+<h1><span class="header-section-number">8</span> Highest mean/sd of citation</h1>
+<p>What is the pub type with the highest mean/sd of citation ? (use cited and the cleaned pub_type)</p>
+<div class="r">
+<pre class="r"><code># R data.table
+tic()
+dt_final_table[,
+               .(mean_ = mean(cited),sd_ = sd(cited)),by=&#39;pub_type&#39;
+               ][order(mean_,decreasing = T)]
+## Error in eval(expr, envir, enclos): object &#39;dt_final_table&#39; not found
+toc()
+## 0.002 sec elapsed
+
+tic()
+dt_final_table[,
+               .(mean_ = mean(cited),sd_ = sd(cited)),by=&#39;pub_type&#39;
+               ][order(sd_,decreasing = T)]
+## Error in eval(expr, envir, enclos): object &#39;dt_final_table&#39; not found
+toc()
+## 0.001 sec elapsed</code></pre>
+</div>
+</div>
+<div id="most-representative-countres-by-year" class="section level1" number="9">
+<h1><span class="header-section-number">9</span> Most representative countres by year ?</h1>
+<p>Which are the most representative countres by year ? Store this information in an other tibble by keep only pmid and authors, get the country for each author from the loc_cities.csv. You may want to separate rows for each authors to get all countries involved in the paper,if an authors have multiple affiliations, take the first one.</p>
+<div class="r">
+<pre class="r"><code># R data.table
+
+countries = tolower(unique(dt_cities$country))
+## Error in unique(dt_cities$country): object &#39;dt_cities&#39; not found
+
+tic()
+countries_dt = dt_final_table[,c(&#39;pmid&#39;,&#39;authors&#39;)
+                              ][,.(authors = unlist(tstrsplit(authors, &quot;&lt;AUTHOR&gt;&quot;))),
+                                by= &#39;pmid&#39;]
+## Error in eval(expr, envir, enclos): object &#39;dt_final_table&#39; not found
+toc()
+## 0.002 sec elapsed
+countries_dt
+## Error in eval(expr, envir, enclos): object &#39;countries_dt&#39; not found
+
+tic()
+setkey(countries_dt,pmid,authors)
+## Error in setkey(countries_dt, pmid, authors): object &#39;countries_dt&#39; not found
+countries_dt = countries_dt[authors != &#39;&#39; 
+                              &amp; !str_detect(authors,&#39;&lt;AFFILIATION&gt;None&#39;)]
+## Error in eval(expr, envir, enclos): object &#39;countries_dt&#39; not found
+countries_dt = countries_dt[,
+                            clean_aff := .(unlist(tstrsplit(authors,&#39;&lt;AFFILIATION&gt;&#39;,
+                                                               keep = 2)))
+                            ][,-&#39;authors&#39;]
+## Error in eval(expr, envir, enclos): object &#39;countries_dt&#39; not found
+
+setkey(countries_dt,pmid,clean_aff)
+## Error in setkey(countries_dt, pmid, clean_aff): object &#39;countries_dt&#39; not found
+countries_dt = unique(countries_dt)
+## Error in unique(countries_dt): object &#39;countries_dt&#39; not found
+toc()
+## 0.01 sec elapsed
+
+countries_dt
+## Error in eval(expr, envir, enclos): object &#39;countries_dt&#39; not found</code></pre>
+</div>
+<div class="r">
+<pre class="r"><code># R data.table
+tic()
+countries_dt[, clean_aff := str_replace_all(clean_aff,&#39; USA&#39;,&#39;United States&#39;)
+             ][, clean_aff := str_replace_all(clean_aff,&#39; UK&#39;,&#39;United Kingdom&#39;)
+               ][, clean_aff := str_replace_all(clean_aff,&#39; Korea&#39;,&#39;South Korea&#39;)
+                 ][, clean_aff := tolower(clean_aff)]
+## Error in eval(expr, envir, enclos): object &#39;countries_dt&#39; not found
+toc()
+## 0.001 sec elapsed
+countries_dt
+## Error in eval(expr, envir, enclos): object &#39;countries_dt&#39; not found
+
+key(countries_dt)
+## Error in key(countries_dt): object &#39;countries_dt&#39; not found
+setkey(countries_dt,pmid,clean_aff)
+## Error in setkey(countries_dt, pmid, clean_aff): object &#39;countries_dt&#39; not found
+tic()
+countries_dt[,country := .(ifelse(any(str_detect(clean_aff,countries)),
+                                  countries[str_detect(clean_aff,countries)][1],
+                                  &quot;&quot;)),
+             by=c(&#39;pmid&#39;, &#39;clean_aff&#39;)]
+## Error in eval(expr, envir, enclos): object &#39;countries_dt&#39; not found
+toc()
+## 0.002 sec elapsed
+countries_dt
+## Error in eval(expr, envir, enclos): object &#39;countries_dt&#39; not found
+
+tic()
+countries_dt = countries_dt[country != &quot;&quot;, -&#39;clean_aff&#39;]
+## Error in eval(expr, envir, enclos): object &#39;countries_dt&#39; not found
+setkey(countries_dt,pmid,country)
+## Error in setkey(countries_dt, pmid, country): object &#39;countries_dt&#39; not found
+countries_dt = unique(countries_dt)
+## Error in unique(countries_dt): object &#39;countries_dt&#39; not found
+toc()
+## 0.003 sec elapsed
+
+tic()
+countries_year = countries_dt[dt_final_table[,c(&#39;pmid&#39;,&#39;year_pub&#39;)], on =&#39;pmid&#39;]
+## Error in eval(expr, envir, enclos): object &#39;countries_dt&#39; not found
+countries_year = na.omit(countries_year)
+## Error in na.omit(countries_year): object &#39;countries_year&#39; not found
+toc()
+## 0.002 sec elapsed
+
+tic()
+countries_pub_dt = countries_year[,
+                                  .(n = length(unique(pmid))),
+                                  by=c(&#39;country&#39;,&#39;year_pub&#39;)]
+## Error in eval(expr, envir, enclos): object &#39;countries_year&#39; not found
+
+head(countries_pub_dt[order(n,decreasing = T)])
+## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;x&#39; in selecting a method for function &#39;head&#39;: object &#39;countries_pub_dt&#39; not found
+toc()
+## 0.002 sec elapsed</code></pre>
+</div>
+</div>
+<div id="country-bar-plot-with-plotly" class="section level1" number="10">
+<h1><span class="header-section-number">10</span> Country bar plot with plotly</h1>
+<p>Select the top 25 of countries involved in coronavirus research since 2001, plot the evolution on a bar chart with plot_ly</p>
+<p>Two usefull links:</p>
+<ul>
+<li><p><a href="https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html" class="uri">https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html</a></p></li>
+<li><p><a href="https://plotly.com/r/bar-charts/" class="uri">https://plotly.com/r/bar-charts/</a></p></li>
+</ul>
+<div class="r">
+<pre class="r"><code># R 
+library(plotly)
+## Error in library(plotly): there is no package called &#39;plotly&#39;
+
+
+
+plot_top_n  = function(n_top,year){
+  
+  countries_to_plot = as.matrix(
+    countries_pub_dt[year_pub&gt;=year,
+                     .(sum_paper = sum(n)),
+                     by = .(country)
+                     ][order(sum_paper, decreasing = T)
+                       ][1:n_top,&#39;country&#39;]
+    )
+
+
+  fig = plot_ly(countries_pub_dt[year_pub&gt;=year &amp; country %in% countries_to_plot], 
+                x = ~year_pub,
+                y = ~n,
+                color = ~country) %&gt;% 
+    layout(yaxis = list(title = &#39;Count&#39;,type = &#39;log&#39;),
+           barmode = &#39;stack&#39;)
+
+  fig
+}
+
+plot_top_n(10,2001)
+## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;x&#39; in selecting a method for function &#39;as.matrix&#39;: object &#39;countries_pub_dt&#39; not found</code></pre>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
