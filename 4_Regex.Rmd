@@ -201,6 +201,7 @@ The working directory is the path to the folder where we are currently working. 
 '\\' is the backslash character and is used to specify special characters, tabulation, new lines, backslashes or quotes, etc. When working with file paths, this can be confusing for the machine. To avoid this, we can specify that the string must be read as it is by using 'r' before the quotation mark.
 
 Here is a list of escape characters that can be useful:
+
  Escape Sequence | Description 
 - | -:
  \\t 	| Insert a tab in the text at this point.
