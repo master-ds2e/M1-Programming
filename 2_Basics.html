@@ -1592,7 +1592,7 @@ while total &lt; 1:
     total += rnd
   
 total
-## 1.342259530105889</code></pre>
+## 2.0042074774437775</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -1622,7 +1622,7 @@ while(total &lt; 1){
 }
   
 total
-## [1] 1.773179</code></pre>
+## [1] 1.508085</code></pre>
 </div>
 </div>
 </div>
@@ -1715,14 +1715,14 @@ for val in lst:
   if val &gt; 2:
     results.append(val)
 time.time()-t
-## 0.008960485458374023
+## 0.0069692134857177734
 results
 ## [3, 4]
 t = time.time() 
 # this loop their will produce the same output than a using List comprehension.
 results = [val for val in lst if val&gt;2]
 time.time()-t
-## 0.0059735774993896484
+## 0.004978179931640625
 results
 ## [3, 4]</code></pre>
 </div>
@@ -1739,7 +1739,7 @@ for val in st:
   if val &gt; 2:
     results.add(val)
 time.time()-t
-## 0.006969928741455078
+## 0.009956121444702148
 results
 ## {3, 4}
 t = time.time() 
@@ -1747,7 +1747,7 @@ t = time.time()
 # this loop their will produce the same output than a using Set comprehension.
 results = {val for val in st if val&gt;2}
 time.time()-t
-## 0.0059735774993896484
+## 0.0069696903228759766
 results
 ## {3, 4}</code></pre>
 </div>
@@ -1764,14 +1764,14 @@ for val in dct:
   if dct[val] &gt; 2:
     results.update({str(val): dct[val]})
 time.time()-t
-## 0.006968975067138672
+## 0.007964611053466797
 results
 ## {&#39;c&#39;: 3, &#39;d&#39;: 4}
 t = time.time() 
 # this loop their will produce the same output than a using Dict comprehension.
 results = {str(val): dct[val] for val in dct if dct[val]&gt;2}
 time.time()-t
-## 0.0069692134857177734
+## 0.004978179931640625
 results
 ## {&#39;c&#39;: 3, &#39;d&#39;: 4}</code></pre>
 </div>
@@ -1811,7 +1811,7 @@ clean_sum(seq = seq)
 ## 1560
 time.time() - t
 
-## 0.0049779415130615234
+## 0.004978179931640625
 def clean_sum2(seq):
   total = sum(filter(None,seq))#[val for val in seq if val is not None])
   return total
@@ -1821,7 +1821,7 @@ clean_sum2(seq = seq)
 ## 1560
 time.time() - t
 
-## 0.0049779415130615234</code></pre>
+## 0.004978179931640625</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -1844,7 +1844,7 @@ t = Sys.time()
 clean_sum(seq = seq)
 ## [1] 1560
 Sys.time() - t
-## Time difference of 0.006968975 secs
+## Time difference of 0.006969929 secs
 
 
 
@@ -1857,7 +1857,7 @@ t &lt;- Sys.time()
 clean_sum(seq = seq)
 ## [1] 1560
 Sys.time() - t
-## Time difference of 0.002987146 secs</code></pre>
+## Time difference of 0.002986908 secs</code></pre>
 </div>
 </div>
 </div>
@@ -1895,7 +1895,7 @@ x2
 <div class="r">
 <pre class="r"><code># R
 library(zeallot)
-## Error in library(zeallot): aucun package nommé &#39;zeallot&#39; n&#39;est trouvé
+## Warning: le package &#39;zeallot&#39; a été compilé avec la version R 4.1.3
 
 add_two &lt;- function(nb){
   nb = nb + 2
@@ -1917,11 +1917,10 @@ global_function &lt;- function(nb){
 func_list = c(add_two,square_nb)
 
 c(x1, x2) %&lt;-% global_function(c(2,3))
-## Error in c(x1, x2) %&lt;-% global_function(c(2, 3)): impossible de trouver la fonction &quot;%&lt;-%&quot;
 x1
-## Error in eval(expr, envir, enclos): objet &#39;x1&#39; introuvable
+## [1] 16
 x2
-## Error in eval(expr, envir, enclos): objet &#39;x2&#39; introuvable</code></pre>
+## [1] 25</code></pre>
 </div>
 </div>
 </div>
