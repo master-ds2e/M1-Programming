@@ -13,7 +13,7 @@
 
 <title>Data Analysis (Py)</title>
 
-<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -65,7 +65,6 @@ if (window.hljs) {
 
 
 
-
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -86,9 +85,6 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
-}
-details > summary > p:only-child {
-  display: inline;
 }
 pre code {
   padding: 0;
@@ -146,15 +142,11 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark the anchor link active (and if it's in a dropdown, also mark that active)
-  var dropdown = menuAnchor.closest('li.dropdown');
-  if (window.bootstrap) { // Bootstrap 4+
-    menuAnchor.addClass('active');
-    dropdown.find('> .dropdown-toggle').addClass('active');
-  } else { // Bootstrap 3
-    menuAnchor.parent().addClass('active');
-    dropdown.addClass('active');
-  }
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -324,7 +316,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -777,15 +769,15 @@ covid_papers.groupby([&#39;source&#39;]).agg({var:func for var, func in zip([&#3
 
 ##            year_pub  cited
 ## source                    
-## AGR     2003.371429      2
-## CBA     2004.014870      0
-## CTX     2001.333333      0
-## ETH     2004.666667      0
-## HIR     2004.000000      0
-## MED     2015.179733      0
-## PAT     2005.511289      0
-## PMC     2013.610694      0
-## PPR     2019.988194      0</code></pre>
+## AGR     2003.371429    2.0
+## CBA     2004.014870    0.0
+## CTX     2001.333333    0.0
+## ETH     2004.666667    0.0
+## HIR     2004.000000    0.0
+## MED     2015.179733    0.0
+## PAT     2005.511289    0.0
+## PMC     2013.610694    0.0
+## PPR     2019.988194    0.0</code></pre>
 </div>
 <ul>
 <li>Modify Multiples Variables</li>
@@ -870,6 +862,8 @@ def clean_pubtype(str_):
 
 clean_pubtype(covid_papers.pubtype.loc[1])
 ## &#39;&quot;&quot;&quot;review-article&quot;, &quot;Journal Article&quot;&#39;
+## 
+## &lt;string&gt;:2: FutureWarning: Possible nested set at position 20
 covid_papers[&#39;pubtype&#39;] = covid_papers.pubtype.map(lambda pt: clean_pubtype(str(pt)))
 pubtype_cp = covid_papers.assign(pubtype = covid_papers.pubtype.str.split(&#39;&quot;, &quot;&#39;)).explode(&#39;pubtype&#39;)
 pubtype_cp[&#39;pubtype&#39;] = pubtype_cp.pubtype.map(lambda pubtype: re.sub(&#39;&quot;&#39;,&#39;&#39;,(pubtype)))
@@ -1238,7 +1232,9 @@ covid_papers.to_csv(&quot;data/covid_papers.csv&quot;)</code></pre>
 <div id="exercise" class="section level1" number="7">
 <h1><span class="header-section-number">7</span> Exercise</h1>
 <p>Translate last chapter’s exercice in Python using pandas.</p>
-<p><a href="">solution with pandas (python)</a> &lt;! – exo_4_py.html –&gt;</p>
+<!--
+<a href="">solution with pandas (python)</a>
+ <! -- exo_4_py.html -->
 </div>
 
 

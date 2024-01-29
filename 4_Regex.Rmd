@@ -737,10 +737,11 @@ content = soup.find_all(element ,class_= html_class)
 
 ```
 
-<a href="resto_u_explication.html">Detailled solution</a> 
+<a href="">Detailled solution</a> 
 
 
 <!--
+resto_u_explication.html
 Here is an other very simple webscrapping example where we scrap rap-genius to get lyrics from all songs in the album '13 Organisé', for each artist we count the number of unique words after remooving stopwords.
 
 

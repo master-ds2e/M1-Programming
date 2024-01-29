@@ -13,7 +13,7 @@
 
 <title>Exercice Chapter 1</title>
 
-<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -65,7 +65,6 @@ if (window.hljs) {
 
 
 
-
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -86,9 +85,6 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
-}
-details > summary > p:only-child {
-  display: inline;
 }
 pre code {
   padding: 0;
@@ -146,15 +142,11 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark the anchor link active (and if it's in a dropdown, also mark that active)
-  var dropdown = menuAnchor.closest('li.dropdown');
-  if (window.bootstrap) { // Bootstrap 4+
-    menuAnchor.addClass('active');
-    dropdown.find('> .dropdown-toggle').addClass('active');
-  } else { // Bootstrap 3
-    menuAnchor.parent().addClass('active');
-    dropdown.addClass('active');
-  }
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -324,7 +316,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -410,7 +402,7 @@ t &lt;- Sys.time()
 get_sum_multiples_below1(10000,3,5)
 ## [1] 23331668
 Sys.time() - t
-## Time difference of 0.01976728 secs</code></pre>
+## Time difference of 0.02289987 secs</code></pre>
 </div>
 </div>
 <div id="python" class="section level2" number="1.2">
@@ -433,7 +425,7 @@ get_sum_multiples_below1(10000,3,5)
 ## 23331668
 time.time() - t
 
-## 0.01148676872253418</code></pre>
+## 0.005973339080810547</code></pre>
 <pre class="python"><code># Python 
 
 def get_sum_multiples_below2(below,mutiple_1,multiple_2):
@@ -444,7 +436,7 @@ t = time.time()
 get_sum_multiples_below2(10000,3,5)
 ## 23331668
 time.time() - t
-## 0.010571479797363281</code></pre>
+## 0.00697016716003418</code></pre>
 </div>
 </div>
 </div>
@@ -481,7 +473,7 @@ t &lt;- Sys.time()
 nth_prime(10001)
 ## [1] 104743
 Sys.time() - t
-## Time difference of 1.429323 secs</code></pre>
+## Time difference of 2.119662 secs</code></pre>
 </div>
 </div>
 <div id="python-1" class="section level2" number="2.2">
@@ -513,7 +505,7 @@ nth_prime(10001)
 ## 104743
 time.time() - t
 
-## 0.3008251190185547</code></pre>
+## 0.39525842666625977</code></pre>
 </div>
 </div>
 </div>
@@ -569,7 +561,7 @@ for(i in seq(1901,2000)){
   nb_sundays = nb_sundays + year_result[2]
 }
 Sys.time() - t
-## Time difference of 0.0219264 secs
+## Time difference of 0.02489018 secs
 
 
 # results
@@ -620,7 +612,7 @@ for i in range(1901,2001):
 
 
 time.time() - t
-## 0.02480912208557129
+## 0.0159299373626709
 nb_sundays
 
 ## 171</code></pre>

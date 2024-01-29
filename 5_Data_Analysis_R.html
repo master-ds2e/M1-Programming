@@ -13,7 +13,7 @@
 
 <title>Data Analysis (R)</title>
 
-<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -64,7 +64,6 @@ if (window.hljs) {
 
 
 
-
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -85,9 +84,6 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
-}
-details > summary > p:only-child {
-  display: inline;
 }
 pre code {
   padding: 0;
@@ -145,15 +141,11 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark the anchor link active (and if it's in a dropdown, also mark that active)
-  var dropdown = menuAnchor.closest('li.dropdown');
-  if (window.bootstrap) { // Bootstrap 4+
-    menuAnchor.addClass('active');
-    dropdown.find('> .dropdown-toggle').addClass('active');
-  } else { // Bootstrap 3
-    menuAnchor.parent().addClass('active');
-    dropdown.addClass('active');
-  }
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -323,7 +315,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -501,39 +493,39 @@ dataset %&gt;% function1(arg1) %&gt;% function2(arg2)</p></li>
 
 
 library(tidyverse)
-## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
-## ✔ ggplot2 3.3.6     ✔ purrr   0.3.4
-## ✔ tibble  3.1.6     ✔ forcats 0.5.2
-## ✔ tidyr   1.2.1     
-## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-## ✖ dplyr::filter() masks stats::filter()
-## ✖ dplyr::lag()    masks stats::lag()
+## -- Attaching packages --------------------------------------- tidyverse 1.3.1 --
+## v ggplot2 3.3.5     v purrr   0.3.4
+## v tibble  3.1.6     v forcats 0.5.1
+## v tidyr   1.1.4
+## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
 covid_papers &lt;- read_csv(&quot;data/covid_papers.csv&quot;)
 ## Rows: 148916 Columns: 19
-## ── Column specification ────────────────────────────────────────────────────────
+## -- Column specification --------------------------------------------------------
 ## Delimiter: &quot;,&quot;
 ## chr  (17): _id, pmid, pmcid, doi, title, source, year_pub, month_pub, author...
 ## dbl   (1): cited
 ## date  (1): creation
 ## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+## i Use `spec()` to retrieve the full column specification for this data.
+## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
 
 covid_papers
-## # A tibble: 148,916 × 19
+## # A tibble: 148,916 x 19
 ##    `_id`   pmid   pmcid doi     title       source year_pub month_pub creation  
 ##    &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;       &lt;chr&gt;  &lt;chr&gt;    &lt;chr&gt;     &lt;date&gt;    
-##  1 5f69d6… 32837… PMC7… 10.100… The Pathop… MED    2020     null      2020-08-25
-##  2 5f69d6… 32196… PMC7… 10.108… Hypothesis… MED    2020     null      2020-03-21
-##  3 5f69d6… 32778… PMC7… 10.101… The outbre… MED    2020     null      2020-08-12
-##  4 5f69d6… 32730… PMC7… 10.101… A comparat… MED    2020     null      2020-07-31
-##  5 5f69d6… null   null  10.209… Virion Str… PPR    2020     null      2020-08-16
-##  6 5f69d6… null   PMC7… null    Interactio… PMC    2020     null      2020-09-13
-##  7 5f69d6… 32394… PMC7… 10.100… A global t… MED    2020     null      2020-05-13
-##  8 5f69d6… 32257… PMC7… 10.101… COVID-19 i… MED    2020     null      2020-04-08
-##  9 5f69d6… 32720… PMC7… 10.100… The kidney… MED    2020     null      2020-07-29
-## 10 5f69d6… 32196… PMC7… 10.108… Laboratory… MED    2020     null      2020-03-21
-## # … with 148,906 more rows, and 10 more variables: authors_gender &lt;chr&gt;,
+##  1 5f69d6~ 32837~ PMC7~ 10.100~ The Pathop~ MED    2020     null      2020-08-25
+##  2 5f69d6~ 32196~ PMC7~ 10.108~ Hypothesis~ MED    2020     null      2020-03-21
+##  3 5f69d6~ 32778~ PMC7~ 10.101~ The outbre~ MED    2020     null      2020-08-12
+##  4 5f69d6~ 32730~ PMC7~ 10.101~ A comparat~ MED    2020     null      2020-07-31
+##  5 5f69d6~ null   null  10.209~ Virion Str~ PPR    2020     null      2020-08-16
+##  6 5f69d6~ null   PMC7~ null    Interactio~ PMC    2020     null      2020-09-13
+##  7 5f69d6~ 32394~ PMC7~ 10.100~ A global t~ MED    2020     null      2020-05-13
+##  8 5f69d6~ 32257~ PMC7~ 10.101~ COVID-19 i~ MED    2020     null      2020-04-08
+##  9 5f69d6~ 32720~ PMC7~ 10.100~ The kidney~ MED    2020     null      2020-07-29
+## 10 5f69d6~ 32196~ PMC7~ 10.108~ Laboratory~ MED    2020     null      2020-03-21
+## # ... with 148,906 more rows, and 10 more variables: authors_gender &lt;chr&gt;,
 ## #   journal &lt;chr&gt;, language &lt;chr&gt;, pubmodel &lt;chr&gt;, pubtype &lt;chr&gt;, mesh &lt;chr&gt;,
 ## #   keywords &lt;chr&gt;, cited &lt;dbl&gt;, has_data &lt;chr&gt;, oa &lt;chr&gt;
 
@@ -548,7 +540,7 @@ dim(slice_sample(covid_papers,prop = 0.001))
 t &lt;- Sys.time()
 doi_clean &lt;- filter(covid_papers,doi != &#39;null&#39;)
 Sys.time()-t
-## Time difference of 0.05159903 secs</code></pre>
+## Time difference of 0.0328548 secs</code></pre>
 <p><b> Using Pipes </b></p>
 <pre class="r"><code># R
 
@@ -560,12 +552,12 @@ dim(covid_papers %&gt;% slice_sample(prop = 0.001))
 t = Sys.time()
 doi_clean &lt;- covid_papers %&gt;% filter(doi != &#39;null&#39;)
 Sys.time() - t
-## Time difference of 0.03866744 secs
+## Time difference of 0.0229001 secs
 
 t = Sys.time()
 doi_clean &lt;- covid_papers[which(covid_papers$doi != &#39;null&#39;),]
 Sys.time() - t
-## Time difference of 0.03737378 secs</code></pre>
+## Time difference of 0.01592803 secs</code></pre>
 </div>
 </div>
 <div id="select-columns" class="section level3" number="1.1.2">
@@ -610,11 +602,11 @@ dim(select(cp_tibble, -!!cols))
 <pre class="r"><code># R using data.tablee
 library(data.table)
 ## 
-## Attaching package: &#39;data.table&#39;
-## The following object is masked from &#39;package:purrr&#39;:
+## Attachement du package : &#39;data.table&#39;
+## L&#39;objet suivant est masqué depuis &#39;package:purrr&#39;:
 ## 
 ##     transpose
-## The following objects are masked from &#39;package:dplyr&#39;:
+## Les objets suivants sont masqués depuis &#39;package:dplyr&#39;:
 ## 
 ##     between, first, last
 cp_datatable = as.data.table(covid_papers)
@@ -719,7 +711,8 @@ dim(tidyr::drop_na(cp_tibble, names(cp_tibble)[1:4]))
 
 dim(filter(cp_tibble, grepl(&quot;deep learning&quot;, title)))
 dim(filter(cp_tibble, dplyr::between(year_pub, 2015, 2017)))
-## Warning in dplyr::between(year_pub, 2015, 2017): NAs introduced by coercion
+## Warning in dplyr::between(year_pub, 2015, 2017): NAs introduits lors de la
+## conversion automatique
 dim(filter(cp_tibble, year_pub &gt; 2015 &amp; year_pub &lt; 2017))</code></pre>
 </div>
 </div>
@@ -760,7 +753,7 @@ cp_datatable[data.table::between(year_pub, 2015, 2017, incbounds = FALSE)]</code
 <div class="r">
 <pre class="r"><code># R using Tibbles
 head(cp_tibble %&gt;% arrange(creation) %&gt;% select(creation))
-## # A tibble: 6 × 1
+## # A tibble: 6 x 1
 ##   creation  
 ##   &lt;date&gt;    
 ## 1 1929-01-01
@@ -770,7 +763,7 @@ head(cp_tibble %&gt;% arrange(creation) %&gt;% select(creation))
 ## 5 1951-09-08
 ## 6 1951-12-01
 head(cp_tibble %&gt;% arrange(desc(creation)) %&gt;% select(creation)) 
-## # A tibble: 6 × 1
+## # A tibble: 6 x 1
 ##   creation  
 ##   &lt;date&gt;    
 ## 1 2020-09-16
@@ -781,7 +774,7 @@ head(cp_tibble %&gt;% arrange(desc(creation)) %&gt;% select(creation))
 ## 6 2020-09-16
 
 head(cp_tibble %&gt;% arrange(year_pub, desc(creation)) %&gt;% select(year_pub,creation))
-## # A tibble: 6 × 2
+## # A tibble: 6 x 2
 ##   year_pub creation  
 ##   &lt;chr&gt;    &lt;date&gt;    
 ## 1 1820     2018-12-05
@@ -814,18 +807,18 @@ n_distinct(cp_tibble)
 ## [1] 148913
 
 cp_tibble %&gt;% summarise(sum(cited)) # returns a tibble
-## # A tibble: 1 × 1
+## # A tibble: 1 x 1
 ##   `sum(cited)`
 ##          &lt;dbl&gt;
 ## 1      1241805
 cp_tibble %&gt;% summarise(sum_citation = sum(cited)) # returns a tibble
-## # A tibble: 1 × 1
+## # A tibble: 1 x 1
 ##   sum_citation
 ##          &lt;dbl&gt;
 ## 1      1241805
 
 summarise(cp_tibble, sum(cited), sd(cited))
-## # A tibble: 1 × 2
+## # A tibble: 1 x 2
 ##   `sum(cited)` `sd(cited)`
 ##          &lt;dbl&gt;       &lt;dbl&gt;
 ## 1      1241805        38.8
@@ -833,7 +826,7 @@ summarise(cp_tibble, sum(cited), sd(cited))
 cp_tibble %&gt;%
   summarise(sum_citation = sum(cited),
             sd_citation = sd(creation))
-## # A tibble: 1 × 2
+## # A tibble: 1 x 2
 ##   sum_citation sd_citation
 ##          &lt;dbl&gt;       &lt;dbl&gt;
 ## 1      1241805       2671.
@@ -841,28 +834,28 @@ cp_tibble %&gt;%
 cp_tibble %&gt;%
   slice(1:4) %&gt;%
   summarise(sum(cited))
-## # A tibble: 1 × 1
+## # A tibble: 1 x 1
 ##   `sum(cited)`
 ##          &lt;dbl&gt;
 ## 1           61
 
 cp_tibble %&gt;% summarise(dplyr::first(year_pub))
-## # A tibble: 1 × 1
+## # A tibble: 1 x 1
 ##   `dplyr::first(year_pub)`
 ##   &lt;chr&gt;                   
 ## 1 2020
 cp_tibble %&gt;% summarise(dplyr::last(year_pub))
-## # A tibble: 1 × 1
+## # A tibble: 1 x 1
 ##   `dplyr::last(year_pub)`
 ##   &lt;chr&gt;                  
 ## 1 2016
 cp_tibble %&gt;% summarise(nth(year_pub, 5))
-## # A tibble: 1 × 1
+## # A tibble: 1 x 1
 ##   `nth(year_pub, 5)`
 ##   &lt;chr&gt;             
 ## 1 2020
 cp_tibble %&gt;% summarise(n_distinct(language))
-## # A tibble: 1 × 1
+## # A tibble: 1 x 1
 ##   `n_distinct(language)`
 ##                    &lt;int&gt;
 ## 1                     31</code></pre>
@@ -923,21 +916,21 @@ cp_tibble &lt;- cp_tibble %&gt;% rowwise() %&gt;% mutate(oa = ifelse(oa == &#39;
 
 # Create one column and remove the others
 transmute(cp_tibble, title_lower = tolower(title))
-## # A tibble: 148,913 × 1
+## # A tibble: 148,913 x 1
 ## # Rowwise: 
 ##    title_lower                                                                  
 ##    &lt;chr&gt;                                                                        
-##  1 the pathophysiology, diagnosis and treatment of corona virus disease 2019 (c…
-##  2 hypothesis for potential pathogenesis of sars-cov-2 infection-a review of im…
-##  3 the outbreak of the novel severe acute respiratory syndrome coronavirus 2 (s…
+##  1 the pathophysiology, diagnosis and treatment of corona virus disease 2019 (c~
+##  2 hypothesis for potential pathogenesis of sars-cov-2 infection-a review of im~
+##  3 the outbreak of the novel severe acute respiratory syndrome coronavirus 2 (s~
 ##  4 a comparative overview of covid-19, mers and sars: review article.           
-##  5 virion structure and mechanism of propagation of coronaviruses including sar…
-##  6 interaction of sars-cov-2 and other coronavirus with ace (angiotensin-conver…
+##  5 virion structure and mechanism of propagation of coronaviruses including sar~
+##  6 interaction of sars-cov-2 and other coronavirus with ace (angiotensin-conver~
 ##  7 a global treatments for coronaviruses including covid-19.                    
-##  8 covid-19 infection: origin, transmission, and characteristics of human coron…
+##  8 covid-19 infection: origin, transmission, and characteristics of human coron~
 ##  9 the kidney, covid-19, and the chemokine network: an intriguing trio.         
-## 10 laboratory diagnosis of emerging human coronavirus infections - the state of…
-## # … with 148,903 more rows
+## 10 laboratory diagnosis of emerging human coronavirus infections - the state of~
+## # ... with 148,903 more rows
 
 cp_tibble &lt;- cp_tibble %&gt;% select(-V1, -V2)
 
@@ -990,7 +983,7 @@ cp_tibble &lt;-  as_tibble(covid_papers) %&gt;% filter(pmid!=&#39;null&#39;)
 cp_tibble %&gt;%
   group_by(year_pub) %&gt;%
   summarise(nb_language = length(unique(language)))
-## # A tibble: 113 × 2
+## # A tibble: 113 x 2
 ##    year_pub nb_language
 ##    &lt;chr&gt;          &lt;int&gt;
 ##  1 1830               1
@@ -1003,7 +996,7 @@ cp_tibble %&gt;%
 ##  8 1864               1
 ##  9 1874               1
 ## 10 1876               1
-## # … with 103 more rows
+## # ... with 103 more rows
 
 # By several groups
 cp_tibble %&gt;%
@@ -1011,7 +1004,7 @@ cp_tibble %&gt;%
   summarise(mean_cited = mean(cited))
 ## `summarise()` has grouped output by &#39;year_pub&#39;. You can override using the
 ## `.groups` argument.
-## # A tibble: 113 × 3
+## # A tibble: 113 x 3
 ## # Groups:   year_pub [113]
 ##    year_pub source mean_cited
 ##    &lt;chr&gt;    &lt;chr&gt;       &lt;dbl&gt;
@@ -1025,13 +1018,13 @@ cp_tibble %&gt;%
 ##  8 1864     MED             0
 ##  9 1874     MED             0
 ## 10 1876     MED             0
-## # … with 103 more rows
+## # ... with 103 more rows
 
 # Assigning column name in by
 cp_tibble %&gt;%
   group_by(PY = as.numeric(year_pub)) %&gt;%
   summarise(sum_cited = sum(cited))
-## # A tibble: 113 × 2
+## # A tibble: 113 x 2
 ##       PY sum_cited
 ##    &lt;dbl&gt;     &lt;dbl&gt;
 ##  1  1830         0
@@ -1044,13 +1037,13 @@ cp_tibble %&gt;%
 ##  8  1864         0
 ##  9  1874         0
 ## 10  1876         0
-## # … with 103 more rows
+## # ... with 103 more rows
 
 # Using a condition
 cp_tibble %&gt;%
   group_by(source == &quot;MED&quot;) %&gt;%
   summarise(mean(cited))
-## # A tibble: 1 × 2
+## # A tibble: 1 x 2
 ##   `source == &quot;MED&quot;` `mean(cited)`
 ##   &lt;lgl&gt;                     &lt;dbl&gt;
 ## 1 TRUE                       10.9
@@ -1059,7 +1052,7 @@ cp_tibble %&gt;%
 cp_tibble %&gt;%
   group_by(source) %&gt;%
   tally()
-## # A tibble: 1 × 2
+## # A tibble: 1 x 2
 ##   source      n
 ##   &lt;chr&gt;   &lt;int&gt;
 ## 1 MED    113917
@@ -1067,7 +1060,7 @@ cp_tibble %&gt;%
 cp_tibble %&gt;%
   group_by(source) %&gt;%
   summarise(n())
-## # A tibble: 1 × 2
+## # A tibble: 1 x 2
 ##   source  `n()`
 ##   &lt;chr&gt;   &lt;int&gt;
 ## 1 MED    113917
@@ -1079,7 +1072,7 @@ cp_tibble %&gt;%
 
 # Add a column with number of observations for each group
 add_count(cp_tibble, year_pub) %&gt;% select(year_pub,n)
-## # A tibble: 113,917 × 2
+## # A tibble: 113,917 x 2
 ##    year_pub     n
 ##    &lt;chr&gt;    &lt;int&gt;
 ##  1 2020     63760
@@ -1092,7 +1085,7 @@ add_count(cp_tibble, year_pub) %&gt;% select(year_pub,n)
 ##  8 2020     63760
 ##  9 2020     63760
 ## 10 2020     63760
-## # … with 113,907 more rows
+## # ... with 113,907 more rows
 
 dim(cp_tibble %&gt;%
   group_by(year_pub) %&gt;%
@@ -1163,7 +1156,7 @@ cp_datatable[, .N, by = source]
 ##    source      N
 ## 1:    MED 113917
 count(cp_tibble, source)
-## # A tibble: 1 × 2
+## # A tibble: 1 x 2
 ##   source      n
 ##   &lt;chr&gt;   &lt;int&gt;
 ## 1 MED    113917
@@ -1264,21 +1257,21 @@ cp_datatable[, Grp := NULL] # delete for consistency</code></pre>
 cp_tibble %&gt;%
   group_by(PY) %&gt;%
   mutate(cur_group_rows())
-## # A tibble: 113,917 × 22
+## # A tibble: 113,917 x 22
 ## # Groups:   PY [113]
 ##    `_id`   pmid   pmcid doi     title       source year_pub month_pub creation  
 ##    &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;       &lt;chr&gt;  &lt;chr&gt;    &lt;chr&gt;     &lt;date&gt;    
-##  1 5f69d6… 32837… PMC7… 10.100… The Pathop… MED    2020     null      2020-08-25
-##  2 5f69d6… 32196… PMC7… 10.108… Hypothesis… MED    2020     null      2020-03-21
-##  3 5f69d6… 32778… PMC7… 10.101… The outbre… MED    2020     null      2020-08-12
-##  4 5f69d6… 32730… PMC7… 10.101… A comparat… MED    2020     null      2020-07-31
-##  5 5f69d6… 32394… PMC7… 10.100… A global t… MED    2020     null      2020-05-13
-##  6 5f69d6… 32257… PMC7… 10.101… COVID-19 i… MED    2020     null      2020-04-08
-##  7 5f69d6… 32720… PMC7… 10.100… The kidney… MED    2020     null      2020-07-29
-##  8 5f69d6… 32196… PMC7… 10.108… Laboratory… MED    2020     null      2020-03-21
-##  9 5f69d6… 32656… PMC7… 10.100… The global… MED    2020     null      2020-07-14
-## 10 5f69d6… 32732… PMC7… 10.118… Cyclospori… MED    2020     null      2020-08-01
-## # … with 113,907 more rows, and 13 more variables: authors_gender &lt;chr&gt;,
+##  1 5f69d6~ 32837~ PMC7~ 10.100~ The Pathop~ MED    2020     null      2020-08-25
+##  2 5f69d6~ 32196~ PMC7~ 10.108~ Hypothesis~ MED    2020     null      2020-03-21
+##  3 5f69d6~ 32778~ PMC7~ 10.101~ The outbre~ MED    2020     null      2020-08-12
+##  4 5f69d6~ 32730~ PMC7~ 10.101~ A comparat~ MED    2020     null      2020-07-31
+##  5 5f69d6~ 32394~ PMC7~ 10.100~ A global t~ MED    2020     null      2020-05-13
+##  6 5f69d6~ 32257~ PMC7~ 10.101~ COVID-19 i~ MED    2020     null      2020-04-08
+##  7 5f69d6~ 32720~ PMC7~ 10.100~ The kidney~ MED    2020     null      2020-07-29
+##  8 5f69d6~ 32196~ PMC7~ 10.108~ Laboratory~ MED    2020     null      2020-03-21
+##  9 5f69d6~ 32656~ PMC7~ 10.100~ The global~ MED    2020     null      2020-07-14
+## 10 5f69d6~ 32732~ PMC7~ 10.118~ Cyclospori~ MED    2020     null      2020-08-01
+## # ... with 113,907 more rows, and 13 more variables: authors_gender &lt;chr&gt;,
 ## #   journal &lt;chr&gt;, language &lt;chr&gt;, pubmodel &lt;chr&gt;, pubtype &lt;chr&gt;, mesh &lt;chr&gt;,
 ## #   keywords &lt;chr&gt;, cited &lt;dbl&gt;, has_data &lt;chr&gt;, oa &lt;chr&gt;, PY &lt;dbl&gt;,
 ## #   log_cited &lt;dbl&gt;, cur_group_rows() &lt;int&gt;
@@ -1289,7 +1282,7 @@ cp_tibble %&gt;%
 cp_tibble %&gt;%
   group_by(PY) %&gt;%
   summarize(cur_group_rows()[1])
-## # A tibble: 113 × 2
+## # A tibble: 113 x 2
 ##       PY `cur_group_rows()[1]`
 ##    &lt;dbl&gt;                 &lt;int&gt;
 ##  1  1830                113846
@@ -1302,13 +1295,13 @@ cp_tibble %&gt;%
 ##  8  1864                113838
 ##  9  1874                113544
 ## 10  1876                113787
-## # … with 103 more rows
+## # ... with 103 more rows
 cp_tibble %&gt;%
   group_by(PY) %&gt;%
   summarize(cur_group_rows()[c(1, n())])
 ## `summarise()` has grouped output by &#39;PY&#39;. You can override using the `.groups`
 ## argument.
-## # A tibble: 226 × 2
+## # A tibble: 226 x 2
 ## # Groups:   PY [113]
 ##       PY `cur_group_rows()[c(1, n())]`
 ##    &lt;dbl&gt;                         &lt;int&gt;
@@ -1322,7 +1315,7 @@ cp_tibble %&gt;%
 ##  8  1836                        113888
 ##  9  1842                        113769
 ## 10  1842                        113885
-## # … with 216 more rows</code></pre>
+## # ... with 216 more rows</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -1382,7 +1375,7 @@ cp_datatable[, .I[c(1, .N)], by = PY]
 cp_tibble %&gt;%
   group_by(PY) %&gt;%
   summarise(list(cited))
-## # A tibble: 113 × 2
+## # A tibble: 113 x 2
 ##       PY `list(cited)`
 ##    &lt;dbl&gt; &lt;list&gt;       
 ##  1  1830 &lt;dbl [1]&gt;    
@@ -1395,25 +1388,25 @@ cp_tibble %&gt;%
 ##  8  1864 &lt;dbl [1]&gt;    
 ##  9  1874 &lt;dbl [2]&gt;    
 ## 10  1876 &lt;dbl [1]&gt;    
-## # … with 103 more rows
+## # ... with 103 more rows
 
 cp_tibble %&gt;%
   group_by(PY) %&gt;%
   group_nest()
-## # A tibble: 113 × 2
+## # A tibble: 113 x 2
 ##       PY                data
 ##    &lt;dbl&gt; &lt;list&lt;tibble[,20]&gt;&gt;
-##  1  1830            [1 × 20]
-##  2  1832            [1 × 20]
-##  3  1833            [1 × 20]
-##  4  1836            [3 × 20]
-##  5  1842            [2 × 20]
-##  6  1845            [1 × 20]
-##  7  1857            [1 × 20]
-##  8  1864            [1 × 20]
-##  9  1874            [2 × 20]
-## 10  1876            [1 × 20]
-## # … with 103 more rows</code></pre>
+##  1  1830            [1 x 20]
+##  2  1832            [1 x 20]
+##  3  1833            [1 x 20]
+##  4  1836            [3 x 20]
+##  5  1842            [2 x 20]
+##  6  1845            [1 x 20]
+##  7  1857            [1 x 20]
+##  8  1864            [1 x 20]
+##  9  1874            [2 x 20]
+## 10  1876            [1 x 20]
+## # ... with 103 more rows</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -1536,7 +1529,7 @@ groupingsets(cp_datatable,
 
 # Summarise several columns
 cp_tibble %&gt;% summarise(across(c(PY, cited), mean))
-## # A tibble: 1 × 2
+## # A tibble: 1 x 2
 ##      PY cited
 ##   &lt;dbl&gt; &lt;dbl&gt;
 ## 1 2015.  10.9
@@ -1546,7 +1539,7 @@ cp_tibble %&gt;% summarise(across(c(PY, cited), mean))
 cp_tibble %&gt;%
   group_by(source) %&gt;%
   summarise(across(c(PY, cited), mean))
-## # A tibble: 1 × 3
+## # A tibble: 1 x 3
 ##   source    PY cited
 ##   &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt;
 ## 1 MED    2015.  10.9
@@ -1555,7 +1548,7 @@ cp_tibble %&gt;%
 cp_tibble %&gt;%
   group_by(source) %&gt;%
   summarise(across(ends_with(&#39;cited&#39;), mean))
-## # A tibble: 1 × 3
+## # A tibble: 1 x 3
 ##   source cited log_cited
 ##   &lt;chr&gt;  &lt;dbl&gt;     &lt;dbl&gt;
 ## 1 MED     10.9      1.10
@@ -1565,7 +1558,7 @@ cp_tibble %&gt;%
   group_by(source) %&gt;%
   summarise(across(c(PY, cited),
                    list(median = median, mean = mean)))
-## # A tibble: 1 × 5
+## # A tibble: 1 x 5
 ##   source PY_median PY_mean cited_median cited_mean
 ##   &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;
 ## 1 MED         2020   2015.            0       10.9
@@ -1574,7 +1567,7 @@ cp_tibble %&gt;%
 cp_tibble %&gt;%
   summarise(across(where(is.numeric),
                    mean))
-## # A tibble: 1 × 3
+## # A tibble: 1 x 3
 ##   cited    PY log_cited
 ##   &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
 ## 1  10.9 2015.      1.10
@@ -1583,7 +1576,7 @@ cp_tibble  %&gt;%
   group_by(source) %&gt;%
   summarise(across(where(~ is.numeric(.x) &amp;&amp; median(.x)&gt;0), 
                         median))
-## # A tibble: 1 × 2
+## # A tibble: 1 x 2
 ##   source    PY
 ##   &lt;chr&gt;  &lt;dbl&gt;
 ## 1 MED     2020</code></pre>
@@ -1649,7 +1642,7 @@ tobinary = function(x){ifelse(x==&#39;Y&#39;,1,0)}
 # Modify several columns (dropping the others)
 head(cp_tibble %&gt;% transmute(across(c(has_data, oa),
                  tobinary)))
-## # A tibble: 6 × 2
+## # A tibble: 6 x 2
 ##   has_data    oa
 ##      &lt;dbl&gt; &lt;dbl&gt;
 ## 1        0     1
@@ -1672,7 +1665,7 @@ cp_tibble &lt;- cp_tibble %&gt;%
   mutate(across(where(is.character),
          toupper))
 Sys.time() - t
-## Time difference of 4.824663 secs</code></pre>
+## Time difference of 11.49735 secs</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -1697,7 +1690,7 @@ cp_datatable[, c(&#39;pubtype&#39;,&#39;mesh&#39;) := lapply(.SD, function(x){to
 t = Sys.time()
 for(j in  which(sapply(cp_datatable, class)==&#39;character&#39;)){set(cp_datatable, i=NULL, j=j, value=toupper(cp_datatable[[j]]))}
 Sys.time() - t 
-## Time difference of 3.805776 secs</code></pre>
+## Time difference of 10.57641 secs</code></pre>
 </div>
 </div>
 </div>
@@ -1717,7 +1710,7 @@ head(cp_tibble %&gt;%
   group_by(PY) %&gt;%
   summarise(cited_med = median(cited)) %&gt;%
   arrange(desc(cited_med)))
-## # A tibble: 6 × 2
+## # A tibble: 6 x 2
 ##      PY cited_med
 ##   &lt;dbl&gt;     &lt;dbl&gt;
 ## 1  1933      66.5
@@ -1731,7 +1724,7 @@ head(cp_tibble %&gt;%
   group_by(PY) %&gt;%
   summarise(cited_med = median(cited)) %&gt;%
   filter(cited_med &gt; 10))
-## # A tibble: 6 × 2
+## # A tibble: 6 x 2
 ##      PY cited_med
 ##   &lt;dbl&gt;     &lt;dbl&gt;
 ## 1  1933      66.5
@@ -1784,7 +1777,7 @@ head(cp_tibble %&gt;%
   summarize(share_en = sum(is_en)/n(),
             share_en_oa = sum(is_en*oa_int)/n()) %&gt;% 
   arrange(desc(year_pub)))
-## # A tibble: 6 × 3
+## # A tibble: 6 x 3
 ##   year_pub share_en share_en_oa
 ##   &lt;chr&gt;       &lt;dbl&gt;       &lt;dbl&gt;
 ## 1 2021        0.989       0.884
@@ -1836,7 +1829,7 @@ head(cp_datatable[, {is_en = ifelse(language ==&#39;ENG&#39;,1,0)
 <div class="r">
 <pre class="r"><code># R using Tibbles
 cp_tibble[1,&#39;pubtype&#39;]
-## # A tibble: 1 × 1
+## # A tibble: 1 x 1
 ##   pubtype                                                              
 ##   &lt;chr&gt;                                                                
 ## 1 &quot;{\&quot;PUBTYPE\&quot;: [\&quot;REVIEWARTICLE\&quot;, \&quot;REVIEW\&quot;, \&quot;JOURNAL ARTICLE\&quot;]}&quot;
@@ -1860,7 +1853,7 @@ mcp_tibble &lt;- mcp_tibble %&gt;%
   count(pubtype)
 
 mcp_tibble
-## # A tibble: 258,370 × 3
+## # A tibble: 258,370 x 3
 ## # Groups:   pmid [113,917]
 ##    pmid     pubtype                                  n
 ##    &lt;chr&gt;    &lt;chr&gt;                                &lt;int&gt;
@@ -1874,7 +1867,7 @@ mcp_tibble
 ##  8 10023767 RESEARCH SUPPORT, NONU.S. GOV&#39;T          1
 ##  9 10023767 RESEARCH SUPPORT, U.S. GOV&#39;T, P.H.S.     1
 ## 10 10023767 RESEARCHARTICLE                          1
-## # … with 258,360 more rows</code></pre>
+## # ... with 258,360 more rows</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -1983,7 +1976,7 @@ split(cp_datatable, by = &quot;oa&quot;) # S3 method</code></pre>
 vec &lt;- c(&quot;A:a&quot;, &quot;B:b&quot;, &quot;C:c&quot;)
 # vector not handled
 tidyr::separate(tibble(vec), vec, c(&quot;V1&quot;, &quot;V2&quot;))
-## # A tibble: 3 × 2
+## # A tibble: 3 x 2
 ##   V1    V2   
 ##   &lt;chr&gt; &lt;chr&gt;
 ## 1 A     a    
@@ -2140,7 +2133,7 @@ head(cp_tibble %&gt;%
   filter(oa != &#39;Y&#39;) %&gt;%
   group_by(PY) %&gt;%
   summarise(median(cited)))
-## # A tibble: 6 × 2
+## # A tibble: 6 x 2
 ##      PY `median(cited)`
 ##   &lt;dbl&gt;           &lt;dbl&gt;
 ## 1  1842               0
@@ -2243,7 +2236,7 @@ setindex(cp_datatable, NULL)</code></pre>
 
 cp_tibble[1, 2] &lt;- NA
 head(cp_tibble[,2])
-## # A tibble: 6 × 1
+## # A tibble: 6 x 1
 ##   pmid    
 ##   &lt;chr&gt;   
 ## 1 &lt;NA&gt;    
@@ -2318,7 +2311,7 @@ setnames(cp_datatable, old = &quot;doi&quot;, new = &quot;DOI&quot;)</code></pre
 <pre class="r"><code># R using Tibbles
 
 head(cp_tibble %&gt;% select(PY, cited, DOI))
-## # A tibble: 6 × 3
+## # A tibble: 6 x 3
 ##      PY cited DOI  
 ##   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;
 ## 1  1830     0 NULL 
@@ -2825,8 +2818,8 @@ rbindlist(list(x, y), idcol = TRUE)
 
 bind_cols(x, y)
 ## New names:
-## • `V1` -&gt; `V1...1`
-## • `V1` -&gt; `V1...2`
+## * V1 -&gt; V1...1
+## * V1 -&gt; V1...2
 ##    V1...1 V1...2
 ## 1:      1      4
 ## 2:      2      5
@@ -2897,30 +2890,30 @@ library(tidyverse)
 
 covid_papers &lt;- read_csv(&quot;data/covid_papers.csv&quot;)
 ## Rows: 148916 Columns: 19
-## ── Column specification ────────────────────────────────────────────────────────
+## -- Column specification --------------------------------------------------------
 ## Delimiter: &quot;,&quot;
 ## chr  (17): _id, pmid, pmcid, doi, title, source, year_pub, month_pub, author...
 ## dbl   (1): cited
 ## date  (1): creation
 ## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+## i Use `spec()` to retrieve the full column specification for this data.
+## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
 
 covid_papers
-## # A tibble: 148,916 × 19
+## # A tibble: 148,916 x 19
 ##    `_id`   pmid   pmcid doi     title       source year_pub month_pub creation  
 ##    &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;       &lt;chr&gt;  &lt;chr&gt;    &lt;chr&gt;     &lt;date&gt;    
-##  1 5f69d6… 32837… PMC7… 10.100… The Pathop… MED    2020     null      2020-08-25
-##  2 5f69d6… 32196… PMC7… 10.108… Hypothesis… MED    2020     null      2020-03-21
-##  3 5f69d6… 32778… PMC7… 10.101… The outbre… MED    2020     null      2020-08-12
-##  4 5f69d6… 32730… PMC7… 10.101… A comparat… MED    2020     null      2020-07-31
-##  5 5f69d6… null   null  10.209… Virion Str… PPR    2020     null      2020-08-16
-##  6 5f69d6… null   PMC7… null    Interactio… PMC    2020     null      2020-09-13
-##  7 5f69d6… 32394… PMC7… 10.100… A global t… MED    2020     null      2020-05-13
-##  8 5f69d6… 32257… PMC7… 10.101… COVID-19 i… MED    2020     null      2020-04-08
-##  9 5f69d6… 32720… PMC7… 10.100… The kidney… MED    2020     null      2020-07-29
-## 10 5f69d6… 32196… PMC7… 10.108… Laboratory… MED    2020     null      2020-03-21
-## # … with 148,906 more rows, and 10 more variables: authors_gender &lt;chr&gt;,
+##  1 5f69d6~ 32837~ PMC7~ 10.100~ The Pathop~ MED    2020     null      2020-08-25
+##  2 5f69d6~ 32196~ PMC7~ 10.108~ Hypothesis~ MED    2020     null      2020-03-21
+##  3 5f69d6~ 32778~ PMC7~ 10.101~ The outbre~ MED    2020     null      2020-08-12
+##  4 5f69d6~ 32730~ PMC7~ 10.101~ A comparat~ MED    2020     null      2020-07-31
+##  5 5f69d6~ null   null  10.209~ Virion Str~ PPR    2020     null      2020-08-16
+##  6 5f69d6~ null   PMC7~ null    Interactio~ PMC    2020     null      2020-09-13
+##  7 5f69d6~ 32394~ PMC7~ 10.100~ A global t~ MED    2020     null      2020-05-13
+##  8 5f69d6~ 32257~ PMC7~ 10.101~ COVID-19 i~ MED    2020     null      2020-04-08
+##  9 5f69d6~ 32720~ PMC7~ 10.100~ The kidney~ MED    2020     null      2020-07-29
+## 10 5f69d6~ 32196~ PMC7~ 10.108~ Laboratory~ MED    2020     null      2020-03-21
+## # ... with 148,906 more rows, and 10 more variables: authors_gender &lt;chr&gt;,
 ## #   journal &lt;chr&gt;, language &lt;chr&gt;, pubmodel &lt;chr&gt;, pubtype &lt;chr&gt;, mesh &lt;chr&gt;,
 ## #   keywords &lt;chr&gt;, cited &lt;dbl&gt;, has_data &lt;chr&gt;, oa &lt;chr&gt;</code></pre>
 </div>

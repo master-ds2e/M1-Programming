@@ -28,7 +28,7 @@ This first example is made with a txt file with 1000 rows. We will see how RAM i
 <div class = "row">
 <div class = "col-md-6">
 <div class = "python">
-```{python,echo = T,collapse = TRUE}
+```{python,echo = T, error=TRUE ,collapse = TRUE}
 # Python 
 import os
 import psutil
@@ -60,7 +60,7 @@ type(txt_clean)
 <div class = "col-md-6">
 <div class = "python">
 
-```{python,echo=T,collapse = TRUE}
+```{python,echo=T, error=TRUE ,collapse = TRUE}
 # Python
 
 process = psutil.Process(os.getpid())
@@ -107,7 +107,7 @@ When dealing with large array that are sparse (lot of element equal to 0), it is
 <div class = "col-md-6">
 <div class = "python">
 
-```{python,collapse = TRUE}
+```{python, error=TRUE ,collapse = TRUE}
 # Python 
 import numpy as np
 from scipy.sparse import csr_matrix
@@ -126,7 +126,7 @@ sparse_X
 #asizeof.asizeof(sparse_X)/1e+6
 ```
 
-```{python,collapse = TRUE}
+```{python, error=TRUE ,collapse = TRUE}
 # Python 
 import time
 
@@ -145,7 +145,7 @@ time.time() - t
 <div class = "col-md-6">
 <div class = "r">
 
-```{r, collapse = TRUE}
+```{r, error=TRUE ,collapse = TRUE}
 # R
 library(Matrix)
 
@@ -160,7 +160,7 @@ sparse_X = Matrix(X,sparse = T)
 print(object.size(sparse_X),units = 'auto')
 ```
 
-```{r, collapse = TRUE}
+```{r, error=TRUE ,collapse = TRUE}
 # R
 library(tictoc)
 
@@ -193,7 +193,7 @@ Let's create first the dataset
 <div class = "col-md-6">
 <div class = "python">
 
-```{python, collapse = TRUE}
+```{python, error=TRUE ,collapse = TRUE}
 # Python 
 import numpy as np
 
@@ -203,7 +203,7 @@ y = 2 + 0.5*X[:,0].reshape(100000,1) + 0.2*X[:,1].reshape(100000,1) + np.random.
 
 - Create a function to compute OLS coefficients for a given sample
 
-```{python, collapse = TRUE}
+```{python, error=TRUE ,collapse = TRUE}
 # Python 
 from sklearn.linear_model import LinearRegression
 
@@ -219,7 +219,7 @@ def lm_bs():
 
 - Run bootstrap with a loop
 
-```{python, collapse = TRUE}
+```{python, error=TRUE ,collapse = TRUE}
 # Python
 import time 
 
@@ -233,7 +233,7 @@ time.time() - t
 
 - Check how many cores you can use 
 
-```{python, collapse = TRUE}
+```{python,error=TRUE , collapse = TRUE}
 # Python
 
 from joblib import Parallel, delayed
@@ -244,7 +244,7 @@ print(num_cores)
 
 - Run the loop in parallel !
 
-```{python, eval = F, collapse = TRUE}
+```{python,error=TRUE , eval = F, collapse = TRUE}
 t = time.time()
 coefs = Parallel(n_jobs=5)(delayed(lm_bs)() for i in range(500))
 time.time() - t
@@ -256,7 +256,7 @@ time.time() - t
 <div class = "col-md-6">
 <div class = "r">
 
-```{r, collapse = TRUE}
+```{r,error=TRUE , collapse = TRUE}
 # R
 
 X = matrix(runif(100000*2),100000,2)
@@ -266,7 +266,7 @@ y = 2 + 0.5*X[,1] + 0.2*X[,2] + rnorm(100000,0,3)
 
 - Create a function to compute OLS coefficients for a given sample
 
-```{r, collapse = TRUE}
+```{r,error=TRUE , collapse = TRUE}
 # R 
 
 lm_bs <- function(){
@@ -283,7 +283,7 @@ lm_bs <- function(){
 
 - Run bootstrap with a loop
 
-```{r, collapse = TRUE}
+```{r, error=TRUE ,collapse = TRUE}
 # R
 
 tic()
@@ -297,7 +297,7 @@ toc()
 
 - Check how many cores you can use 
 
-```{r, collapse = TRUE}
+```{r, error=TRUE ,collapse = TRUE}
 # R
 library(doParallel)
 detectCores()
@@ -307,7 +307,7 @@ registerDoParallel(5)
 
 - Run the loop in parallel !
 
-```{r, collapse = TRUE}
+```{r,error=TRUE , collapse = TRUE}
 # R
 
 tic()
@@ -322,5 +322,250 @@ toc()
 </div>
 </div>
 </div>
+
+
+
+# Error and Exception Handling
+
+It is important to understand why a given function may produce an error. Determining the situations where errors may occur is not always easy, but it's important to not be too lenient in order to avoid errors. In the examples, we will see how the flexibility of a function can lead to different results, some of which may be more efficient than others.
+
+For example, if we expect that 99% of the time the result will contain something iterable, we would use the try/except approach. This will be faster if exceptions are truly exceptional. However, if the result is None more than 50% of the time, then using an 'if' statement is probably a better approach.
+
+While an 'if' statement always has a cost, setting up a try/except block is relatively inexpensive. However, when an exception does occur, the cost is much higher.
+
+<div class = "row">
+<div class = "col-md-6">
+<div class = "python">
+```{python,echo = T, error=TRUE ,collapse = TRUE}
+# Python 
+import numpy as np
+import random
+
+# Let's create a function that create a dirty list
+def create_dirty_list(None_prop):
+  list_ = list()
+  for i in range(10000):
+    if i<None_prop*10000:
+      list_.append([None])
+    else:
+      values = random.sample(range(1, 1000), random.sample(range(1, 50),1)[0])
+      # introduce some character 
+      if i%10==0 :
+        values = [str(i) for i in values]
+      list_.append(values)
+  return list_
+
+# randomly take two values to compute the ratio 
+def calc1(values):
+  output = values[random.sample(range(1, len(values)+1),1)[0]-1]/values[random.sample(range(1, len(values)+1),1)[0]-1]
+  return output
+
+list_ = create_dirty_list(0.5)
+# Store it in a list
+results = [calc1(values) for  values in list_]
+
+```
+
+```{python,echo = T, error=TRUE ,collapse = TRUE}
+# Let's change the function
+
+def calc2(values):
+  if not any(value is None for value in values): 
+    output = values[random.sample(range(1, len(values)+1),1)[0]-1]/values[random.sample(range(1, len(values)+1),1)[0]-1]
+    return output
+
+results = [calc2(values) for values in list_]
+
+```
+
+```{python,echo = T, error=TRUE ,collapse = TRUE}
+# Let's change the function
+
+def calc3(values):
+  if not any(value is None for value in values): 
+    if all(isinstance(value,int) for value in values):
+      output = values[random.sample(range(1, len(values)+1),1)[0]-1]/values[random.sample(range(1, len(values)+1),1)[0]-1]
+      return output 
+
+results = [calc3(values) for values in list_]
+
+```
+
+```{python,echo = T, error=TRUE ,collapse = TRUE}
+# using try
+
+def calc_try(values):
+  try:
+    output = values[random.sample(range(1, len(values)+1),1)[0]-1]/values[random.sample(range(1, len(values)+1),1)[0]-1]
+  except:
+    output = None
+  return output
+    
+results = [calc_try(values) for values in list_]
+```
+
+ - Compare execution time 
+
+```{python,echo = T, error=TRUE ,collapse = TRUE}
+list_ = create_dirty_list(0.01)
+t= time.time()
+results = [calc3(values) for values in list_]
+time.time()-t
+t= time.time()
+results = [calc_try(values) for values in list_]
+time.time()-t
+
+```
+
+```{python,echo = T, error=TRUE ,collapse = TRUE}
+list_ = create_dirty_list(0.33)
+t= time.time()
+results = [calc3(values) for values in list_]
+time.time()-t
+t= time.time()
+results = [calc_try(values) for values in list_]
+time.time()-t
+
+```
+
+```{python,echo = T, error=TRUE ,collapse = TRUE}
+list_ = create_dirty_list(0.75)
+t= time.time()
+results = [calc3(values) for values in list_]
+time.time()-t
+t= time.time()
+results = [calc_try(values) for values in list_]
+time.time()-t
+
+```
+
+</div>
+</div>
+
+<div class = "col-md-6">
+<div class = "r">
+
+```{r,error=TRUE ,warning=F}
+# R
+# Let's create a function that create a list 
+create_dirty_list <- function(None_prop){
+  list_ <- list()
+  for(i in seq(1,10000,1)){
+    if(i<None_prop*10000){
+      list_[[i]] <- c(NA)
+      } else {
+      values <- sample(seq(1,10000,1),round(runif(1,1,50)))
+      # introduce some character 
+      if(i%%10==0){
+        values <- as.character(values)
+      list_[[i]] <- values
+      }
+      }
+  }
+  return(list_)
+  }
+
+# randomly take two values to compute the ratio 
+calc1 <- function(values){
+  output <- values[round(runif(1,1,length(values)))]/values[round(runif(1,1,length(values)))]
+  return(output)
+}
+
+list_ <- create_dirty_list(0.5)
+# Store it in a list
+results <- lapply(list_,FUN = calc1)
+
+```
+
+```{r,error=TRUE ,warning=F}
+# Let's change the function
+
+calc2 <- function(values){
+  if(!any(is.na(values))){
+    output <- values[round(runif(1,1,length(values)))]/values[round(runif(1,1,length(values)))]
+    return(output)
+  }
+}
+
+
+results <- lapply(list_,FUN = calc2)
+```
+
+```{r,error=TRUE ,warning=F}
+# Let's change the function
+
+calc3 <- function(values){
+  if(!any(is.na(values))){
+    if(is.numeric(values)){
+      output <- values[round(runif(1,1,length(values)))]/values[round(runif(1,1,length(values)))]
+      return(output)
+    }
+  }
+}
+
+
+
+results <- lapply(list_,FUN = calc3)
+
+```
+
+```{r,error=TRUE ,echo = T,warning=F}
+# using try
+
+calc_try <- function(values){
+  output <- tryCatch(
+    {
+      values[round(runif(1,1,length(values)))]/values[round(runif(1,1,length(values)))]
+    }
+    ,error=function(e){
+      return(NA)
+    })
+  return(output)
+}
+    
+results <- lapply(list_,FUN = calc_try)
+```
+
+ - Compare execution time
+
+```{r,error=TRUE ,echo = T,warning=F}
+ 
+list_ <- create_dirty_list(0.01)
+t <- Sys.time()
+results <- lapply(list_,FUN = calc3)
+Sys.time()-t
+t <- Sys.time()
+results <- lapply(list_,FUN = calc_try)
+Sys.time()-t
+
+```
+
+```{r,error=TRUE ,echo = T,warning=F}
+# compare it 
+list_ = create_dirty_list(0.33)
+t <- Sys.time()
+results <- lapply(list_,FUN = calc3)
+Sys.time()-t
+t <- Sys.time()
+results <- lapply(list_,FUN = calc_try)
+Sys.time()-t
+
+```
+
+```{r,error=TRUE ,echo = T,warning=F}
+# compare it 
+list_ = create_dirty_list(0.75)
+t <- Sys.time()
+results <- lapply(list_,FUN = calc3)
+Sys.time()-t
+t <- Sys.time()
+results <- lapply(list_,FUN = calc_try)
+Sys.time()-t
+
+```
+</div>
+</div>
+</div>
+
 
 
