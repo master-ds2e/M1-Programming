@@ -405,9 +405,9 @@ def read_file_to_lower():
 txt_clean = read_file_to_lower()
 
 process.memory_info().rss - r1 # in bytes
-## 69632
+## 65536
 time.time() - t
-## 0.0199124813079834
+## 0.01692342758178711
 type(txt_clean)
 ## &lt;class &#39;list&#39;&gt;</code></pre>
 </div>
@@ -433,10 +433,10 @@ memory_friendly_txt_clean = read_to_lower()
 txt_clean = [line_clean for line_clean in memory_friendly_txt_clean]
 
 process.memory_info().rss - r1 # in bytes
-## 4096
+## 0
 time.time() - t
 
-## 0.021903514862060547
+## 0.015923261642456055
 type(memory_friendly_txt_clean)
 
 ## &lt;class &#39;generator&#39;&gt;</code></pre>
@@ -478,11 +478,11 @@ import time
 t = time.time()
 sum_x = X+X
 time.time() - t
-## 0.6421713829040527
+## 0.24388337135314941
 t = time.time()
 sum_sparse_x = sparse_X+sparse_X
 time.time() - t
-## 0.006969451904296875</code></pre>
+## 0.004978656768798828</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -513,7 +513,7 @@ library(tictoc)
 tic()
 sum_x = X+X
 toc()
-## 0.5 sec elapsed
+## 0.65 sec elapsed
 
 tic()
 sum_sparse_x = sparse_X+sparse_X
@@ -560,7 +560,7 @@ coefs = np.empty((500,2), float)
 for i in range(500):
     coefs[i,:] = lm_bs()
 time.time() - t
-## 6.613862752914429</code></pre>
+## 5.951780080795288</code></pre>
 <ul>
 <li>Check how many cores you can use</li>
 </ul>
@@ -610,7 +610,7 @@ for(i in 1:500){
   coefs[i,] = lm_bs()
 }
 toc()
-## 29.19 sec elapsed</code></pre>
+## 26.22 sec elapsed</code></pre>
 <ul>
 <li>Check how many cores you can use</li>
 </ul>
@@ -638,7 +638,7 @@ coefs =  foreach(i = 1:500,.packages = c(&#39;base&#39;)) %dopar% {
                    }
 
 toc()
-## 8.7 sec elapsed</code></pre>
+## 7 sec elapsed</code></pre>
 </div>
 </div>
 </div>
@@ -713,29 +713,29 @@ results = [calc_try(values) for values in list_]</code></pre>
 t= time.time()
 results = [calc3(values) for values in list_]
 time.time()-t
-## 0.1244516372680664
+## 0.12146496772766113
 t= time.time()
 results = [calc_try(values) for values in list_]
 time.time()-t
-## 0.07267975807189941</code></pre>
+## 0.06770205497741699</code></pre>
 <pre class="python"><code>list_ = create_dirty_list(0.33)
 t= time.time()
 results = [calc3(values) for values in list_]
 time.time()-t
-## 0.11847758293151855
+## 0.07371902465820312
 t= time.time()
 results = [calc_try(values) for values in list_]
 time.time()-t
-## 0.07367515563964844</code></pre>
+## 0.07068800926208496</code></pre>
 <pre class="python"><code>list_ = create_dirty_list(0.75)
 t= time.time()
 results = [calc3(values) for values in list_]
 time.time()-t
-## 0.0448002815246582
+## 0.033849239349365234
 t= time.time()
 results = [calc_try(values) for values in list_]
 time.time()-t
-## 0.07268214225769043</code></pre>
+## 0.0806417465209961</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -816,31 +816,31 @@ results &lt;- lapply(list_,FUN = calc_try)</code></pre>
 t &lt;- Sys.time()
 results &lt;- lapply(list_,FUN = calc3)
 Sys.time()-t</code></pre>
-<pre><code>## Time difference of 0.05376291 secs</code></pre>
+<pre><code>## Time difference of 0.06371903 secs</code></pre>
 <pre class="r"><code>t &lt;- Sys.time()
 results &lt;- lapply(list_,FUN = calc_try)
 Sys.time()-t</code></pre>
-<pre><code>## Time difference of 1.562118 secs</code></pre>
+<pre><code>## Time difference of 1.783145 secs</code></pre>
 <pre class="r"><code># compare it 
 list_ = create_dirty_list(0.33)
 t &lt;- Sys.time()
 results &lt;- lapply(list_,FUN = calc3)
 Sys.time()-t</code></pre>
-<pre><code>## Time difference of 0.131422 secs</code></pre>
+<pre><code>## Time difference of 0.03783512 secs</code></pre>
 <pre class="r"><code>t &lt;- Sys.time()
 results &lt;- lapply(list_,FUN = calc_try)
 Sys.time()-t</code></pre>
-<pre><code>## Time difference of 1.052363 secs</code></pre>
+<pre><code>## Time difference of 0.975702 secs</code></pre>
 <pre class="r"><code># compare it 
 list_ = create_dirty_list(0.75)
 t &lt;- Sys.time()
 results &lt;- lapply(list_,FUN = calc3)
 Sys.time()-t</code></pre>
-<pre><code>## Time difference of 0.02887297 secs</code></pre>
+<pre><code>## Time difference of 0.02186108 secs</code></pre>
 <pre class="r"><code>t &lt;- Sys.time()
 results &lt;- lapply(list_,FUN = calc_try)
 Sys.time()-t</code></pre>
-<pre><code>## Time difference of 0.506767 secs</code></pre>
+<pre><code>## Time difference of 0.4580281 secs</code></pre>
 </div>
 </div>
 </div>

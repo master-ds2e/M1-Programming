@@ -748,8 +748,6 @@ X.T @ X
 # inverse Matrix
 inv(XtX)
 
-# Identity matrix
-np.diag(np.ones(3))
 
 ```
 
@@ -782,8 +780,6 @@ XtX <- t(X)%*%X
 # inverse Matrix
 solve(XtX)
 
-# Identity matrix
-diag(3)
 ```
 
 ```{r, collapse = TRUE}
@@ -824,10 +820,12 @@ Operator	| Equivalent |Description
 ```{python}
 # Python 
 
+network_12 = np.triu(network_12,1)
+
 # nb of link
-network_12.sum()/2
+network_12.sum()
 # same since there is only 0 and 1 
-(network_12>0).sum()/2
+(network_12>0).sum()
 
 # share of link 
 network_12.mean()
@@ -850,7 +848,7 @@ network_12.mean(1)
 
 ```{r, collapse = TRUE}
 # R
-
+network_12[!upper.tri(network_12)] = 0
 # nb of link
 sum(network_12)
 # same since there is only 0 and 1 
@@ -981,14 +979,17 @@ In python we can use ```map``` to do the same thing than apply familly in R with
 # Python
 
 arr_1 = np.arange(1,17).reshape([4,4], order = 'F')
+arr_1
+
 
 # by row, by columns you need to tranpose the array
 map(np.sum,arr_1)
 list(map(np.sum,arr_1))
-np.fromiter(map(sum,arr_1.T), dtype = np.int)
+
 
 # with a list
 lst_1 = [arr_1,np.linspace(1,8,num=arr_1.size)]
+
 list(map(lambda x: x**2,lst_1))
 
 ```
@@ -1024,32 +1025,66 @@ df_1.apply(sum)
 
 # Exercises
 
-## Exercise 1
+</div>
+
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+<div style="border:1px solid; padding:10px; margin-bottom:10px; border-radius: 10px; background-color: #f9f9f9;">
+
+**Exercise 1**
 
 The series, $1^{1} + 2^{2} + 3^{3} + ... + 10^{10} = 10405071317$.
 
 Find the last ten digits of the series, $1^{1} + 2^{2} + 3^{3} + ... + 1000^{1000}$.
 
-## Exercise 2
+</div>
 
-Try to vectorize exercices from chapter 1, you can also compare it with apply/map functions. 
 
-## Exercise 3
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+<div style="border:1px solid; padding:10px; margin-bottom:10px; border-radius: 10px; background-color: #f9f9f9;">
+
+**Exercise 2**
+
+Try to vectorize exercices from chapter 1, you can also compare it with apply/map functions.
+
+</div>
+
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+<div style="border:1px solid; padding:10px; margin-bottom:10px; border-radius: 10px; background-color: #f9f9f9;">
+ 
+
+**Exercise 3**
 
 2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder.
 
 What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?
 
-## Exercise 4
+</div>
+
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+<div style="border:1px solid; padding:10px; margin-bottom:10px; border-radius: 10px; background-color: #f9f9f9;">
+
+**Exercise 4**
 A palindromic number reads the same both ways. The largest palindrome made from the product of two 2-digit numbers is 9009 = 91 × 99.
 
 Find the largest palindrome made from the product of two 3-digit numbers.
 
-## Execrice 5
 
-$2^{15} = 32768$ and the sum of its digits is 3 + 2 + 7 + 6 + 8 = 26.
+</div>
 
-What is the sum of the digits of the number $2^{1000}$?
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 
 
 <a href="">Solutions</a>

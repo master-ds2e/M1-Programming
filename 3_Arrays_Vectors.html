@@ -401,12 +401,12 @@ lst = list(range(2000000))
 t = time.time()
 arr_2 = arr*2
 time.time() - t
-## 0.010951757431030273
+## 0.008960723876953125
 t = time.time()
 lst_2 = [i*2  for i in lst]
 time.time() - t
 
-## 0.26981425285339355</code></pre>
+## 0.20708918571472168</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -418,7 +418,7 @@ vec = c(1:2000000)
 t = Sys.time()
 vec_2 = vec*2
 Sys.time() - t
-## Time difference of 0.18817 secs
+## Time difference of 0.169209 secs
 
 t = Sys.time()
 vec_2_loop &lt;- rep(0,length(vec))
@@ -426,7 +426,7 @@ for(i in 1:length(vec)){
   vec_2_loop[i] = vec[i]*2
     }
 Sys.time() - t
-## Time difference of 0.2409379 secs</code></pre>
+## Time difference of 0.146399 secs</code></pre>
 </div>
 </div>
 </div>
@@ -594,10 +594,14 @@ seq(1, 4, length.out = 10)
 arr_rd = np.random.randn(4,5)
 
 arr_rd
-## array([[-0.59374558,  1.56152208,  0.54997013, -0.93283514,  0.46376146],
-##        [-0.30421685,  0.76722203, -1.51489997, -0.54179117,  0.16001065],
-##        [ 0.7998205 , -0.32527204, -0.76135062,  1.36108132, -0.02508222],
-##        [ 2.48407571,  1.00385703,  0.20908564,  1.60072198, -0.6528268 ]])</code></pre>
+## array([[ 1.09275017e+00,  1.31700296e-01, -3.23809037e-01,
+##         -4.82255188e-01, -5.75956469e-01],
+##        [ 9.61398838e-01, -2.51467627e-01, -9.93629410e-01,
+##         -1.11435143e-03,  7.66648643e-01],
+##        [ 1.37655932e+00, -5.51458493e-01,  3.34916968e-01,
+##          3.31572282e-01, -2.92662367e+00],
+##        [-2.18598772e+00, -5.65090446e-01, -1.13216592e+00,
+##         -5.64952440e-01,  1.22420315e+00]])</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -608,11 +612,11 @@ arr_rd
 mat_rd &lt;- matrix(runif(4*5),4,5)
 
 mat_rd
-##           [,1]      [,2]      [,3]      [,4]       [,5]
-## [1,] 0.2332458 0.2270583 0.7581760 0.3898849 0.03410161
-## [2,] 0.1138863 0.3586575 0.8803473 0.1535358 0.39747295
-## [3,] 0.9315710 0.1254421 0.3784903 0.9367890 0.04501961
-## [4,] 0.7327940 0.8200125 0.4897318 0.1437713 0.97430881</code></pre>
+##           [,1]      [,2]      [,3]      [,4]      [,5]
+## [1,] 0.8510065 0.6803814 0.5610230 0.6420755 0.1792416
+## [2,] 0.9607544 0.3432046 0.1323755 0.2980168 0.6012464
+## [3,] 0.7242618 0.8125290 0.7484359 0.5782075 0.4906476
+## [4,] 0.2872075 0.6211727 0.0644730 0.1063936 0.6366505</code></pre>
 </div>
 </div>
 </div>
@@ -872,8 +876,8 @@ mat[-2,]
 arr = np.random.randn(10)
 
 arr
-## array([-0.77350467,  1.15412246,  0.67309976,  1.51028165, -0.48130947,
-##         0.05386746,  0.41103625,  0.44956747, -0.99160119, -0.99345042])
+## array([ 0.45381022,  0.31162947,  0.55725342,  0.60321445,  0.14483099,
+##         0.70559352,  0.25127667, -0.73466291, -0.49769111, -0.61383624])
 arr.sort()
 </code></pre>
 <pre class="python"><code># Python 
@@ -881,10 +885,10 @@ arr.sort()
 arr = np.random.randn(4,3)
 
 arr
-## array([[ 0.13290863, -1.58306077, -0.21036433],
-##        [-1.46279936, -0.13040869, -1.4032032 ],
-##        [ 1.90942295,  0.87545622, -0.42800536],
-##        [-0.1792982 , -0.35343755,  0.60814695]])
+## array([[ 0.63595807,  0.72256394, -1.22967446],
+##        [-1.00665968,  0.828045  ,  1.21830304],
+##        [ 0.43651085,  0.42995627, -0.3435291 ],
+##        [-1.15392264, -0.13104422,  0.65455509]])
 arr.sort(1)
 </code></pre>
 </div>
@@ -896,27 +900,27 @@ arr.sort(1)
 arr &lt;- runif(10)
 
 arr
-##  [1] 0.9749265 0.9686660 0.8000841 0.1789525 0.8713754 0.8416792 0.9078501
-##  [8] 0.6411004 0.5213955 0.7200477
+##  [1] 0.28797233 0.04076043 0.26700621 0.34063718 0.37390083 0.20704303
+##  [7] 0.96091048 0.63808092 0.31332598 0.68649198
 sort(arr)
-##  [1] 0.1789525 0.5213955 0.6411004 0.7200477 0.8000841 0.8416792 0.8713754
-##  [8] 0.9078501 0.9686660 0.9749265</code></pre>
+##  [1] 0.04076043 0.20704303 0.26700621 0.28797233 0.31332598 0.34063718
+##  [7] 0.37390083 0.63808092 0.68649198 0.96091048</code></pre>
 <pre class="r"><code># R
 
 arr &lt;- matrix(runif(4*3),4,3)
 
 arr
-##           [,1]      [,2]      [,3]
-## [1,] 0.1578743 0.7941984 0.4169812
-## [2,] 0.3975126 0.5666269 0.1961756
-## [3,] 0.9197945 0.5704341 0.9669244
-## [4,] 0.5114040 0.1769725 0.4889980
+##           [,1]      [,2]       [,3]
+## [1,] 0.2687813 0.2160167 0.71529300
+## [2,] 0.7417533 0.3192603 0.85023987
+## [3,] 0.3449084 0.8148484 0.05663951
+## [4,] 0.7701083 0.9540695 0.91359384
 apply(arr,MARGIN = 2, FUN = sort)
-##           [,1]      [,2]      [,3]
-## [1,] 0.1578743 0.1769725 0.1961756
-## [2,] 0.3975126 0.5666269 0.4169812
-## [3,] 0.5114040 0.5704341 0.4889980
-## [4,] 0.9197945 0.7941984 0.9669244</code></pre>
+##           [,1]      [,2]       [,3]
+## [1,] 0.2687813 0.2160167 0.05663951
+## [2,] 0.3449084 0.3192603 0.71529300
+## [3,] 0.7417533 0.8148484 0.85023987
+## [4,] 0.7701083 0.9540695 0.91359384</code></pre>
 </div>
 </div>
 </div>
@@ -1016,11 +1020,11 @@ t = time.time()
 results = [(i if i%2==0 else 0) for i in arr]
 time.time() - t
 
-## 0.04878544807434082
+## 0.051772117614746094
 t = time.time()
 results = np.where(arr%2!=0,0,arr)
 time.time() - t
-## 0.008960485458374023</code></pre>
+## 0.007965087890625</code></pre>
 <pre class="python"><code># Python 
 
 arr = np.arange(20000000)
@@ -1030,11 +1034,11 @@ t = time.time()
 results = [(i if i%2==0 else 0) for i in arr]
 time.time() - t
 
-## 5.61028265953064
+## 4.765007734298706
 t = time.time()
 results = np.where(arr%2!=0,0,arr)
 time.time() - t
-## 0.41417551040649414</code></pre>
+## 0.36638545989990234</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -1053,13 +1057,13 @@ for(i in 1:length(vec)){
   }
 }
 Sys.time() - t
-## Time difference of 0.117485 secs
+## Time difference of 0.0845809 secs
 
 
 t &lt;- Sys.time()
 results &lt;- ifelse(vec%%2!=0,vec,0)
 Sys.time() - t
-## Time difference of 0.0139401 secs</code></pre>
+## Time difference of 0.01688194 secs</code></pre>
 <pre class="r"><code># R
 
 vec &lt;- seq(1,20000000)
@@ -1074,13 +1078,13 @@ for(i in 1:length(vec)){
   }
 }
 Sys.time() - t
-## Time difference of 8.483626 secs
+## Time difference of 6.49538 secs
 
 
 t &lt;- Sys.time()
 results &lt;- ifelse(vec%%2!=0,vec,0)
 Sys.time() - t
-## Time difference of 1.820981 secs
+## Time difference of 1.513277 secs
 
 
 ## other way using which
@@ -1088,7 +1092,7 @@ Sys.time() - t
 t &lt;- Sys.time()
 vec[which(vec%%2==0)] = 0
 Sys.time() - t 
-## Time difference of 1.052364 secs</code></pre>
+## Time difference of 0.889127 secs</code></pre>
 </div>
 </div>
 </div>
@@ -1166,15 +1170,10 @@ X.T @ X
 ##        [ 54,  23,  87,  63]])
 inv(XtX)
 
-# Identity matrix
 ## array([[ 0.23199214, -0.71424803,  0.11636773, -0.09879148],
 ##        [-0.71424803,  2.33481201, -0.37284193,  0.27469787],
 ##        [ 0.11636773, -0.37284193,  0.10787934, -0.11260311],
-##        [-0.09879148,  0.27469787, -0.11260311,  0.15576444]])
-np.diag(np.ones(3))
-## array([[1., 0., 0.],
-##        [0., 1., 0.],
-##        [0., 0., 1.]])</code></pre>
+##        [-0.09879148,  0.27469787, -0.11260311,  0.15576444]])</code></pre>
 <pre class="python"><code># Python 
 
 XtY = np.dot(X.T,Y)
@@ -1208,14 +1207,7 @@ solve(XtX)
 ## [1,]  0.23199214 -0.7142480  0.1163677 -0.09879148
 ## [2,] -0.71424803  2.3348120 -0.3728419  0.27469787
 ## [3,]  0.11636773 -0.3728419  0.1078793 -0.11260311
-## [4,] -0.09879148  0.2746979 -0.1126031  0.15576444
-
-# Identity matrix
-diag(3)
-##      [,1] [,2] [,3]
-## [1,]    1    0    0
-## [2,]    0    1    0
-## [3,]    0    0    1</code></pre>
+## [4,] -0.09879148  0.2746979 -0.1126031  0.15576444</code></pre>
 <pre class="r"><code># R
 
 
@@ -1291,51 +1283,53 @@ Beta
 <div class="python">
 <pre class="python"><code># Python 
 
+network_12 = np.triu(network_12,1)
+
 # nb of link
-network_12.sum()/2
+network_12.sum()
 # same since there is only 0 and 1 
-## 2.0
-(network_12&gt;0).sum()/2
+## 2
+(network_12&gt;0).sum()
 
 # share of link 
-## 2.0
+## 2
 network_12.mean()
 
 
 # nb link by entities
-## 0.25
+## 0.125
 network_12.sum(axis=1)
 
 # share of link across entities (by columns)
-## array([1, 1, 1, 1])
+## array([1, 0, 1, 0])
 network_12.mean(1)
 
-## array([0.25, 0.25, 0.25, 0.25])</code></pre>
+## array([0.25, 0.  , 0.25, 0.  ])</code></pre>
 </div>
 </div>
 <div class="col-md-6">
 <div class="r">
 <pre class="r"><code># R
-
+network_12[!upper.tri(network_12)] = 0
 # nb of link
 sum(network_12)
-## [1] 4
+## [1] 2
 # same since there is only 0 and 1 
 sum(network_12[which(network_12&gt;0,arr.ind = T)]) # see the arr.ind to get the two coordinates
-## [1] 4
+## [1] 2
 
 # share of link 
 mean(network_12)
-## [1] 0.25
+## [1] 0.125
 
 
 # nb link by entities
 apply(network_12,MARGIN = 2,FUN = sum)
-## [1] 1 1 1 1
+## [1] 0 1 0 1
 
 # share of link across entities (by columns)
 apply(network_12,MARGIN = 2,FUN = mean)
-## [1] 0.25 0.25 0.25 0.25</code></pre>
+## [1] 0.00 0.25 0.00 0.25</code></pre>
 </div>
 </div>
 </div>
@@ -1489,20 +1483,23 @@ mapply(FUN = function(x,y,z){seq(x,y,length.out = z)},1,1:5,1:5)
 <pre class="python"><code># Python
 
 arr_1 = np.arange(1,17).reshape([4,4], order = &#39;F&#39;)
+arr_1
+
 
 # by row, by columns you need to tranpose the array
+## array([[ 1,  5,  9, 13],
+##        [ 2,  6, 10, 14],
+##        [ 3,  7, 11, 15],
+##        [ 4,  8, 12, 16]])
 map(np.sum,arr_1)
-## &lt;map object at 0x00000001087B1A60&gt;
+## &lt;map object at 0x00000000F0FE20D0&gt;
 list(map(np.sum,arr_1))
-## [28, 32, 36, 40]
-np.fromiter(map(sum,arr_1.T), dtype = np.int)
+
 
 # with a list
-## Error: AttributeError: module &#39;numpy&#39; has no attribute &#39;int&#39;.
-## `np.int` was a deprecated alias for the builtin `int`. To avoid this error in existing code, use `int` by itself. Doing this will not modify any behavior and is safe. When replacing `np.int`, you may wish to use e.g. `np.int64` or `np.int32` to specify the precision. If you wish to review your current use, check the release note link for additional information.
-## The aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:
-##     https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+## [28, 32, 36, 40]
 lst_1 = [arr_1,np.linspace(1,8,num=arr_1.size)]
+
 list(map(lambda x: x**2,lst_1))
 ## [array([[  1,  25,  81, 169],
 ##        [  4,  36, 100, 196],
@@ -1546,31 +1543,56 @@ df_1.apply(sum)
 </div>
 <div id="exercises" class="section level1" number="6">
 <h1><span class="header-section-number">6</span> Exercises</h1>
-<div id="exercise-1" class="section level2" number="6.1">
-<h2><span class="header-section-number">6.1</span> Exercise 1</h2>
+</div>
+<p>
+ 
+</p>
+<p>
+ 
+</p>
+<div style="border:1px solid; padding:10px; margin-bottom:10px; border-radius: 10px; background-color: #f9f9f9;">
+<p><strong>Exercise 1</strong></p>
 <p>The series, <span class="math inline">\(1^{1} + 2^{2} + 3^{3} + ... + 10^{10} = 10405071317\)</span>.</p>
 <p>Find the last ten digits of the series, <span class="math inline">\(1^{1} + 2^{2} + 3^{3} + ... + 1000^{1000}\)</span>.</p>
 </div>
-<div id="exercise-2" class="section level2" number="6.2">
-<h2><span class="header-section-number">6.2</span> Exercise 2</h2>
+<p>
+ 
+</p>
+<p>
+ 
+</p>
+<div style="border:1px solid; padding:10px; margin-bottom:10px; border-radius: 10px; background-color: #f9f9f9;">
+<p><strong>Exercise 2</strong></p>
 <p>Try to vectorize exercices from chapter 1, you can also compare it with apply/map functions.</p>
 </div>
-<div id="exercise-3" class="section level2" number="6.3">
-<h2><span class="header-section-number">6.3</span> Exercise 3</h2>
+<p>
+ 
+</p>
+<p>
+ 
+</p>
+<div style="border:1px solid; padding:10px; margin-bottom:10px; border-radius: 10px; background-color: #f9f9f9;">
+<p><strong>Exercise 3</strong></p>
 <p>2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder.</p>
 <p>What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?</p>
 </div>
-<div id="exercise-4" class="section level2" number="6.4">
-<h2><span class="header-section-number">6.4</span> Exercise 4</h2>
-<p>A palindromic number reads the same both ways. The largest palindrome made from the product of two 2-digit numbers is 9009 = 91 × 99.</p>
+<p>
+ 
+</p>
+<p>
+ 
+</p>
+<div style="border:1px solid; padding:10px; margin-bottom:10px; border-radius: 10px; background-color: #f9f9f9;">
+<p><strong>Exercise 4</strong> A palindromic number reads the same both ways. The largest palindrome made from the product of two 2-digit numbers is 9009 = 91 × 99.</p>
 <p>Find the largest palindrome made from the product of two 3-digit numbers.</p>
 </div>
-<div id="execrice-5" class="section level2" number="6.5">
-<h2><span class="header-section-number">6.5</span> Execrice 5</h2>
-<p><span class="math inline">\(2^{15} = 32768\)</span> and the sum of its digits is 3 + 2 + 7 + 6 + 8 = 26.</p>
-<p>What is the sum of the digits of the number <span class="math inline">\(2^{1000}\)</span>?</p>
+<p>
+ 
+</p>
+<p>
+ 
+</p>
 <p><a href="">Solutions</a></p>
-</div>
 </div>
 
 

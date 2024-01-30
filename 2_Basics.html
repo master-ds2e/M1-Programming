@@ -1592,7 +1592,7 @@ while total &lt; 1:
     total += rnd
   
 total
-## 2.0042074774437775</code></pre>
+## 1.897510477240111</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -1622,7 +1622,7 @@ while(total &lt; 1){
 }
   
 total
-## [1] 1.508085</code></pre>
+## [1] 1.236399</code></pre>
 </div>
 </div>
 </div>
@@ -1715,7 +1715,7 @@ for val in lst:
   if val &gt; 2:
     results.append(val)
 time.time()-t
-## 0.0069692134857177734
+## 0.008918046951293945
 results
 ## [3, 4]
 t = time.time() 
@@ -1739,7 +1739,7 @@ for val in st:
   if val &gt; 2:
     results.add(val)
 time.time()-t
-## 0.009956121444702148
+## 0.006968021392822266
 results
 ## {3, 4}
 t = time.time() 
@@ -1747,7 +1747,7 @@ t = time.time()
 # this loop their will produce the same output than a using Set comprehension.
 results = {val for val in st if val&gt;2}
 time.time()-t
-## 0.0069696903228759766
+## 0.00494074821472168
 results
 ## {3, 4}</code></pre>
 </div>
@@ -1764,14 +1764,14 @@ for val in dct:
   if dct[val] &gt; 2:
     results.update({str(val): dct[val]})
 time.time()-t
-## 0.007964611053466797
+## 0.0069692134857177734
 results
 ## {&#39;c&#39;: 3, &#39;d&#39;: 4}
 t = time.time() 
 # this loop their will produce the same output than a using Dict comprehension.
 results = {str(val): dct[val] for val in dct if dct[val]&gt;2}
 time.time()-t
-## 0.004978179931640625
+## 0.0069692134857177734
 results
 ## {&#39;c&#39;: 3, &#39;d&#39;: 4}</code></pre>
 </div>
@@ -1811,7 +1811,7 @@ clean_sum(seq = seq)
 ## 1560
 time.time() - t
 
-## 0.004978179931640625
+## 0.0039825439453125
 def clean_sum2(seq):
   total = sum(filter(None,seq))#[val for val in seq if val is not None])
   return total
@@ -1821,7 +1821,7 @@ clean_sum2(seq = seq)
 ## 1560
 time.time() - t
 
-## 0.004978179931640625</code></pre>
+## 0.004933834075927734</code></pre>
 </div>
 </div>
 <div class="col-md-6">
@@ -1844,7 +1844,7 @@ t = Sys.time()
 clean_sum(seq = seq)
 ## [1] 1560
 Sys.time() - t
-## Time difference of 0.006969929 secs
+## Time difference of 0.006016016 secs
 
 
 
@@ -1857,7 +1857,7 @@ t &lt;- Sys.time()
 clean_sum(seq = seq)
 ## [1] 1560
 Sys.time() - t
-## Time difference of 0.002986908 secs</code></pre>
+## Time difference of 0.00194788 secs</code></pre>
 </div>
 </div>
 </div>
@@ -1969,7 +1969,7 @@ x2
 <p>
  
 </p>
-<p><a href="">Possible solutions in R and Python without vectorisation</a></p>
+<p><a href="exo_chap_1.html">Possible solutions in R and Python without vectorisation</a></p>
 </div>
 
 

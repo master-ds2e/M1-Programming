@@ -220,8 +220,8 @@ get_sundays <- function(year,first_sunday){
 
 
 t = Sys.time()
-# Intialize with 1900, we know that the first sunday is the 6th.
-year_result = get_sundays(1900,6)
+# Intialize with 1900, we know that the first sunday is the 7th.
+year_result = get_sundays(1900,7)
 
 
 # compute the sum for each year
@@ -272,8 +272,8 @@ def get_sundays(year,first_sunday):
 
 
 t = time.time()
-# Intialize with 1900, we know that the first sunday is the 6th.
-year_result = get_sundays(1900,6)
+# Intialize with 1900, we know that the first sunday is the 7th.
+year_result = get_sundays(1900,7)
 
 # compute the sum for each year
 nb_sundays = 0
