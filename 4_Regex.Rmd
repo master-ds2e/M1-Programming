@@ -111,7 +111,7 @@ slc_infos
 slc_infos[7] = '0'
 
 # count
-length(which(strsplit(wd_info,split = '')[[1]]=='S'))
+length(which(strsplit(wd_info,split = '')[[1]]=='s'))
 
 # modify the string
 toTitleCase(wd_info)
@@ -234,13 +234,13 @@ def get_infos():
 
 def get_infos_2():
   infos = '''Time: %s 
-  Current working directory: %s'''% (time.ctime(time.time()),
+Current working directory: %s'''% (time.ctime(time.time()),
   os.getcwd())
   print(infos)
   
 def get_infos_3():
   infos = '''Time: {t} 
-  Current working directory: {wd}'''.format(t = time.ctime(time.time()),
+Current working directory: {wd}'''.format(t = time.ctime(time.time()),
   wd = os.getcwd())
   print(infos)
   
@@ -276,7 +276,7 @@ get_infos <- function(){
 
 get_infos_2<- function(){
   infos = sprintf('Time: %s 
-  Current working directory: %s',
+Current working directory: %s',
   Sys.time(),
   getwd())
   writeLines(infos) # other way of take into account escape character
@@ -383,9 +383,11 @@ abstract <- as.character(read_file('data/imagenet_abstract.txt'))
   
 str_locate_all(pattern = 'layers',abstract)
 
-str_locate_all(pattern = 'net+','net ne nett networks')
+str_extract_all(pattern = 'layers',abstract)
 
-str_locate_all(pattern = 'net*','net ne nett networks')
+str_extract_all(pattern = 'net+','net ne nett networks')
+
+str_extract_all(pattern = 'net*','net ne nett networks')
 
 str_replace_all(abstract,'\\\\','')
 
@@ -398,12 +400,12 @@ str_split(abstract,' ',simplify = T)[1:5]
 
 
 ## Anchors
-This needs to specify match position.
+
 
 Example|Description
 -|-:
-^Python|Match "Python" at the start of a string or internal line
-Python$|Match "Python" at the end of a string or line
+^Python|Match "Python" at the start of a string 
+Python$|Match "Python" at the end of a string
 \\APython|Match "Python" at the start of a string
 Python\\Z|Match "Python" at the end of a string
 \\bPython\\b|Match "Python" at a word boundary
@@ -421,10 +423,10 @@ import re
 
 words = ['neuron','neural','network','networks','deep convolutional neural network']
 
-[w for w in words if re.findall(r'\Aneu',w)]
-[w for w in words if re.findall(r'^neu',w)]
-[w for w in words if re.findall(r'works?\Z',w)]
-[w for w in words if re.findall(r'works?$',w)]
+[w for w in words if re.match(r'\Aneu',w)]
+[w for w in words if re.match(r'^neu',w)]
+[w for w in words if re.match(r'works?\Z',w)]
+[w for w in words if re.match(r'works?$',w)]
 
 
 ```
@@ -710,31 +712,35 @@ str_replace_all( '[38] min and [4] sec','\\[(\\d+)\\]', '\\10')
 
 Here is the list of all university restaurants in strasbourg, could you create a program that would enable us to compare the menus of open university restaurants in Strasbourg for the next three days ? To do this, please go to the web page on your browser, inspect it by right-clicking, and find the correct HTML class.
 
-https://www.crous-strasbourg.fr/restauration/vos-restaurants-et-leurs-menus/
+https://www.crous-strasbourg.fr/se-restaurer/ou-manger/
 
-- Here is how you can start to get the content of a web page on R, you must submit the site url and the html class in which you are going to get your information
 
-```
-library(rvest)
+Here's how you can start in Python:
 
-page = read_html(url)
-page  %>%
-   html_nodes(.html_class)
-```
+  - Visit https://www.whatismybrowser.com/detect/what-is-my-user-agent/ and copy your User Agent information (for example: "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36"). Paste this information below into the user_agent dictionary.
 
--  And here's how you can start in Python
+  - Use the function get_page(url_page) to retrieve the HTML content from the webpage.
 
 ```
 from bs4 import BeautifulSoup
-import urllib3
-
-req = urllib3.PoolManager()
-res = req.request('GET', urlpage)
-soup = BeautifulSoup(res.data, 'html.parser')
-content = soup.find_all(element ,class_= html_class)
-    
+import time 
+import random
 
 
+user_agent = {'User-Agent':'YOUR/USER-AGENT/INFOS/HERE'}
+
+
+def get_page(urlpage):
+    # Avoid getting ban
+    time.sleep(7 + random.uniform(0,8))
+    # Get the html from the webpage
+    res = requests.get(urlpage, headers = user_agent)
+    # Parse the html
+    soup = BeautifulSoup(res.text, 'html.parser')
+    return str(soup) 
+
+urlpage = 'https://www.crous-strasbourg.fr/restaurant/resto-u-esplanade/'
+get_page(urlpage)
 ```
 
 <a href="">Detailled solution</a> 
