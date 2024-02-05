@@ -394,7 +394,7 @@ table_1 = read_csv(file = &#39;data/table_1.csv&#39;)</code></pre>
 <pre class="r"><code>cities = read_csv(file = &#39;data/cities_loc.csv&#39;)</code></pre>
 <pre><code>## Error: &#39;data/cities_loc.csv&#39; does not exist in current working directory (&#39;C:/Users/pierre/Documents/GitHub/M1-Programming&#39;).</code></pre>
 <pre class="r"><code>toc()</code></pre>
-<pre><code>## 0.01 sec elapsed</code></pre>
+<pre><code>## 0.02 sec elapsed</code></pre>
 </div>
 </div>
 <div id="clean" class="section level1" number="2">
@@ -411,7 +411,7 @@ table_1 = table_1 %&gt;%
   filter(pmid != &#39;null&#39; &amp; year_pub &gt; 1975)</code></pre>
 <pre><code>## Error in filter(., pmid != &quot;null&quot; &amp; year_pub &gt; 1975): objet &#39;table_2&#39; introuvable</code></pre>
 <pre class="r"><code>toc()</code></pre>
-<pre><code>## 0.01 sec elapsed</code></pre>
+<pre><code>## 0 sec elapsed</code></pre>
 </div>
 </div>
 <div id="merge" class="section level1" number="3">
@@ -475,7 +475,7 @@ final_table = final_table %&gt;%
          oa = ifelse(oa == &#39;Y&#39;, 1, 0))</code></pre>
 <pre><code>## Error in mutate(., title = tolower(title), ML = ifelse(str_detect(title, : objet &#39;final_table&#39; introuvable</code></pre>
 <pre class="r"><code>toc()</code></pre>
-<pre><code>## 0.01 sec elapsed</code></pre>
+<pre><code>## 0 sec elapsed</code></pre>
 <pre class="r"><code>sum(final_table$ML)</code></pre>
 <pre><code>## Error in eval(expr, envir, enclos): objet &#39;final_table&#39; introuvable</code></pre>
 <pre class="r"><code>sum(final_table$oa)</code></pre>
@@ -549,7 +549,7 @@ countries_tibble = final_table %&gt;%
   separate_rows(authors, sep = &#39;&lt;AUTHOR&gt;&#39;)</code></pre>
 <pre><code>## Error in select(., pmid, authors): objet &#39;final_table&#39; introuvable</code></pre>
 <pre class="r"><code>toc()</code></pre>
-<pre><code>## 0.01 sec elapsed</code></pre>
+<pre><code>## 0 sec elapsed</code></pre>
 <pre class="r"><code>countries_tibble %&gt;% 
   select(authors)</code></pre>
 <pre><code>## Error in select(., authors): objet &#39;countries_tibble&#39; introuvable</code></pre>
@@ -559,7 +559,7 @@ countries_tibble = countries_tibble %&gt;%
   filter(authors !=&quot;&quot; &amp; !str_detect(authors, &#39;&lt;AFFILIATION&gt;None&#39;))</code></pre>
 <pre><code>## Error in rowwise(.): objet &#39;countries_tibble&#39; introuvable</code></pre>
 <pre class="r"><code>toc()</code></pre>
-<pre><code>## 0.02 sec elapsed</code></pre>
+<pre><code>## 0 sec elapsed</code></pre>
 <pre class="r"><code>countries_tibble %&gt;% 
   select(authors)</code></pre>
 <pre><code>## Error in select(., authors): objet &#39;countries_tibble&#39; introuvable</code></pre>
@@ -602,7 +602,7 @@ countries_tibble = countries_tibble %&gt;%
   distinct(pmid, country)</code></pre>
 <pre><code>## Error in filter(., country != &quot;&quot;): objet &#39;countries_tibble&#39; introuvable</code></pre>
 <pre class="r"><code>toc()</code></pre>
-<pre><code>## 0 sec elapsed</code></pre>
+<pre><code>## 0.02 sec elapsed</code></pre>
 <pre class="r"><code>countries_tibble</code></pre>
 <pre><code>## Error in eval(expr, envir, enclos): objet &#39;countries_tibble&#39; introuvable</code></pre>
 <pre class="r"><code>tic()

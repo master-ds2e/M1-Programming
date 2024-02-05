@@ -455,7 +455,7 @@ sum(as.integer(stringr::str_split(as.character(bigq),'')[[1]]))
 ## Python
 <div class = "python">
 ```{python}
-np.sum(np.array(list(str(2**1000)),dtype=np.int))
+np.sum(np.array(list(str(2**1000)),dtype=int))
 ```
 </div>
 # Exercice 5
