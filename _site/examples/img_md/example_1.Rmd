@@ -1,0 +1,26 @@
+---
+title: "My_Title"
+author: "Name"
+date: "10/02/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# First section 
+
+text text text text text 
+
+## First subsection
+
+text text text text text 
+
+```{r}
+1+1
+```
+
+```{python}
+1+1
+```
