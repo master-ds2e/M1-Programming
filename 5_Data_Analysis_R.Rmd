@@ -2419,9 +2419,3 @@ Using first ```dplyr``` and the ```tidyverse```, Use ```table_1.csv```, ```table
 Can you redo the exercice using the data.table library?
 
 
-
-<!--
-<a href="exo_chap_4_tibble.html">solution with dplyr</a>
-
-<a href="exo_chap_4_dt.html">solution with data.table</a> 
-

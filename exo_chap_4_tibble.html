@@ -394,7 +394,7 @@ table_1 = read_csv(file = &#39;data/table_1.csv&#39;)</code></pre>
 <pre class="r"><code>cities = read_csv(file = &#39;data/cities_loc.csv&#39;)</code></pre>
 <pre><code>## Error: &#39;data/cities_loc.csv&#39; does not exist in current working directory (&#39;C:/Users/pierre/Documents/GitHub/M1-Programming&#39;).</code></pre>
 <pre class="r"><code>toc()</code></pre>
-<pre><code>## 0.03 sec elapsed</code></pre>
+<pre><code>## 0.02 sec elapsed</code></pre>
 </div>
 </div>
 <div id="clean" class="section level1" number="2">
@@ -423,7 +423,7 @@ tic()
 final_table = inner_join(table_1, table_2, by = &#39;pmid&#39;)</code></pre>
 <pre><code>## Error in inner_join(table_1, table_2, by = &quot;pmid&quot;): objet &#39;table_1&#39; introuvable</code></pre>
 <pre class="r"><code>toc()</code></pre>
-<pre><code>## 0 sec elapsed</code></pre>
+<pre><code>## 0.02 sec elapsed</code></pre>
 <pre class="r"><code>final_table = na.omit(final_table)</code></pre>
 <pre><code>## Error in na.omit(final_table): objet &#39;final_table&#39; introuvable</code></pre>
 <pre class="r"><code>final_table</code></pre>
@@ -442,7 +442,7 @@ final_table = final_table %&gt;%
   mutate(nb_aut = dim(str_match_all(authors, &#39;&lt;AUTHOR&gt;&#39;)[[1]])[1]) </code></pre>
 <pre><code>## Error in rowwise(.): objet &#39;final_table&#39; introuvable</code></pre>
 <pre class="r"><code>toc()</code></pre>
-<pre><code>## 0.02 sec elapsed</code></pre>
+<pre><code>## 0 sec elapsed</code></pre>
 <pre class="r"><code>final_table = final_table %&gt;% 
   filter(nb_aut &gt; 0)</code></pre>
 <pre><code>## Error in filter(., nb_aut &gt; 0): objet &#39;final_table&#39; introuvable</code></pre>
@@ -475,7 +475,7 @@ final_table = final_table %&gt;%
          oa = ifelse(oa == &#39;Y&#39;, 1, 0))</code></pre>
 <pre><code>## Error in mutate(., title = tolower(title), ML = ifelse(str_detect(title, : objet &#39;final_table&#39; introuvable</code></pre>
 <pre class="r"><code>toc()</code></pre>
-<pre><code>## 0.02 sec elapsed</code></pre>
+<pre><code>## 0.01 sec elapsed</code></pre>
 <pre class="r"><code>sum(final_table$ML)</code></pre>
 <pre><code>## Error in eval(expr, envir, enclos): objet &#39;final_table&#39; introuvable</code></pre>
 <pre class="r"><code>sum(final_table$oa)</code></pre>
@@ -585,7 +585,7 @@ countries_tibble  = countries_tibble %&gt;%
          authors = tolower(authors)) </code></pre>
 <pre><code>## Error in mutate(., authors = str_replace_all(authors, &quot; USA&quot;, &quot;United States&quot;), : objet &#39;countries_tibble&#39; introuvable</code></pre>
 <pre class="r"><code>toc()</code></pre>
-<pre><code>## 0.01 sec elapsed</code></pre>
+<pre><code>## 0 sec elapsed</code></pre>
 <pre class="r"><code>tic()
 countries_tibble = countries_tibble %&gt;%
   group_by(pmid, authors) %&gt;%

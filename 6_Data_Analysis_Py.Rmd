@@ -652,3 +652,5 @@ Translate last chapter's exercice in Python using pandas.
 <!--
 <a href="">solution with pandas (python)</a>
  <! -- exo_4_py.html -->
+ 
+ 
