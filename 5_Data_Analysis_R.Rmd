@@ -366,7 +366,7 @@ summarise(cp_tibble, sum(cited), sd(cited))
 
 cp_tibble %>%
   summarise(sum_citation = sum(cited),
-            sd_citation = sd(creation))
+            sd_citation = sd(cited))
 
 cp_tibble %>%
   slice(1:4) %>%
