@@ -239,10 +239,8 @@ tic()
 setkey(countries_dt,pmid,authors)
 countries_dt = countries_dt[authors != '' 
                               & !str_detect(authors,'<AFFILIATION>None')]
-countries_dt = countries_dt[,
-                            clean_aff := .(unlist(tstrsplit(authors,'<AFFILIATION>',
-                                                               keep = 2)))
-                            ][,-'authors']
+countries_dt = countries_dt[,clean_aff := .(strsplit(authors,'<AFFILIATION>')[[1]][2]),
+                            by= 'pmid' ][,-'authors']
 
 setkey(countries_dt,pmid,clean_aff)
 countries_dt = unique(countries_dt)

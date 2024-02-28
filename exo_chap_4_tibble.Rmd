@@ -39,7 +39,6 @@ table_1 = read_csv(file = 'data/table_1.csv')
 table_2 = read_csv(file = 'data/table_2.csv')
 cities = read_csv(file = 'data/cities_loc.csv')
 toc()
-
 ```
 
 </div>
@@ -249,7 +248,7 @@ countries_tibble %>%
 tic()
 countries_tibble = countries_tibble %>%
   group_by(pmid,authors) %>%
-  mutate(authors = unlist(str_split(authors, '<AFFILIATION>'))[2]) %>% 
+  mutate(authors = strsplit(authors,'<AFFILIATION>')[[1]][2]) %>% 
   filter(!duplicated(pmid, authors))
 toc()
 
@@ -263,7 +262,7 @@ countries_tibble %>%
 
 <div class = "r">
 
-```{r}
+```{r,warning=F}
 # R dplyr
 tic()
 countries_tibble  = countries_tibble %>%

@@ -35,6 +35,13 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<script src="site_libs/plotly-binding-4.10.4/plotly.js"></script>
+<script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<link href="site_libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="site_libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
@@ -388,13 +395,33 @@ library(tictoc)
 # Import the two datasets using readr&#39;s read_csv funciton
 tic()
 table_1 = read_csv(file = &#39;data/table_1.csv&#39;)</code></pre>
-<pre><code>## Error: &#39;data/table_1.csv&#39; does not exist in current working directory (&#39;C:/Users/pierre/Documents/GitHub/M1-Programming&#39;).</code></pre>
+<pre><code>## Rows: 148916 Columns: 7
+## -- Column specification --------------------------------------------------------
+## Delimiter: &quot;,&quot;
+## chr (7): pmid, doi, title, source, language, pubtype, pubmodel
+## 
+## i Use `spec()` to retrieve the full column specification for this data.
+## i Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <pre class="r"><code>table_2 = read_csv(file = &#39;data/table_2.csv&#39;)</code></pre>
-<pre><code>## Error: &#39;data/table_2.csv&#39; does not exist in current working directory (&#39;C:/Users/pierre/Documents/GitHub/M1-Programming&#39;).</code></pre>
+<pre><code>## Rows: 148916 Columns: 6
+## -- Column specification --------------------------------------------------------
+## Delimiter: &quot;,&quot;
+## chr (5): pmid, authors, year_pub, has_data, oa
+## dbl (1): cited
+## 
+## i Use `spec()` to retrieve the full column specification for this data.
+## i Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <pre class="r"><code>cities = read_csv(file = &#39;data/cities_loc.csv&#39;)</code></pre>
-<pre><code>## Error: &#39;data/cities_loc.csv&#39; does not exist in current working directory (&#39;C:/Users/pierre/Documents/GitHub/M1-Programming&#39;).</code></pre>
+<pre><code>## Rows: 13751 Columns: 4
+## -- Column specification --------------------------------------------------------
+## Delimiter: &quot;,&quot;
+## chr (2): city, country
+## dbl (2): lng, lat
+## 
+## i Use `spec()` to retrieve the full column specification for this data.
+## i Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <pre class="r"><code>toc()</code></pre>
-<pre><code>## 0.04 sec elapsed</code></pre>
+<pre><code>## 2.07 sec elapsed</code></pre>
 </div>
 </div>
 <div id="clean" class="section level1" number="2">
@@ -405,13 +432,12 @@ table_1 = read_csv(file = &#39;data/table_1.csv&#39;)</code></pre>
 
 tic()
 table_1 = table_1 %&gt;%
-  filter(pmid != &#39;null&#39; &amp; doi != &#39;null&#39;)</code></pre>
-<pre><code>## Error in filter(., pmid != &quot;null&quot; &amp; doi != &quot;null&quot;): objet &#39;table_1&#39; introuvable</code></pre>
-<pre class="r"><code>table_2 = table_2 %&gt;%
-  filter(pmid != &#39;null&#39; &amp; year_pub &gt; 1975)</code></pre>
-<pre><code>## Error in filter(., pmid != &quot;null&quot; &amp; year_pub &gt; 1975): objet &#39;table_2&#39; introuvable</code></pre>
-<pre class="r"><code>toc()</code></pre>
-<pre><code>## 0 sec elapsed</code></pre>
+  filter(pmid != &#39;null&#39; &amp; doi != &#39;null&#39;)
+
+table_2 = table_2 %&gt;%
+  filter(pmid != &#39;null&#39; &amp; year_pub &gt; 1975)
+toc()</code></pre>
+<pre><code>## 0.09 sec elapsed</code></pre>
 </div>
 </div>
 <div id="merge" class="section level1" number="3">
@@ -420,14 +446,25 @@ table_1 = table_1 %&gt;%
 <div class="r">
 <pre class="r"><code># R dplyr
 tic()
-final_table = inner_join(table_1, table_2, by = &#39;pmid&#39;)</code></pre>
-<pre><code>## Error in inner_join(table_1, table_2, by = &quot;pmid&quot;): objet &#39;table_1&#39; introuvable</code></pre>
-<pre class="r"><code>toc()</code></pre>
-<pre><code>## 0 sec elapsed</code></pre>
-<pre class="r"><code>final_table = na.omit(final_table)</code></pre>
-<pre><code>## Error in na.omit(final_table): objet &#39;final_table&#39; introuvable</code></pre>
-<pre class="r"><code>final_table</code></pre>
-<pre><code>## Error in eval(expr, envir, enclos): objet &#39;final_table&#39; introuvable</code></pre>
+final_table = inner_join(table_1, table_2, by = &#39;pmid&#39;)
+toc()</code></pre>
+<pre><code>## 0.03 sec elapsed</code></pre>
+<pre class="r"><code>final_table = na.omit(final_table)
+final_table</code></pre>
+<pre><code>## # A tibble: 108,721 x 12
+##    pmid   doi   title source language pubtype pubmodel authors year_pub has_data
+##    &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;   
+##  1 32837~ 10.1~ The ~ MED    eng      &quot;{\&quot;pu~ &quot;\&quot;Prin~ &lt;AUTHO~ 2020     N       
+##  2 32196~ 10.1~ Hypo~ MED    eng      &quot;{\&quot;pu~ &quot;\&quot;Prin~ &lt;AUTHO~ 2020     N       
+##  3 32778~ 10.1~ The ~ MED    eng      &quot;{\&quot;pu~ &quot;\&quot;Prin~ &lt;AUTHO~ 2020     N       
+##  4 32730~ 10.1~ A co~ MED    eng      &quot;{\&quot;pu~ &quot;\&quot;Prin~ &lt;AUTHO~ 2020     N       
+##  5 32394~ 10.1~ A gl~ MED    eng      &quot;{\&quot;pu~ &quot;\&quot;Prin~ &lt;AUTHO~ 2020     N       
+##  6 32257~ 10.1~ COVI~ MED    eng      &quot;{\&quot;pu~ &quot;\&quot;Elec~ &lt;AUTHO~ 2020     N       
+##  7 32720~ 10.1~ The ~ MED    eng      &quot;{\&quot;pu~ &quot;\&quot;Prin~ &lt;AUTHO~ 2020     N       
+##  8 32196~ 10.1~ Labo~ MED    eng      &quot;{\&quot;pu~ &quot;\&quot;Prin~ &lt;AUTHO~ 2020     Y       
+##  9 32656~ 10.1~ The ~ MED    eng      &quot;{\&quot;pu~ &quot;\&quot;Prin~ &lt;AUTHO~ 2020     N       
+## 10 32732~ 10.1~ Cycl~ MED    eng      &quot;{\&quot;pu~ &quot;\&quot;Prin~ &lt;AUTHO~ 2020     N       
+## # ... with 108,711 more rows, and 2 more variables: oa &lt;chr&gt;, cited &lt;dbl&gt;</code></pre>
 </div>
 </div>
 <div id="number-of-authors" class="section level1" number="4">
@@ -439,16 +476,29 @@ final_table = inner_join(table_1, table_2, by = &#39;pmid&#39;)</code></pre>
 tic()
 final_table = final_table %&gt;% 
   rowwise() %&gt;%
-  mutate(nb_aut = dim(str_match_all(authors, &#39;&lt;AUTHOR&gt;&#39;)[[1]])[1]) </code></pre>
-<pre><code>## Error in rowwise(.): objet &#39;final_table&#39; introuvable</code></pre>
-<pre class="r"><code>toc()</code></pre>
-<pre><code>## 0 sec elapsed</code></pre>
+  mutate(nb_aut = dim(str_match_all(authors, &#39;&lt;AUTHOR&gt;&#39;)[[1]])[1]) 
+toc()</code></pre>
+<pre><code>## 3.34 sec elapsed</code></pre>
 <pre class="r"><code>final_table = final_table %&gt;% 
-  filter(nb_aut &gt; 0)</code></pre>
-<pre><code>## Error in filter(., nb_aut &gt; 0): objet &#39;final_table&#39; introuvable</code></pre>
-<pre class="r"><code>final_table %&gt;% 
+  filter(nb_aut &gt; 0)
+
+final_table %&gt;% 
   select(authors, nb_aut)</code></pre>
-<pre><code>## Error in select(., authors, nb_aut): objet &#39;final_table&#39; introuvable</code></pre>
+<pre><code>## # A tibble: 107,103 x 2
+## # Rowwise: 
+##    authors                                                                nb_aut
+##    &lt;chr&gt;                                                                   &lt;int&gt;
+##  1 &lt;AUTHOR&gt; Das SK Subir Kumar Das&lt;AFFILIATION&gt;Department of Biochemistr~      1
+##  2 &lt;AUTHOR&gt; Lin L Ling Lin&lt;AFFILIATION&gt;Department of Infectious Diseases~      4
+##  3 &lt;AUTHOR&gt; Bchetnia M Mbarka Bchetnia&lt;AFFILIATION&gt;Université du Québec ~      4
+##  4 &lt;AUTHOR&gt; Liu J Jie Liu&lt;AFFILIATION&gt;Department of Anesthesiology, Unio~      7
+##  5 &lt;AUTHOR&gt; Yousefi B Bahman Yousefi&lt;AFFILIATION&gt;Department of Immunolog~      6
+##  6 &lt;AUTHOR&gt; Shereen MA Muhammad Adnan Shereen&lt;AFFILIATION&gt;The Department~      5
+##  7 &lt;AUTHOR&gt; Taverna G Gianluigi Taverna&lt;AFFILIATION&gt;Urology Unit, Humani~     13
+##  8 &lt;AUTHOR&gt; Loeffelholz MJ Michael J Loeffelholz&lt;AFFILIATION&gt;Cepheid, Su~      2
+##  9 &lt;AUTHOR&gt; Mandal B Bikash Mandal&lt;AFFILIATION&gt;Division of Plant Patholo~      1
+## 10 &lt;AUTHOR&gt; Molyvdas A Adam Molyvdas&lt;AFFILIATION&gt;Departments of Anesthes~      2
+## # ... with 107,093 more rows</code></pre>
 </div>
 </div>
 <div id="plot-distribution" class="section level1" number="5">
@@ -458,7 +508,7 @@ final_table = final_table %&gt;%
 <pre class="r"><code># R 
 
 plot(density(log(final_table$nb_aut+1)))</code></pre>
-<pre><code>## Error in density(log(final_table$nb_aut + 1)): objet &#39;final_table&#39; introuvable</code></pre>
+<p><img src="exo_chap_4_tibble_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 </div>
 </div>
 <div id="search-for-dlmlnn-in-title" class="section level1" number="6">
@@ -472,29 +522,36 @@ final_table = final_table %&gt;%
   mutate(title = tolower(title),
          ML = ifelse(str_detect(title,&#39;deep learning|machine learning|neural networks?&#39;), 1, 0),
          has_data = ifelse(has_data == &#39;Y&#39;, 1, 0),
-         oa = ifelse(oa == &#39;Y&#39;, 1, 0))</code></pre>
-<pre><code>## Error in mutate(., title = tolower(title), ML = ifelse(str_detect(title, : objet &#39;final_table&#39; introuvable</code></pre>
-<pre class="r"><code>toc()</code></pre>
-<pre><code>## 0 sec elapsed</code></pre>
+         oa = ifelse(oa == &#39;Y&#39;, 1, 0))
+toc()</code></pre>
+<pre><code>## 6.89 sec elapsed</code></pre>
 <pre class="r"><code>sum(final_table$ML)</code></pre>
-<pre><code>## Error in eval(expr, envir, enclos): objet &#39;final_table&#39; introuvable</code></pre>
+<pre><code>## [1] 222</code></pre>
 <pre class="r"><code>sum(final_table$oa)</code></pre>
-<pre><code>## Error in eval(expr, envir, enclos): objet &#39;final_table&#39; introuvable</code></pre>
+<pre><code>## [1] 77847</code></pre>
 <pre class="r"><code>sum(final_table$has_data)</code></pre>
-<pre><code>## Error in eval(expr, envir, enclos): objet &#39;final_table&#39; introuvable</code></pre>
+<pre><code>## [1] 23980</code></pre>
 <pre class="r"><code>tic()
 final_table %&gt;% 
   group_by(ML) %&gt;%
   summarize(mean_nb_aut = mean(nb_aut))</code></pre>
-<pre><code>## Error in group_by(., ML): objet &#39;final_table&#39; introuvable</code></pre>
+<pre><code>## # A tibble: 2 x 2
+##      ML mean_nb_aut
+##   &lt;dbl&gt;       &lt;dbl&gt;
+## 1     0        5.77
+## 2     1        6.06</code></pre>
 <pre class="r"><code>toc()</code></pre>
-<pre><code>## 0 sec elapsed</code></pre>
+<pre><code>## 0.02 sec elapsed</code></pre>
 <pre class="r"><code>tic()
 final_table %&gt;% 
   group_by(ML) %&gt;% 
   summarize(n = sum(oa)/n(),
             citation = mean(cited))</code></pre>
-<pre><code>## Error in group_by(., ML): objet &#39;final_table&#39; introuvable</code></pre>
+<pre><code>## # A tibble: 2 x 3
+##      ML     n citation
+##   &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
+## 1     0 0.727    11.3 
+## 2     1 0.802     1.05</code></pre>
 <pre class="r"><code>toc()</code></pre>
 <pre><code>## 0.02 sec elapsed</code></pre>
 </div>
@@ -506,13 +563,26 @@ final_table %&gt;%
 <pre class="r"><code># R dplyr
 tic()
 final_table = final_table %&gt;%
-  mutate(pub_type = str_match_all(pubtype, &#39;\\[\\&quot;(.*?)\\&quot;&#39;)[[1]][2])</code></pre>
-<pre><code>## Error in mutate(., pub_type = str_match_all(pubtype, &quot;\\[\\\&quot;(.*?)\\\&quot;&quot;)[[1]][2]): objet &#39;final_table&#39; introuvable</code></pre>
-<pre class="r"><code>toc()</code></pre>
-<pre><code>## 0 sec elapsed</code></pre>
+  mutate(pub_type = str_match_all(pubtype, &#39;\\[\\&quot;(.*?)\\&quot;&#39;)[[1]][2])
+toc()</code></pre>
+<pre><code>## 2.66 sec elapsed</code></pre>
 <pre class="r"><code>final_table %&gt;% 
   select(pubtype,pub_type)</code></pre>
-<pre><code>## Error in select(., pubtype, pub_type): objet &#39;final_table&#39; introuvable</code></pre>
+<pre><code>## # A tibble: 107,103 x 2
+## # Rowwise: 
+##    pubtype                                                         pub_type     
+##    &lt;chr&gt;                                                           &lt;chr&gt;        
+##  1 &quot;{\&quot;pubType\&quot;: [\&quot;review-article\&quot;, \&quot;Review\&quot;, \&quot;Journal Arti~ review-artic~
+##  2 &quot;{\&quot;pubType\&quot;: [\&quot;review-article\&quot;, \&quot;Journal Article\&quot;]}&quot;      review-artic~
+##  3 &quot;{\&quot;pubType\&quot;: [\&quot;review-article\&quot;, \&quot;Review\&quot;, \&quot;Journal Arti~ review-artic~
+##  4 &quot;{\&quot;pubType\&quot;: [\&quot;review-article\&quot;, \&quot;Review\&quot;, \&quot;Journal Arti~ review-artic~
+##  5 &quot;{\&quot;pubType\&quot;: [\&quot;review-article\&quot;, \&quot;Review\&quot;, \&quot;Journal Arti~ review-artic~
+##  6 &quot;{\&quot;pubType\&quot;: [\&quot;review-article\&quot;, \&quot;Review\&quot;, \&quot;Journal Arti~ review-artic~
+##  7 &quot;{\&quot;pubType\&quot;: [\&quot;review-article\&quot;, \&quot;Review\&quot;, \&quot;Journal Arti~ review-artic~
+##  8 &quot;{\&quot;pubType\&quot;: [\&quot;review-article\&quot;, \&quot;Review\&quot;, \&quot;Journal Arti~ review-artic~
+##  9 &quot;{\&quot;pubType\&quot;: [\&quot;Editorial\&quot;]}&quot;                                Editorial    
+## 10 &quot;{\&quot;pubType\&quot;: [\&quot;Editorial\&quot;]}&quot;                                Editorial    
+## # ... with 107,093 more rows</code></pre>
 </div>
 </div>
 <div id="highest-meansd-of-citation" class="section level1" number="8">
@@ -526,13 +596,39 @@ final_table %&gt;%
   summarize(mean = mean(cited),
             sd = sd(cited)) %&gt;%
   arrange(desc(mean))</code></pre>
-<pre><code>## Error in group_by(., pub_type): objet &#39;final_table&#39; introuvable</code></pre>
+<pre><code>## # A tibble: 83 x 3
+##    pub_type                                                  mean    sd
+##    &lt;chr&gt;                                                    &lt;dbl&gt; &lt;dbl&gt;
+##  1 Consensus Development Conference                          94.1 392. 
+##  2 Research Support, American Recovery and Reinvestment Act  64.4  77.2
+##  3 Research Support, U.S. Gov&#39;t, P.H.S.                      54.0  97.1
+##  4 Research Support, N.I.H., Intramural                      48.5 144. 
+##  5 Clinical Trial, Phase II                                  35.3  74.0
+##  6 Clinical Conference                                       30.4  84.3
+##  7 Comparative Study                                         29.3  57.1
+##  8 Controlled Clinical Trial                                 27    49.3
+##  9 Research Support, Non-U.S. Gov&#39;t                          26.3  67.8
+## 10 Clinical Trial                                            24.9  56.6
+## # ... with 73 more rows</code></pre>
 <pre class="r"><code>final_table %&gt;%
   group_by(pub_type) %&gt;% 
   summarize(mean = mean(cited),
             sd = sd(cited)) %&gt;%
   arrange(desc(sd))</code></pre>
-<pre><code>## Error in group_by(., pub_type): objet &#39;final_table&#39; introuvable</code></pre>
+<pre><code>## # A tibble: 83 x 3
+##    pub_type                                                  mean    sd
+##    &lt;chr&gt;                                                    &lt;dbl&gt; &lt;dbl&gt;
+##  1 Consensus Development Conference                         94.1  392. 
+##  2 Research Support, N.I.H., Intramural                     48.5  144. 
+##  3 Research Support, U.S. Gov&#39;t, P.H.S.                     54.0   97.1
+##  4 editorial                                                 7.28  90.8
+##  5 Clinical Conference                                      30.4   84.3
+##  6 Research Support, American Recovery and Reinvestment Act 64.4   77.2
+##  7 Clinical Trial, Phase II                                 35.3   74.0
+##  8 Research Support, Non-U.S. Gov&#39;t                         26.3   67.8
+##  9 Video-Audio Media                                        12     61.6
+## 10 Comparative Study                                        29.3   57.1
+## # ... with 73 more rows</code></pre>
 </div>
 </div>
 <div id="most-representative-countres-by-year" class="section level1" number="9">
@@ -541,39 +637,77 @@ final_table %&gt;%
 <div class="r">
 <pre class="r"><code># R dplyr
 
-countries = tolower(unique(cities$country))</code></pre>
-<pre><code>## Error in unique(cities$country): objet &#39;cities&#39; introuvable</code></pre>
-<pre class="r"><code>tic()
+countries = tolower(unique(cities$country))
+tic()
 countries_tibble = final_table %&gt;%
   select(pmid,authors) %&gt;% 
-  separate_rows(authors, sep = &#39;&lt;AUTHOR&gt;&#39;)</code></pre>
-<pre><code>## Error in select(., pmid, authors): objet &#39;final_table&#39; introuvable</code></pre>
-<pre class="r"><code>toc()</code></pre>
-<pre><code>## 0 sec elapsed</code></pre>
+  separate_rows(authors, sep = &#39;&lt;AUTHOR&gt;&#39;)
+toc()</code></pre>
+<pre><code>## 8.37 sec elapsed</code></pre>
 <pre class="r"><code>countries_tibble %&gt;% 
   select(authors)</code></pre>
-<pre><code>## Error in select(., authors): objet &#39;countries_tibble&#39; introuvable</code></pre>
+<pre><code>## # A tibble: 725,396 x 1
+##    authors                                                                      
+##    &lt;chr&gt;                                                                        
+##  1 &quot;&quot;                                                                           
+##  2 &quot; Das SK Subir Kumar Das&lt;AFFILIATION&gt;Department of Biochemistry, College of ~
+##  3 &quot;&quot;                                                                           
+##  4 &quot; Lin L Ling Lin&lt;AFFILIATION&gt;Department of Infectious Diseases, Peking Union~
+##  5 &quot; Lu L Lianfeng Lu&lt;AFFILIATION&gt;Department of Infectious Diseases, Peking Uni~
+##  6 &quot; Cao W Wei Cao&lt;AFFILIATION&gt;Department of Infectious Diseases, Peking Union ~
+##  7 &quot; Li T Taisheng Li&lt;AFFILIATION&gt;Department of Infectious Diseases, Peking Uni~
+##  8 &quot;&quot;                                                                           
+##  9 &quot; Bchetnia M Mbarka Bchetnia&lt;AFFILIATION&gt;Université du Québec à Chicoutimi (~
+## 10 &quot; Girard C Catherine Girard&lt;AFFILIATION&gt;Université du Québec à Chicoutimi (U~
+## # ... with 725,386 more rows</code></pre>
 <pre class="r"><code>tic()
 countries_tibble = countries_tibble %&gt;%
   rowwise() %&gt;% 
-  filter(authors !=&quot;&quot; &amp; !str_detect(authors, &#39;&lt;AFFILIATION&gt;None&#39;))</code></pre>
-<pre><code>## Error in rowwise(.): objet &#39;countries_tibble&#39; introuvable</code></pre>
-<pre class="r"><code>toc()</code></pre>
-<pre><code>## 0 sec elapsed</code></pre>
+  filter(authors !=&quot;&quot; &amp; !str_detect(authors, &#39;&lt;AFFILIATION&gt;None&#39;))
+toc()</code></pre>
+<pre><code>## 16.06 sec elapsed</code></pre>
 <pre class="r"><code>countries_tibble %&gt;% 
   select(authors)</code></pre>
-<pre><code>## Error in select(., authors): objet &#39;countries_tibble&#39; introuvable</code></pre>
+<pre><code>## # A tibble: 476,357 x 1
+## # Rowwise: 
+##    authors                                                                      
+##    &lt;chr&gt;                                                                        
+##  1 &quot; Das SK Subir Kumar Das&lt;AFFILIATION&gt;Department of Biochemistry, College of ~
+##  2 &quot; Lin L Ling Lin&lt;AFFILIATION&gt;Department of Infectious Diseases, Peking Union~
+##  3 &quot; Lu L Lianfeng Lu&lt;AFFILIATION&gt;Department of Infectious Diseases, Peking Uni~
+##  4 &quot; Cao W Wei Cao&lt;AFFILIATION&gt;Department of Infectious Diseases, Peking Union ~
+##  5 &quot; Li T Taisheng Li&lt;AFFILIATION&gt;Department of Infectious Diseases, Peking Uni~
+##  6 &quot; Bchetnia M Mbarka Bchetnia&lt;AFFILIATION&gt;Université du Québec à Chicoutimi (~
+##  7 &quot; Girard C Catherine Girard&lt;AFFILIATION&gt;Université du Québec à Chicoutimi (U~
+##  8 &quot; Duchaine C Caroline Duchaine&lt;AFFILIATION&gt;Centre de recherche, Institut uni~
+##  9 &quot; Laprise C Catherine Laprise&lt;AFFILIATION&gt;Université du Québec à Chicoutimi ~
+## 10 &quot; Liu J Jie Liu&lt;AFFILIATION&gt;Department of Anesthesiology, Union Hospital, To~
+## # ... with 476,347 more rows</code></pre>
 <pre class="r"><code>tic()
 countries_tibble = countries_tibble %&gt;%
   group_by(pmid,authors) %&gt;%
-  mutate(authors = unlist(str_split(authors, &#39;&lt;AFFILIATION&gt;&#39;))[2]) %&gt;% 
-  filter(!duplicated(pmid, authors))</code></pre>
-<pre><code>## Error in group_by(., pmid, authors): objet &#39;countries_tibble&#39; introuvable</code></pre>
-<pre class="r"><code>toc()</code></pre>
-<pre><code>## 0 sec elapsed</code></pre>
+  mutate(authors = strsplit(authors,&#39;&lt;AFFILIATION&gt;&#39;)[[1]][2]) %&gt;% 
+  filter(!duplicated(pmid, authors))
+toc()</code></pre>
+<pre><code>## 38.13 sec elapsed</code></pre>
 <pre class="r"><code>countries_tibble %&gt;% 
   select(authors)</code></pre>
-<pre><code>## Error in select(., authors): objet &#39;countries_tibble&#39; introuvable</code></pre>
+<pre><code>## Adding missing grouping variables: `pmid`</code></pre>
+<pre><code>## # A tibble: 291,650 x 2
+## # Groups:   pmid, authors [291,650]
+##    pmid     authors                                                             
+##    &lt;chr&gt;    &lt;chr&gt;                                                               
+##  1 32837036 &quot;Department of Biochemistry, College of Medicine and JNM Hospital, ~
+##  2 32196410 &quot;Department of Infectious Diseases, Peking Union Medical College Ho~
+##  3 32196410 &quot;Department of Infectious Diseases, Peking Union Medical College Ho~
+##  4 32778421 &quot;Université du Québec à Chicoutimi (UQAC), Département des sciences~
+##  5 32778421 &quot;Centre de recherche, Institut universitaire de cardiologie et de p~
+##  6 32778421 &quot;Université du Québec à Chicoutimi (UQAC), Département des sciences~
+##  7 32730205 &quot;Department of Anesthesiology, Union Hospital, Tongji Medical Colle~
+##  8 32730205 &quot;Department of Anesthesiology, Union Hospital, Tongji Medical Colle~
+##  9 32394467 &quot;Department of Immunology, Semnan University of Medical Sciences, S~
+## 10 32394467 &quot;Department of Bacteriology and Virology, Semnan University of Medi~
+## # ... with 291,640 more rows</code></pre>
 </div>
 <div class="r">
 <pre class="r"><code># R dplyr
@@ -582,10 +716,9 @@ countries_tibble  = countries_tibble %&gt;%
   mutate(authors = str_replace_all(authors, &#39; USA&#39;, &#39;United States&#39;),
          authors = str_replace_all(authors, &#39; UK&#39;, &#39;United Kingdom&#39;),
          authors = str_replace_all(authors, &#39; Korea&#39;, &#39;South Korea&#39;),
-         authors = tolower(authors)) </code></pre>
-<pre><code>## Error in mutate(., authors = str_replace_all(authors, &quot; USA&quot;, &quot;United States&quot;), : objet &#39;countries_tibble&#39; introuvable</code></pre>
-<pre class="r"><code>toc()</code></pre>
-<pre><code>## 0 sec elapsed</code></pre>
+         authors = tolower(authors)) 
+toc()</code></pre>
+<pre><code>## 113.01 sec elapsed</code></pre>
 <pre class="r"><code>tic()
 countries_tibble = countries_tibble %&gt;%
   group_by(pmid, authors) %&gt;%
@@ -593,33 +726,46 @@ countries_tibble = countries_tibble %&gt;%
                           countries[str_detect(authors, countries)][1],
                           &quot;&quot;)) %&gt;%
   select(-authors)</code></pre>
-<pre><code>## Error in group_by(., pmid, authors): objet &#39;countries_tibble&#39; introuvable</code></pre>
+<pre><code>## Adding missing grouping variables: `authors`</code></pre>
 <pre class="r"><code>toc()</code></pre>
-<pre><code>## 0 sec elapsed</code></pre>
+<pre><code>## 571.11 sec elapsed</code></pre>
 <pre class="r"><code>tic()
 countries_tibble = countries_tibble %&gt;%
   filter(country != &#39;&#39;) %&gt;%
-  distinct(pmid, country)</code></pre>
-<pre><code>## Error in filter(., country != &quot;&quot;): objet &#39;countries_tibble&#39; introuvable</code></pre>
-<pre class="r"><code>toc()</code></pre>
-<pre><code>## 0 sec elapsed</code></pre>
+  distinct(pmid, country)
+toc()</code></pre>
+<pre><code>## 4.09 sec elapsed</code></pre>
 <pre class="r"><code>countries_tibble</code></pre>
-<pre><code>## Error in eval(expr, envir, enclos): objet &#39;countries_tibble&#39; introuvable</code></pre>
+<pre><code>## # A tibble: 254,537 x 3
+## # Groups:   pmid, authors [254,537]
+##    authors                                                       pmid    country
+##    &lt;chr&gt;                                                         &lt;chr&gt;   &lt;chr&gt;  
+##  1 &quot;department of biochemistry, college of medicine and jnm hos~ 328370~ india  
+##  2 &quot;department of infectious diseases, peking union medical col~ 321964~ china  
+##  3 &quot;department of infectious diseases, peking union medical col~ 321964~ china  
+##  4 &quot;université du québec à chicoutimi (uqac), département des s~ 327784~ canada 
+##  5 &quot;centre de recherche, institut universitaire de cardiologie ~ 327784~ canada 
+##  6 &quot;université du québec à chicoutimi (uqac), département des s~ 327784~ canada 
+##  7 &quot;department of anesthesiology, union hospital, tongji medica~ 327302~ china  
+##  8 &quot;department of anesthesiology, union hospital, tongji medica~ 327302~ china  
+##  9 &quot;department of immunology, semnan university of medical scie~ 323944~ iran   
+## 10 &quot;department of bacteriology and virology, semnan university ~ 323944~ iran   
+## # ... with 254,527 more rows</code></pre>
 <pre class="r"><code>tic()
 countries_tibble = left_join(countries_tibble,
                              final_table[,c(&#39;pmid&#39;,&#39;year_pub&#39;)],
-                             by = &#39;pmid&#39;)</code></pre>
-<pre><code>## Error in left_join(countries_tibble, final_table[, c(&quot;pmid&quot;, &quot;year_pub&quot;)], : objet &#39;countries_tibble&#39; introuvable</code></pre>
-<pre class="r"><code>toc()</code></pre>
-<pre><code>## 0.01 sec elapsed</code></pre>
+                             by = &#39;pmid&#39;)
+toc()</code></pre>
+<pre><code>## 4.45 sec elapsed</code></pre>
 <pre class="r"><code>tic()
 countries_pub = countries_tibble %&gt;% 
   group_by(country, year_pub) %&gt;%
   summarize(n = length(unique(pmid))) %&gt;% 
   arrange(desc(n))</code></pre>
-<pre><code>## Error in group_by(., country, year_pub): objet &#39;countries_tibble&#39; introuvable</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;country&#39;. You can override using the
+## `.groups` argument.</code></pre>
 <pre class="r"><code>toc()</code></pre>
-<pre><code>## 0 sec elapsed</code></pre>
+<pre><code>## 0.05 sec elapsed</code></pre>
 </div>
 </div>
 <div id="country-bar-plot-with-plotly" class="section level1" number="10">
@@ -632,9 +778,8 @@ countries_pub = countries_tibble %&gt;%
 </ul>
 <div class="r">
 <pre class="r"><code># R 
-library(plotly)</code></pre>
-<pre><code>## Error in library(plotly): aucun package nommé &#39;plotly&#39; n&#39;est trouvé</code></pre>
-<pre class="r"><code>library(kableExtra)</code></pre>
+library(plotly)
+library(kableExtra)</code></pre>
 <pre><code>## 
 ## Attachement du package : &#39;kableExtra&#39;</code></pre>
 <pre><code>## L&#39;objet suivant est masqué depuis &#39;package:dplyr&#39;:
@@ -661,7 +806,11 @@ library(plotly)</code></pre>
 }
 
 plot_top_n(25,2001)</code></pre>
-<pre><code>## Error in filter(., year_pub &gt;= year): objet &#39;countries_pub&#39; introuvable</code></pre>
+<pre><code>## No trace type specified:
+##   Based on info supplied, a &#39;bar&#39; trace seems appropriate.
+##   Read more about this trace type -&gt; https://plotly.com/r/reference/#bar</code></pre>
+<div class="plotly html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-c9c551d49ca6c7e96cf0" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-c9c551d49ca6c7e96cf0">{"x":{"visdat":{"62242f5c1c39":["function () ","plotlyVisDat"]},"cur_data":"62242f5c1c39","attrs":{"62242f5c1c39":{"x":{},"y":{},"color":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20]}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"yaxis":{"domain":[0,1],"automargin":true,"title":"Count","type":"log"},"barmode":"stack","xaxis":{"domain":[0,1],"automargin":true,"title":"year_pub","type":"category","categoryorder":"array","categoryarray":["2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021"]},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":["2020","2019","2018","2015","2016","2017","2014","2013","2009","2011","2008","2012","2007","2006","2010","2005","2004","2003","2002","2021","2001"],"y":[2107,138,131,122,122,115,98,72,51,46,44,42,39,33,27,26,22,10,5,3,2],"type":"bar","name":"australia","marker":{"color":"rgba(102,194,165,1)","line":{"color":"rgba(102,194,165,1)"}},"textfont":{"color":"rgba(102,194,165,1)"},"error_y":{"color":"rgba(102,194,165,1)"},"error_x":{"color":"rgba(102,194,165,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2020","2019","2016","2018","2015","2017","2014","2013","2006","2008","2012","2009","2011","2007","2004","2005","2001","2002","2010","2003"],"y":[815,65,54,52,51,44,40,25,20,19,19,14,13,12,11,10,5,5,5,4],"type":"bar","name":"belgium","marker":{"color":"rgba(163,182,145,1)","line":{"color":"rgba(163,182,145,1)"}},"textfont":{"color":"rgba(163,182,145,1)"},"error_y":{"color":"rgba(163,182,145,1)"},"error_x":{"color":"rgba(163,182,145,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2020","2018","2017","2016","2019","2015","2014","2013","2012","2010","2011","2008","2007","2009","2006","2021","2003","2004","2005","2001","2002"],"y":[1337,73,66,65,53,46,43,42,20,15,15,14,11,11,9,7,6,6,6,1,1],"type":"bar","name":"brazil","marker":{"color":"rgba(204,167,126,1)","line":{"color":"rgba(204,167,126,1)"}},"textfont":{"color":"rgba(204,167,126,1)"},"error_y":{"color":"rgba(204,167,126,1)"},"error_x":{"color":"rgba(204,167,126,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2020","2019","2016","2018","2015","2017","2014","2013","2012","2006","2008","2004","2009","2010","2011","2007","2005","2003","2001","2002","2021"],"y":[2363,174,140,137,132,122,117,89,74,72,71,70,70,65,63,62,61,45,16,13,4],"type":"bar","name":"canada","marker":{"color":"rgba(239,150,106,1)","line":{"color":"rgba(239,150,106,1)"}},"textfont":{"color":"rgba(239,150,106,1)"},"error_y":{"color":"rgba(239,150,106,1)"},"error_x":{"color":"rgba(239,150,106,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2020","2019","2018","2017","2016","2015","2014","2013","2010","2004","2005","2012","2009","2006","2011","2007","2008","2003","2021"],"y":[7888,739,590,566,525,513,389,319,225,191,190,176,171,170,167,157,146,101,25],"type":"bar","name":"china","marker":{"color":"rgba(238,145,116,1)","line":{"color":"rgba(238,145,116,1)"}},"textfont":{"color":"rgba(238,145,116,1)"},"error_y":{"color":"rgba(238,145,116,1)"},"error_x":{"color":"rgba(238,145,116,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2020","2018","2019","2016","2017","2015","2014","2013","2009","2011","2007","2012","2010","2008","2005","2006","2004","2003","2002","2001","2021"],"y":[2650,158,156,144,136,134,129,87,56,53,46,44,43,40,39,36,32,17,13,11,4],"type":"bar","name":"france","marker":{"color":"rgba(211,151,147,1)","line":{"color":"rgba(211,151,147,1)"}},"textfont":{"color":"rgba(211,151,147,1)"},"error_y":{"color":"rgba(211,151,147,1)"},"error_x":{"color":"rgba(211,151,147,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2020","2019","2018","2017","2016","2015","2014","2013","2006","2008","2011","2009","2007","2012","2010","2005","2004","2003","2002","2001","2021"],"y":[2154,182,172,166,154,151,129,80,70,59,59,55,53,48,46,36,35,31,22,19,1],"type":"bar","name":"germany","marker":{"color":"rgba(178,156,177,1)","line":{"color":"rgba(178,156,177,1)"}},"textfont":{"color":"rgba(178,156,177,1)"},"error_y":{"color":"rgba(178,156,177,1)"},"error_x":{"color":"rgba(178,156,177,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2020","2019","2018","2016","2017","2014","2015","2011","2013","2010","2004","2012","2007","2009","2005","2008","2001","2003","2021"],"y":[540,32,24,20,19,14,12,11,9,8,5,5,4,4,3,3,1,1,1],"type":"bar","name":"greece","marker":{"color":"rgba(146,159,203,1)","line":{"color":"rgba(146,159,203,1)"}},"textfont":{"color":"rgba(146,159,203,1)"},"error_y":{"color":"rgba(146,159,203,1)"},"error_x":{"color":"rgba(146,159,203,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2020","2019","2018","2016","2017","2014","2015","2013","2010","2011","2012","2008","2009","2006","2004","2007","2005","2021","2003","2001","2002"],"y":[3297,130,95,92,92,86,68,54,33,31,30,24,18,10,9,9,8,8,5,4,1],"type":"bar","name":"india","marker":{"color":"rgba(175,154,200,1)","line":{"color":"rgba(175,154,200,1)"}},"textfont":{"color":"rgba(175,154,200,1)"},"error_y":{"color":"rgba(175,154,200,1)"},"error_x":{"color":"rgba(175,154,200,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2020","2019","2017","2016","2018","2014","2015","2013","2012","2009","2010","2007","2011","2008","2021","2006"],"y":[1174,44,26,23,21,15,12,8,7,5,4,3,3,2,2,1],"type":"bar","name":"iran","marker":{"color":"rgba(201,148,198,1)","line":{"color":"rgba(201,148,198,1)"}},"textfont":{"color":"rgba(201,148,198,1)"},"error_y":{"color":"rgba(201,148,198,1)"},"error_x":{"color":"rgba(201,148,198,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2020","2019","2015","2018","2017","2016","2010","2006","2013","2014","2005","2008","2004","2012","2003","2007","2011","2002","2009","2001","2021"],"y":[651,26,20,17,16,15,13,8,8,8,6,6,5,5,4,4,4,3,2,1,1],"type":"bar","name":"israel","marker":{"color":"rgba(224,140,196,1)","line":{"color":"rgba(224,140,196,1)"}},"textfont":{"color":"rgba(224,140,196,1)"},"error_y":{"color":"rgba(224,140,196,1)"},"error_x":{"color":"rgba(224,140,196,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2020","2019","2018","2016","2017","2015","2014","2013","2012","2011","2008","2005","2009","2007","2010","2006","2004","2003","2001","2002","2021"],"y":[5910,132,114,113,109,95,71,48,43,41,37,35,33,32,31,30,24,18,10,8,5],"type":"bar","name":"italy","marker":{"color":"rgba(222,157,174,1)","line":{"color":"rgba(222,157,174,1)"}},"textfont":{"color":"rgba(222,157,174,1)"},"error_y":{"color":"rgba(222,157,174,1)"},"error_x":{"color":"rgba(222,157,174,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2020","2019","2017","2015","2016","2018","2014","2013","2007","2011","2009","2008","2010","2006","2004","2012","2005","2001","2003","2002","2021"],"y":[1184,117,114,113,107,107,91,64,62,55,54,50,49,48,45,45,33,16,14,12,1],"type":"bar","name":"japan","marker":{"color":"rgba(205,180,144,1)","line":{"color":"rgba(205,180,144,1)"}},"textfont":{"color":"rgba(205,180,144,1)"},"error_y":{"color":"rgba(205,180,144,1)"},"error_x":{"color":"rgba(205,180,144,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2020","2019","2018","2016","2017","2015","2014","2013","2010","2006","2011","2012","2009","2005","2008","2004","2007","2003","2002","2001","2021"],"y":[1186,108,99,95,89,85,83,63,39,33,33,33,32,29,28,24,24,21,16,8,1],"type":"bar","name":"netherlands","marker":{"color":"rgba(185,202,111,1)","line":{"color":"rgba(185,202,111,1)"}},"textfont":{"color":"rgba(185,202,111,1)"},"error_y":{"color":"rgba(185,202,111,1)"},"error_x":{"color":"rgba(185,202,111,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2020","2019","2018","2017","2015","2016","2014","2013","2010","2011","2021","2006","2005","2012","2007","2009","2001","2003","2008"],"y":[478,38,33,30,25,22,20,16,7,7,6,5,4,4,3,3,1,1,1],"type":"bar","name":"poland","marker":{"color":"rgba(174,216,81,1)","line":{"color":"rgba(174,216,81,1)"}},"textfont":{"color":"rgba(174,216,81,1)"},"error_y":{"color":"rgba(174,216,81,1)"},"error_x":{"color":"rgba(174,216,81,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2020","2016","2019","2017","2018","2015","2014","2013","2012","2007","2010","2008","2001","2002","2003","2004","2005","2006","2011","2021"],"y":[647,98,93,80,72,52,51,17,5,3,3,2,1,1,1,1,1,1,1,1],"type":"bar","name":"saudi arabia","marker":{"color":"rgba(202,217,72,1)","line":{"color":"rgba(202,217,72,1)"}},"textfont":{"color":"rgba(202,217,72,1)"},"error_y":{"color":"rgba(202,217,72,1)"},"error_x":{"color":"rgba(202,217,72,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2020","2018","2019","2015","2004","2017","2005","2016","2014","2006","2009","2007","2013","2003","2012","2008","2011","2010","2001","2021","2002"],"y":[923,57,53,51,46,45,36,36,33,28,20,18,18,17,16,15,15,12,5,3,1],"type":"bar","name":"singapore","marker":{"color":"rgba(227,217,62,1)","line":{"color":"rgba(227,217,62,1)"}},"textfont":{"color":"rgba(227,217,62,1)"},"error_y":{"color":"rgba(227,217,62,1)"},"error_x":{"color":"rgba(227,217,62,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2020","2019","2018","2017","2016","2015","2014","2013","2012","2011","2007","2010","2008","2009","2006","2003","2005","2004","2021","2001"],"y":[850,195,188,161,160,118,75,48,33,29,27,27,26,25,19,9,8,6,3,2],"type":"bar","name":"south korea","marker":{"color":"rgba(252,217,49,1)","line":{"color":"rgba(252,217,49,1)"}},"textfont":{"color":"rgba(252,217,49,1)"},"error_y":{"color":"rgba(252,217,49,1)"},"error_x":{"color":"rgba(252,217,49,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2020","2019","2018","2016","2015","2017","2014","2012","2013","2008","2011","2009","2010","2007","2005","2006","2003","2004","2002","2001","2021"],"y":[2039,110,98,88,80,77,63,44,44,38,34,31,25,19,18,18,17,14,11,8,5],"type":"bar","name":"spain","marker":{"color":"rgba(250,212,80,1)","line":{"color":"rgba(250,212,80,1)"}},"textfont":{"color":"rgba(250,212,80,1)"},"error_y":{"color":"rgba(250,212,80,1)"},"error_x":{"color":"rgba(250,212,80,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2020","2018","2019","2016","2015","2017","2014","2013","2012","2006","2009","2010","2011","2007","2005","2004","2003","2008","2001","2002","2021"],"y":[553,59,51,45,39,35,27,19,15,13,12,11,11,10,9,7,6,6,4,3,1],"type":"bar","name":"sweden","marker":{"color":"rgba(243,205,109,1)","line":{"color":"rgba(243,205,109,1)"}},"textfont":{"color":"rgba(243,205,109,1)"},"error_y":{"color":"rgba(243,205,109,1)"},"error_x":{"color":"rgba(243,205,109,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2020","2019","2015","2018","2016","2017","2014","2013","2009","2011","2012","2005","2010","2007","2008","2004","2006","2003","2002","2021","2001"],"y":[1176,91,76,75,67,65,46,26,23,22,20,14,14,13,11,10,10,5,3,2,1],"type":"bar","name":"switzerland","marker":{"color":"rgba(234,199,134,1)","line":{"color":"rgba(234,199,134,1)"}},"textfont":{"color":"rgba(234,199,134,1)"},"error_y":{"color":"rgba(234,199,134,1)"},"error_x":{"color":"rgba(234,199,134,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2020","2014","2015","2019","2005","2004","2017","2009","2013","2018","2016","2006","2010","2008","2007","2012","2011","2003","2002"],"y":[533,66,59,55,54,51,51,48,46,46,45,43,43,41,38,36,34,5,2],"type":"bar","name":"taiwan","marker":{"color":"rgba(223,194,152,1)","line":{"color":"rgba(223,194,152,1)"}},"textfont":{"color":"rgba(223,194,152,1)"},"error_y":{"color":"rgba(223,194,152,1)"},"error_x":{"color":"rgba(223,194,152,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2020","2019","2016","2017","2018","2015","2014","2013","2010","2008","2011","2007","2012","2009","2021","2004","2006","2005"],"y":[950,39,29,22,20,19,15,11,6,5,5,4,4,3,3,2,2,1],"type":"bar","name":"turkey","marker":{"color":"rgba(209,189,161,1)","line":{"color":"rgba(209,189,161,1)"}},"textfont":{"color":"rgba(209,189,161,1)"},"error_y":{"color":"rgba(209,189,161,1)"},"error_x":{"color":"rgba(209,189,161,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2020","2019","2015","2017","2018","2016","2014","2013","2009","2011","2012","2008","2010","2006","2007","2005","2004","2003","2001","2002","2021"],"y":[6262,294,263,240,215,213,184,127,104,94,92,89,88,86,78,73,71,59,22,22,10],"type":"bar","name":"united kingdom","marker":{"color":"rgba(195,184,170,1)","line":{"color":"rgba(195,184,170,1)"}},"textfont":{"color":"rgba(195,184,170,1)"},"error_y":{"color":"rgba(195,184,170,1)"},"error_x":{"color":"rgba(195,184,170,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2020","2019","2015","2018","2017","2016","2014","2013","2010","2012","2011","2009","2008","2006","2007","2005","2004","2003","2001","2002","2021"],"y":[11668,859,811,801,800,799,702,658,594,592,587,554,529,482,436,407,391,240,162,134,21],"type":"bar","name":"united states","marker":{"color":"rgba(179,179,179,1)","line":{"color":"rgba(179,179,179,1)"}},"textfont":{"color":"rgba(179,179,179,1)"},"error_y":{"color":"rgba(179,179,179,1)"},"error_x":{"color":"rgba(179,179,179,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 

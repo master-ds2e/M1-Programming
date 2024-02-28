@@ -649,8 +649,5 @@ covid_papers.to_csv("data/covid_papers.csv")
 
 Translate last chapter's exercice in Python using pandas.
 
-<!--
-<a href="">solution with pandas (python)</a>
- <! -- exo_4_py.html -->
- 
+<a href="exo_4_py.html">Solution with pandas</a>
  

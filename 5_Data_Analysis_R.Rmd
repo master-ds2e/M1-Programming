@@ -2415,7 +2415,10 @@ Using first ```dplyr``` and the ```tidyverse```, Use ```table_1.csv```, ```table
 
 - Select the top 25 of countries involved in coronavirus research since 2001, plot the evolution on a bar chart with plot_ly
 
+<a href="exo_chap_4_tibble.html">Solution with dplyr</a> -->
+
 
 Can you redo the exercice using the data.table library?
 
 
+<a href="exo_chap_4_dt.html">Solution with data.table</a> -->
